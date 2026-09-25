@@ -1,0 +1,11 @@
+district,single_unit_permission,two_unit_permission,min_lot_sf,front_setback_ft,rear_setback_ft,exterior_side_ft,interior_side_ft,dimensions_applicable,dimensions_encoded,site_standard_blocks_dimensional,use_citation,dimensional_citation,site_standard
+R1D-L,P,PROHIBITED,3000,30,30,30,5,Y,Y,N,911.02,903.03.B,
+R1D-H,P,PROHIBITED,1200,15,15,15,5,Y,Y,N,911.02,903.03.D,
+R1A-VH,P,PROHIBITED,0,5,15,5,5,Y,Y,N,911.02,903.03.E,
+R2-H,P,P,1200,15,15,15,5,Y,Y,N,911.02,903.03.D,
+RM-M,P,P,2400,25,25,25,10,Y,Y,N,911.02,903.03.C,
+H,A,PROHIBITED,3200,,,,,Y,Y,Y,911.02,905.02,911.04.A.69 survey-dependent slope/site standards
+P,P,PROHIBITED,,,,,,Y,N,N,911.02,905.01,Site plan review; dimensional implementation deferred in v1
+LNC,P,P,,,,,,Y,N,N,911.02,904,Dimensional implementation deferred in v1
+UI,PROHIBITED,PROHIBITED,,,,,,N,N,N,911.02,,Housing dimensions not applicable because neither housing use is permitted
+RIV-RM,PROHIBITED,P,,,,,,Y,N,N,911.02,908,Dimensional implementation deferred in v1

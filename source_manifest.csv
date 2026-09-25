@@ -1,0 +1,16 @@
+source_id,snapshot_as_of,query_completed,local_artifact,scope
+wprdc_treasury_sales,2026-09-24,Y,treasury_sale_2026-10-02_enriched.csv,96 Treasury candidates; application ignores prepared advertisement-match columns
+city_advertisement,2026-09-16,Y,advert_2026-09-16_reconciliation.csv,77 advertised accounts with normalized PIN and starting bid
+treasurer_sale_regulations,2026-10-02,Y,source URL in README,Sale route; surviving claims; redemption; title warning
+county_assessments,2026-09-01,Y,parcel_facts.csv,Assessment classification; area; values; enforcement join context
+county_parcels,2026-09-21,Y,parcel_facts.csv,Polygon area and approximate geometry in EPSG:2272
+city_zoning,2026-09-24,Y,parcel_facts.csv,Polygon district checks for 15 golden parcels
+landslide_prone,2026-09-24,Y,parcel_facts.csv,Hazard-family terrain input
+slope25,2026-09-24,Y,parcel_facts.csv,Hazard-family terrain input and zoning/site cross-list
+undermined,2026-09-24,Y,parcel_facts.csv,Hazard-family undermining input
+fema_nfhl,2026-09-24,Y,parcel_facts.csv,Hazard-family FEMA SFHA input
+pli_violations,2026-09-24,Y,parcel_facts.csv,Unique casefile counts and status fields
+condemned_properties,2026-09-24,Y,parcel_facts.csv,Active condemned/dead-end case association
+rco_overlays,2026-09-24,Y,parcel_facts.csv,Community-review contact only; not endorsement
+historic_overlays,2026-09-24,Y,parcel_facts.csv,Historic-review screening flag
+zoning_code,2026-09-24,Y,district_rules.csv,Versioned use and dimensional rules with citations

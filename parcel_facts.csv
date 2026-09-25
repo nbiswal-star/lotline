@@ -1,0 +1,16 @@
+pin,location,neighborhood,zone,zoning_polygon,assess_lotarea_sf,county_gis_area_sf,mbr_short_side_ft,mbr_long_side_ft,upset_price,assessed_land_value,pli_unique_casefiles,pli_open_or_in_court,pli_latest_event,condemned_case_active,condemned_case_created,condemned_case_address,rco_overlay,historic_district,slope25_layer,undermined_layer,landslide_prone_layer,fema_zone,streets_within_30ft,possible_corner
+0015S00066000000,Michigan St,Beltzhoover,R2-H,R2-H,3000,3141,33,100,3168.93,1200,3,1,2026-01-06,N,,,Beltzhoover Consensus Group,none,YES,YES,no,X,Estella Ave; Michigan St; Zelda Way; Arcadia Way,Y
+0131N00031000000,Benezet St,New Homestead,R1D-L,R1D-L,5500,5327,49,111,1433.76,1600,0,0,,N,,,none found,none,no,no,no,X,Bronze St; Benezet Ave; Bench Way,Y
+0014N00100000000,Michigan St,Beltzhoover,R2-H,R2-H,2562,2633,27,100,24083.84,3000,1,0,2021-12-15,N,,,Beltzhoover Consensus Group,none,no,YES,no,X,Michigan St; Bolivar Way,N
+0050K00227000000,Dearborn St,Garfield,R1D-H,R1D-H,2000,2019,20,101,906.06,800,4,1,2026-08-12,N,,,Bloomfield-Garfield Corporation,none,no,no,no,X,N Winebiddle St; Dearborn St; Alhambra Way,Y
+0010S00005000000,Centre Ave (0 Centre Ave; PLI lists 2514 Centre Ave),Terrace Village,RM-M,RM-M,1672,4305,25,176,89930.41,600,5,0,2025-01-02,Y,2020-08-24,2514 Centre Ave,Hill CDC & Hill DC & Hill DCG,none,YES,no,no,X,Centre Ave,N
+0010R00108000000,Centre Ave,Middle Hill,LNC,LNC,2675,2129,36,99,92184.57,30700,9,0,2025-01-29,Y,2021-02-18,Centre Ave,Hill CDC & Hill DC & Hill DCG,none,no,no,no,X,Centre Ave; La Place St,N
+0042D00039000000,Walcott St,Esplen,RIV-RM,RIV-RM,3000,2991,26,118,106831.18,24000,2,0,2022-11-01,Y,2022-10-10,Walcott St,(45 ft max height overlay),none,no,no,no,X,Florien St; Poplar Way; Walcott St,N
+0010L00127000000,Wylie Ave,Middle Hill,LNC,LNC,3115,3590,46,94,119629.07,15000,7,0,2023-08-15,N,,,Hill CDC & Hill DC & Hill DCG,none,no,YES,no,X,Wylie Ave; Somers St; Caramel Way,N
+0081R00122000000,Mossfield St,Garfield,H,H,7636,5203,40,139,78866.0,35200,0,0,,N,,,Bloomfield-Garfield Corporation,none,YES,no,YES,X,Mossfield St; Mora Way,N
+0034A00290000000,Platt Ave,Beechview,H,H,37418,39363,209,286,41595.44,262200,0,0,,N,,,none found,none,YES,YES,YES,X,Brookside Ave; Platt Ave,N
+0016N00110000000,Banksville Rd,Beechview,H,H,13300,13190,106,137,60459.09,84000,0,0,,N,,,none found,none,YES,no,YES,A (partial) + X,Crane Ave; Banksville Rd,N
+0088R00001000000,Saline St,Squirrel Hill South,P,P,21780,21095,103,221,78475.73,145400,0,0,,N,,,Squirrel Hill Urban Coalition,none,YES,no,YES,X,Saline St,N
+0088G00313000A00,Kemper St,Squirrel Hill South,P,P,10276,4606,67,73,72025.63,101200,0,0,,N,,,Squirrel Hill Urban Coalition,none,YES,no,YES,X,Kemper St; Quinn Way; Guy St,N
+0075S00108000000,McClure Ave,Marshall-Shadeland,UI,UI,4680,4593,52,91,63783.01,24200,5,2,2026-08-21,N,,,Marshall-Shadeland Community Group,none,no,no,no,A (partial) + X,Lecky Ave; McClure Ave; Malden St,N
+0023E00229000000,Garfield Ave,Central Northside,R1A-VH,R1A-VH,2200,2235,22,101,7962.78,28800,2,0,2023-08-21,N,,,(North Side Commercial Parking Area overlay),Mexican War Streets Expansion,no,no,no,X,Alpine Ave; Garfield Ave,N
