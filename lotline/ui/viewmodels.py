@@ -15,6 +15,7 @@ from datetime import date
 from pathlib import Path
 
 from lotline.engine import screen
+from lotline.engine.checks import is_standard
 from lotline.engine.scoring import component_display
 from lotline.loaders import DATA_DIR, context_for, lookup_pin
 from lotline.models import (
@@ -122,9 +123,9 @@ def trigger_plain(trigger: str) -> str:
 
 
 def first_specific_check(result: ScreeningResult) -> NextCheck | None:
-    """First parcel-specific check (not a base check); else the first check."""
+    """First parcel-specific check (not a standard check); else the first check."""
     for nc in result.next_checks:
-        if nc.trigger != "base":
+        if not is_standard(nc):
             return nc
     return result.next_checks[0] if result.next_checks else None
 
@@ -516,7 +517,7 @@ def provenance_rows(result: ScreeningResult) -> list[dict[str, str]]:
 def next_check_rows(result: ScreeningResult) -> list[dict[str, str]]:
     return [
         {"Check": nc.check, "Who resolves it": nc.owner, "Reason listed": trigger_plain(nc.trigger),
-         "Standard": "yes" if nc.trigger == "base" else "no"}
+         "Standard": "yes" if is_standard(nc) else "no"}
         for nc in result.next_checks
     ]
 

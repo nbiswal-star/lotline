@@ -140,6 +140,13 @@ DISTRICT_REVIEW_CHECKS: dict[str, tuple[tuple[str, str, str, float | None], ...]
     ),
 }
 
+# Decision-impact category of each district review check (see
+# DECISION_IMPACT_ORDER); checks not listed are "district_procedure".
+DISTRICT_REVIEW_CATEGORY: dict[str, str] = {
+    "open-space / greenway designation": "parks_open_space",
+    "Administrator Exception for single-unit (§911.04.A.69)": "site_standard",
+}
+
 # Plain-language district risk barriers (policy risk, not a code prohibition).
 DISTRICT_RISK_BARRIERS: dict[str, str] = {
     "P": (
@@ -208,3 +215,43 @@ UNDERMINING_TRIGGER = (
     "undermined overlap: UM-O site investigation for structures larger than a typical "
     "single-unit dwelling (§906.05)"
 )
+
+# --- Decision-impact ordering (Round 3) ---------------------------------------
+# Barriers and parcel-specific next checks are listed most consequential first,
+# so the "principal barrier" (first barrier) and the first parcel-specific next
+# check are the items most likely to change the decision. Each barrier and
+# check is tagged with one category by lotline.engine.checks; lists are
+# stable-sorted by the category's position here (ties keep insertion order).
+# Standard checks (trigger "base") and the Treasurer Sale terms check are not
+# parcel-specific and always follow every parcel-specific check.
+DECISION_IMPACT_ORDER: tuple[str, ...] = (
+    "critical_conflict",   # whole parcel held out of scoring
+    "material_conflict",   # records cross a controlling threshold (component withheld)
+    "below_minimum",       # records agree the lot is below the district minimum (§921.04.A)
+    "use_prohibition",     # no housing use permitted
+    "rules_not_encoded",   # LotLine tool gap (district dimensions / use vocabulary)
+    "missing_input",       # a named input is missing or invalid; a component is withheld
+    "site_standard",       # survey-dependent site standard (H, §911.04.A.69)
+    "hazard",              # terrain, undermining, FEMA screening overlaps
+    "dimensional_envelope",  # narrow or shallow illustrative envelope
+    "parks_open_space",    # Parks / open-space designation (P district)
+    "area_gap",            # large disclose-level area gap (no score change)
+    "acquisition_burden",  # upset price >= ACQUISITION_BURDEN_RATIO x assessed land value
+    "corner_frontage",     # corner / frontage status unverified
+    "district_procedure",  # code-required procedural reviews (site plan review, Ch. 916)
+    "community_historic",  # RCO contact, historic review applicability
+    "standard",            # base checks and Treasurer Sale terms (never parcel-specific)
+)
+
+
+def impact_rank(category: str) -> int:
+    """Position of ``category`` in DECISION_IMPACT_ORDER (unknown categories sort last)."""
+    try:
+        return DECISION_IMPACT_ORDER.index(category)
+    except ValueError:
+        return len(DECISION_IMPACT_ORDER)
+
+
+# Trigger text of the Treasurer Sale terms check (a standard check, like "base").
+SALE_TERMS_TRIGGER = "advertised for the Treasurer Sale (treasurer_sale_regulations)"
+STANDARD_TRIGGERS: frozenset[str] = frozenset({"base", SALE_TERMS_TRIGGER})

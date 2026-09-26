@@ -98,4 +98,5 @@ def score_environment(
         reason = f"flagged in the checked screening layers: {', '.join(fams)}. {SCREENING_CAVEAT}"
     else:
         reason = f"no overlap in the checked screening layers. {SCREENING_CAVEAT}"
-    return ComponentScore("environment", score, score, "known", reason, hazard_fact_ids(pin))
+    short = f"flagged: {', '.join(fams)} (screening layers)" if fams else "no overlap in the checked screening layers"
+    return ComponentScore("environment", score, score, "known", reason, hazard_fact_ids(pin), short_reason=short)

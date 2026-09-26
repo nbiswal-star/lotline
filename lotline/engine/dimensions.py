@@ -117,6 +117,15 @@ def format_setback_screen(scenarios: list[DimensionalScenario], *, withheld_for_
     return text
 
 
+def _envelope_short(scenarios: list[DimensionalScenario]) -> str:
+    """Concise envelope reason (<= 90 chars), e.g. "envelope about 23 x 70 ft; if corner about 13 ft wide"."""
+    interior = scenarios[0]
+    text = f"illustrative envelope about {_ft(interior.width_ft)} x {_ft(interior.depth_ft)} ft"
+    if len(scenarios) > 1:
+        text += f"; if corner about {_ft(scenarios[1].width_ft)} ft wide"
+    return text
+
+
 def _withheld(reason: str, ids: tuple[str, ...] = (), short: str | None = None) -> DimensionalResult:
     return DimensionalResult(
         ComponentScore("dimensional", None, None, "withheld", reason, ids, short_reason=short),
@@ -140,6 +149,7 @@ def score_dimensional(
                 "dimensional", None, None, "not_applicable",
                 f"housing dimensions not applicable in {d} because neither housing use is permitted",
                 (rule_fact_id(d, "dimensions_applicable"),),
+                short_reason="not applicable: no housing use permitted",
             ),
             [],
             "not computed",
@@ -235,6 +245,7 @@ def score_dimensional(
                 "dimensional", 0, 0, "known",
                 f"lot area is below the {rule.min_lot_sf:,.0f} sf {d} minimum in all sources",
                 ids,
+                short_reason=f"below the {rule.min_lot_sf:,.0f} sf minimum in all sources",
             ),
             scenarios,
             screen,
@@ -250,7 +261,8 @@ def score_dimensional(
     if len(scenarios) > 1:
         reason = f"corner status unverified, range shown: {reason}"
     return DimensionalResult(
-        ComponentScore("dimensional", low, high, "known" if low == high else "range", reason, ids),
+        ComponentScore("dimensional", low, high, "known" if low == high else "range", reason, ids,
+                       short_reason=_envelope_short(scenarios)),
         scenarios,
         screen,
         area_conforms=True,

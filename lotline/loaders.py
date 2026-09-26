@@ -63,8 +63,8 @@ RULE_COLUMNS: tuple[str, ...] = (
     "dimensions_applicable", "dimensions_encoded", "site_standard_blocks_dimensional",
     "use_citation", "dimensional_citation", "site_standard",
 )
-# Optional provenance columns: read when present, None when the file predates them.
-RULE_OPTIONAL_COLUMNS: tuple[str, ...] = ("rules_as_of", "amended_by")
+# Optional provenance/display columns: read when present, None when the file predates them.
+RULE_OPTIONAL_COLUMNS: tuple[str, ...] = ("rules_as_of", "amended_by", "site_standard_summary")
 MANIFEST_COLUMNS: tuple[str, ...] = (
     "source_id", "snapshot_as_of", "query_completed", "local_artifact", "scope",
 )
@@ -390,6 +390,7 @@ def _district_rule(r: Mapping[str, str]) -> DistrictRule:
             else None
         ),
         amended_by=optional_text(r.get("amended_by", "")),
+        site_standard_summary=optional_text(r.get("site_standard_summary", "")),
     )
 
 

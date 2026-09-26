@@ -176,6 +176,9 @@ class DistrictRule:
     # "legislation through" date) and the amending ordinance, when recorded.
     rules_as_of: str | None = None
     amended_by: str | None = None
+    # Plain-language summary of site standards for display (optional column);
+    # the raw ``site_standard`` text stays as data provenance.
+    site_standard_summary: str | None = None
 
 
 @dataclass(frozen=True)

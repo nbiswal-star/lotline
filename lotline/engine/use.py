@@ -44,10 +44,22 @@ def score_use(rule: DistrictRule | None) -> ComponentScore:
         return policy.PERMISSION_LABELS.get(code.strip().upper(), code)
 
     reason = (
-        f"{rule.district} (Section {rule.use_citation}): single-unit {path(rule.single_unit_permission)}; "
+        f"{rule.district} (§{rule.use_citation}): single-unit {path(rule.single_unit_permission)}; "
         f"two-unit {path(rule.two_unit_permission)}"
     )
-    return ComponentScore(name="use", low=score, high=score, status="known", reason=reason, fact_ids=ids)
+    return ComponentScore(name="use", low=score, high=score, status="known", reason=reason, fact_ids=ids,
+                          short_reason=_use_short(rule, single, two, path))
+
+
+def _use_short(rule: DistrictRule, single: int, two: int, path) -> str:
+    """Concise use reason (<= 90 chars): the best housing path, or none."""
+    if max(single, two) == 0:
+        return "no housing use permitted"
+    if single == two:
+        return f"single- and two-unit {path(rule.single_unit_permission)}"
+    best, code = ("single-unit", rule.single_unit_permission) if single > two else (
+        "two-unit", rule.two_unit_permission)
+    return f"{best} {path(code)}"
 
 
 def housing_prohibited(use: ComponentScore) -> bool:

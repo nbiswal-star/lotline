@@ -155,3 +155,49 @@ The `expected_barriers` and `expected_unresolved_checks` columns are now separat
 | | | checks | | adds "deed and record-area reconciliation" and "open-space / greenway designation" | B11, B10 |
 
 No outcome, component score, coverage, conflict level, hazard family or setback screen changed on any of the 15 rows. Every outcome is unchanged.
+
+## Round 3: decision-impact ordering (2026-09-26)
+
+The UI shows the first barrier as the "principal barrier" and the first parcel-specific next check on the triage board and in Compare. Before Round 3 both lists followed a fixed construction order, so for Michigan 15S66 the principal barrier was the unverified corner, while the terrain and undermining overlaps (which lower the environment score and trigger §906.08/§906.05 reviews) came second. Both lists are now ordered by decision impact.
+
+**Rule.** Every barrier and next check is tagged with one category and the list is stable-sorted by `policy.DECISION_IMPACT_ORDER` (data, in `lotline/engine/policy.py`); ties keep their previous order:
+
+1. critical conflicts (current condition, sale universe)
+2. material conflicts (lot area crosses the minimum)
+3. records agree the lot is below the minimum; §921.04.A lot-of-record check
+4. use prohibition
+5. rules not encoded (tool gap: district dimensions, blank setback/minimum, unrecognized permission code)
+6. missing or invalid inputs (parcel records, geometry, lot area, layer query, undetermined FEMA zone)
+7. survey-dependent site standards (H, §911.04.A.69, including the Administrator Exception check)
+8. hazard-family overlaps (terrain, undermining, FEMA)
+9. narrow or shallow illustrative envelope
+10. Parks / open-space designation (P)
+11. large disclose-level area gap (deed and record-area reconciliation)
+12. acquisition burden (upset ≥ 3× assessed land value)
+13. corner / frontage status unverified
+14. procedural district reviews (site plan review, Ch. 916 compatibility)
+15. community-review and historic-review applicability
+16. standard checks: the base checks (trigger "base") and the Treasurer Sale terms check, in their existing order (sale terms after title). These are never parcel-specific and always come last.
+
+**Rationale.** A critical conflict stops scoring altogether, so nothing else matters until it is resolved. Conflicts and below-minimum records decide whether the lot conforms at all; a use prohibition or a tool gap decides whether LotLine can screen it; missing inputs withhold a component. Survey-dependent site standards and hazard overlaps lower scores and trigger code reviews; Parks designation and a large disclosed gap are policy/records questions that change no score; acquisition burden is an indicator only; corner status only narrows an illustrative envelope range. Procedural reviews apply to every lot of that district and size, so they follow the parcel-specific risks.
+
+**No outcome, score, coverage, conflict level, hazard family or setback screen changed.** Only the order of `expected_barriers` and `expected_unresolved_checks` changed (same items; the test asserts exact order for all 15 rows). The UI's "first parcel-specific check" now also skips the Treasurer Sale terms check, which is a standard check.
+
+| PIN | Parcel | Principal barrier (new) | First parcel-specific check (new) |
+|---|---|---|---|
+| 0015S00066000000 | Michigan 15S66 | terrain and undermining screening overlaps (was corner) | slope and geotechnical review (was corner/frontage status) |
+| 0131N00031000000 | Benezet | corner/frontage status remains unverified (unchanged) | corner/frontage status (unchanged) |
+| 0014N00100000000 | Michigan 14N100 | undermining screening overlap (was narrow envelope) | mine-subsidence review |
+| 0010S00005000000 | Centre 10S5 | current site condition is unverified (unchanged) | current site-condition verification |
+| 0010L00127000000 | Wylie (LNC) | undermining screening overlap (was acquisition burden) | mine-subsidence review |
+| 0081R00122000000 | Mossfield (H) | H site standard (unchanged); terrain now before the 32% gap | Administrator Exception (§911.04.A.69) |
+| 0088R00001000000, 0088G00313000A00 | Saline, Kemper (P) | terrain screening overlap (was Parks designation) | slope and geotechnical review |
+| 0075S00108000000 | UI parcel | unchanged | floodplain determination |
+
+Other rows: the same items moved behind parcel-specific checks (base checks last). Before Round 3, on every parcel without a possible corner, the UI's "first parcel-specific check" was the Treasurer Sale terms check, because its trigger is not "base"; it is now treated as a standard check.
+
+### Related engine text changes (Round 3)
+
+- The use reason cites sections as "§911.02" (was "Section 911.02"), matching every other engine text. No label contains it.
+- Every scored component now carries a concise `short_reason` (≤ 90 characters) used by the UI card; the full reason stays in `reason`.
+- `data/district_rules.csv` gains an optional `site_standard_summary` column (plain-language, cited) for display; the raw `site_standard` text is kept as provenance.

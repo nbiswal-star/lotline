@@ -130,7 +130,8 @@ def test_p_district_dimensions_scored(all_results):
     checks = {c.check: c for c in r.next_checks}
     assert checks["site plan review (§905.01.D)"].owner == "Zoning Administrator / Planning"
     assert "review" not in " ".join(c for c in checks if "dimensions" in c)
-    assert r.barriers[0] == policy.DISTRICT_RISK_BARRIERS["P"]
+    # Round 3 decision-impact order: the terrain overlap outranks the Parks designation.
+    assert r.barriers == ["terrain screening overlap", policy.DISTRICT_RISK_BARRIERS["P"]]
     assert "§911.02" not in " ".join(r.barriers)  # factual note lives in the check trigger
     osp = checks["open-space / greenway designation"]
     assert osp.owner == "City Planning (open space & parks planning)" and "§911.02" in osp.trigger
