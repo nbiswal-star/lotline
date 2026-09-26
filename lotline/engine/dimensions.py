@@ -114,7 +114,7 @@ def score_dimensional(
             "not computed",
         )
     if not rule.dimensions_encoded:
-        cite = f" (Chapter {rule.dimensional_citation})" if rule.dimensional_citation else ""
+        cite = f" (§{rule.dimensional_citation})" if rule.dimensional_citation else ""
         return _withheld(
             f"{d}-district dimensions{cite} are not encoded in v1",
             (rule_fact_id(d, "dimensions_encoded"),),

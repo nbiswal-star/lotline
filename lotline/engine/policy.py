@@ -69,3 +69,53 @@ G2_SOURCES = ("city_zoning", "zoning_code")
 G3_SOURCES = ("landslide_prone", "slope25", "undermined", "fema_nfhl")
 G4_SOURCES = ("pli_violations", "condemned_properties")
 G5_SOURCES = ("city_advertisement", "treasurer_sale_regulations")
+
+# --- District procedure checks and caveats -----------------------------------
+# Code-required reviews that apply by district (verified against ecode360,
+# legislation through 2026-09-16). Each entry: (check text, owner, trigger,
+# minimum lot area in sf that triggers it or None). A check with a lot-area
+# trigger is listed when any recorded lot area meets it, or when area is
+# unknown (possibly applicable).
+DISTRICT_REVIEW_CHECKS: dict[str, tuple[tuple[str, str, str, float | None], ...]] = {
+    "P": (
+        (
+            "site plan review (§905.01.D)",
+            "Zoning Administrator / Planning",
+            "rule: P district; new construction on lots >= 2,400 sf (§905.01.D.1(a))",
+            2400.0,
+        ),
+    ),
+    "LNC": (
+        (
+            "site plan review (§904.02.D)",
+            "Zoning Administrator / Planning",
+            "rule: LNC district; lots >= 2,400 sf (§904.02.D)",
+            2400.0,
+        ),
+        (
+            "residential compatibility (Ch. 916)",
+            "Zoning Administrator",
+            "rule: LNC district residential compatibility standards (Ch. 916)",
+            None,
+        ),
+    ),
+}
+
+# Factual district caveats shown as barriers (no invented policy).
+DISTRICT_CAVEATS: dict[str, str] = {
+    "P": (
+        "P (Parks and Open Space) district: single-unit detached is permitted by right "
+        "under §911.02; site plan review applies"
+    ),
+}
+
+# Code references attached to hazard next-check triggers (check text stays canonical).
+TERRAIN_SLOPE_TRIGGER = (
+    "slope25 overlap: possible Steep Slope Overlay Planning Commission review (§906.08); "
+    "grading, cut and fill standards (§915.02)"
+)
+TERRAIN_LANDSLIDE_TRIGGER = "landslide-prone overlap: LS-O geotechnical investigation (§906.04)"
+UNDERMINING_TRIGGER = (
+    "undermined overlap: UM-O site investigation for structures larger than a typical "
+    "single-unit dwelling (§906.05)"
+)

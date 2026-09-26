@@ -62,6 +62,8 @@ RULE_COLUMNS: tuple[str, ...] = (
     "dimensions_applicable", "dimensions_encoded", "site_standard_blocks_dimensional",
     "use_citation", "dimensional_citation", "site_standard",
 )
+# Optional provenance columns: read when present, None when the file predates them.
+RULE_OPTIONAL_COLUMNS: tuple[str, ...] = ("rules_as_of", "amended_by")
 MANIFEST_COLUMNS: tuple[str, ...] = (
     "source_id", "snapshot_as_of", "query_completed", "local_artifact", "scope",
 )
@@ -86,7 +88,7 @@ EXPECTED_COUNTS: dict[str, int] = {
     "parcel_facts": 15,
 }
 
-PERMISSIONS = frozenset({"P", "A", "S", "PROHIBITED"})
+PERMISSIONS = frozenset({"P", "A", "S", "C", "PROHIBITED"})
 
 _TRUE = frozenset({"Y", "YES", "TRUE", "T", "1"})
 _FALSE = frozenset({"N", "NO", "FALSE", "F", "0"})
@@ -214,8 +216,11 @@ def lookup_pin(snapshot: Snapshot, text: str) -> str | None:
 # --------------------------------------------------------------------------
 
 
-def _read_csv(path: Path, columns: tuple[str, ...]) -> pd.DataFrame:
-    """Read only ``columns`` as strings; blanks become "" (never NaN)."""
+def _read_csv(path: Path, columns: tuple[str, ...], optional: tuple[str, ...] = ()) -> pd.DataFrame:
+    """Read only ``columns`` (plus any ``optional`` columns present) as strings.
+
+    Blanks become "" (never NaN); an absent optional column is filled with "".
+    """
     if not path.is_file():
         raise SnapshotError(
             f"Snapshot file missing: {path}. LotLine runs only on the frozen CSVs in data/; "
@@ -225,8 +230,12 @@ def _read_csv(path: Path, columns: tuple[str, ...]) -> pd.DataFrame:
     missing = [c for c in columns if c not in header]
     if missing:
         raise SnapshotError(f"{path.name}: missing required column(s) {missing}")
-    df = pd.read_csv(path, usecols=list(columns), dtype=str, keep_default_na=False)
-    return df.map(str.strip)[list(columns)]
+    present = [c for c in optional if c in header]
+    df = pd.read_csv(path, usecols=list(columns) + present, dtype=str, keep_default_na=False)
+    for c in optional:
+        if c not in present:
+            df[c] = ""
+    return df.map(str.strip)[list(columns) + list(optional)]
 
 
 def _rows(df: pd.DataFrame) -> list[dict[str, str]]:
@@ -348,6 +357,12 @@ def _district_rule(r: Mapping[str, str]) -> DistrictRule:
         use_citation=required_text(r["use_citation"], where=f"{w} use_citation"),
         dimensional_citation=optional_text(r["dimensional_citation"]),
         site_standard=optional_text(r["site_standard"]),
+        rules_as_of=(
+            _check_date(r["rules_as_of"], where=f"{w} rules_as_of").isoformat()
+            if r.get("rules_as_of", "")
+            else None
+        ),
+        amended_by=optional_text(r.get("amended_by", "")),
     )
 
 
@@ -363,9 +378,13 @@ def _source_entry(r: Mapping[str, str]) -> SourceEntry:
 
 
 def _load_keyed[T](
-    path: Path, columns: tuple[str, ...], key: str, build: Callable[[Mapping[str, str]], T]
+    path: Path,
+    columns: tuple[str, ...],
+    key: str,
+    build: Callable[[Mapping[str, str]], T],
+    optional: tuple[str, ...] = (),
 ) -> dict[str, T]:
-    df = _read_csv(path, columns)
+    df = _read_csv(path, columns, optional)
     keys = df[key].tolist()
     if key == "pin":
         _check_pins(keys, path.name)
@@ -453,7 +472,9 @@ def load_snapshot(data_dir: Path = DATA_DIR, today: date | None = None) -> Snaps
     treasury = _load_keyed(data_dir / TREASURY_FILE, TREASURY_COLUMNS, "pin", _treasury_record)
     advert = _load_keyed(data_dir / ADVERT_FILE, ADVERT_COLUMNS, "pin", _advert_record)
     parcels = _load_keyed(data_dir / PARCEL_FACTS_FILE, PARCEL_COLUMNS, "pin", _parcel_facts)
-    rules = _load_keyed(data_dir / DISTRICT_RULES_FILE, RULE_COLUMNS, "district", _district_rule)
+    rules = _load_keyed(
+        data_dir / DISTRICT_RULES_FILE, RULE_COLUMNS, "district", _district_rule, RULE_OPTIONAL_COLUMNS
+    )
     manifest = _load_keyed(data_dir / MANIFEST_FILE, MANIFEST_COLUMNS, "source_id", _source_entry)
 
     _check_manifest(manifest, data_dir, today)

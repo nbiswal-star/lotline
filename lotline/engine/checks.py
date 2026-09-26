@@ -1,8 +1,9 @@
 """Deterministic barriers and unresolved next checks (implementation plan section 5).
 
 Every NextCheck names the human role that resolves it (escalation path).
-Order is fixed: corner, base checks, then rule-triggered checks in
-CHECK_ORDER. Routing-only records get route-relevant steps only.
+Order is fixed: corner, base checks, conflict checks, unencoded-dimension
+check, district review checks (policy.DISTRICT_REVIEW_CHECKS), hazard checks
+(triggers cite §906.04/§906.05/§906.08/§915.02), community and historic. Routing-only records get route-relevant steps only.
 """
 
 from __future__ import annotations
@@ -89,7 +90,39 @@ def _dims_label(ctx: ParcelContext) -> str:
     if r is None:
         district = ctx.facts.zoning_polygon if ctx.facts else ctx.treasury.zon_code
         return f"{district} district rules"
-    return f"Chapter {r.dimensional_citation}" if r.dimensional_citation else f"{r.district}-district"
+    return f"§{r.dimensional_citation} ({r.district})" if r.dimensional_citation else f"{r.district}-district"
+
+
+def _hazard_trigger(fam: str, ctx: ParcelContext) -> str:
+    """Trigger text for a hazard check, citing the overlay sections that apply."""
+    base = f"hazard: {fam}"
+    facts = ctx.facts
+    if facts is None:
+        return base
+    refs: list[str] = []
+    if fam == TERRAIN:
+        if facts.slope25:
+            refs.append(policy.TERRAIN_SLOPE_TRIGGER)
+        if facts.landslide_prone:
+            refs.append(policy.TERRAIN_LANDSLIDE_TRIGGER)
+    elif fam == UNDERMINING:
+        refs.append(policy.UNDERMINING_TRIGGER)
+    return f"{base} ({'; '.join(refs)})" if refs else base
+
+
+def _district_review_checks(ctx: ParcelContext) -> list[NextCheck]:
+    """Code-required district reviews (policy.DISTRICT_REVIEW_CHECKS), data-driven by district."""
+    rule, facts = ctx.rule, ctx.facts
+    if rule is None:
+        return []
+    recorded = () if facts is None else (facts.assess_lotarea_sf, facts.county_gis_area_sf)
+    areas = [a for a in recorded if a is not None]
+    out: list[NextCheck] = []
+    for check, owner, trigger, min_area in policy.DISTRICT_REVIEW_CHECKS.get(rule.district, ()):
+        if min_area is not None and areas and max(areas) < min_area:
+            continue
+        out.append(NextCheck(check=check, owner=owner, trigger=trigger))
+    return out
 
 
 def _nc(check: str, trigger: str, owner: str | None = None) -> NextCheck:
@@ -121,8 +154,10 @@ def next_checks(i: CheckInputs) -> list[NextCheck]:
         out.append(
             _nc(f"review {_dims_label(ctx)} dimensions", "rule: dimensions_encoded=N", DIMENSIONS_OWNER)
         )
+    if not no_housing:
+        out.extend(_district_review_checks(ctx))
     for fam in i.hazard_families:
-        out.append(_nc(HAZARD_CHECKS[fam], f"hazard: {fam}"))
+        out.append(_nc(HAZARD_CHECKS[fam], _hazard_trigger(fam, ctx)))
     if facts is not None and facts.rco:
         out.append(
             _nc(COMMUNITY, "rco", f"{facts.rco} (Registered Community Organization; contact, not endorsement)")
@@ -192,6 +227,9 @@ def barriers(i: CheckInputs) -> list[str]:
             out.append(f"illustrative envelope narrower than {policy.WIDTH_PARTIAL_FT:g} ft")
 
     blocked = bool(critical) or i.outcome is Outcome.DO_NOT_ADVANCE
+    caveat = policy.DISTRICT_CAVEATS.get(rule.district) if rule is not None else None
+    if caveat and i.outcome is not Outcome.DO_NOT_ADVANCE:
+        out.append(caveat)
     hz = _hazard_barrier(i.hazard_families)
     if hz and not blocked:
         out.append(hz)

@@ -112,7 +112,7 @@ class DistrictRule:
     """One row of data/district_rules.csv. Blank numeric cells stay None."""
 
     district: str
-    single_unit_permission: str  # "P" | "A" | "S" | "PROHIBITED"
+    single_unit_permission: str  # "P" | "A" | "S" | "C" | "PROHIBITED"
     two_unit_permission: str
     min_lot_sf: float | None
     front_setback_ft: float | None
@@ -125,6 +125,10 @@ class DistrictRule:
     use_citation: str
     dimensional_citation: str | None
     site_standard: str | None
+    # Rule provenance: code version the row was verified against (ecode360
+    # "legislation through" date) and the amending ordinance, when recorded.
+    rules_as_of: str | None = None
+    amended_by: str | None = None
 
 
 @dataclass(frozen=True)

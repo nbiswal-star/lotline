@@ -22,6 +22,10 @@ KEMPER = "0088G00313000A00"
 MOSSFIELD = "0081R00122000000"
 GARFIELD = "0023E00229000000"
 MCCLURE_UI = "0075S00108000000"
+SALINE = "0088R00001000000"
+WYLIE = "0010L00127000000"
+CENTRE_10R108 = "0010R00108000000"
+WALCOTT = "0042D00039000000"
 
 
 @pytest.fixture(scope="module")
@@ -84,13 +88,63 @@ def test_centre_no_total_keeps_both_conflicts(all_results):
         assert forbidden not in text
 
 
-def test_kemper_withholding_attributed_to_unencoded_dimensions(all_results):
+def test_kemper_disclose_gap_with_encoded_p_dimensions(all_results):
+    """P-district dimensions are encoded (§905.01.C); both area sources exceed 3,200 sf."""
     r = all_results[KEMPER]
-    assert r.outcome is Outcome.DEFER_RECORDS and r.ease.display == "Partial: 3 of 4 known"
+    assert r.outcome is Outcome.ADVANCE and r.ease.display == "5 of 6: Apparently lower-discretion"
     (c,) = r.conflicts
     assert c.level is ConflictLevel.DISCLOSE and c.affects == ()
-    assert "not encoded" in r.dimensional.reason and "area" not in r.dimensional.reason
+    assert "Both sources exceed the 3,200 sf minimum" in c.summary
+    assert r.dimensional.status == "known" and r.dimensional.low == 2
     assert "not scorable" not in r.ease.display.lower()
+
+
+def test_p_district_dimensions_scored(all_results):
+    """§905.01.C: 3,200 sf minimum; setbacks 30/20/20/5."""
+    r = all_results[SALINE]
+    assert r.outcome is Outcome.ADVANCE
+    assert (r.dimensional.status, r.dimensional.low, r.dimensional.high) == ("known", 2, 2)
+    assert r.setback_screen == "Illustrative only: interior 93x171 ft"
+    assert "RULE:P:min_lot_sf" in r.dimensional.fact_ids
+    checks = {c.check: c for c in r.next_checks}
+    assert checks["site plan review (§905.01.D)"].owner == "Zoning Administrator / Planning"
+    assert "review" not in " ".join(c for c in checks if "dimensions" in c)
+    assert policy.DISTRICT_CAVEATS["P"] in r.barriers
+
+
+def test_lnc_district_dimensions_scored(all_results):
+    """§904.02.C: no lot minimum, no front/side setbacks, rear 20 ft."""
+    r = all_results[WYLIE]
+    assert r.outcome is Outcome.ADVANCE
+    assert (r.dimensional.status, r.dimensional.low) == ("known", 2)
+    assert r.setback_screen == "Illustrative only: interior 46x74 ft"
+    names = [c.check for c in r.next_checks]
+    assert "site plan review (§904.02.D)" in names and "residential compatibility (Ch. 916)" in names
+    assert not any(n.startswith("review ") and n.endswith(" dimensions") for n in names)
+    # Critical conflict still defers the other LNC parcel even though dimensions now compute.
+    c = all_results[CENTRE_10R108]
+    assert c.outcome is Outcome.DEFER_RECORDS and c.ease.display == "Not scorable"
+    assert c.dimensional.status == "known" and c.coverage_display == "5/5"
+    assert not any("not encoded" in b for b in c.barriers)
+
+
+def test_riv_rm_dimensions_still_withheld(all_results):
+    r = all_results[WALCOTT]
+    assert r.dimensional.status == "withheld" and "§905.04.E" in r.dimensional.reason
+    assert "review §905.04.E (RIV-RM) dimensions" in [c.check for c in r.next_checks]
+    assert not any("908" in c.check for c in r.next_checks)
+    assert r.coverage_display == "4/5"
+
+
+def test_hazard_check_triggers_cite_overlay_sections(all_results):
+    slope = next(c for c in all_results[SALINE].next_checks if c.check == "slope and geotechnical review")
+    assert "§906.08" in slope.trigger and "§915.02" in slope.trigger and "§906.04" in slope.trigger
+    mine = next(c for c in all_results[WYLIE].next_checks if c.check == "mine-subsidence review")
+    assert "§906.05" in mine.trigger
+
+
+def test_h_site_standard_barrier_names_clearing_cap(all_results):
+    assert any("911.04.A.69(b)" in b for b in all_results[MOSSFIELD].barriers)
 
 
 def test_mossfield_disclose_only(all_results):

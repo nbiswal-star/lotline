@@ -107,11 +107,13 @@ EXACT_BARRIERS = {
 }
 KEY_CONTENT = {
     "0015S00066000000": ["terrain and undermining screening overlaps", "corner/frontage status"],
-    "0081R00122000000": ["requires survey", "911.04.A.69"],
-    "0034A00290000000": ["requires survey", "terrain and undermining screening overlaps"],
-    "0016N00110000000": ["requires survey", "terrain and FEMA screening overlaps"],
-    "0088R00001000000": ["905.01", "dimensions are not encoded", "terrain screening overlap"],
-    "0088G00313000A00": ["905.01", "dimensions are not encoded", "terrain screening overlap"],
+    "0081R00122000000": ["requires survey", "911.04.A.69", "911.04.A.69(b)"],
+    "0034A00290000000": ["requires survey", "911.04.A.69(b)", "terrain and undermining screening overlaps"],
+    "0016N00110000000": ["requires survey", "911.04.A.69(b)", "terrain and FEMA screening overlaps"],
+    "0088R00001000000": ["P (Parks and Open Space) district", "§911.02", "site plan review applies",
+                         "terrain screening overlap"],
+    "0088G00313000A00": ["P (Parks and Open Space) district", "§911.02", "site plan review applies",
+                         "terrain screening overlap"],
 }
 
 

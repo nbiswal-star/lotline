@@ -201,7 +201,8 @@ def test_blank_setbacks_stay_none(snapshot: Snapshot) -> None:
     assert h.min_lot_sf == 3200.0
     assert (h.front_setback_ft, h.rear_setback_ft, h.exterior_side_ft, h.interior_side_ft) == (
         None, None, None, None)
-    assert snapshot.rules["P"].min_lot_sf is None
+    assert snapshot.rules["RIV-RM"].min_lot_sf is None
+    assert snapshot.rules["RIV-RM"].front_setback_ft is None and snapshot.rules["RIV-RM"].rear_setback_ft == 5.0
     assert snapshot.rules["R1A-VH"].min_lot_sf == 0.0  # a real zero is kept distinct from blank
     blockers = {d for d, r in snapshot.rules.items() if r.site_standard_blocks_dimensional}
     assert blockers == {"H"}
@@ -209,7 +210,7 @@ def test_blank_setbacks_stay_none(snapshot: Snapshot) -> None:
 
 def test_rule_permissions_are_canonical(snapshot: Snapshot) -> None:
     for r in snapshot.rules.values():
-        assert {r.single_unit_permission, r.two_unit_permission} <= {"P", "A", "S", "PROHIBITED"}
+        assert {r.single_unit_permission, r.two_unit_permission} <= {"P", "A", "S", "C", "PROHIBITED"}
     ui = snapshot.rules["UI"]
     assert ui.dimensions_applicable is False and ui.dimensional_citation is None
 
@@ -344,3 +345,54 @@ def test_fixture_csvs_parse() -> None:
 
     with open(FIXTURES / "expected_reconciliation.csv", newline="") as fh:
         assert len(list(csv.DictReader(fh))) == 96
+
+
+# ---------------------------------------------------------------- rule provenance (Ord. 10-2025)
+
+
+def test_rule_provenance_fields_loaded(snapshot: Snapshot) -> None:
+    for r in snapshot.rules.values():
+        assert r.rules_as_of == "2026-09-16"
+        assert r.amended_by
+    assert snapshot.rules["R2-H"].amended_by.startswith("Ord. 10-2025")
+    assert snapshot.rules["R2-H"].dimensional_citation == "903.03.D.2"
+    assert snapshot.rules["RIV-RM"].dimensional_citation == "905.04.E"
+    fields = {f.field: f.value for f in rule_facts(snapshot.rules["P"], snapshot.manifest)}
+    assert fields["rules_as_of"] == "2026-09-16" and "amended_by" in fields
+
+
+def test_p_and_lnc_dimensions_encoded(snapshot: Snapshot) -> None:
+    p, lnc = snapshot.rules["P"], snapshot.rules["LNC"]
+    assert p.dimensions_encoded and p.dimensional_citation == "905.01.C"
+    assert (p.min_lot_sf, p.front_setback_ft, p.rear_setback_ft, p.exterior_side_ft, p.interior_side_ft) == (
+        3200.0, 30.0, 20.0, 20.0, 5.0)
+    assert lnc.dimensions_encoded and lnc.dimensional_citation == "904.02.C"
+    assert (lnc.min_lot_sf, lnc.front_setback_ft, lnc.rear_setback_ft, lnc.exterior_side_ft,
+            lnc.interior_side_ft) == (0.0, 0.0, 20.0, 0.0, 0.0)
+    assert snapshot.rules["RIV-RM"].dimensions_encoded is False
+
+
+def test_rule_provenance_columns_optional(data_copy: Path) -> None:
+    edit_csv(data_copy / loaders.DISTRICT_RULES_FILE,
+             lambda df: df.drop(columns=["rules_as_of", "amended_by"]))
+    r = load_snapshot(data_copy).rules["P"]
+    assert r.rules_as_of is None and r.amended_by is None
+
+
+def test_bad_rules_as_of_date_raises(data_copy: Path) -> None:
+    def bad(df: pd.DataFrame) -> pd.DataFrame:
+        df.loc[df["district"] == "P", "rules_as_of"] = "Sept 2026"
+        return df
+
+    edit_csv(data_copy / loaders.DISTRICT_RULES_FILE, bad)
+    with pytest.raises(SnapshotError, match="rules_as_of"):
+        load_snapshot(data_copy)
+
+
+def test_conditional_use_permission_accepted(data_copy: Path) -> None:
+    def cond(df: pd.DataFrame) -> pd.DataFrame:
+        df.loc[df["district"] == "UI", "two_unit_permission"] = "c"
+        return df
+
+    edit_csv(data_copy / loaders.DISTRICT_RULES_FILE, cond)
+    assert load_snapshot(data_copy).rules["UI"].two_unit_permission == "C"
