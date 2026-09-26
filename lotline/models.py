@@ -336,10 +336,15 @@ FIELD_SOURCE: dict[str, str] = {
     "fm_land": "county_assessments",
     "fm_bldg": "county_assessments",
     "delq_prior_years": "wprdc_treasury_sales",
+    "ward": "wprdc_treasury_sales",
+    "zon_code": "county_assessments",
+    "asof": "county_assessments",
+    "pli_event_rows": "pli_violations",
     # AdvertRecord
     "sale_no": "city_advertisement",
     "upset": "city_advertisement",
     "ad_address": "city_advertisement",
+    "account": "city_advertisement",
 }
 
 
