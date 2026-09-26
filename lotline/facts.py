@@ -109,7 +109,7 @@ def _record_facts(
 ) -> list[Fact]:
     out: list[Fact] = []
     for f in fields(record):
-        if f.name == "pin":
+        if f.name in ("pin", "load_warnings"):  # load notes surface as engine warnings
             continue
         source = overrides.get(f.name) or FIELD_SOURCE[f.name]
         note = APPROXIMATE_NOTES.get(f.name)

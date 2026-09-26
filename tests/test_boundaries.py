@@ -156,10 +156,30 @@ def test_app_never_imports_tests(path: Path) -> None:
     assert _imports(path).isdisjoint({"tests", "conftest", "pytest"})
 
 
-@pytest.mark.parametrize("name", ["reconcile.py", "facts.py"])
+PURE_MODULES = ["reconcile.py", "facts.py", "models.py"] + sorted(
+    f"engine/{p.name}" for p in (REPO_ROOT / "lotline" / "engine").glob("*.py")
+)
+
+
+@pytest.mark.parametrize("name", PURE_MODULES)
 def test_pure_layers_do_no_io(name: str) -> None:
-    mods = _imports(REPO_ROOT / "lotline" / name)
-    assert mods <= {"__future__", "collections", "dataclasses", "re", "lotline"}, mods
+    """Reconcile, facts, models and every engine module import only pure stdlib + lotline."""
+    path = REPO_ROOT / "lotline" / name
+    mods: set[str] = set()
+    for node in ast.walk(ast.parse(path.read_text())):
+        if isinstance(node, ast.Import):
+            mods |= {a.name.split(".")[0] for a in node.names}
+        elif isinstance(node, ast.ImportFrom) and node.module and not node.level:
+            mods.add(node.module.split(".")[0])
+    assert mods <= {"__future__", "collections", "dataclasses", "datetime", "enum", "re", "lotline"}, mods
+    tree = ast.parse(path.read_text())
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Call) and getattr(node.func, "id", None) == "open":
+            raise AssertionError(f"{name} opens a file")
+    # Relative imports inside lotline.engine stay inside the engine package.
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ImportFrom) and node.level:
+            assert name.startswith("engine/"), name
 
 
 def test_app_starts_without_tests_or_docs(tmp_path: Path) -> None:
@@ -177,11 +197,16 @@ def test_app_starts_without_tests_or_docs(tmp_path: Path) -> None:
         sys.addaudithook(lambda ev, args: opened.append(str(args[0])) if ev == "open" else None)
         from lotline.loaders import load_snapshot, context_for, lookup_pin
         from lotline.facts import facts_for, rule_facts
+        from lotline.engine import screen
         snap = load_snapshot()
         pin = lookup_pin(snap, "{BENEZET}")
         ctx = context_for(snap, pin)
         assert ctx is not None and ctx.rule is not None
         assert facts_for(ctx) and rule_facts(ctx.rule, ctx.manifest)
+        results = [screen(context_for(snap, p)) for p in snap.treasury]
+        assert len(results) == 96 and results and all(r.facts for r in results)
+        benezet = screen(ctx)
+        assert benezet.outcome.value == "Advance to staff review", benezet.outcome
         assert not any(m == "tests" or m.startswith("tests.") for m in sys.modules)
         bad = [p for p in opened if any(k in p for k in
                ("fixtures", "expected_", "golden_set", "docs/"))]

@@ -7,8 +7,49 @@ of the loaders sees raw CSV strings.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from enum import Enum
+
+
+# --------------------------------------------------------------------------
+# FEMA NFHL flood-zone vocabulary (shared by the loader and the engine)
+# --------------------------------------------------------------------------
+
+# SFHA (1% annual chance) zones.
+_SFHA_ZONE = re.compile(r"^(A|AE|AH|AO|AR|A99|A\d{1,2}|V|VE|V\d{1,2}|AR/A[EHO0-9]*)$")
+# Recognized zones outside the SFHA (X500, B and C are legacy notations).
+_NON_SFHA_ZONES = frozenset({
+    "X", "X (SHADED)", "SHADED X", "X500", "B", "C", "0.2 PCT ANNUAL CHANCE FLOOD HAZARD",
+})
+_PARTIAL = re.compile(r"\(?\s*PARTIAL\s*\)?")
+
+
+def sfha_status(fema_zone: str) -> bool | None:
+    """SFHA status of an NFHL zone string, validated against the zone vocabulary.
+
+    Composite values such as "A (partial) + X" are split on "+", ",", ";" and
+    "and". True if any part is an SFHA zone; otherwise None (unknown) if any
+    part is zone D (flood hazard undetermined) or not a recognized NFHL code;
+    otherwise False.
+    """
+    parts = [p for p in re.split(r"\+|,|;|\bAND\b", fema_zone.upper()) if p.strip()]
+    if not parts:
+        return None
+    status: list[bool | None] = []
+    for part in parts:
+        z = re.sub(r"\s+", " ", _PARTIAL.sub(" ", part)).strip()
+        if _SFHA_ZONE.match(z):
+            status.append(True)
+        elif z in _NON_SFHA_ZONES:
+            status.append(False)
+        else:  # zone D or an unrecognized code
+            status.append(None)
+    if any(s is True for s in status):
+        return True
+    if any(s is None for s in status):
+        return None
+    return False
 
 
 # --------------------------------------------------------------------------
@@ -27,7 +68,11 @@ class ParcelFacts:
       are overlay notes, not Registered Community Organizations: they go to
       ``other_overlay`` and ``rco`` is None.
     - ``fema_sfha`` is True when ``fema_zone`` contains a Special Flood Hazard
-      Area zone (A, AE, AH, AO, V, VE ...), including "A (partial) + X".
+      Area zone (A, AE, AH, AO, AR, A99, V, VE ...), including "A (partial) + X";
+      False when every part is a recognized non-SFHA zone (X, "X (shaded)", B, C);
+      None (unknown) when the zone is D (undetermined) or not a recognized NFHL code.
+    - Lot areas and bounding-rectangle sides of 0 are treated as unknown (None)
+      and noted in ``load_warnings``; negative values are rejected.
     - ``streets_within_30ft`` is split on ";" and stripped.
     """
 
@@ -55,9 +100,11 @@ class ParcelFacts:
     undermined: bool
     landslide_prone: bool
     fema_zone: str
-    fema_sfha: bool
+    fema_sfha: bool | None  # None: zone D (undetermined) or unrecognized -> unknown
     streets_within_30ft: tuple[str, ...]
     possible_corner: bool
+    # Load-time notes about values treated as unknown (e.g. "0 sf recorded").
+    load_warnings: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -163,6 +210,8 @@ class Snapshot:
     rules: dict[str, DistrictRule]
     manifest: dict[str, SourceEntry]
     reconciliation: Reconciliation
+    # Load-time notes about values treated as unknown (e.g. a 0 sf Treasury lot area).
+    load_warnings: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -251,11 +300,16 @@ class ComponentScore:
     status: str  # "known" | "range" | "withheld" | "not_applicable"
     reason: str | None = None
     fact_ids: tuple[str, ...] = ()
+    # Short plain-language reason used in the Partial display when withheld.
+    short_reason: str | None = None
 
 
 @dataclass(frozen=True)
 class EaseResult:
-    display: str  # e.g. "5-6 of 6: Apparently lower-discretion", "Partial: 3 of 4 known", "Not scorable"
+    # e.g. "5-6 of 6: Apparently lower-discretion",
+    # "5 of 6: Conditional (possible Steep Slope Overlay review, §906.08)",
+    # "Partial: 3 of 4 known points; dimensional withheld (reason)", "Not scorable"
+    display: str
     total_low: int | None
     total_high: int | None
     band: str | None

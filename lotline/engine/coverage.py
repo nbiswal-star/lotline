@@ -10,6 +10,7 @@ from collections.abc import Mapping
 from lotline.models import ParcelContext, SourceEntry
 
 from . import policy
+from .dimensions import valid_area
 from .use import permission_score
 
 
@@ -22,8 +23,8 @@ def evidence_coverage(ctx: ParcelContext) -> dict[str, bool]:
     m, facts, rule = ctx.manifest, ctx.facts, ctx.rule
     g1 = (
         facts is not None
-        and facts.assess_lotarea_sf is not None
-        and facts.county_gis_area_sf is not None
+        and valid_area(facts.assess_lotarea_sf) is not None
+        and valid_area(facts.county_gis_area_sf) is not None
         and sources_queried(m, policy.G1_SOURCES)
     )
     use_encoded = rule is not None and all(

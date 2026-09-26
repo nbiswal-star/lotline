@@ -1,0 +1,11 @@
+{
+  "_comment": "Demo defaults for the LotLine UI. Parcels are identified by short map-block-lot PIN plus location/neighborhood as a cross-check; the app resolves them against the snapshot and ignores entries that do not match.",
+  "parcels": {
+    "benezet": {"pin": "131-N-31", "location": "Benezet St", "neighborhood": "New Homestead", "caption": "Clean-record example, not an acquisition recommendation; market demand and appraisal not evaluated."},
+    "centre": {"pin": "10-S-5", "location": "Centre Ave", "neighborhood": "Terrace Village", "caption": "Conflicting records: LotLine refuses to score through them."},
+    "michigan": {"pin": "15-S-66", "location": "Michigan St", "neighborhood": "Beltzhoover", "caption": "Similar-looking vacant lot with screening-map overlaps."}
+  },
+  "default_packet": "benezet",
+  "compare_default": ["benezet", "michigan"],
+  "hero_buttons": ["benezet", "centre", "michigan"]
+}

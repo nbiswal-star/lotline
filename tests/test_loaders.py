@@ -151,7 +151,7 @@ def test_mixed_case_booleans_in_files_normalize_identically(
 
 def test_engine_inputs_are_typed(snapshot: Snapshot) -> None:
     bool_fields = ("condemned_case_active", "slope25", "undermined", "landslide_prone",
-                   "fema_sfha", "possible_corner")
+                   "fema_sfha", "possible_corner")  # fema_sfha may be None only for D/unrecognized
     for p in snapshot.parcels.values():
         assert isinstance(p, ParcelFacts)
         assert all(isinstance(getattr(p, f), bool) for f in bool_fields)
@@ -179,9 +179,12 @@ def test_parenthesized_overlay_is_not_an_rco(snapshot: Snapshot) -> None:
 @pytest.mark.parametrize(
     ("zone", "expected"),
     [("X", False), ("A (partial) + X", True), ("AE", True), ("VE", True), ("X500", False),
-     ("D", False)],
+     ("X (shaded)", False), ("AH", True), ("AO", True), ("AR", True), ("A99", True), ("V", True),
+     ("A (partial) + X (shaded)", True), ("D", None), ("D + X", None), ("AE + D", True),
+     ("ZONE Q", None), ("Q", None), ("unknown", None), ("", None)],
 )
-def test_fema_sfha(zone: str, expected: bool) -> None:
+def test_fema_sfha(zone: str, expected: bool | None) -> None:
+    """Validated against the NFHL vocabulary; D (undetermined) and unrecognized codes are unknown."""
     assert is_sfha(zone) is expected
 
 
@@ -396,3 +399,62 @@ def test_conditional_use_permission_accepted(data_copy: Path) -> None:
 
     edit_csv(data_copy / loaders.DISTRICT_RULES_FILE, cond)
     assert load_snapshot(data_copy).rules["UI"].two_unit_permission == "C"
+
+
+# --- invalid measurements (0 -> unknown with a warning; negative -> error) ----
+
+
+@pytest.mark.parametrize("column", ["assess_lotarea_sf", "county_gis_area_sf", "mbr_short_side_ft",
+                                    "mbr_long_side_ft"])
+def test_zero_measure_is_unknown_with_warning(data_copy: Path, column: str) -> None:
+    def zero(df: pd.DataFrame) -> pd.DataFrame:
+        df.loc[df["pin"] == BENEZET, column] = "0"
+        return df
+
+    edit_csv(data_copy / loaders.PARCEL_FACTS_FILE, zero)
+    snap = load_snapshot(data_copy)
+    f = snap.parcels[BENEZET]
+    assert getattr(f, column) is None
+    unit = "sf" if column.endswith("_sf") else "ft"
+    note = f"{loaders.PARCEL_FACTS_FILE} pin {BENEZET} {column}: 0 {unit} recorded; treated as unknown"
+    assert f.load_warnings == (note,) and note in snap.load_warnings
+
+
+@pytest.mark.parametrize("column", ["assess_lotarea_sf", "county_gis_area_sf", "mbr_short_side_ft"])
+def test_negative_measure_raises(data_copy: Path, column: str) -> None:
+    def neg(df: pd.DataFrame) -> pd.DataFrame:
+        df.loc[df["pin"] == BENEZET, column] = "-5"
+        return df
+
+    edit_csv(data_copy / loaders.PARCEL_FACTS_FILE, neg)
+    with pytest.raises(SnapshotError, match="negative"):
+        load_snapshot(data_copy)
+
+
+@pytest.mark.parametrize("column", ["min_lot_sf", "front_setback_ft", "interior_side_ft"])
+def test_negative_rule_value_raises_but_zero_is_kept(data_copy: Path, column: str) -> None:
+    def neg(df: pd.DataFrame) -> pd.DataFrame:
+        df.loc[df["district"] == "R2-H", column] = "-1"
+        return df
+
+    edit_csv(data_copy / loaders.DISTRICT_RULES_FILE, neg)
+    with pytest.raises(SnapshotError, match="negative"):
+        load_snapshot(data_copy)
+
+
+def test_zero_treasury_lotarea_is_unknown(snapshot: Snapshot) -> None:
+    zero = [w for w in snapshot.load_warnings if w.startswith(loaders.TREASURY_FILE)]
+    assert len(zero) == 2 and all(w.endswith("lotarea: 0 sf recorded; treated as unknown") for w in zero)
+    for w in zero:
+        pin = w.split(" pin ")[1].split(" ")[0]
+        assert snapshot.treasury[pin].lotarea is None
+    assert all(p.load_warnings == () for p in snapshot.parcels.values())
+
+
+def test_unrecognized_fema_zone_loads_as_unknown(data_copy: Path) -> None:
+    def zone_d(df: pd.DataFrame) -> pd.DataFrame:
+        df.loc[df["pin"] == BENEZET, "fema_zone"] = "D"
+        return df
+
+    edit_csv(data_copy / loaders.PARCEL_FACTS_FILE, zone_d)
+    assert load_snapshot(data_copy).parcels[BENEZET].fema_sfha is None

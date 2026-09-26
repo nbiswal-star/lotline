@@ -86,3 +86,72 @@ No other label changed. The minimum lot sizes, setbacks and permissions for R1D-
 ## Open policy note
 
 Advancing the two P-district parcels follows from the code: single-unit detached is permitted by right in P (§911.02), and the §905.01.C dimensions are met. Whether a Parks-district parcel should be advanced for housing is a policy choice for staff, not a code requirement. LotLine therefore shows the factual P-district caveat and does not invent a deferral.
+
+## Round 2: judge review (2026-09-26)
+
+Three judges (technical, housing practitioner, investor) reviewed the engine. The lead approved a consolidated fix list. This section records every engine rule change and every label change it caused.
+
+### Label file format
+
+The `expected_barriers` and `expected_unresolved_checks` columns are now separated by ` | ` instead of `;`. Some texts contain semicolons, such as the Treasurer Sale terms check and the H barrier. `test_barriers` is now exact, in order, for all 15 rows. Previously 6 rows were only checked for key content.
+
+### Engine rule changes
+
+| # | Change | Where |
+|---|---|---|
+| A1 | Loader: a lot area or bounding-rectangle side of 0 becomes unknown (None) and adds a load warning ("0 sf recorded; treated as unknown"). A negative area, side, setback or minimum raises `SnapshotError`. The engine also treats any area ≤ 0 as unknown, so it never scores one. The real snapshot has two Treasury structures with lotarea 0. They are now None, with warnings in `Snapshot.load_warnings`. | loaders.py; dimensions.valid_area |
+| A2 | No Advance while any component (use, dimensional, environment) is withheld. Such a parcel routes to Defer: missing or conflicting records. | routing.py |
+| A3 | FEMA zones are validated against the NFHL vocabulary (`models.sfha_status`). Zone D, and any unrecognized code, is unknown, so environment is withheld. The engine re-validates `fema_zone` even for records built outside the loader. | models.py; hazards.effective_sfha |
+| A4 | Every Defer names its missing or conflicting input in at least one barrier and one next check. This covers a missing area source, missing geometry, a blank setback (including the exterior side on a possible corner), a blank minimum, a failed layer query, an undetermined FEMA zone, an unrecognized permission code and missing parcel records. | checks.py |
+| A6 | Removed the `except ImportError` fallback. Price tolerance lives only in reconcile.py and is re-exported by policy.py; conflicts.py reuses `reconcile.prices_agree`. The per-unit density code (DensityRule, `two_unit_density_ok`) is removed. | engine/__init__.py; use.py |
+| A7 | A minimum of 0 is described as "no minimum lot size". Every area has thousands separators. New Partial format: "Partial: 2 of 4 known points; dimensional withheld (reason)". | scoring.py; conflicts.py; checks.py |
+| A8 | Each scenario scores min(width band, depth band), both on the 20/10 ft thresholds. This is a LotLine screening assumption. It changes no real-parcel score: every real depth is 23 ft or more. | policy.py; dimensions.py |
+| B9 | A slope25 overlap caps the band at Conditional (policy.BAND_CAPS) and appends "(possible Steep Slope Overlay review, §906.08)". The cap adds a reason only when it lowers the band. | scoring.py; policy.py |
+| B10 | P district: the factual §911.02 caveat is replaced by a risk barrier (confirm park, greenway or open-space designation or use). A new next check, "open-space / greenway designation" (owner: City Planning, open space & parks planning), carries the §911.02 note in its trigger. | policy.py |
+| B11 | A disclose-level area gap of 25% or more (directional or symmetric) adds "deed and record-area reconciliation" (owner: County Real Estate + licensed surveyor) and a barrier stating the gap. The score is unchanged. | checks.py |
+| B12 | H district: the barrier is now plain language, with no raw CSV text. A new next check is "Administrator Exception for single-unit (§911.04.A.69)" (owner: Zoning Administrator). | policy.py |
+| B13 | A lot area below a positive district minimum in any source adds "lot-of-record eligibility (§921.04.A)…" (owner: Zoning Administrator + County deed records). When all sources agree the lot is below the minimum, the barrier reads "records agree the lot is below the N sf district minimum; §921.04.A lot-of-record path requires Zoning Administrator review". | checks.py |
+| B14 | Every advertised parcel, structures included, gets the Treasurer Sale terms next check (90-day redemption; claims not divested). The owner is "title examiner or attorney". The title owner string is now simply "title examiner or attorney". | checks.py; policy.py |
+| B15 | When upset / assessed land ≥ 3.0, the barrier "upset price is N× assessed land value (acquisition-burden indicator only, not market value)" is added. | checks.py |
+| B16 | Owners: legal access is "title examiner + DOMI (right-of-way, paper streets)". Mine subsidence is "PA DEP Bureau of Abandoned Mine Reclamation / Mine Subsidence Insurance + geotechnical engineer". | checks.py |
+| B17 | RIV-RM barrier: "LotLine does not yet model RIV-RM dimensions (§905.04.E); this is a tool limitation, not a records problem". The outcome value is unchanged. | policy.py |
+
+### Decisions and deviations
+
+- **Kemper "area disagreement is disclosed".** The engine is changed to match the label's intent, applied consistently. Any disclose-level gap of 25% or more is now a barrier that states the gap and that no score changes. Kemper (55%) and Mossfield (32%) both get it. Before, only Kemper's label carried a gap barrier, and the engine emitted none for either parcel.
+- **Records agree the lot is below the minimum (B13).** The outcome stays "Defer: missing or conflicting records". The other outcomes do not fit:
+  - "Defer: site conditions unknown" is about survey-dependent site standards.
+  - "Do not advance" would be wrong, because §921.04.A says the Zoning Administrator "shall approve" single-unit use for a qualifying lot.
+  - "Advance" would break the contract's conformity condition.
+  Eligibility turns on County deed records (separate ownership, and vacant when the code applied), which LotLine does not hold. "Missing records" is therefore accurate, and the barrier says the records agree. No real parcel reaches this path. Centre Ave 10S5 is below the minimum in one source only and is critical anyway.
+- **H barrier wording.** The approved text said "a buildable area under 30% slope". It now says "a contiguous area under 30% slope for the house". The memo checker forbids "buildable", and §911.04.A.69(a) itself says "contiguous area of the lot less than thirty (30) percent in existing slope".
+- **Sale terms citation.** The text reads "Act 171 of 1984 sec. 304". With "§304", the memo claim checker read the reference as a Pittsburgh Code section and failed it against the section allowlist.
+- **Partial format.** "Partial: 2 of 4 known points; dimensional withheld (reason)" keeps the `Partial: X of Y known` prefix, so the memo checker can still parse it. "known points" makes clear that Y counts points from the components that could be scored, not components.
+- **Michigan 15S66.** The slope25 cap applies, but the band is already Conditional (3–4), so no reason is appended.
+
+### Label changes by parcel
+
+| PIN | Parcel | Field | Old | New | Basis |
+|---|---|---|---|---|---|
+| All 14 advertised | | checks | … title; legal access … | adds "Treasurer Sale terms: 90-day redemption; mortgages, judgments, water claims and other secured claims are not divested (2026-10-02 regulations; Act 171 of 1984 sec. 304)" after "title" | B14 |
+| 0015S00066000000 | Michigan 15S66 | barriers | "terrain and undermining screening overlaps; corner status unverified" | "corner/frontage status remains unverified \| terrain and undermining screening overlaps" (the engine's fixed wording and order; the label had drifted) | A5 |
+| 0014N00100000000 | Michigan 14N100 | barriers | narrow; undermining | adds "upset price is 8.0× assessed land value (…)" | B15 |
+| 0010S00005000000 | Centre 10S5 | barriers | "…cross the 2400 sf minimum" | "…cross the 2,400 sf minimum" and adds "upset price is 149.9× …" | A7, B15 |
+| | | checks | | adds "lot-of-record eligibility (§921.04.A): …" (1,672 sf < 2,400 in the assessment record) | B13 |
+| 0010R00108000000 | Centre 10R108 | barriers | site condition | adds "upset price is 3.0× …" | B15 |
+| 0042D00039000000 | Walcott (RIV-RM) | barriers | "§905.04.E (RIV-RM) dimensions are not encoded" | "LotLine does not yet model RIV-RM dimensions (§905.04.E); this is a tool limitation, not a records problem" and adds "upset price is 4.5× …" | B17, B15 |
+| 0010L00127000000 | Wylie (LNC) | barriers | undermining | adds "upset price is 8.0× …" before it | B15 |
+| 0081R00122000000 | Mossfield (H) | ease | Partial: 2 of 4 known | Partial: 2 of 4 known points; dimensional withheld (survey-dependent site standard, §911.04.A.69) | A7 |
+| | | barriers | raw §911.04.A.69 text | plain H barrier; "lot-area records disagree by 32% (…); both exceed the 3,200 sf minimum, so no score change"; "terrain screening overlap" (the engine always listed it; the label omitted it) | B12, B11 |
+| | | checks | | adds "deed and record-area reconciliation" (32% gap) and "Administrator Exception for single-unit (§911.04.A.69)" | B11, B12 |
+| 0034A00290000000 | Platt (H) | ease | Partial: 1 of 4 known | Partial: 1 of 4 known points; dimensional withheld (…) | A7 |
+| | | barriers / checks | raw text | plain H barrier; adds the Administrator Exception check | B12 |
+| 0016N00110000000 | Banksville (H) | ease / barriers / checks | as for Platt | as for Platt | A7, B12 |
+| 0088R00001000000 | Saline (P) | ease | 5 of 6: Apparently lower-discretion | 5 of 6: Conditional (possible Steep Slope Overlay review, §906.08) | B9 (slope25) |
+| | | barriers | P caveat (§911.02) | "Parks and Open Space (P) district: confirm whether the lot is designated or used as park, greenway or open space before pursuing housing" | B10 |
+| | | checks | | adds "open-space / greenway designation" before the site plan review | B10 |
+| 0088G00313000A00 | Kemper (P) | ease | 5 of 6: Apparently lower-discretion | 5 of 6: Conditional (possible Steep Slope Overlay review, §906.08) | B9 |
+| | | barriers | P caveat; "area disagreement is disclosed" | P risk barrier; "lot-area records disagree by 55% (assessment 10,276 sf vs County GIS 4,606 sf); both exceed the 3,200 sf minimum, so no score change" | B10, B11 |
+| | | checks | | adds "deed and record-area reconciliation" and "open-space / greenway designation" | B11, B10 |
+
+No outcome, component score, coverage, conflict level, hazard family or setback screen changed on any of the 15 rows. Every outcome is unchanged.

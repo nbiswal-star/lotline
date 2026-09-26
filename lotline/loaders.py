@@ -27,6 +27,7 @@ from lotline.models import (
     SourceEntry,
     Snapshot,
     TreasuryRecord,
+    sfha_status,
 )
 from lotline.reconcile import PIN_PATTERN, account_pin_mismatches, pin_from_parts, reconcile
 
@@ -94,10 +95,6 @@ _TRUE = frozenset({"Y", "YES", "TRUE", "T", "1"})
 _FALSE = frozenset({"N", "NO", "FALSE", "F", "0"})
 _NONE_TEXT = frozenset({"", "NONE", "NONE FOUND"})
 
-# FEMA Special Flood Hazard Area zone designations (1% annual chance).
-_SFHA_ZONE = re.compile(r"^(A|AE|AH|AO|AR|A99|A\d{1,2}|V|VE|V\d{1,2})$")
-
-
 class SnapshotError(RuntimeError):
     """The frozen snapshot is missing, malformed, or no longer matches expectations."""
 
@@ -141,6 +138,26 @@ def optional_float(text: str, *, where: str = "value") -> float | None:
         raise SnapshotError(f"{where}: {text!r} is not a number") from exc
 
 
+def optional_nonnegative(text: str, *, where: str) -> float | None:
+    """Blank -> None; negative -> SnapshotError. Used for setbacks and minimums (0 is valid)."""
+    value = optional_float(text, where=where)
+    if value is not None and value < 0:
+        raise SnapshotError(f"{where}: {text!r} is negative")
+    return value
+
+
+def optional_measure(text: str, *, where: str, unit: str) -> tuple[float | None, str | None]:
+    """A lot area or lot dimension, where 0 is physically impossible.
+
+    Blank -> (None, None); 0 -> (None, warning: "0 <unit> recorded; treated as
+    unknown"); negative -> SnapshotError; otherwise (value, None).
+    """
+    value = optional_nonnegative(text, where=where)
+    if value == 0:
+        return None, f"{where}: 0 {unit} recorded; treated as unknown"
+    return value, None
+
+
 def required_float(text: str, *, where: str) -> float:
     value = optional_float(text, where=where)
     if value is None:
@@ -169,10 +186,9 @@ def split_overlay(text: str) -> tuple[str | None, str | None]:
     return t, None
 
 
-def is_sfha(fema_zone: str) -> bool:
-    """True if any zone token is a Special Flood Hazard Area, e.g. "A (partial) + X"."""
-    tokens = re.split(r"[^0-9A-Za-z]+", fema_zone)
-    return any(_SFHA_ZONE.match(tok) for tok in tokens if tok)
+def is_sfha(fema_zone: str) -> bool | None:
+    """SFHA status (True / False / None = unknown); see ``lotline.models.sfha_status``."""
+    return sfha_status(fema_zone)
 
 
 def split_streets(text: str) -> tuple[str, ...]:
@@ -263,8 +279,11 @@ def _check_date(text: str, *, where: str) -> date:
 # --------------------------------------------------------------------------
 
 
-def _treasury_record(r: Mapping[str, str]) -> TreasuryRecord:
+def _treasury_record(r: Mapping[str, str], notes: list[str] | None = None) -> TreasuryRecord:
     w = f"{TREASURY_FILE} pin {r['pin']}"
+    lotarea, note = optional_measure(r["lotarea"], where=f"{w} lotarea", unit="sf")
+    if note and notes is not None:
+        notes.append(note)
     return TreasuryRecord(
         pin=r["pin"],
         address=required_text(r["address"], where=f"{w} address"),
@@ -275,7 +294,7 @@ def _treasury_record(r: Mapping[str, str]) -> TreasuryRecord:
         demo_cost_due=required_float(r["demo_cost_due"], where=f"{w} demo_cost_due"),
         classdesc=required_text(r["classdesc"], where=f"{w} classdesc"),
         usedesc=required_text(r["usedesc"], where=f"{w} usedesc"),
-        lotarea=optional_float(r["lotarea"], where=f"{w} lotarea"),
+        lotarea=lotarea,
         fm_land=optional_float(r["fm_land"], where=f"{w} fm_land"),
         fm_bldg=optional_float(r["fm_bldg"], where=f"{w} fm_bldg"),
         zon_code=optional_text(r["zon_code"]),
@@ -300,16 +319,23 @@ def _parcel_facts(r: Mapping[str, str]) -> ParcelFacts:
     w = f"{PARCEL_FACTS_FILE} pin {r['pin']}"
     rco, other_overlay = split_overlay(r["rco_overlay"])
     fema_zone = required_text(r["fema_zone"], where=f"{w} fema_zone")
+    notes: list[str] = []
+    measures: dict[str, float | None] = {}
+    for name, unit in (("assess_lotarea_sf", "sf"), ("county_gis_area_sf", "sf"),
+                       ("mbr_short_side_ft", "ft"), ("mbr_long_side_ft", "ft")):
+        measures[name], note = optional_measure(r[name], where=f"{w} {name}", unit=unit)
+        if note:
+            notes.append(note)
     return ParcelFacts(
         pin=r["pin"],
         location=required_text(r["location"], where=f"{w} location"),
         neighborhood=required_text(r["neighborhood"], where=f"{w} neighborhood"),
         zone=required_text(r["zone"], where=f"{w} zone"),
         zoning_polygon=required_text(r["zoning_polygon"], where=f"{w} zoning_polygon"),
-        assess_lotarea_sf=optional_float(r["assess_lotarea_sf"], where=f"{w} assess_lotarea_sf"),
-        county_gis_area_sf=optional_float(r["county_gis_area_sf"], where=f"{w} county_gis_area_sf"),
-        mbr_short_side_ft=optional_float(r["mbr_short_side_ft"], where=f"{w} mbr_short_side_ft"),
-        mbr_long_side_ft=optional_float(r["mbr_long_side_ft"], where=f"{w} mbr_long_side_ft"),
+        assess_lotarea_sf=measures["assess_lotarea_sf"],
+        county_gis_area_sf=measures["county_gis_area_sf"],
+        mbr_short_side_ft=measures["mbr_short_side_ft"],
+        mbr_long_side_ft=measures["mbr_long_side_ft"],
         upset_price=optional_float(r["upset_price"], where=f"{w} upset_price"),
         assessed_land_value=optional_float(r["assessed_land_value"], where=f"{w} assessed_land_value"),
         pli_unique_casefiles=required_int(r["pli_unique_casefiles"], where=f"{w} pli_unique_casefiles"),
@@ -328,6 +354,7 @@ def _parcel_facts(r: Mapping[str, str]) -> ParcelFacts:
         fema_sfha=is_sfha(fema_zone),
         streets_within_30ft=split_streets(r["streets_within_30ft"]),
         possible_corner=parse_bool(r["possible_corner"], where=f"{w} possible_corner"),
+        load_warnings=tuple(notes),
     )
 
 
@@ -344,11 +371,11 @@ def _district_rule(r: Mapping[str, str]) -> DistrictRule:
         district=required_text(r["district"], where=f"{DISTRICT_RULES_FILE} district"),
         single_unit_permission=_permission(r["single_unit_permission"], where=f"{w} single_unit_permission"),
         two_unit_permission=_permission(r["two_unit_permission"], where=f"{w} two_unit_permission"),
-        min_lot_sf=optional_float(r["min_lot_sf"], where=f"{w} min_lot_sf"),
-        front_setback_ft=optional_float(r["front_setback_ft"], where=f"{w} front_setback_ft"),
-        rear_setback_ft=optional_float(r["rear_setback_ft"], where=f"{w} rear_setback_ft"),
-        exterior_side_ft=optional_float(r["exterior_side_ft"], where=f"{w} exterior_side_ft"),
-        interior_side_ft=optional_float(r["interior_side_ft"], where=f"{w} interior_side_ft"),
+        min_lot_sf=optional_nonnegative(r["min_lot_sf"], where=f"{w} min_lot_sf"),
+        front_setback_ft=optional_nonnegative(r["front_setback_ft"], where=f"{w} front_setback_ft"),
+        rear_setback_ft=optional_nonnegative(r["rear_setback_ft"], where=f"{w} rear_setback_ft"),
+        exterior_side_ft=optional_nonnegative(r["exterior_side_ft"], where=f"{w} exterior_side_ft"),
+        interior_side_ft=optional_nonnegative(r["interior_side_ft"], where=f"{w} interior_side_ft"),
         dimensions_applicable=parse_bool(r["dimensions_applicable"], where=f"{w} dimensions_applicable"),
         dimensions_encoded=parse_bool(r["dimensions_encoded"], where=f"{w} dimensions_encoded"),
         site_standard_blocks_dimensional=parse_bool(
@@ -469,7 +496,9 @@ def load_snapshot(data_dir: Path = DATA_DIR, today: date | None = None) -> Snaps
     starting after the sale date.
     """
     data_dir = Path(data_dir)
-    treasury = _load_keyed(data_dir / TREASURY_FILE, TREASURY_COLUMNS, "pin", _treasury_record)
+    treasury_notes: list[str] = []
+    treasury = _load_keyed(data_dir / TREASURY_FILE, TREASURY_COLUMNS, "pin",
+                           lambda r: _treasury_record(r, treasury_notes))
     advert = _load_keyed(data_dir / ADVERT_FILE, ADVERT_COLUMNS, "pin", _advert_record)
     parcels = _load_keyed(data_dir / PARCEL_FACTS_FILE, PARCEL_COLUMNS, "pin", _parcel_facts)
     rules = _load_keyed(
@@ -489,7 +518,9 @@ def load_snapshot(data_dir: Path = DATA_DIR, today: date | None = None) -> Snaps
         rules=rules,
         manifest=manifest,
         reconciliation=reconciliation,
+        load_warnings=tuple(treasury_notes) + tuple(w for p in parcels.values() for w in p.load_warnings),
     )
+
 
 
 def resolved_district(treasury: TreasuryRecord, facts: ParcelFacts | None) -> str | None:

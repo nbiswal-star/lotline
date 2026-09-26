@@ -18,6 +18,8 @@ from lotline.models import (
     rule_fact_id,
 )
 
+from lotline.reconcile import prices_agree
+
 from . import policy
 
 _LEVEL_ORDER = {ConflictLevel.CRITICAL: 0, ConflictLevel.MATERIAL: 1, ConflictLevel.DISCLOSE: 2}
@@ -107,6 +109,8 @@ def lot_area_conflict(ctx: ParcelContext) -> Conflict | None:
             )
         else:
             tail = f"No minimum lot area is encoded for {district}; no threshold crossing is evaluated."
+    elif minimum == 0:
+        tail = f"{district} has no minimum lot size; no threshold crossing is evaluated."
     else:
         lo = min(gap.assess_sf, gap.gis_sf)
         if lo > minimum:
@@ -163,7 +167,7 @@ def sale_universe_conflict(ctx: ParcelContext) -> Conflict | None:
     """
     if ctx.advert is None:
         return None
-    if abs(ctx.advert.upset - ctx.treasury.total_tax_due) <= policy.PRICE_TOLERANCE_USD + 1e-9:
+    if prices_agree(ctx.advert.upset, ctx.treasury.total_tax_due):
         return None
     return Conflict(
         level=ConflictLevel.CRITICAL,
@@ -199,6 +203,11 @@ def highest_level(conflicts: list[Conflict]) -> str:
 
 def has_critical(conflicts: list[Conflict]) -> bool:
     return any(c.level is ConflictLevel.CRITICAL for c in conflicts)
+
+
+def large_gap(gap: AreaGap | None) -> bool:
+    """Directional or symmetric gap at or above policy.LARGE_GAP_PCT."""
+    return gap is not None and max(abs(gap.pct), gap.symmetric_pct) >= policy.LARGE_GAP_PCT
 
 
 def material_affects(conflicts: list[Conflict], component: str) -> list[Conflict]:

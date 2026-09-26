@@ -10,6 +10,7 @@ from __future__ import annotations
 from dataclasses import replace
 from datetime import date
 
+from lotline.facts import facts_for, rule_facts
 from lotline.models import (
     Fact,
     Outcome,
@@ -54,27 +55,34 @@ def _advertisement_date(ctx: ParcelContext) -> str:
 
 
 def _upstream_facts(ctx: ParcelContext) -> list[Fact]:
-    """lotline.facts output when available (optional so engine unit tests stand alone)."""
-    try:
-        from lotline.facts import facts_for, rule_facts
-    except ImportError:
-        return []
+    """Raw and rule facts from lotline.facts (Layer 2)."""
     out = list(facts_for(ctx))
     if ctx.rule is not None:
         out += rule_facts(ctx.rule, ctx.manifest)
     return out
 
 
+def _band_caps(ctx: ParcelContext, unqueried: tuple[str, ...]) -> list[tuple[str, str]]:
+    """policy.BAND_CAPS whose ParcelFacts flag is True (from a completed layer query)."""
+    if ctx.facts is None:
+        return []
+    return [
+        (cap, reason)
+        for flag, cap, reason in policy.BAND_CAPS
+        if getattr(ctx.facts, flag, False) is True and flag not in unqueried
+    ]
+
+
 def screen(ctx: ParcelContext, *, today: date | None = None) -> ScreeningResult:
     facts, rule = ctx.facts, ctx.rule
     conflicts = detect_conflicts(ctx)
     critical = has_critical(conflicts)
-    areas = (facts.assess_lotarea_sf, facts.county_gis_area_sf) if facts else ()
+    unqueried = tuple(s for s in policy.G3_SOURCES if not sources_queried(ctx.manifest, (s,)))
 
-    use = score_use(rule, areas)
+    use = score_use(rule)
     dim = score_dimensional(ctx.pin, facts, rule, conflicts)
-    env = score_environment(ctx.pin, facts, sources_queried(ctx.manifest, policy.G3_SOURCES))
-    families = hazard_families(facts)
+    env = score_environment(ctx.pin, facts, unqueried)
+    families = hazard_families(facts, unqueried)
 
     r = route(
         RoutingInputs(
@@ -89,6 +97,7 @@ def screen(ctx: ParcelContext, *, today: date | None = None) -> ScreeningResult:
             site_standard_blocks=rule.site_standard_blocks_dimensional if rule else False,
             dimensional=dim.component,
             area_conforms=dim.area_conforms,
+            environment=env,
         )
     )
     outcome = r.outcome
@@ -101,7 +110,8 @@ def screen(ctx: ParcelContext, *, today: date | None = None) -> ScreeningResult:
         result.scenarios = dim.scenarios
         result.setback_screen = dim.setback_screen
     result.ease = ease_result(
-        outcome, [result.use, result.dimensional, result.environment], critical=critical
+        outcome, [result.use, result.dimensional, result.environment], critical=critical,
+        caps=_band_caps(ctx, unqueried),
     )
     result.coverage = evidence_coverage(ctx)
 
@@ -118,12 +128,17 @@ def screen(ctx: ParcelContext, *, today: date | None = None) -> ScreeningResult:
         dimensional=dim,
         hazard_families=families,
         advertisement_date=_advertisement_date(ctx),
+        environment=env,
+        unqueried_layers=unqueried,
+        upset_to_assessed_land=result.upset_to_assessed_land,
     )
     result.barriers = barriers(inputs)
     result.next_checks = next_checks(inputs)
 
-    result.warnings = stale_source_warnings(ctx.manifest) + sale_date_passed_warning(
-        ctx.treasury.sale_date, today
+    result.warnings = (
+        list(facts.load_warnings if facts else ())
+        + stale_source_warnings(ctx.manifest)
+        + sale_date_passed_warning(ctx.treasury.sale_date, today)
     )
 
     result.facts, result.conflicts = _assemble_facts(ctx, result)

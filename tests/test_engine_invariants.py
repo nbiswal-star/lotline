@@ -41,7 +41,7 @@ def test_universe_routing_counts(all_results):
     assert Outcome.SIDE_YARD not in c
 
 
-def test_unknown_never_scored_zero(all_results):
+def test_withheld_components_carry_no_score(all_results):
     for r in all_results.values():
         for comp in (r.use, r.dimensional, r.environment):
             if comp is None:
@@ -50,6 +50,19 @@ def test_unknown_never_scored_zero(all_results):
                 assert comp.low is None and comp.high is None, (r.pin, comp)
             else:
                 assert comp.low is not None and comp.high is not None
+
+
+def test_no_advance_with_any_component_withheld(all_results):
+    for r in all_results.values():
+        if r.outcome is Outcome.ADVANCE:
+            assert all(c is not None and c.status in ("known", "range")
+                       for c in (r.use, r.dimensional, r.environment)), r.pin
+
+
+def test_every_defer_has_barrier_and_check(all_results):
+    for r in all_results.values():
+        if r.outcome in (Outcome.DEFER_RECORDS, Outcome.DEFER_SITE):
+            assert r.barriers and r.next_checks, r.pin
 
 
 def test_ranges_never_collapse(all_results):
@@ -89,14 +102,22 @@ def test_centre_no_total_keeps_both_conflicts(all_results):
 
 
 def test_kemper_disclose_gap_with_encoded_p_dimensions(all_results):
-    """P-district dimensions are encoded (§905.01.C); both area sources exceed 3,200 sf."""
+    """P-district dimensions are encoded (§905.01.C); both area sources exceed 3,200 sf.
+
+    The 55% gap stays disclose-level (no score change) but, being >= 25%, adds a
+    deed and record-area reconciliation check and a barrier. slope25 caps the band.
+    """
     r = all_results[KEMPER]
-    assert r.outcome is Outcome.ADVANCE and r.ease.display == "5 of 6: Apparently lower-discretion"
+    assert r.outcome is Outcome.ADVANCE
+    assert r.ease.display == "5 of 6: Conditional (possible Steep Slope Overlay review, §906.08)"
     (c,) = r.conflicts
     assert c.level is ConflictLevel.DISCLOSE and c.affects == ()
     assert "Both sources exceed the 3,200 sf minimum" in c.summary
     assert r.dimensional.status == "known" and r.dimensional.low == 2
     assert "not scorable" not in r.ease.display.lower()
+    deed = next(x for x in r.next_checks if x.check == "deed and record-area reconciliation")
+    assert deed.owner == "County Real Estate + licensed surveyor" and "25%" in deed.trigger
+    assert any(b.startswith("lot-area records disagree by 55%") for b in r.barriers)
 
 
 def test_p_district_dimensions_scored(all_results):
@@ -109,7 +130,11 @@ def test_p_district_dimensions_scored(all_results):
     checks = {c.check: c for c in r.next_checks}
     assert checks["site plan review (§905.01.D)"].owner == "Zoning Administrator / Planning"
     assert "review" not in " ".join(c for c in checks if "dimensions" in c)
-    assert policy.DISTRICT_CAVEATS["P"] in r.barriers
+    assert r.barriers[0] == policy.DISTRICT_RISK_BARRIERS["P"]
+    assert "§911.02" not in " ".join(r.barriers)  # factual note lives in the check trigger
+    osp = checks["open-space / greenway designation"]
+    assert osp.owner == "City Planning (open space & parks planning)" and "§911.02" in osp.trigger
+    assert r.ease.band == "Conditional" and r.ease.total_low == 5
 
 
 def test_lnc_district_dimensions_scored(all_results):
@@ -144,7 +169,52 @@ def test_hazard_check_triggers_cite_overlay_sections(all_results):
 
 
 def test_h_site_standard_barrier_names_clearing_cap(all_results):
-    assert any("911.04.A.69(b)" in b for b in all_results[MOSSFIELD].barriers)
+    r = all_results[MOSSFIELD]
+    assert r.barriers[0] == policy.SITE_STANDARD_BARRIERS["H"] and "911.04.A.69(b)" in r.barriers[0]
+    ae = next(c for c in r.next_checks if c.check == "Administrator Exception for single-unit (§911.04.A.69)")
+    assert ae.owner == "Zoning Administrator"
+    # No raw district_rules.csv text in any barrier.
+    for res in all_results.values():
+        for b in res.barriers:
+            assert "max(10%" not in b and "per 905.02.C" not in b and "SS-O if" not in b
+
+
+def test_sale_terms_and_owners(all_results, snapshot):
+    for pin, r in all_results.items():
+        terms = [c for c in r.next_checks if c.check.startswith("Treasurer Sale terms")]
+        advertised = pin in snapshot.reconciliation.matched_pins
+        assert len(terms) == (1 if advertised else 0), pin
+        if terms:
+            assert terms[0].owner == "title examiner or attorney"
+            assert "90-day redemption" in terms[0].check and "not divested" in terms[0].check
+    owners = {c.check: c.owner for c in all_results[MICHIGAN_15S66].next_checks}
+    assert owners["title"] == "title examiner or attorney"
+    assert owners["legal access"] == "title examiner + DOMI (right-of-way, paper streets)"
+    assert owners["mine-subsidence review"] == (
+        "PA DEP Bureau of Abandoned Mine Reclamation / Mine Subsidence Insurance + geotechnical engineer")
+
+
+def test_acquisition_burden_barrier(all_results):
+    for r in all_results.values():
+        has = any(b.startswith("upset price is") for b in r.barriers)
+        routed = r.outcome in (Outcome.OUT_OF_UNIVERSE, Outcome.STRUCTURE)
+        expect = (not routed and r.upset_to_assessed_land is not None
+                  and r.upset_to_assessed_land >= policy.ACQUISITION_BURDEN_RATIO)
+        assert has == expect, r.pin
+    assert ("upset price is 8.0× assessed land value (acquisition-burden indicator only, not market value)"
+            in all_results[WYLIE].barriers)
+
+
+def test_riv_rm_barrier_is_a_tool_gap(all_results):
+    assert ("LotLine does not yet model RIV-RM dimensions (§905.04.E); this is a tool limitation, "
+            "not a records problem") in all_results[WALCOTT].barriers
+
+
+def test_areas_formatted_with_thousands_separators(all_results):
+    import re
+    for r in all_results.values():
+        for text in [*r.barriers, *(c.summary for c in r.conflicts)]:
+            assert not re.search(r"\b\d{4,} sf", text), (r.pin, text)
 
 
 def test_mossfield_disclose_only(all_results):
@@ -215,6 +285,15 @@ def test_derived_facts_labeled(all_results):
 
 def test_no_warnings_on_real_snapshot(all_results):
     assert all(r.warnings == [] for r in all_results.values())
+
+
+def test_load_warning_for_zero_area_surfaces_on_result(snapshot):
+    ctx = context_for(snapshot, BENEZET)
+    bad = dataclasses.replace(ctx, facts=dataclasses.replace(
+        ctx.facts, county_gis_area_sf=None, load_warnings=("x county_gis_area_sf: 0 sf recorded; treated as unknown",)))
+    r = screen(bad)
+    assert r.warnings[0].endswith("0 sf recorded; treated as unknown")
+    assert r.outcome is Outcome.DEFER_RECORDS and r.dimensional.status == "withheld"
 
 
 def test_injected_text_has_no_effect(snapshot):

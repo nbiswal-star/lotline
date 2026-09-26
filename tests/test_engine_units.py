@@ -6,13 +6,13 @@ from dataclasses import replace
 from datetime import date
 
 import pytest
-from engine_builders import PIN, DensityRule, ctx, facts, manifest, rule
+from engine_builders import PIN, ctx, facts, manifest, rule
 
 from lotline.engine import conflict_level, screen
 from lotline.engine import policy
 from lotline.engine.conflicts import area_gap, detect_conflicts, threshold_between
 from lotline.engine.coverage import evidence_coverage
-from lotline.engine.dimensions import compute_scenarios, format_setback_screen, score_dimensional, width_score
+from lotline.engine.dimensions import compute_scenarios, envelope_score, format_setback_screen, score_dimensional
 from lotline.engine.hazards import hazard_families, score_environment
 from lotline.engine.scoring import component_display, ease_result
 from lotline.engine.staleness import sale_date_passed_warning, stale_source_warnings
@@ -46,7 +46,9 @@ def test_material_conflict_withholds_dimensional_only():
     assert lot.level is ConflictLevel.MATERIAL and lot.affects == ("dimensional",)
     assert r.dimensional.status == "withheld" and "lot area" in r.dimensional.reason
     assert r.use.status == "known" and r.environment.status == "known"
-    assert r.ease.display == "Partial: 4 of 4 known" and r.ease.total_low is None
+    assert r.ease.display == (
+        "Partial: 4 of 4 known points; dimensional withheld (lot-area records cross the 1,200 sf minimum)")
+    assert r.ease.total_low is None
     assert r.outcome is Outcome.DEFER_RECORDS  # Advance requires conformity in all sources
     assert "withheld because area conflicts" in r.setback_screen
 
@@ -106,15 +108,12 @@ def test_unknown_permission_code_is_withheld_not_zero():
     assert u.status == "withheld" and u.low is None
 
 
-def test_density_limits_two_unit_path():
-    base = rule(single_unit_permission="PROHIBITED", two_unit_permission="P")
-    r = DensityRule(**{f: getattr(base, f) for f in base.__dataclass_fields__}, min_lot_per_unit_sf=1800.0)
-    assert score_use(r, (3000.0, 4000.0)).high == 0  # smaller area 3000 < 2 x 1800
-    assert score_use(r, (3600.0, 4000.0)).high == 2
-    unknown = score_use(r, (None, None))
-    assert (unknown.low, unknown.high, unknown.status) == (0, 2, "range")  # never collapsed to 0
-    # Rules without the column behave as before.
-    assert score_use(base, (100.0, 100.0)).high == 2
+def test_no_per_unit_density_test():
+    """Ord. 10-2025 repealed per-unit density: the two-unit path depends only on permission."""
+    import lotline.engine.use as use_mod
+    assert not hasattr(use_mod, "two_unit_density_ok")
+    u = score_use(rule(single_unit_permission="PROHIBITED", two_unit_permission="P"))
+    assert (u.low, u.high, u.status) == (2, 2, "known")
 
 
 # --- dimensional -----------------------------------------------------------------
@@ -124,8 +123,8 @@ def test_envelope_formulas_and_bands():
     s = compute_scenarios(49, 111, rule(front_setback_ft=30.0, rear_setback_ft=30.0, exterior_side_ft=30.0), True)
     assert [(x.label, x.width_ft, x.depth_ft, x.score) for x in s] == [
         ("interior", 39, 51, 2), ("corner", 14, 51, 1)]
-    assert width_score(20, 1) == 2 and width_score(19.9, 1) == 1 and width_score(9.9, 1) == 0
-    assert width_score(30, 0) == 0
+    assert envelope_score(20, 20) == 2 and envelope_score(19.9, 50) == 1 and envelope_score(9.9, 50) == 0
+    assert envelope_score(30, 0) == 0
     assert compute_scenarios(8, 20, rule(), False)[0].width_ft == 0  # clamped
 
 
@@ -152,7 +151,8 @@ def test_dimensional_withheld_reasons():
                                                               dimensional_citation="904"), []).component.reason
     site = score_dimensional(PIN, facts(), rule(site_standard_blocks_dimensional=True,
                                                site_standard="911.04.A.69 x"), [])
-    assert site.component.status == "withheld" and "911.04.A.69" in site.component.reason
+    assert site.component.status == "withheld" and site.component.short_reason == "survey-dependent site standard"
+    assert "911.04.A.69 x" not in site.component.reason  # never raw CSV text
     na = score_dimensional(PIN, facts(), rule(dimensions_applicable=False), [])
     assert na.component.status == "not_applicable"
 
@@ -161,7 +161,34 @@ def test_area_below_minimum_in_all_sources_scores_zero_and_defers():
     r = screen(ctx(facts_kw=dict(assess_lotarea_sf=1000.0, county_gis_area_sf=1050.0)))
     assert (r.dimensional.low, r.dimensional.status) == (0, "known")
     assert r.outcome is Outcome.DEFER_RECORDS
-    assert any("below the 1200 sf minimum" in b for b in r.barriers)
+    assert policy.BELOW_MINIMUM_BARRIER.format(minimum="1,200") in r.barriers
+    assert policy.LOT_OF_RECORD_CHECK in [c.check for c in r.next_checks]
+    lor = next(c for c in r.next_checks if c.check == policy.LOT_OF_RECORD_CHECK)
+    assert lor.owner == "Zoning Administrator + County deed records"
+
+
+def test_lot_of_record_check_when_below_minimum_in_one_source():
+    r = screen(ctx(facts_kw=dict(assess_lotarea_sf=1000.0, county_gis_area_sf=1500.0)))
+    assert policy.LOT_OF_RECORD_CHECK in [c.check for c in r.next_checks]
+    assert policy.LOT_OF_RECORD_CHECK not in [c.check for c in screen(ctx()).next_checks]
+
+
+def test_depth_limits_the_envelope_score():
+    """Screening assumption: score = min(width band, depth band), same 20/10 ft thresholds."""
+    r = screen(ctx(facts_kw=dict(mbr_long_side_ft=31.0)))  # depth 31 - 15 - 15 = 1 ft
+    assert (r.dimensional.low, r.dimensional.high) == (0, 0)
+    assert "illustrative envelope shallower than 10 ft" in r.barriers
+    r = screen(ctx(facts_kw=dict(mbr_long_side_ft=45.0)))  # depth 15 ft -> band 1
+    assert r.dimensional.low == 1 and "shallow illustrative envelope" in r.barriers
+    assert "depth" in policy.DIMENSIONAL_ASSUMPTION
+
+
+def test_zero_minimum_is_no_minimum_lot_size():
+    c = ctx(rule_obj=rule(min_lot_sf=0.0), facts_kw=dict(assess_lotarea_sf=2000.0, county_gis_area_sf=3000.0))
+    r = screen(c)
+    text = " ".join([*r.barriers, *(k.summary for k in r.conflicts)])
+    assert "0 sf minimum" not in text and "no minimum lot size" in text
+    assert r.outcome is Outcome.ADVANCE
 
 
 def test_possible_corner_range_does_not_collapse():
@@ -178,14 +205,14 @@ def test_hazard_families_and_scores():
     assert hazard_families(facts(slope25=True, landslide_prone=True)) == ["terrain"]
     assert hazard_families(facts(undermined=True, fema_sfha=True, landslide_prone=True)) == [
         "terrain", "undermining", "FEMA SFHA"]
-    assert score_environment(PIN, facts(), True).low == 2
-    assert score_environment(PIN, facts(undermined=True), True).low == 1
-    assert score_environment(PIN, facts(undermined=True, slope25=True), True).low == 0
+    assert score_environment(PIN, facts()).low == 2
+    assert score_environment(PIN, facts(undermined=True)).low == 1
+    assert score_environment(PIN, facts(undermined=True, slope25=True)).low == 0
 
 
 def test_unqueried_layers_are_withheld_not_zero():
-    e = score_environment(PIN, facts(undermined=True, slope25=True), False)
-    assert e.status == "withheld" and e.low is None
+    e = score_environment(PIN, facts(undermined=True, slope25=True), ("fema_nfhl",))
+    assert e.status == "withheld" and e.low is None and "FEMA NFHL" in e.short_reason
 
 
 # --- scoring -----------------------------------------------------------------------
@@ -199,6 +226,7 @@ def _k(name, lo, hi=None, status=None):
 @pytest.mark.parametrize(
     "use,dim,env,expected",
     [(2, (2, 2), 2, "6 of 6: Apparently lower-discretion"),
+     (2, (2, 2), 1, "5 of 6: Apparently lower-discretion"),
      (2, (1, 2), 2, "5-6 of 6: Apparently lower-discretion"),
      (2, (0, 1), 2, "4-5 of 6: band spans Conditional to Apparently lower-discretion"),
      (2, (1, 2), 0, "3-4 of 6: Conditional"),
@@ -212,10 +240,33 @@ def test_ease_display(use, dim, env, expected):
     assert e.display == expected
 
 
+def test_band_cap_is_data_driven():
+    comps = [_k("use", 2), _k("dimensional", 2), _k("environment", 1)]
+    cap = [("Conditional", "possible Steep Slope Overlay review, §906.08")]
+    e = ease_result(Outcome.ADVANCE, comps, critical=False, caps=cap)
+    assert e.display == "5 of 6: Conditional (possible Steep Slope Overlay review, §906.08)"
+    assert (e.total_low, e.total_high, e.band) == (5, 5, "Conditional")
+    # A cap that does not lower the band adds no reason.
+    low = ease_result(Outcome.ADVANCE, [_k("use", 1), _k("dimensional", 1), _k("environment", 1)],
+                      critical=False, caps=cap)
+    assert low.display == "3 of 6: Conditional"
+    span = ease_result(Outcome.ADVANCE, [_k("use", 2), _k("dimensional", 0, 1), _k("environment", 2)],
+                       critical=False, caps=cap)
+    assert span.display == "4-5 of 6: Conditional (possible Steep Slope Overlay review, §906.08)"
+    assert policy.BAND_CAPS[0][0] == "slope25"
+
+
+def test_slope25_caps_band_on_real_style_parcel():
+    r = screen(ctx(facts_kw=dict(slope25=True)))  # 2 + 2 + 1 = 5
+    assert r.ease.display == "5 of 6: Conditional (possible Steep Slope Overlay review, §906.08)"
+    assert r.outcome is Outcome.ADVANCE
+
+
 def test_partial_and_special_displays():
-    withheld = ComponentScore("dimensional", None, None, "withheld", "x")
+    withheld = ComponentScore("dimensional", None, None, "withheld", "x", short_reason="why")
     e = ease_result(Outcome.DEFER_RECORDS, [_k("use", 2), withheld, _k("environment", 1)], critical=False)
-    assert e.display == "Partial: 3 of 4 known" and e.total_low is None and e.band is None
+    assert e.display == "Partial: 3 of 4 known points; dimensional withheld (why)"
+    assert e.total_low is None and e.band is None
     assert ease_result(Outcome.DEFER_RECORDS, [_k("use", 2), withheld, _k("environment", 1)],
                        critical=True).display == "Not scorable"
     assert ease_result(Outcome.OUT_OF_UNIVERSE, [None, None, None], critical=False).display == "n/a"

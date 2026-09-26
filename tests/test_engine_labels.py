@@ -24,8 +24,13 @@ def results(snapshot):
     return {r["pin"]: screen(context_for(snapshot, r["pin"])) for r in ROWS}
 
 
-def _split(text: str) -> list[str]:
-    return [] if text in ("", "none") else [t.strip() for t in text.split(";")]
+def _split(text: str, sep: str = ";") -> list[str]:
+    return [] if text in ("", "none") else [t.strip() for t in text.split(sep)]
+
+
+# Barrier and check texts may contain ";" (e.g. Treasurer Sale terms), so those
+# two label columns are separated by " | ".
+LIST_SEP = " | "
 
 
 def test_fifteen_rows():
@@ -88,41 +93,18 @@ def test_upset_to_assessed_land(row, results):
 @pytest.mark.parametrize("row", ROWS, ids=IDS)
 def test_next_checks_exact_order(row, results):
     r = results[row["pin"]]
-    assert [c.check for c in r.next_checks] == _split(row["expected_unresolved_checks"])
+    assert [c.check for c in r.next_checks] == _split(row["expected_unresolved_checks"], LIST_SEP)
     assert all(c.owner and c.trigger for c in r.next_checks)
-
-
-# Barriers: exact where the label wording follows one consistent grammar; key
-# content elsewhere (labels vary in phrasing and ordering across rows; see report).
-EXACT_BARRIERS = {
-    "0131N00031000000",  # Benezet
-    "0014N00100000000",  # Michigan 14N100
-    "0050K00227000000",  # Dearborn
-    "0010S00005000000",  # Centre 10S5
-    "0010R00108000000",  # Centre 10R108
-    "0042D00039000000",  # Walcott
-    "0010L00127000000",  # Wylie
-    "0075S00108000000",  # McClure (UI)
-    "0023E00229000000",  # Garfield
-}
-KEY_CONTENT = {
-    "0015S00066000000": ["terrain and undermining screening overlaps", "corner/frontage status"],
-    "0081R00122000000": ["requires survey", "911.04.A.69", "911.04.A.69(b)"],
-    "0034A00290000000": ["requires survey", "911.04.A.69(b)", "terrain and undermining screening overlaps"],
-    "0016N00110000000": ["requires survey", "911.04.A.69(b)", "terrain and FEMA screening overlaps"],
-    "0088R00001000000": ["P (Parks and Open Space) district", "§911.02", "site plan review applies",
-                         "terrain screening overlap"],
-    "0088G00313000A00": ["P (Parks and Open Space) district", "§911.02", "site plan review applies",
-                         "terrain screening overlap"],
-}
 
 
 @pytest.mark.parametrize("row", ROWS, ids=IDS)
 def test_barriers(row, results):
-    got = results[row["pin"]].barriers
-    if row["pin"] in EXACT_BARRIERS:
-        assert got == _split(row["expected_barriers"])
-    else:
-        joined = "; ".join(got)
-        for needle in KEY_CONTENT[row["pin"]]:
-            assert needle in joined
+    """Exact, in order, for all 15 rows."""
+    assert results[row["pin"]].barriers == _split(row["expected_barriers"], LIST_SEP)
+
+
+@pytest.mark.parametrize("row", ROWS, ids=IDS)
+def test_every_defer_names_its_missing_or_conflicting_input(row, results):
+    r = results[row["pin"]]
+    if r.outcome.value.startswith("Defer"):
+        assert r.barriers and r.next_checks

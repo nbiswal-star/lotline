@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, replace
+from dataclasses import replace
 
 from lotline.models import (
     AdvertRecord,
@@ -43,13 +43,6 @@ def rule(**kw) -> DistrictRule:
     )
     base.update(kw)
     return DistrictRule(**base)
-
-
-@dataclass(frozen=True)
-class DensityRule(DistrictRule):
-    """A DistrictRule carrying the optional per-unit density column (future data)."""
-
-    min_lot_per_unit_sf: float | None = None
 
 
 def facts(**kw) -> ParcelFacts:
@@ -98,4 +91,4 @@ def ctx(*, facts_kw=None, rule_obj="default", advert_obj="default", treasury_kw=
     )
 
 
-__all__ = ["PIN", "DensityRule", "advert", "ctx", "facts", "manifest", "replace", "rule", "treasury"]
+__all__ = ["PIN", "advert", "ctx", "facts", "manifest", "replace", "rule", "treasury"]
