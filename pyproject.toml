@@ -1,0 +1,14 @@
+[project]
+name = "lotline"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=1.8.0",
+    "pandas>=3.0.6",
+    "streamlit>=1.64.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
