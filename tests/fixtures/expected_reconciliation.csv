@@ -1,0 +1,97 @@
+pin,in_city_advert_2026_09_16,advert_sale_no,advert_match_method,pin_match,price_check
+0014C00305000000,Y,53,PIN (normalized account) + upset price check,True,True
+0001N00095000000,N,,,,
+0004G00123000000,Y,63,PIN (normalized account) + upset price check,True,True
+0042M00109000000,Y,73,PIN (normalized account) + upset price check,True,True
+0042D00205000000,Y,71,PIN (normalized account) + upset price check,True,True
+0042D00039000000,Y,70,PIN (normalized account) + upset price check,True,True
+0020F00122000000,Y,69,PIN (normalized account) + upset price check,True,True
+0042M00016000000,Y,72,PIN (normalized account) + upset price check,True,True
+0070H00051000000,Y,89,PIN (normalized account) + upset price check,True,True
+0018J00268000000,Y,87,PIN (normalized account) + upset price check,True,True
+0040G00273000000,Y,88,PIN (normalized account) + upset price check,True,True
+0231N00229000000,N,,,,
+0232E00119000000,Y,30,PIN (normalized account) + upset price check,True,True
+0175C00342000000,Y,27,PIN (normalized account) + upset price check,True,True
+0231F00292000000,Y,28,PIN (normalized account) + upset price check,True,True
+0086H00003000000,Y,35,PIN (normalized account) + upset price check,True,True
+0126J00058000000,Y,42,PIN (normalized account) + upset price check,True,True
+0126F00057000000,Y,41,PIN (normalized account) + upset price check,True,True
+0126D00161000000,Y,40,PIN (normalized account) + upset price check,True,True
+0088R00012000000,Y,39,PIN (normalized account) + upset price check,True,True
+0129D00222000000,Y,43,PIN (normalized account) + upset price check,True,True
+0129J00046000000,Y,44,PIN (normalized account) + upset price check,True,True
+0088R00001000000,Y,38,PIN (normalized account) + upset price check,True,True
+0088G00313000A00,Y,37,PIN (normalized account) + upset price check,True,True
+0085C00270B00300,Y,33,PIN (normalized account) + upset price check,True,True
+0085F00130000000,N,,,,
+0176N00040000000,Y,45,PIN (normalized account) + upset price check,True,True
+0091E00023000000,Y,94,PIN (normalized account) + upset price check,True,True
+0131N00031000000,Y,95,PIN (normalized account) + upset price check,True,True
+0052A00156000000,Y,14,PIN (normalized account) + upset price check,True,True
+0085A00182000000,N,,,,
+0052G00001000000,N,,,,
+0084N00358000000,N,,,,
+0052D00275000000,Y,15,PIN (normalized account) + upset price check,True,True
+0084M00374000000,N,,,,
+0050K00227000000,Y,20,PIN (normalized account) + upset price check,True,True
+0081R00122000000,Y,22,PIN (normalized account) + upset price check,True,True
+0081M00270000000,Y,21,PIN (normalized account) + upset price check,True,True
+0124S00101000000,N,,,,
+0173P00082000000,Y,26,PIN (normalized account) + upset price check,True,True
+0124H00151000000,Y,23,PIN (normalized account) + upset price check,True,True
+0172N00133000000,Y,25,PIN (normalized account) + upset price check,True,True
+0030A00087000000,Y,51,PIN (normalized account) + upset price check,True,True
+0013G00066000000,N,,,,
+0012K00068000000,Y,49,PIN (normalized account) + upset price check,True,True
+0014M00076000000,Y,55,PIN (normalized account) + upset price check,True,True
+0014H00051000000,N,,,,
+0013A00233000000,N,,,,
+0014J00218000000,Y,57,PIN (normalized account) + upset price check,True,True
+0014J00219000000,Y,58,PIN (normalized account) + upset price check,True,True
+0014J00217000000,Y,56,PIN (normalized account) + upset price check,True,True
+0015S00066000000,Y,60,PIN (normalized account) + upset price check,True,True
+0014N00100000000,Y,59,PIN (normalized account) + upset price check,True,True
+0033E00163000000,Y,61,PIN (normalized account) + upset price check,True,True
+0062D00203000000,Y,66,PIN (normalized account) + upset price check,True,True
+0062E00097000000,Y,67,PIN (normalized account) + upset price check,True,True
+0034A00290000000,Y,64,PIN (normalized account) + upset price check,True,True
+0035N00157000000,Y,65,PIN (normalized account) + upset price check,True,True
+0016N00110000000,Y,68,PIN (normalized account) + upset price check,True,True
+0033R00337000000,Y,90,PIN (normalized account) + upset price check,True,True
+0095M00032000000,N,,,,
+0060L00238000000,N,,,,
+0014R00172000000,Y,93,PIN (normalized account) + upset price check,True,True
+0095N00019000000,Y,96,PIN (normalized account) + upset price check,True,True
+0001D00259C70300,N,,,,
+0022P00124000000,Y,74,PIN (normalized account) + upset price check,True,True
+0023H00136000000,Y,75,PIN (normalized account) + upset price check,True,True
+0046N00351000000,N,,,,
+0023E00229000000,N,,,,
+0116P00181000000,Y,79,PIN (normalized account) + upset price check,True,True
+0077N00329000000,Y,78,PIN (normalized account) + upset price check,True,True
+0045N00305000000,N,,,,
+0045E00287000000,Y,81,PIN (normalized account) + upset price check,True,True
+0076A00168000000,Y,84,PIN (normalized account) + upset price check,True,True
+0075S00108000000,Y,83,PIN (normalized account) + upset price check,True,True
+0114G00098000000,Y,86,PIN (normalized account) + upset price check,True,True
+0045A00302000000,Y,80,PIN (normalized account) + upset price check,True,True
+0076N00384000000,Y,85,PIN (normalized account) + upset price check,True,True
+0087A00190000000,Y,36,PIN (normalized account) + upset price check,True,True
+0052K00208000000,Y,31,PIN (normalized account) + upset price check,True,True
+0052L00299000000,N,,,,
+0088F00065000000,Y,48,PIN (normalized account) + upset price check,True,True
+0054M00051000000,Y,46,PIN (normalized account) + upset price check,True,True
+0055B00259000A00,Y,47,PIN (normalized account) + upset price check,True,True
+0029G00286000000,Y,4,PIN (normalized account) + upset price check,True,True
+0027L00182000000,Y,3,PIN (normalized account) + upset price check,True,True
+0027H00144011200,Y,2,PIN (normalized account) + upset price check,True,True
+0010K00204000000,Y,9,PIN (normalized account) + upset price check,True,True
+0010L00167000000,Y,11,PIN (normalized account) + upset price check,True,True
+0010G00225000000,N,,,,
+0010R00108000000,Y,12,PIN (normalized account) + upset price check,True,True
+0010S00005000000,Y,13,PIN (normalized account) + upset price check,True,True
+0010H00154000000,Y,7,PIN (normalized account) + upset price check,True,True
+0010K00052000000,Y,8,PIN (normalized account) + upset price check,True,True
+0010L00127000000,Y,10,PIN (normalized account) + upset price check,True,True
+0010F00018000000,Y,5,PIN (normalized account) + upset price check,True,True
