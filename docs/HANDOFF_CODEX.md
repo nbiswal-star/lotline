@@ -2,6 +2,24 @@
 
 This document is the single source of truth for picking up the build. Read `AGENTS.md` (the standing rules) first, then this document, then the spec it points to.
 
+## 0. Latest integrated review update (Sat Sep 26, 2026)
+
+The P0 UI list and the subsequent three-judge review are complete in the current working tree. The integrated verification is **1,546 passed, exit 0; 0 memo violations across all 96 parcels; 10/10 adversarial/regression cases; unchanged 63/19/7/3/3/1 outcomes**.
+
+Completed after the original handoff:
+
+- Compare widget/card synchronization with AppTest coverage.
+- Critical-conflict score suppression in packet, comparison and export.
+- Short component reasons with full calculation expanders; plain-language zoning summaries.
+- Snapshot-derived counts, dates and known rule limits; reason-specific Defer copy.
+- Grouped memo display, compact citation drawer and deterministic summary.
+- 1280-oriented triage columns; deterministic triage CSV and cited packet Markdown downloads.
+- A standard current-advertisement pre-spend check owned by the City Treasurer / Real Estate Division.
+- AI boundary hardened after an independent technical judge found semantic false accepts: Claude now returns only 6–12 unique IDs from immutable engine-approved claims. Mandatory status, score/abstention, conflict, withholding, principal-barrier and first-action claims cannot be omitted.
+- Accurate in-window Codex disclosure, conditional Claude demo wording and a concrete hypothetical one-sale-cycle pilot plan.
+
+Remaining submission blockers are external/recording work: live Claude verification is optional and requires `ANTHROPIC_API_KEY`; real 1280×800 browser capture, fallback media, two timed rehearsals, final video/link, public-repository confirmation and form submission remain undone. Do not represent any of these as complete until they actually are.
+
 ---
 
 ## 1. Copy-paste prompt for Codex
@@ -15,7 +33,7 @@ This document is the single source of truth for picking up the build. Read `AGEN
 > 3. **Work the remaining-work list in §4 in priority order.** Keep each change small and verifiable. Commit only when the suite is green (check `$?`). Never push without the user's go-ahead.
 > 4. **Review each milestone as three independent judges** (§6): housing-practice, technology/university and investor/startup. Each scores all six official criteria from 1 to 5, lists blockers with file:line evidence, and lists cheap high-value improvements. Fix blockers before moving on.
 > 5. **Don't reopen decisions** recorded in §3 unless you have a primary-source citation showing one is wrong. If you do, record the change in `docs/label_changes.md`.
-> 6. **Keep the product principle intact:** *the LLM writes, the engine decides, the checker enforces.* Never let the UI or the LLM compute or override an outcome, score or conflict.
+> 6. **Keep the product principle intact:** *the engine decides, Claude assembles, the checker enforces.* Claude selects immutable engine-approved claim IDs; it never computes, writes or overrides an outcome, score, conflict, next check or owner.
 >
 > When you finish a milestone, report: what changed, test count and exit code, the 96-parcel memo sweep result, the 10-case eval result, the judges' scores and blockers, and what's next.
 
@@ -50,13 +68,13 @@ The other 82 records split into 63 structures and 19 not advertised.
 | `lotline/reconcile.py` | Runtime account→PIN normalization and price check |
 | `lotline/facts.py` | Flat cited facts |
 | `lotline/engine/` | Deterministic engine (`screen(ctx) -> ScreeningResult`): routing, conflicts, use, dimensions, hazards, coverage, scoring, checks, staleness, derived facts. `policy.py` holds every threshold and vocabulary |
-| `lotline/memo/` | `deterministic.py` (cited memo); `checker.py` (12 rules: WELL_FORMED, CITE_EXISTS, NUMBERS, CODE_SECTIONS, STATUS_AGREES, FORBIDDEN_WORDS, NO_SOURCE_SELECTION, CONFLICT_COMPLETENESS, LLM_CANNOT_AUTHOR, ENGINE_AUTHENTIC, QUALIFIERS, UNTRUSTED_TEXT); `allowlist.py` (versioned code-section allowlist); `pipeline.py` (`produce_memo`, `parse_llm_json`, fallback); `llm.py` (Claude draft); `synthetic.py` (labeled red-team inputs); `eval.py` (`run_cases()` gives "10/10 cases passed") |
+| `lotline/memo/` | `deterministic.py` (cited memo); `checker.py` (12 semantic rules); `pipeline.py` (engine-approved claim catalog, claim-ID resolution, mandatory adverse/action claims, checker and fallback); `llm.py` (Claude claim-ID assembly); `synthetic.py` (labeled red-team inputs); `eval.py` (`run_cases()` gives "10/10 cases passed") |
 | `lotline/ui/` + `app.py` | Streamlit views: Sale pipeline (funnel and 14-lot triage board), Parcel packet, Compare, Integrity. `viewmodels.py` holds pure functions; `text.py` holds copy |
 | `data/` | Prepared public-source snapshot (pre-event data prep, disclosed in the README) plus `demo_config.json` |
 | `tests/` | About 1,536 tests: loaders, reconciliation, boundaries, engine labels, invariants, properties, memo, LLM (fake client), UI view models, AppTest smoke tests |
 | `scripts/split_answer_keys.py` | In-window data-hygiene script (moves answer keys to fixtures, drops household columns) |
 
-**Claude integration** (`lotline/memo/llm.py`): `client.beta.messages.create(model="claude-opus-5", max_tokens=16000, betas=["server-side-fallback-2026-07-01"], fallbacks="default", output_config={"effort":"medium","format":{"type":"json_schema","schema":CLAIM_SCHEMA}}, ...)`. It uses a 45 s timeout and `max_retries=1`. Refusal, truncation, malformed JSON, API errors, a missing key or any checker violation all fall back to the deterministic memo. **It has never been run live**, because the machine has no API key. Only checker-accepted drafts are cached, in `data/llm_cache/`, and they are re-checked on load.
+**Claude integration** (`lotline/memo/llm.py`): Claude returns only 6–12 unique IDs from an engine-approved claim catalog. The server resolves immutable text, type and citations; inserts mandatory outcome, score/abstention, conflict, withheld-component, principal-barrier and first-action claims; then reruns the checker. Refusal, truncation, malformed/unknown/duplicate IDs, API errors, a missing key or any checker violation fall back to the deterministic memo. **It has never been run live**, because the machine has no API key. Only accepted selections are cached and re-checked on load.
 
 ---
 
@@ -97,8 +115,8 @@ The lead reviewed the app in Chrome at 1280px and found these issues:
 Run the three judges (§6) and fix their blockers. Previous rounds' scores ranged from 3 to 5 per criterion. The weakest are **User Fit & Usability (3)** and **Continuation Potential (3)**, so the polish and a credible pilot/owner story matter most.
 
 ### P2: live Claude verification (needs the user's `ANTHROPIC_API_KEY`)
-1. Draft with Claude on Benezet and on Centre 10-S-5. Confirm the draft is **accepted** by the checker, or read the rejection reasons and tune `SYSTEM_PROMPT`. Never loosen the checker.
-2. Let the app cache one accepted draft per demo parcel, for the recording. It is labeled on screen as cached and re-checked.
+1. Assemble with Claude on Benezet and on Centre 10-S-5. Confirm each claim-ID selection is **accepted** by the checker, or read the fallback reason and tune `SYSTEM_PROMPT`. Never loosen the catalog, mandatory claims or checker.
+2. Let the app cache one accepted selection per demo parcel, for the recording. It is labeled on screen as cached and re-checked.
 
 ### P3: deliverables (Sunday)
 1. Commit `docs/demo_script.md` (the presenter is Nibedita Biswal).

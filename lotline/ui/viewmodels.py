@@ -9,6 +9,8 @@ groups, sale order) are presentation only and are documented on screen.
 from __future__ import annotations
 
 import json
+import csv
+import io
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
 from datetime import date
@@ -16,6 +18,7 @@ from pathlib import Path
 
 from lotline.engine import screen
 from lotline.engine.checks import is_standard
+from lotline.engine import policy
 from lotline.engine.scoring import component_display
 from lotline.loaders import DATA_DIR, context_for, lookup_pin
 from lotline.models import (
@@ -100,6 +103,60 @@ def parcel_label(snapshot: Snapshot, pin: str) -> str:
 def snapshot_date(snapshot: Snapshot) -> str:
     entry = snapshot.manifest.get("wprdc_treasury_sales")
     return entry.snapshot_as_of if entry else "unknown"
+
+
+def source_date(snapshot: Snapshot, source_id: str) -> str:
+    entry = snapshot.manifest.get(source_id)
+    return entry.snapshot_as_of if entry else "unknown"
+
+
+def display_date(value: str) -> str:
+    """Human-readable date for display; preserve unexpected source values."""
+    try:
+        parsed = date.fromisoformat(value)
+    except ValueError:
+        return value
+    return f"{parsed.month}/{parsed.day}/{parsed.year}"
+
+
+def display_date_long(value: str) -> str:
+    try:
+        parsed = date.fromisoformat(value)
+    except ValueError:
+        return value
+    return f"{parsed.strftime('%B')} {parsed.day}, {parsed.year}"
+
+
+def sale_date(snapshot: Snapshot) -> str:
+    dates = {record.sale_date for record in snapshot.treasury.values()}
+    return next(iter(dates)) if len(dates) == 1 else "unknown"
+
+
+def outcome_meaning(snapshot: Snapshot, result: ScreeningResult) -> str:
+    """Reason-specific display meaning, using engine state without revising it."""
+    if result.outcome is Outcome.OUT_OF_UNIVERSE:
+        advert_date = display_date(source_date(snapshot, "city_advertisement"))
+        return ("Listed in the open-data Treasury feed but not in the City advertisement dated "
+                f"{advert_date}, so it is outside this sale as advertised.")
+    if result.outcome is not Outcome.DEFER_RECORDS:
+        return text.OUTCOME_MEANING[result.outcome]
+
+    critical = [c for c in result.conflicts if c.level is ConflictLevel.CRITICAL]
+    if critical:
+        return ("A critical public-record conflict prevents whole-parcel scoring. Resolve the named "
+                "record or current-condition conflict before staff review continues.")
+    material = [c for c in result.conflicts if c.level is ConflictLevel.MATERIAL]
+    if material:
+        affected = ", ".join(dict.fromkeys(a for c in material for a in c.affects)) or "affected"
+        return (f"A material public-record conflict withholds the {affected} component. Resolve the "
+                "named source disagreement before staff review continues.")
+    withheld = next((c for c in (result.use, result.dimensional, result.environment)
+                     if c is not None and c.status == "withheld"), None)
+    if withheld is not None:
+        reason = withheld.short_reason or withheld.reason or "required input is missing"
+        return (f"The {withheld.name} component is withheld: {reason}. Complete the named next check "
+                "before staff review continues.")
+    return text.OUTCOME_MEANING[result.outcome]
 
 
 def snapshot_dates(snapshot: Snapshot) -> list[tuple[str, str]]:
@@ -241,7 +298,7 @@ def vacant_pins(snapshot: Snapshot, results: Mapping[str, ScreeningResult]) -> l
 
 
 TRIAGE_COLUMNS = (
-    "Sale #", "Location", "Neighborhood", "Zone", "Outcome", "Development Ease",
+    "Sale #", "Parcel", "Outcome", "Development Ease",
     "Evidence", "Principal barrier", "First parcel-specific check", "Who resolves it",
 )
 
@@ -256,9 +313,8 @@ def triage_rows(snapshot: Snapshot, results: Mapping[str, ScreeningResult]) -> l
         rows.append({
             "pin": pin,
             "Sale #": adv.sale_no if adv else None,
-            "Location": f.location.split(" (")[0] if f else snapshot.treasury[pin].address,
-            "Neighborhood": snapshot.treasury[pin].neighborhood,
-            "Zone": f.zoning_polygon if f else (snapshot.treasury[pin].zon_code or "unknown"),
+            "Parcel": ((f.location.split(" (")[0] if f else snapshot.treasury[pin].address)
+                       + f" · {snapshot.treasury[pin].neighborhood}"),
             "Outcome": text.OUTCOME_SHORT[r.outcome],
             "Development Ease": r.ease.display if r.ease else "n/a",
             "Evidence": r.coverage_display,
@@ -308,6 +364,7 @@ class ComponentVM:
     value: str  # engine component_display: "2", "1-2", "withheld", "n/a"
     status: str
     status_plain: str
+    short_reason: str
     reason: str
     withheld: bool
 
@@ -395,6 +452,7 @@ def _component_vm(c: ComponentScore) -> ComponentVM:
         value=component_display(c),
         status=c.status,
         status_plain=text.COMPONENT_STATUS_PLAIN.get(c.status, c.status),
+        short_reason=c.short_reason or c.reason or "Reason not recorded",
         reason=c.reason or "",
         withheld=c.status == "withheld",
     )
@@ -446,9 +504,16 @@ def _tiles(snapshot: Snapshot, pin: str, result: ScreeningResult) -> list[TileVM
     z_rows.append(("Base-setback screen", result.setback_screen))
     overlays = [o for o in (f.other_overlay,) if o]
     if f.slope25:
-        overlays.append("25%+ slope layer overlaps: steep-slope standards may apply (counted once, under environment)")
-    if rule is not None and rule.site_standard:
-        overlays.append(f"Site standard: {rule.site_standard}")
+        overlays.append("25%+ slope layer overlaps: steep-slope standards may apply (§906.08; counted once, under environment)")
+    if rule is not None and rule.site_standard_summary:
+        sentences = [s.strip() for s in rule.site_standard_summary.split(". ") if s.strip()]
+        if not f.slope25:
+            sentences = [s for s in sentences if "§906.08" not in s]
+        summary = ". ".join(sentences)
+        if summary and not summary.endswith("."):
+            summary += "."
+        if summary:
+            overlays.append(f"Site standards: {summary}")
     z_rows.append(("Overlays & site standards", "; ".join(overlays) if overlays else "none recorded"))
     z_flags = [c.summary for c in result.conflicts if c.kind == "lot_area"]
 
@@ -517,7 +582,8 @@ def provenance_rows(result: ScreeningResult) -> list[dict[str, str]]:
 def next_check_rows(result: ScreeningResult) -> list[dict[str, str]]:
     return [
         {"Check": nc.check, "Who resolves it": nc.owner, "Reason listed": trigger_plain(nc.trigger),
-         "Standard": "yes" if is_standard(nc) else "no"}
+         "Standard": ("pre-spend" if nc.trigger == policy.CURRENT_SALE_STATUS_TRIGGER else
+                      "yes" if is_standard(nc) else "no")}
         for nc in result.next_checks
     ]
 
@@ -538,7 +604,7 @@ def packet(
         address=t.address,
         outcome=r.outcome,
         outcome_label=r.outcome.value,
-        outcome_meaning=text.OUTCOME_MEANING[r.outcome],
+        outcome_meaning=outcome_meaning(snapshot, r),
         tone=text.OUTCOME_TONE[r.outcome],
         routing=routing,
         conflicts=[ConflictVM(c.level.value, c.kind, c.summary, c.affects, c.fact_ids) for c in r.conflicts],
@@ -579,6 +645,68 @@ def lot_options(snapshot: Snapshot, results: Mapping[str, ScreeningResult]) -> l
     return [(p, parcel_label(snapshot, p)) for p in vacant_pins(snapshot, results)]
 
 
+def packet_markdown(snapshot: Snapshot, result: ScreeningResult, packet_vm: PacketVM) -> str:
+    """Deterministic, handoff-ready packet; never exports UI checkbox state as verified."""
+    p = packet_vm
+    lines = [
+        f"# LotLine screening packet: {p.title}",
+        "",
+        f"PIN: {p.pin_short}  ",
+        f"Neighborhood: {p.neighborhood}  ",
+        "Snapshot: " + " · ".join(f"{label} {value}" for label, value in snapshot_dates(snapshot)),
+        "",
+        f"## Outcome\n\n{p.outcome_label}\n\n{p.outcome_meaning}",
+        "",
+        f"## Development Ease\n\n{p.ease_display}",
+    ]
+    critical = any(c.level == "critical" for c in p.conflicts)
+    if critical:
+        lines += ["", "Component values are withheld because a critical conflict prevents whole-parcel scoring."]
+    else:
+        for component in p.components:
+            lines.append(f"- {component.label}: {component.value} — {component.reason}")
+    lines += ["", f"Evidence coverage: {p.coverage_display}", "", "## Records conflicts"]
+    if p.conflicts:
+        for conflict in p.conflicts:
+            ids = ", ".join(conflict.fact_ids) or "none"
+            lines.append(f"- {conflict.level.title()}: {conflict.summary} Citations: {ids}")
+    else:
+        lines.append("- None identified by the engine.")
+    lines += ["", "## Principal barriers"]
+    lines += [f"{i}. {barrier}" for i, barrier in enumerate(p.barriers, 1)] or ["- None listed by the engine."]
+    lines += ["", "## Unresolved checks (not yet verified)"]
+    for check in p.next_checks:
+        lines.append(f"- [ ] {check['Check']} — {check['Who resolves it']} — {check['Reason listed']}")
+
+    from lotline.memo.deterministic import deterministic_memo
+    memo = deterministic_memo(result)
+    lines += ["", "## Deterministic cited memo"]
+    for claim in memo.claims:
+        citations = ", ".join(claim.fact_ids) or "no fact ID (caveat)"
+        lines.append(f"- {claim.text}  ")
+        lines.append(f"  Citations: {citations}")
+    lines += [
+        "", "## Limits", "",
+        "Decision support only — not legal, financial, title, survey or zoning advice.",
+        "Screening layers are not geotechnical or flood determinations. Contextual setbacks, utilities, "
+        "legal access, title, market demand, appraisal and community-plan alignment are not established.",
+        "Sale status may change by payment or court order; verify it before incurring costs.",
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def triage_csv(snapshot: Snapshot, results: Mapping[str, ScreeningResult]) -> str:
+    """CSV handoff of engine-rendered triage rows, preserving no-ranking framing."""
+    rows = triage_rows(snapshot, results)
+    output = io.StringIO()
+    fields = ["Framing", *TRIAGE_COLUMNS]
+    writer = csv.DictWriter(output, fieldnames=fields, extrasaction="ignore")
+    writer.writeheader()
+    for row in rows:
+        writer.writerow({"Framing": "Triage, not ranking", **row})
+    return output.getvalue()
+
+
 # --------------------------------------------------------------------------
 # View 3: compare
 # --------------------------------------------------------------------------
@@ -595,11 +723,13 @@ def compare_columns(
     for pin in pins:
         r = results[pin]
         comps = [c for c in (r.use, r.dimensional, r.environment) if c is not None]
+        critical = any(c.level is ConflictLevel.CRITICAL for c in r.conflicts)
         nc = first_specific_check(r)
         out[parcel_label(snapshot, pin)] = {
             "Outcome": r.outcome.value,
             "Development Ease": r.ease.display if r.ease else "n/a",
-            "Components": ", ".join(f"{c.name} {component_display(c)}" for c in comps) or "n/a (routed)",
+            "Components": ("Not shown: critical conflict prevents parcel scoring" if critical else
+                           ", ".join(f"{c.name} {component_display(c)}" for c in comps) or "n/a (routed)"),
             "Evidence coverage": r.coverage_display,
             "Principal barrier": r.barriers[0] if r.barriers else "none listed",
             "Next check": f"{nc.check} ({nc.owner})" if nc else "none listed",

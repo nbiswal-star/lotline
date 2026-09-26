@@ -40,7 +40,7 @@ OUTCOME_MEANING: dict[Outcome, str] = {
     Outcome.ADVANCE: (
         "A housing use is permitted, no critical record conflict was found, and lot area "
         "meets the district minimum in every source. This is an apparent lower-discretion "
-        "zoning path worth staff time. It is not a finding that the lot is buildable and "
+        "zoning path worth staff time. It is not a finding that development can proceed and "
         "not an acquisition recommendation."
     ),
     Outcome.DEFER_RECORDS: (
@@ -57,8 +57,8 @@ OUTCOME_MEANING: dict[Outcome, str] = {
     ),
     Outcome.SIDE_YARD: "Not evaluated: requires Land Bank ownership and adjacent-owner data not in v1.",
     Outcome.OUT_OF_UNIVERSE: (
-        "Listed in the open-data Treasury feed but not in the City advertisement dated "
-        "9/16/2026, so it is outside this sale as advertised."
+        "Listed in the open-data Treasury feed but not in the controlling City advertisement, "
+        "so it is outside this sale as advertised."
     ),
     Outcome.STRUCTURE: (
         "The assessment record indicates a building. LotLine's vacant-land model does not "
@@ -126,17 +126,12 @@ TILE_UNKNOWN = {
     "policy": "Community plan alignment not evaluated",
 }
 
-TREASURER_SALE_BADGE = "City Treasurer Sale · October 2, 2026"
 TREASURER_SALE_TERMS: tuple[str, ...] = (
     "Competitive bidding; the upset price is the opening bid",
     "90-day redemption period after the sale",
     "Title is not cleared by the sale",
     "Liens, including water claims, survive the sale",
     "No Land Bank (PLB) priority verified for this parcel",
-)
-TREASURER_SALE_CITATION = (
-    "Second Class City Treasurer's Sale and Collection Act (Act 171 of 1984) and the "
-    "City of Pittsburgh Treasurer Sale regulations for the 10/2/2026 sale"
 )
 ACQUISITION_BURDEN_NOTE = "acquisition-burden indicator only; not market value or an appraisal"
 
@@ -175,8 +170,8 @@ GLOSSARY: tuple[tuple[str, str], ...] = (
 CONTRACT_CASES: tuple[tuple[str, str], ...] = (
     ("1 · Centre Ave 10S5: vacant vs active condemned case", "Not scorable (critical conflict)"),
     ("2 · Centre Ave 10S5: 1,672 vs 4,305 sf vs 2,400 sf minimum", "Dimensional withheld (material conflict)"),
-    ("3 · In open data, not in 9/16 advertisement", "Routed out of the sale universe"),
-    ("4 · Kemper St: 55% area gap, no known threshold", "Disclosed only; dimensions withheld because P-district rules not encoded"),
+    ("3 · In open data, not in the controlling advertisement", "Routed out of the sale universe"),
+    ("4 · Kemper St: 55% area gap, no known threshold", "Disclosed only; P-district dimensions encoded; no score change"),
     ("5 · Mossfield St: 32% gap, both above 3,200 sf", "Disclosed only; no score change"),
     ("6 · SYNTHETIC injection text in a violation record", "Engine result unchanged; instruction not reflected in memo"),
     ("7 · Unknown PIN typed in search", "No packet; 'PIN not found in snapshot'"),

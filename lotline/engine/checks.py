@@ -51,8 +51,10 @@ LAYER_REQUERY = "re-run screening layer query"
 SETBACK_RULE = "confirm district setbacks"
 MIN_LOT_RULE = "confirm district minimum lot size"
 
-BASE_CHECKS: tuple[str, ...] = (CONTEXTUAL, SURVEY, TITLE, LEGAL_ACCESS, UTILITIES, MARKET)
-NO_HOUSING_BASE: tuple[str, ...] = (ZONING_TABLE, NON_HOUSING, TITLE, LEGAL_ACCESS, UTILITIES)
+BASE_CHECKS: tuple[str, ...] = (policy.CURRENT_SALE_STATUS_CHECK, CONTEXTUAL, SURVEY, TITLE,
+                               LEGAL_ACCESS, UTILITIES, MARKET)
+NO_HOUSING_BASE: tuple[str, ...] = (policy.CURRENT_SALE_STATUS_CHECK, ZONING_TABLE, NON_HOUSING,
+                                   TITLE, LEGAL_ACCESS, UTILITIES)
 
 OWNERS: dict[str, str] = {
     CORNER: "licensed surveyor / County plat",
@@ -78,6 +80,7 @@ OWNERS: dict[str, str] = {
     LAYER_REQUERY: "acquisition staff (GIS data refresh)",
     SETBACK_RULE: "Zoning Administrator",
     MIN_LOT_RULE: "Zoning Administrator",
+    policy.CURRENT_SALE_STATUS_CHECK: policy.CURRENT_SALE_STATUS_OWNER,
 }
 DIMENSIONS_OWNER = "Zoning Administrator"
 
@@ -233,7 +236,9 @@ def next_checks(i: CheckInputs) -> list[NextCheck]:
     if i.outcome is Outcome.OUT_OF_UNIVERSE:
         return [_nc(VERIFY_ADVERT, "routing: not in the City advertisement")]
     if i.outcome is Outcome.STRUCTURE:
-        out = [_nc(STRUCTURE_REVIEW, "routing: assessment indicates a structure")]
+        out = [NextCheck(policy.CURRENT_SALE_STATUS_CHECK, policy.CURRENT_SALE_STATUS_OWNER,
+                         policy.CURRENT_SALE_STATUS_TRIGGER),
+               _nc(STRUCTURE_REVIEW, "routing: assessment indicates a structure")]
         if ctx.advert is not None:
             out.append(_sale_terms(ctx))
         return out
@@ -247,7 +252,8 @@ def next_checks(i: CheckInputs) -> list[NextCheck]:
     if facts is not None and facts.possible_corner and not no_housing:
         add("corner_frontage", _nc(CORNER, "possible_corner"))
     for c in NO_HOUSING_BASE if no_housing else BASE_CHECKS:
-        add("standard", _nc(c, "base"))
+        trigger = policy.CURRENT_SALE_STATUS_TRIGGER if c == policy.CURRENT_SALE_STATUS_CHECK else "base"
+        add("standard", _nc(c, trigger))
         if c == TITLE and ctx.advert is not None:
             add("standard", _sale_terms(ctx))
 

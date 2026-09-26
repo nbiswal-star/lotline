@@ -196,6 +196,11 @@ SALE_TERMS_CHECK = (
     "secured claims are not divested ({sale_date} regulations; Act 171 of 1984 sec. 304)"
 )
 SALE_TERMS_OWNER = "title examiner or attorney"
+CURRENT_SALE_STATUS_CHECK = "verify current advertised sale status before incurring costs"
+CURRENT_SALE_STATUS_OWNER = "City Treasurer / Real Estate Division"
+CURRENT_SALE_STATUS_TRIGGER = (
+    "standard pre-spend gate: advertised status may change by payment or court order"
+)
 
 # Friendly names for the four screening layers (source_manifest ids).
 LAYER_NAMES: dict[str, str] = {
@@ -254,4 +259,6 @@ def impact_rank(category: str) -> int:
 
 # Trigger text of the Treasurer Sale terms check (a standard check, like "base").
 SALE_TERMS_TRIGGER = "advertised for the Treasurer Sale (treasurer_sale_regulations)"
-STANDARD_TRIGGERS: frozenset[str] = frozenset({"base", SALE_TERMS_TRIGGER})
+STANDARD_TRIGGERS: frozenset[str] = frozenset({
+    "base", SALE_TERMS_TRIGGER, CURRENT_SALE_STATUS_TRIGGER,
+})

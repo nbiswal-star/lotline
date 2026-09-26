@@ -192,7 +192,7 @@ class ClaudeDraftVM:
     status: str  # accepted | rejected | unavailable | refused | failed | cached_* | error
     headline: str
     memo: MemoVM | None
-    shown: str  # "Claude draft (claim-checked)" or "Deterministic cited memo"
+    shown: str  # "Claude-assembled memo (claim-checked)" or "Deterministic cited memo"
     claims_checked: int | None = None
     violations: list[ViolationVM] = field(default_factory=list)
     notes: list[str] = field(default_factory=list)
@@ -227,7 +227,7 @@ def claude_draft(result: Any, *, client: Any = None, use_cache: bool = True,
         status=d.status,
         headline=d.headline,
         memo=vm,
-        shown="Claude draft (claim-checked)" if accepted else "Deterministic cited memo",
+        shown="Claude-assembled memo (claim-checked)" if accepted else "Deterministic cited memo",
         claims_checked=getattr(report, "claims_checked", None) if report is not None else None,
         violations=_violations(report) if not accepted and report is not None else [],
         notes=notes,

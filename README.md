@@ -14,6 +14,8 @@ AI Horizons 2026 AI for Housing Hackathon · Challenge 1: Development Feasibilit
 
 **Who it is for.** A public-interest acquisition analyst (Land Bank, URA, a CDC, or a City agency) screening a tax-sale list before committing title and survey work. The pilot path we propose: a Pittsburgh Land Bank or CDC acquisitions team, with the snapshot refreshed before each Treasurer Sale advertisement. This is a proposal; LotLine has no affiliation with the City, URA, PLB or any agency.
 
+**Proposed one-sale-cycle pilot (hypothetical; no agency participation is implied).** One acquisitions analyst at a Pittsburgh CDC or land-bank team owns the screening queue. A designated data steward manually refreshes the public-source snapshot when the City publishes the advertisement, records every source date, and reruns validation; changed universe counts stop the import for review rather than flowing through silently. City Planning/Zoning, PLI, the Treasurer/Real Estate Division, County Real Estate, and licensed specialists remain escalation partners—not LotLine operators. The pilot measures (1) analyst hours from advertisement to a review-ready shortlist, (2) decision-changing record conflicts found before paid title/survey work, and (3) packets accepted by staff without missing an owner or next check. Operating inputs are staff time for the manual refresh and review, low-cost app hosting if shared, and optional Claude API use; the deterministic workflow requires neither hosting nor model spend.
+
 ## Status
 
 Built during the AI Horizons 2026 AI for Housing Hackathon (Sat Sep 26, 09:00 ET to Sun Sep 27, 2026).
@@ -40,8 +42,8 @@ The manual split, district rules, source manifest, polygon zoning, slope25, unde
 ## AI tool disclosure
 
 - **Claude Code (Claude Opus 5.5)**: coding assistant used during the build.
-- **OpenAI Codex**: used before the build to review the plan and to help restructure the prepared CSVs (data preparation only).
-- **Claude (Anthropic API)**: runtime memo narration behind a deterministic claim checker (added during the build).
+- **OpenAI Codex**: used before the build to review the plan and restructure prepared CSVs, and during the build to review, test and implement parts of the application and documentation.
+- **Claude (Anthropic API)**: optional runtime selection and ordering of engine-approved memo claims behind a deterministic checker (added during the build).
 
 ## Libraries
 
@@ -56,17 +58,17 @@ uv run streamlit run app.py      # opens http://localhost:8501; works fully offl
 uv run pytest -q                 # full test suite
 ```
 
-Optional: set `ANTHROPIC_API_KEY` to let the memo panel draft a narrative with Claude. The draft is shown only if the deterministic claim checker accepts it; otherwise, and whenever the key, network or model is unavailable, the deterministic cited memo is shown. Nothing else uses the network.
+Optional: set `ANTHROPIC_API_KEY` to let Claude select and order an approved set of cited claims. The assembled memo is shown only if the deterministic claim checker accepts it; otherwise, and whenever the key, network or model is unavailable, the deterministic cited memo is shown. Nothing else uses the network.
 
 ## How it works
 
-**The LLM writes; the engine decides; the checker enforces.**
+**The engine decides; Claude assembles; the checker enforces.**
 
 1. **Immutable snapshots** (`lotline/loaders.py`). Cached CSVs are loaded with explicit column allowlists and validated at startup (schemas, unique PINs, dates, and the universe counts 96 / 77 / 19 / 63 / 14). Answer-key columns cannot be selected, and test labels are never read by the app.
 2. **Runtime reconciliation** (`lotline/reconcile.py`). The City advertisement is matched to the WPRDC list by normalized PIN, with the upset price as a cross-check.
 3. **Flat, cited facts** (`lotline/facts.py`). Every value becomes a fact `PIN:field:source` with its source and as-of date. District rules become `RULE:district:field` facts.
 4. **Deterministic engine** (`lotline/engine/`). Pure functions own routing, conflict detection (critical / material / disclose), use entitlement, the illustrative setback screen, hazard families, evidence coverage, the Development Ease result, barriers and next checks. All thresholds live in `lotline/engine/policy.py`. Unknown inputs are withheld, never scored as zero.
-5. **Memo and claim checker** (`lotline/memo/`). A deterministic cited memo is always available. An optional Claude draft must pass every checker rule: each claim cites facts of the active parcel, numbers match those facts, code sections are on a versioned allowlist, status agrees with the engine, and forbidden words are rejected. The draft also may not pick a side in a records conflict, may not author conflict summaries, must qualify approximate facts, and may not echo instructions found in source text. One violation rejects the whole draft.
+5. **Memo and claim checker** (`lotline/memo/`). A deterministic cited memo is always available. Claude may optionally select and order 6–12 immutable, engine-approved claim IDs; it cannot submit prose, citations, outcomes, scores, checks or owners. The server resolves those IDs, inserts mandatory status, adverse evidence and action claims, then runs the same deterministic checker as defense in depth. Unknown, duplicate, malformed or rejected selections fall back to the deterministic memo.
 6. **Streamlit UI** (`app.py`, `lotline/ui/`) renders engine output only. It has four views: sale pipeline and triage, parcel packet, compare, and integrity.
 
 ## Data sources

@@ -201,3 +201,11 @@ Other rows: the same items moved behind parcel-specific checks (base checks last
 - The use reason cites sections as "§911.02" (was "Section 911.02"), matching every other engine text. No label contains it.
 - Every scored component now carries a concise `short_reason` (≤ 90 characters) used by the UI card; the full reason stays in `reason`.
 - `data/district_rules.csv` gains an optional `site_standard_summary` column (plain-language, cited) for display; the raw `site_standard` text is kept as provenance.
+
+## Round 4: current-sale pre-spend gate (2026-09-26)
+
+Every advertised parcel now includes the standard next check **"verify current advertised sale status before incurring costs"**, owned by **City Treasurer / Real Estate Division**. It is the first item inside the standard-check group; parcel-specific checks remain ordered by decision impact above that group. This check operationalizes the existing frozen-snapshot warning that advertised status may change by payment or court order before the sale.
+
+The check was added to the 14 advertised rows in `tests/fixtures/expected_labels.csv`. The one record routed out because it is not in the advertisement retains its existing advertisement-verification routing check. No outcome, score, coverage, conflict, barrier, hazard family or parcel-specific check changed.
+
+**Basis:** City advertisement dated 2026-09-16; the snapshot/staleness policy in `docs/build_contract.md` §§6 and 8; Treasurer Sale status can change before the recorded sale date. This is a workflow safeguard, not a new zoning or sale-law rule.

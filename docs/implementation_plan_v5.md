@@ -353,3 +353,14 @@ The winning product is not the broadest parcel application. It is a reliable dec
 3. the AI cannot override the evidence or the deterministic engine.
 
 Once those three claims work end to end, stop adding features and rehearse.
+
+## 14. Round 4 safety amendment (2026-09-26)
+
+Adversarial review found that citation existence and numeric/status checks did not prove the semantic truth of arbitrary ordinary prose. The runtime-model boundary is therefore narrower than the original plan above:
+
+- the deterministic memo defines a stable catalog of immutable claim atoms;
+- Claude returns only 6–12 unique opaque `claim_id` values, never prose, types, citations, checks or owners;
+- the server rejects unknown, duplicate or malformed IDs, resolves approved atoms, and inserts mandatory status, score/abstention, conflict, withheld-component, principal-barrier and first-action claims;
+- the existing claim checker then runs again as defense in depth; every failure shows the deterministic memo.
+
+The current product message is **The engine decides; Claude assembles; the checker enforces.** The earlier free-text design in §§5–6 is retained above as historical planning context but is superseded by this amendment.

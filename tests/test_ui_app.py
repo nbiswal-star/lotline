@@ -9,6 +9,8 @@ from lotline.engine import screen
 from lotline.loaders import context_for, load_snapshot, lookup_pin
 from tests.conftest import BENEZET, CENTRE_10S5, REPO_ROOT
 
+MICHIGAN_15S66 = "0015S00066000000"
+
 APP = str(REPO_ROOT / "app.py")
 SNAP = load_snapshot()
 
@@ -53,6 +55,7 @@ def test_benezet_packet(at: AppTest) -> None:
                     "Community plan alignment not evaluated"):
         assert unknown in body
     assert "Act 171 of 1984" in body
+    assert "Before incurring costs" in body
 
 
 def test_centre_packet(at: AppTest) -> None:
@@ -67,6 +70,7 @@ def test_centre_packet(at: AppTest) -> None:
         elif c.level.value == "material":
             assert any(c.summary in w.value for w in at.warning)
     assert r.ease.display in _texts(at)
+    assert "Component values are not shown because a critical conflict" in _texts(at)
 
 
 def test_unknown_pin(at: AppTest) -> None:
@@ -92,9 +96,19 @@ def test_compare_view(at: AppTest) -> None:
     body = _texts(at)
     assert "What explains the difference" in body
     assert "Benezet St" in body and "Michigan St" in body
+    assert at.selectbox(key="cmp_select_a").value == BENEZET
+    assert at.selectbox(key="cmp_select_b").value == MICHIGAN_15S66
+
+    # A changed widget value and its rendered card must stay in sync.
+    at.selectbox(key="cmp_select_a").set_value(CENTRE_10S5).run()
+    assert not at.exception, at.exception
+    assert at.selectbox(key="cmp_select_a").value == CENTRE_10S5
+    assert "Centre Ave" in _texts(at)
 
 
 def test_integrity_view(at: AppTest) -> None:
     at.radio(key="view").set_value("Integrity").run()
     assert not at.exception, at.exception
-    assert "The LLM writes; the engine decides; the checker enforces." in _texts(at)
+    assert "The engine decides; Claude assembles; the checker enforces." in _texts(at)
+    assert "not encoded: **RIV-RM**" in _texts(at)
+    assert "summary(run_cases())" not in _texts(at)

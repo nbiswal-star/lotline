@@ -109,8 +109,8 @@ def init_state(cfg: vmod.DemoConfig) -> None:
     ss.setdefault("lot_select", cfg.default_packet)
     ss.setdefault("pin_text", "")
     if cfg.compare_default:
-        ss.setdefault("cmp_a", cfg.compare_default[0])
-        ss.setdefault("cmp_b", cfg.compare_default[1])
+        ss.setdefault("cmp_pin_a", cfg.compare_default[0])
+        ss.setdefault("cmp_pin_b", cfg.compare_default[1])
 
 
 def open_packet(pin: str) -> None:
@@ -153,6 +153,10 @@ def on_hero(pin: str) -> None:
     st.session_state.pin_text = ""
 
 
+def on_compare_select(side: str) -> None:
+    st.session_state[f"cmp_pin_{side}"] = st.session_state[f"cmp_select_{side}"]
+
+
 # --------------------------------------------------------------------------
 # Header
 # --------------------------------------------------------------------------
@@ -181,13 +185,14 @@ def render_header(snapshot, results) -> None:
 
 def render_pipeline(snapshot, results) -> None:
     f = vmod.funnel(snapshot, results)
-    st.subheader("From 96 open-data records to 14 vacant lots worth screening")
+    advert_date = vmod.display_date(vmod.source_date(snapshot, "city_advertisement"))
+    st.subheader(f"From {f.treasury} open-data records to {f.vacant} vacant lots worth screening")
     st.markdown(
         f"""
 <div class="ll-funnel">
   <div class="ll-step"><div class="n">{f.treasury}</div><div class="d">records in the WPRDC Treasury Sales open-data feed</div></div>
   <div class="ll-arrow">→</div>
-  <div class="ll-step keep"><div class="n">{f.advertised}</div><div class="d">in the City advertisement (9/16/2026)<br>PIN match {f.pins_matched}/{f.advertised} · price check {f.prices_agree}/{f.advertised}</div></div>
+  <div class="ll-step keep"><div class="n">{f.advertised}</div><div class="d">in the City advertisement ({advert_date})<br>PIN match {f.pins_matched}/{f.advertised} · price check {f.prices_agree}/{f.advertised}</div></div>
   <div class="ll-arrow">→</div>
   <div class="ll-step out"><div class="n">{f.structures}</div><div class="d">structures routed out: vacant-land model not applicable</div></div>
   <div class="ll-arrow">+</div>
@@ -219,17 +224,29 @@ def render_pipeline(snapshot, results) -> None:
         selection_mode="single-row",
         key="triage_table",
         column_config={
-            "Sale #": st.column_config.NumberColumn(width="small", help="Sale number in the City advertisement"),
-            "Development Ease": st.column_config.TextColumn(help=text.EASE_HELP),
-            "Evidence": st.column_config.TextColumn(help=text.COVERAGE_HELP, width="small"),
-            "Principal barrier": st.column_config.TextColumn(width="medium"),
+            "Sale #": st.column_config.NumberColumn(width=55, help="Sale number in the City advertisement"),
+            "Parcel": st.column_config.TextColumn(width=145),
+            "Outcome": st.column_config.TextColumn(width=145),
+            "Development Ease": st.column_config.TextColumn(width=120, help=text.EASE_HELP),
+            "Evidence": st.column_config.TextColumn(help=text.COVERAGE_HELP, width=70),
+            "Principal barrier": st.column_config.TextColumn(width=215),
+            "First parcel-specific check": st.column_config.TextColumn(width=180),
+            "Who resolves it": st.column_config.TextColumn(width=190),
         },
         height=(len(df) + 1) * 35 + 3,
+    )
+    st.download_button(
+        "Download triage handoff (CSV)",
+        data=vmod.triage_csv(snapshot, results),
+        file_name="lotline-triage.csv",
+        mime="text/csv",
+        help="Engine-rendered rows in the same outcome grouping. Triage, not ranking.",
     )
 
     c1, c2 = st.columns(2)
     with c1, st.expander(f"{f.not_advertised} records not in the City advertisement"):
-        st.caption(text.OUTCOME_MEANING[Outcome.OUT_OF_UNIVERSE] + " No owner data is loaded or shown.")
+        routed = next(r for r in results.values() if r.outcome is Outcome.OUT_OF_UNIVERSE)
+        st.caption(vmod.outcome_meaning(snapshot, routed) + " No owner data is loaded or shown.")
         st.dataframe(pd.DataFrame(vmod.routed_rows(snapshot, results, Outcome.OUT_OF_UNIVERSE)),
                      hide_index=True, use_container_width=True)
     with c2, st.expander(f"{f.structures} advertised structures routed out"):
@@ -261,6 +278,7 @@ def _tone_style(value: object) -> str:
 def render_packet_picker(snapshot, results, cfg) -> None:
     options = vmod.lot_options(snapshot, results)
     labels = dict(options)
+    vacant_count = vmod.funnel(snapshot, results).vacant
     c1, c2 = st.columns([2, 3])
     with c1:
         st.text_input(
@@ -272,7 +290,7 @@ def render_packet_picker(snapshot, results, cfg) -> None:
         )
     with c2:
         st.selectbox(
-            "…or choose one of the 14 advertised vacant lots",
+            f"…or choose one of the {vacant_count} advertised vacant lots",
             options=[p for p, _ in options],
             format_func=lambda p: labels.get(p, p),
             key="lot_select",
@@ -312,6 +330,13 @@ def render_packet(snapshot, results, cfg) -> None:
     st.markdown(esc(p.outcome_meaning))
     if p.caption:
         st.caption(p.caption)
+    st.download_button(
+        "Download screening packet (Markdown)",
+        data=vmod.packet_markdown(snapshot, results[pin], p),
+        file_name=f"lotline-{p.pin_short.lower()}-packet.md",
+        mime="text/markdown",
+        help="Outcome, unresolved checks, deterministic memo, citations, snapshot dates and limits.",
+    )
 
     for w in p.warnings:
         st.warning(w, icon=":material/schedule:")
@@ -335,7 +360,7 @@ def render_packet(snapshot, results, cfg) -> None:
     r2 = st.columns(2)
     for col, key in zip([*r1, *r2], ("zoning", "environmental", "infrastructure", "policy")):
         with col:
-            render_tile(tiles[key], p if key == "policy" else None)
+            render_tile(snapshot, tiles[key], p if key == "policy" else None)
 
     render_barriers_and_checks(p)
     render_memo(snapshot, results, pin)
@@ -350,14 +375,19 @@ def render_scores(p: vmod.PacketVM) -> None:
         st.markdown(f"<div class='ll-big'>{esc(p.ease_display)}</div>", unsafe_allow_html=True)
         if p.ease_band:
             st.markdown(badge(f"Band: {p.ease_band}", "neutral", small=True), unsafe_allow_html=True)
-        cols = st.columns(len(p.components) or 1)
-        for col, c in zip(cols, p.components):
-            with col:
-                val = c.value if c.value in ("withheld", "n/a") else f"{c.value} / 2"
-                tone = "caution" if c.withheld else "neutral"
-                st.markdown(f"**{esc(c.label)}** &nbsp;{badge(val, tone, small=True)}<br>"
-                            f"<span class='ll-muted'>{esc(c.status_plain)}</span>", unsafe_allow_html=True)
-                st.caption(c.reason)
+        critical = any(c.level == "critical" for c in p.conflicts)
+        if critical:
+            st.caption("Component values are not shown because a critical conflict prevents whole-parcel scoring.")
+        else:
+            cols = st.columns(len(p.components) or 1)
+            for col, c in zip(cols, p.components):
+                with col:
+                    val = c.value if c.value in ("withheld", "n/a") else f"{c.value} / 2"
+                    tone = "caution" if c.withheld else "neutral"
+                    st.markdown(f"**{esc(c.label)}** &nbsp;{badge(val, tone, small=True)}<br>"
+                                f"<span class='ll-muted'>{esc(c.short_reason)}</span>", unsafe_allow_html=True)
+                    with st.expander("How this was computed"):
+                        st.caption(c.reason)
     with right, st.container(border=True):
         st.markdown("<div class='ll-label'>Evidence coverage</div>", unsafe_allow_html=True,
                     help=text.COVERAGE_HELP)
@@ -368,15 +398,18 @@ def render_scores(p: vmod.PacketVM) -> None:
         st.caption("Coverage measures what was checked, not how good the lot is.")
 
 
-def render_tile(t: vmod.TileVM, p: vmod.PacketVM | None) -> None:
+def render_tile(snapshot, t: vmod.TileVM, p: vmod.PacketVM | None) -> None:
     with st.container(border=True):
         st.markdown(f"#### {t.title}")
         for flag in t.flags:
             st.markdown(f"<div class='ll-flag'>⚑ {esc(flag)}</div>", unsafe_allow_html=True)
         if p is not None and p.treasurer_sale:
-            st.markdown(badge(text.TREASURER_SALE_BADGE, "neutral", small=True), unsafe_allow_html=True)
+            sale_date = vmod.sale_date(snapshot)
+            sale_long = vmod.display_date_long(sale_date)
+            st.markdown(badge(f"City Treasurer Sale · {sale_long}", "neutral", small=True), unsafe_allow_html=True)
             st.markdown("\n".join(f"- {term}" for term in text.TREASURER_SALE_TERMS))
-            st.caption(f"Source: {text.TREASURER_SALE_CITATION}.")
+            st.caption("Source: Second Class City Treasurer's Sale and Collection Act "
+                       f"(Act 171 of 1984) and the City Treasurer Sale regulations for {sale_date}.")
             for label, value in p.acquisition:
                 st.markdown(f"<div class='ll-row'><b>{esc(label)}:</b> {esc(value)}</div>", unsafe_allow_html=True)
         for label, value in t.rows:
@@ -394,7 +427,8 @@ def render_barriers_and_checks(p: vmod.PacketVM) -> None:
     st.markdown("### Next checks: who resolves what")
     st.caption("LotLine stops here. Each open question goes to a named human role before any money "
                "or commitment moves. Tick items as they are verified (this session only).")
-    specific = [c for c in p.next_checks if c["Standard"] != "yes"]
+    pre_spend = [c for c in p.next_checks if c["Standard"] == "pre-spend"]
+    specific = [c for c in p.next_checks if c["Standard"] == "no"]
     standard = [c for c in p.next_checks if c["Standard"] == "yes"]
 
     def checklist(rows: list[dict[str, str]], key: str) -> None:
@@ -406,12 +440,15 @@ def render_barriers_and_checks(p: vmod.PacketVM) -> None:
             column_config={"Verified": st.column_config.CheckboxColumn(width="small")},
         )
 
+    if pre_spend:
+        st.markdown("**Before incurring costs**")
+        checklist(pre_spend, f"checks_prespend_{p.pin}")
     if specific:
         st.markdown(f"**Specific to this parcel ({len(specific)})**")
         checklist(specific, f"checks_specific_{p.pin}")
     if standard:
         with st.expander(f"Standard checks for every advertised vacant lot ({len(standard)})",
-                         expanded=not specific):
+                         expanded=not specific and not pre_spend):
             checklist(standard, f"checks_standard_{p.pin}")
 
 
@@ -446,10 +483,35 @@ def render_provenance(p: vmod.PacketVM) -> None:
 
 
 def render_claims(vm) -> None:
-    for c in vm.claims:
-        chips = "".join(f"<span class='ll-chip'>{esc(fid)}</span>" for fid in c.fact_ids)
-        who = "" if c.author == "llm" else " <span class='ll-muted'>(engine)</span>"
-        st.markdown(f"<div class='ll-row'>{esc(c.text)}{who}<br>{chips}</div>", unsafe_allow_html=True)
+    sections = (
+        ("Decision and score", {"status", "score", "conflict_summary"}),
+        ("Evidence", {"fact"}),
+        ("Next checks", {"next_check"}),
+        ("Caveats", {"caveat"}),
+    )
+    shown: set[int] = set()
+    for title, types in sections:
+        claims = [(i, c) for i, c in enumerate(vm.claims) if c.claim_type in types]
+        if not claims:
+            continue
+        st.markdown(f"**{title}**")
+        for i, c in claims:
+            shown.add(i)
+            who = "" if c.author == "llm" else " <span class='ll-muted'>(engine)</span>"
+            citations = f" · {len(c.fact_ids)} citation{'s' if len(c.fact_ids) != 1 else ''}"
+            st.markdown(f"<div class='ll-row'>{esc(c.text)}{who}"
+                        f"<span class='ll-muted'>{citations}</span></div>", unsafe_allow_html=True)
+    for i, c in enumerate(vm.claims):
+        if i not in shown:
+            st.markdown(f"<div class='ll-row'>{esc(c.text)}</div>", unsafe_allow_html=True)
+    citation_rows = [
+        {"Claim": c.text, "Fact IDs": " · ".join(c.fact_ids) if c.fact_ids else "none"}
+        for c in vm.claims
+    ]
+    with st.expander(f"Full citation IDs ({sum(len(c.fact_ids) for c in vm.claims)} references)"):
+        st.dataframe(pd.DataFrame(citation_rows), hide_index=True, use_container_width=True,
+                     column_config={"Claim": st.column_config.TextColumn(width="large"),
+                                    "Fact IDs": st.column_config.TextColumn(width="large")})
 
 
 CLAUDE_TONE = {"accepted": "good", "cached_accepted": "good", "rejected": "critical", "cached_rejected": "critical",
@@ -472,8 +534,8 @@ def render_memo(snapshot, results, pin: str) -> None:
             vm, err = memo.build_memo(det, ctx=ctx, result=results[pin], snapshot=snapshot)
         key = f"claude_{pin}"
         # No network until this button is clicked.
-        if st.button("Draft with Claude (claim-checked)", key=f"btn_{key}"):
-            with st.spinner("Claude is drafting; the claim checker validates every sentence..."):
+        if st.button("Assemble with Claude (claim-checked)", key=f"btn_{key}"):
+            with st.spinner("Claude is selecting approved claims; the checker verifies the assembled memo..."):
                 st.session_state[key] = memo.claude_draft(results[pin])
         draft = st.session_state.get(key)
         if draft is not None:
@@ -495,12 +557,15 @@ def render_memo(snapshot, results, pin: str) -> None:
         if vm is None:
             st.caption(f"Memo unavailable ({err}). The packet above is complete without it.")
             return
-        label = "Claude draft (claim-checked)" if vm.source == "llm" else "Deterministic cited memo"
+        label = "Claude-assembled memo (claim-checked)" if vm.source == "llm" else "Deterministic cited memo"
         st.markdown(f"<span class='ll-label'>Showing:</span> " + badge(label, "neutral", small=True)
                     + (f" {badge(vm.checker_summary, 'good', small=True)}" if vm.checker_summary else ""),
                     unsafe_allow_html=True)
         if vm.fallback_reason and draft is None and vm.fallback_reason != "no model draft":
             st.caption(f"Fallback: {vm.fallback_reason}")
+        result = results[pin]
+        st.info(f"**Deterministic summary:** {result.outcome.value} · Development Ease "
+                f"{result.ease.display if result.ease else 'n/a'} · Evidence {result.coverage_display}")
         render_claims(vm)
         for n in vm.notes:
             st.caption(n)
@@ -518,9 +583,18 @@ def render_compare(snapshot, results, cfg) -> None:
     options = vmod.lot_options(snapshot, results)
     labels = dict(options)
     pins = [p for p, _ in options]
+    defaults = cfg.compare_default or (pins[0], pins[min(1, len(pins) - 1)])
+    selected_a = st.session_state.get("cmp_pin_a", defaults[0])
+    selected_b = st.session_state.get("cmp_pin_b", defaults[1])
+    if selected_a not in pins:
+        selected_a = defaults[0]
+    if selected_b not in pins:
+        selected_b = defaults[1]
     c1, c2 = st.columns(2)
-    a = c1.selectbox("Parcel A", pins, format_func=lambda p: labels[p], key="cmp_a")
-    b = c2.selectbox("Parcel B", pins, format_func=lambda p: labels[p], key="cmp_b")
+    a = c1.selectbox("Parcel A", pins, index=pins.index(selected_a), format_func=lambda p: labels[p],
+                     key="cmp_select_a", on_change=on_compare_select, args=("a",))
+    b = c2.selectbox("Parcel B", pins, index=pins.index(selected_b), format_func=lambda p: labels[p],
+                     key="cmp_select_b", on_change=on_compare_select, args=("b",))
     if not a or not b:
         return
     cols = vmod.compare_columns(snapshot, results, [a, b])
@@ -545,10 +619,10 @@ def render_compare(snapshot, results, cfg) -> None:
 
 def render_integrity(snapshot, results, cfg) -> None:
     st.subheader("Integrity: how LotLine keeps itself honest")
-    st.markdown("**The LLM writes; the engine decides; the checker enforces.** Scores, outcomes, "
-                "conflicts and next checks come from deterministic rules. A model may draft memo "
-                "prose, but a claim checker rejects any sentence that is uncited, changes a number, "
-                "or picks a winning source in a records conflict.")
+    st.markdown("**The engine decides; Claude assembles; the checker enforces.** Scores, outcomes, "
+                "conflicts, prose atoms and next checks come from deterministic rules. Claude may "
+                "select and order approved claim IDs, but it cannot submit prose or alter citations. "
+                "The checker verifies the assembled memo and any failure shows the deterministic fallback.")
 
     with st.container(border=True):
         st.markdown("#### Claim checker and red-team cases")
@@ -558,9 +632,6 @@ def render_integrity(snapshot, results, cfg) -> None:
             passed, total, rows = summary
             tone = "good" if passed == total else "critical"
             st.markdown(badge(f"{passed}/{total} cases passed · runs offline", tone), unsafe_allow_html=True)
-            line = memo.cases_summary(outcome)
-            if line:
-                st.caption(f"summary(run_cases()): {line}")
             st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
         else:
             st.caption("Live case results load here when the claim checker is available "
@@ -570,8 +641,8 @@ def render_integrity(snapshot, results, cfg) -> None:
 
     with st.container(border=True):
         st.markdown("#### Red-team: synthetic drafts run live through the checker")
-        st.caption("SYNTHETIC red-team inputs (not source data). Each runs through the same produce_memo "
-                   "pipeline a Claude draft uses; one violation rejects the whole draft.")
+        st.caption("SYNTHETIC red-team inputs (not source data). Each runs through the same guarded memo "
+                   "pipeline; one violation rejects the whole draft.")
         rt, rt_err = get_red_team()
         if rt_err:
             st.caption(f"Red-team runner unavailable ({rt_err}).")
@@ -595,9 +666,14 @@ def render_integrity(snapshot, results, cfg) -> None:
                        + ", ".join(f"{k} {v}" for k, v in sorted(counts.items())))
     with right, st.container(border=True):
         st.markdown("#### Known limits (v1)")
+        applicable = {d: rule for d, rule in snapshot.rules.items() if rule.dimensions_applicable}
+        encoded = sorted(d for d, rule in applicable.items() if rule.dimensions_encoded)
+        unencoded = sorted(d for d, rule in applicable.items() if not rule.dimensions_encoded)
+        rule_limit = (f"- Zoning dimensions encoded for **{len(encoded)} of {len(applicable)}** applicable "
+                      f"districts; not encoded: **{', '.join(unencoded) if unencoded else 'none'}**.\n")
         st.markdown(
             "- Screens **vacant** advertised lots only; structures are routed out.\n"
-            "- Zoning dimensions encoded for some districts; P, LNC and RIV-RM show as not encoded.\n"
+            + rule_limit +
             "- Base setbacks only; contextual setbacks (Ch. 925) not evaluated.\n"
             "- Screening map layers flag where to look; not geotechnical or flood determinations.\n"
             "- Utilities, legal access, title, market demand and appraisal not established.\n"

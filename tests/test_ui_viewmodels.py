@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import re
+import csv
+import io
 from datetime import date
 from pathlib import Path
 
@@ -68,7 +70,13 @@ def test_benezet_packet(snapshot, results) -> None:
     assert p.treasurer_sale
     assert [c["Check"] for c in p.next_checks] == [nc.check for nc in results[BENEZET].next_checks]
     assert all(c["Who resolves it"] for c in p.next_checks)
+    assert [c["Standard"] for c in p.next_checks].count("pre-spend") == 1
     assert len(p.provenance) == len(results[BENEZET].facts)
+    assert all(c.short_reason for c in p.components)
+    zoning = next(t for t in p.tiles if t.key == "zoning")
+    site_standards = next(value for label, value in zoning.rows if label == "Overlays & site standards")
+    assert "per-unit density" not in site_standards
+    assert "§906.08" not in site_standards  # Benezet has no slope25 overlap.
 
 
 def test_centre_packet_conflicts_verbatim(snapshot, results) -> None:
@@ -83,6 +91,7 @@ def test_centre_packet_conflicts_verbatim(snapshot, results) -> None:
     assert (p.area.assessment_sf, p.area.county_gis_sf) == ("1,672 sf", "4,305 sf")
     # Conflict-group facts are first in provenance.
     assert p.provenance[0]["Conflict group"]
+    assert p.outcome_meaning.startswith("A critical public-record conflict")
 
 
 def test_unknown_pin_path(snapshot) -> None:
@@ -123,6 +132,39 @@ def test_compare_columns(snapshot, results) -> None:
     for fam in results[MICHIGAN_15S66].hazard_families:
         assert fam in line
     assert line.endswith(".")
+
+    centre = vm.compare_columns(snapshot, results, [CENTRE_10S5])
+    centre_rows = next(iter(centre.values()))
+    assert centre_rows["Components"].startswith("Not shown: critical conflict")
+
+
+def test_dates_and_rule_limits_come_from_snapshot(snapshot) -> None:
+    assert vm.source_date(snapshot, "city_advertisement") == snapshot.manifest["city_advertisement"].snapshot_as_of
+    assert vm.sale_date(snapshot) == next(iter(snapshot.treasury.values())).sale_date
+
+
+def test_packet_export_is_deterministic_and_suppresses_critical_scores(snapshot, results) -> None:
+    benezet = vm.packet(snapshot, results, BENEZET)
+    export = vm.packet_markdown(snapshot, results[BENEZET], benezet)
+    assert "Unresolved checks (not yet verified)" in export
+    assert "Deterministic cited memo" in export and "Citations:" in export
+    assert "Decision support only" in export
+
+    centre = vm.packet(snapshot, results, CENTRE_10S5)
+    critical = vm.packet_markdown(snapshot, results[CENTRE_10S5], centre)
+    assert "Component values are withheld because a critical conflict" in critical
+    assert "Use: 2" not in critical and "Environment: 1" not in critical
+    for forbidden in ("environmentally clear", "will be sold"):
+        assert forbidden not in export.lower() and forbidden not in critical.lower()
+
+
+def test_triage_export_preserves_engine_order_and_no_ranking(snapshot, results) -> None:
+    exported = vm.triage_csv(snapshot, results)
+    lines = exported.splitlines()
+    assert len(lines) == 15
+    assert "Triage, not ranking" in exported
+    parsed = list(csv.DictReader(io.StringIO(exported)))
+    assert [row["Parcel"] for row in vm.triage_rows(snapshot, results)] == [row["Parcel"] for row in parsed]
 
 
 def test_short_pin_roundtrip(snapshot) -> None:
