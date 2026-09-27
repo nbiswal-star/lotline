@@ -1,4 +1,6 @@
-# LotLine live status and Codex handoff (read this first)
+# Historical WIP handoff (superseded)
+
+> This file captured the incomplete `wip/ai-readers` branch. It is no longer a current plan or status source. Read `AGENTS.md`, `docs/HANDOFF_CLAUDE.md`, `docs/scientific_validation.md`, and `docs/AI_PLAN.md` for the integrated state.
 
 **Written:** Sun Sep 27, early morning ET, by Claude, whose session was ending. **Code freeze:** Sun 15:00 ET. **Submission:** Sun 23:59 ET.
 **Finish line:** a demo that runs completely error-free, plus detailed context for recording the video.
@@ -18,12 +20,12 @@
 >
 > Read, in order: `AGENTS.md` (hard rules: the engine decides, no AI prose without verification, no answer keys in the app, no PIN literals, forbidden words, offline fallback, **no AI attribution in commits**), this file, `docs/AI_PLAN.md` (the vetted spec), `docs/RECORDING_RUNBOOK.md`, and `docs/demo_script.md`.
 >
-> **Strategic context.** The user and all three reviewers agreed that the earlier build looked like "a rules engine with AI garnish". The remaining work makes Claude do the real work: **reading the unstructured public record**, with code verifying every AI claim and the engine still deciding. The headline demo moment is Centre Ave 10-S-5. Its PLI record `CF-PLI-2024-060362` (2025-01-02) says "Demo permit issued. DP-2024-13867. Property is demolished. No violation. Case withdrawn from court.", while the condemned-properties list still shows an active case. The engine refuses to score. The AI reader surfaces this quote-verified evidence, cross-checked against the permit data, for the human resolver, and routes the case to a PLI close-out check.
+> **Historical strategic context.** The earlier build looked like "a rules engine with AI garnish". The integrated build now uses Claude for bounded retrieval from unstructured records; code verifies provenance and displayed quotes, while the engine still decides. See the current handoff for exact limits and results.
 >
 > **Step 1: bring the in-progress work to green.** The local working tree (also on branch `wip/ai-readers`) holds partly finished modules. Run `export PATH="$HOME/.local/bin:$PATH"; uv run pytest -q; echo $?` and `uv run python -m evaluation.run`. Finish, or fix, each workstream below against `docs/AI_PLAN.md`:
 > 1. **A1 enforcement-record reader.** `scripts/fetch_record_text.py`, `data/record_text.csv` (PLI violations, condemned properties and PLI permits text for the 15 prepared lots, all untrusted text), and `lotline/ai/evidence.py`.
 >    - API: `evidence_digest(pin, snapshot, *, client=None, use_cache=True, save_cache=True) -> EvidenceDigest`, plus `digest_lines` and `resolver_note`.
->    - Verification in code: exact-substring quotes of at least 8 tokens on clause boundaries; a clipped-negation guard; code-assigned dates and a latest/superseded `currency` tag; a lexicon check on the `indicates` label; two passes that must agree; injection rejection; demolition-permit `corroboration` from the permits data.
+>    - Historical design note; superseded by `docs/AI_PLAN.md` and the current implementation.
 >    - Cache: `data/ai_cache/evidence/`, re-verified on load.
 >    - Evaluation: `evaluation/ai_reader.py`, with recall against the pre-run labels in `tests/fixtures/record_relevance.csv`, an AI vs `keyword_baseline` comparison, and verification counts as n/N.
 >    - Tests: `tests/test_ai_evidence.py`. The engine must never read the record text.
@@ -37,7 +39,7 @@
 >    - a sale-specific cost worksheet;
 >    - a read-only live drift check against WPRDC;
 >    - an offline-safe outcome map;
->    - the header line "Claude reads the record. Rules decide. Code verifies every AI claim."
+>    - the header line "Claude reads the record. Rules decide. Code verifies source identity and every displayed quote."
 >
 > **Step 2: live AI runs** (the key is in `.env`). Run evidence digests for all 15 lots, the scripted Ask questions on Benezet and Centre, and ZBA extraction and relief paths. Save **only verified** caches, then confirm the app shows them offline with the key removed from its environment (`env -u ANTHROPIC_API_KEY uv run --offline streamlit run app.py`).
 >
@@ -67,7 +69,7 @@
 > | 3:10–3:50 | Pilot and business: Land Bank/URA per-sale license; metrics are analyst hours and title/survey dollars avoided; proposed, no affiliation |
 >
 > Also:
-> - Update the README first screen with the tagline: "LotLine's AI reads every public record on a tax-sale lot, quotes what matters, and stops analysts from spending title money on lots whose records disagree." Add an AI section.
+> - Update the README first screen with the scoped tagline: "Claude searches loaded enforcement histories and surfaces quote-grounded conflict evidence before analysts decide whether to begin paid diligence." Add an AI section.
 > - Re-capture `docs/fallback/*.png` for the changed screens.
 > - Update `docs/SUBMISSION_PAYLOAD.md` (AI disclosure: Claude Code, Codex, runtime Claude API as reader and assembler).
 >

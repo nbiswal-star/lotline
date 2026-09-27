@@ -3,9 +3,9 @@
 <!-- GENERATED FILE: do not edit by hand. Regenerate with the command below. -->
 
 - Command: `uv run python -m evaluation.run`
-- Repository HEAD: `e4e909b`
-- Generated (UTC): 2026-09-27T04:23:43Z
-- Software: python 3.12.14, pandas 3.0.6, streamlit 1.64.0, anthropic 1.8.0, pytest 9.1.1
+- Repository HEAD: `b7a47b4`
+- Generated (UTC): 2026-09-27T05:00:25Z
+- Software: python 3.12.12, pandas 3.0.6, streamlit 1.64.0, anthropic 1.8.0, pytest 9.1.1
 - Scope: one frozen snapshot of one dated Pittsburgh Treasurer Sale (Treasury pull 2026-09-24; City advertisement dated 2026-09-16). Nothing here measures predictive accuracy, real-world outcomes or generalization.
 
 ## Summary
@@ -19,6 +19,7 @@
 | 5 | Missingness and uncertainty injection | ok | 9/9 |
 | 6 | Experiment 6: unsafe comparator / ablation (post-hoc, illustrative) | ok | 6/6 |
 | 7 | Experiment 7: adversarial language fidelity (enumerated cases) | ok | 9/9 |
+| 8 | AI enforcement-record reader versus no-AI keyword baseline | ok | 8/8 |
 | 9 | Reproducibility record | ok | 3/3 |
 
 ## 1. Cohort reconstruction (independent join)
@@ -824,6 +825,36 @@ Internal assertions: **9/9 held.**
 | PASS | oracle negative control: 0 faults on the deterministic memo of every record | 0/96 flagged |
 | PASS | oracle positive controls: every mutated memo is flagged | 0 missed |
 
+## 8. AI enforcement-record reader versus no-AI keyword baseline
+
+The reference contains team judgments recorded before the team inspected these cached outputs, according to the run log, but committed afterward. It is not preregistered. It covers only the current-condition conflict records in this snapshot. Record-level precision and recall below are retrospective conformance measures, not model accuracy or general reliability.
+
+| Method | Relevant-record recall | Record precision | False positives | Misses |
+|---|---|---|---|---|
+| Claude + exact-quote verifier | 12/12 (100.0%) | 12/12 (100.0%) | 0 | 0 |
+| Keyword/lexicon baseline (no AI) | 12/12 (100.0%) | 12/21 (57.1%) | 9 | 0 |
+
+| PIN | Records | Relevant | AI TP/N | AI FP | AI FN | Keyword TP/N | Keyword FP | Keyword FN | Repeated-run tuple consistency |
+|---|---|---|---|---|---|---|---|---|---|
+| 0010R00108000000 | 11 | 4 | 4/4 | 0 | 0 | 4/4 | 7 | 0 | 7/9 |
+| 0010S00005000000 | 7 | 5 | 5/5 | 0 | 0 | 5/5 | 2 | 0 | 6/10 |
+| 0042D00039000000 | 3 | 3 | 3/3 | 0 | 0 | 3/3 | 0 | 0 | 8/8 |
+
+Internal assertions: **8/8 held.**
+
+| Result | Assertion | Detail |
+|---|---|---|
+| PASS | reference covers the loaded record universe for 0010R00108000000 | reference 11, loaded 11 |
+| PASS | AI surfaced only loaded record ids for 0010R00108000000 | surfaced 4 of 11 |
+| PASS | reference covers the loaded record universe for 0010S00005000000 | reference 7, loaded 7 |
+| PASS | AI surfaced only loaded record ids for 0010S00005000000 | surfaced 5 of 7 |
+| PASS | reference covers the loaded record universe for 0042D00039000000 | reference 3, loaded 3 |
+| PASS | AI surfaced only loaded record ids for 0042D00039000000 | surfaced 3 of 3 |
+| PASS | verified caches exist for every labeled parcel | 3/3 |
+| PASS | AI is Pareto-better than the frozen keyword baseline | AI TP/FP 12/0; keyword TP/FP 12/9 |
+
+**What this does and does not show.** This compares retrieval on a tiny, team-labeled, post-build Pittsburgh cohort. It shows whether constrained Claude retrieval reduces manual record triage relative to this declared keyword baseline. It does not establish analyst time savings, decision quality, cross-sale performance or external validity.
+
 ## 9. Reproducibility record
 
 **Cohort:** all committed inputs and all 96 screened records.
@@ -831,25 +862,55 @@ Internal assertions: **9/9 held.**
 | File | Bytes | sha256 |
 |---|---|---|
 | data/advert_2026-09-16_reconciliation.csv | 4830 | 8f014c397faea302f57aee1b5af54611ac73bf4deb23c7468fa874540606cccd |
+| data/ai_cache/evidence/0906eef45798.json | 4575 | 4355e47f9bbf03e945ef1b25b0f03f729ecf29c2e959e8dfd429ea5225d341f5 |
+| data/ai_cache/evidence/15738d562d54.json | 5555 | e102b9de89e5aa05dfadf1c79fb31ef993d6701c0ca64a560eadbb9d8c5f5c19 |
+| data/ai_cache/evidence/188da6e99a4d.json | 5376 | ba541a88af7b4b4b31fae52988a1e308574fb9b5e56334e162f3b3740cb8f9e0 |
+| data/ai_cache/evidence/3a70d97e5ba7.json | 4700 | 67181dca39574e3e175eacd35e4fa225b9a91abe186372b48a428a134b11af55 |
+| data/ai_cache/evidence/afacd93e9c61.json | 5810 | 7036cf75beb1b1bea8c9f8d3da89f3b051e5954303d58f8e6c154f2efc2627a0 |
+| data/ai_cache/evidence/b913d5ae57a2.json | 5117 | ae2a0f52a784e6c03b2e200b881dfefee95e9b9a4c5d585a8e45ee5d6064401f |
+| data/ai_cache/evidence/e4b4f718dbf1.json | 5414 | 738c91d37c59bd724e3405cfb7dd60699b406638b7070073915c6f1c0cef2ad8 |
+| data/ai_cache/evidence/ee26f7eddf30.json | 5319 | e884d1c80a964b80d04850d4487191ecee335b6ca3edec48bfdfa12f26a86214 |
+| data/ai_cache/evidence/ef690c9261f0.json | 5070 | 84e9fe0ebf0d807aed1f590a1384db7cca88fa124a10a7bcebaa3efe28ee5e13 |
+| data/ai_cache/zba/camp-street-16-of-2026.json | 1432 | 5befc5fc7f24c18ab0bcc799583d67dcb0c2d0c38b8a19ec09d5fb8a0d6546eb |
+| data/ai_cache/zba/code_quotes.json | 1338 | 21e813f6a9c620a0e1d6bd15f50f5652cf9737ae4fdc9e55c205bcb0479998fc |
+| data/ai_cache/zba/e-jefferson-street-3-of-2026.json | 1392 | f6847f87ff48eb975ce469e46ba3f47a52e5c00f67a562969c513b19691bf260 |
+| data/ai_cache/zba/east-liberty-boulevard-87-of-2026.json | 1146 | 0f11b514413f6af5faba5b3a5f42acb06652a82bca7288a17c027c8a0e1bee09 |
+| data/ai_cache/zba/hillcrest-street-10-of-2026.json | 1383 | 54fe53918255753ddbc604b21be28fb82117616adfabc5dbd9526dd68c09a8b1 |
+| data/ai_cache/zba/rockland-avenue-96-of-2026.json | 1630 | 5786eb3ae85713292f18d6122cfbf50881d732ac01524965678a22674d00da2d |
+| data/ai_cache/zba/spring-garden-avenue-158-of-2025.json | 1397 | f4a556d7e5474ca507870fe780b552a49ca2dbfb0299e6e40bd35340d888db08 |
+| data/code_excerpts.json | 30579 | 8d4b1cebcee646bd78fe821446a407757a4079f12c696cf22c93516c6528c057 |
+| data/cost_assumptions.csv | 1648 | c781cb4566265dd24444f7f2b5798910a3e13052328a2d2a308395717b171cb8 |
 | data/demo_config.json | 1000 | 8dc432b656bf962d246315bff2c017cf4ee3cae378f3742978f8b5ddcd146fd0 |
 | data/district_rules.csv | 4082 | d23b09df8b8cd5d527424c74d21154d775c3b7b4a3b2ce1c9b099a11c439c55a |
 | data/parcel_facts.csv | 3142 | ef9320609a15753a9190836d832ee5b331751492b157f6ec075d53d632be4168 |
-| data/source_manifest.csv | 1514 | dd992c42cbb95d3ede762147290c82f8dbb95a3f729a68b312cb803c6bf68593 |
+| data/record_text.csv | 59803 | 15046514e5118551888a380382753beab61cb3760249a814312678717c7b9d40 |
+| data/source_manifest.csv | 1727 | 955748b9b2ae9e5686ad0e8041eb2ee8196fe69cf97d65695777dc4c77299e62 |
 | data/treasury_sale_2026-10-02_enriched.csv | 24169 | 8fd619db5e014bd84fcdc36ed1ca2853fd0a22cc93364b1f251e8a93b0c08367 |
-| pyproject.toml | 281 | 8759f53fc68de7e5bb90f1d100d1421d8a18277c1ad3c5e6e093dcb8e40ac3ed |
+| data/zba/buena-vista-street-19-of-2026.txt | 8557 | 5ac9ab2bec89c252691e31b5943d44525a1dcd6698d7f2f7dd8ca0ff335ec787 |
+| data/zba/camp-street-16-of-2026.txt | 3746 | fdedbfc3d516554ab63e9c287eef79c1e42ba7fe853c773f6eed2587d8deced8 |
+| data/zba/code_sections.json | 5632 | 3444247924e8c3672a156504dd3480a6dc41322badd8e62239acf0b0d9eb07ee |
+| data/zba/e-jefferson-street-3-of-2026.txt | 13747 | 4c54b8124ed0205ca301242b552f9fc000bd85e2988acf6025d13862e00c2c0c |
+| data/zba/east-liberty-boulevard-87-of-2026.txt | 6088 | e4944d31568fec3a21c57fd0d7e010d4fd4b2fdbcbbf559f4ab0420ddf716efc |
+| data/zba/hillcrest-street-10-of-2026.txt | 4960 | 02e02fbe5a1e66c42b0456ac70910334379742ad53a8f19d0c4d8a93dc212e8f |
+| data/zba/index.csv | 2509 | 2c24c0b0357c27779e485bdb6534ecf7f0284c8b2f78fc9302ab5f71adfe080b |
+| data/zba/kendall-street-58-of-2026.txt | 9758 | f6a8cd4bb9b389240a8581e27919909bce85ab4fe48250586141cb89346f5c2c |
+| data/zba/rockland-avenue-96-of-2026.txt | 7771 | ab16d718c7c32b82bca756184a023324d562b6fea1eb4ce5182a6ff30409faef |
+| data/zba/spring-garden-avenue-158-of-2025.txt | 7275 | 78acdff1321e60148e390bc19e410e3004c238988eecfb443e4a1ddec2454a14 |
+| pyproject.toml | 302 | 97a2c590ceba4f3df3f946f96ba610ae33b5e2401124dfa166395f3872068cea |
 | tests/fixtures/expected_labels.csv | 12108 | 0094cb71c20716e7fca0b88ea47bce6248b64520f5122c370f6a72694ba78077 |
 | tests/fixtures/expected_reconciliation.csv | 6446 | 49ec1177589e3257a8cb2c7cb43248580cf0cc3f2d8340ea32d9e02d4db8db1f |
-| uv.lock | 276766 | 3d05e0250f92f3c030d05aee2fbd914b0ec0fa8427799c648071bf2c1c92dceb |
+| tests/fixtures/record_relevance.csv | 2945 | aae6f48ce0333f9dec428a7f11b8985e68ce342b990c362f0b055449afa7b4cc |
+| uv.lock | 277528 | b9d9d4b2b43fa2cce83a0cce748b663c39278adec31565399a513e9fe4d879b8 |
 
 | Component | Version |
 |---|---|
-| python | 3.12.14 |
+| python | 3.12.12 |
 | implementation | CPython |
 | pandas | 3.0.6 |
 | streamlit | 1.64.0 |
 | anthropic | 1.8.0 |
 | pytest | 9.1.1 |
-| git HEAD (short) | e4e909b |
+| git HEAD (short) | b7a47b4 |
 
 **Determinism:** two fresh snapshot loads + full screens in one process produced identical serialized results (sha256 `da1f27f3741835bebdc79b255e25437c30e7251bd3789b13f971cbe8a53bcf9c`) and identical triage CSV (sha256 `49922d4efb8115520c8c31154a0899e3fc474ea907e8ede5d756d2a90384b60f`).
 

@@ -25,7 +25,7 @@ The form link is in the official participant packet and in Slack. It closes **Su
   - plain-language barriers;
   - next checks, each routed to the named human who resolves it (surveyor, title examiner, Zoning Administrator, PLI, geotechnical engineer).
 - **Refusing to score.** When public records disagree in a way that changes the decision, LotLine refuses to score. For example, one "vacant" lot is 1,672 sf in the assessment and 4,305 sf in County GIS, on either side of its 2,400 sf zoning minimum, and still has an active condemned case attached.
-- **The AI boundary.** A deterministic engine makes every decision. Claude may only select and order engine-approved claims for the memo, and a 12-rule claim checker rejects anything uncited, anything that changes a number, and anything that picks a winning source. The app runs fully offline, with a deterministic cited memo as the fallback.
+- **The AI boundary.** A deterministic engine makes every decision. Claude reads unstructured enforcement histories and proposes exact event-bearing passages; code checks the source ID, field, recorded date, quote and supported semantic label, and neutrally notes later-dated records without treating them as superseding. Claude also maps questions to fixed frames, engine-authored claim IDs and verbatim code excerpts—never model-written prose. None of these outputs can change a score, conflict, outcome or next check. The app's deterministic screening and cited memo remain available offline.
 
 **Who it's for.** Public-interest acquisition analysts at a land bank, the URA, a CDC or a City agency. They screen tax-sale lists before committing title and survey money.
 
@@ -63,7 +63,7 @@ Full identifiers are in the README.
 
 - **Claude Code (Anthropic).** Coding assistant during the build window, including multi-agent build and review.
 - **OpenAI Codex.** Plan review and restructuring of the prepared CSVs before kickoff (data preparation only), plus implementation and handoff work during the build window.
-- **Claude API (claude-opus-5), at runtime and optional.** It only selects and orders engine-approved memo claims behind a deterministic checker. The app is fully functional offline without it.
+- **Claude API (claude-opus-5), at runtime and optional.** It performs bounded extraction from enforcement/ZBA documents, question-to-verified-atom selection, and memo claim ordering. Exact quotes and identifiers are rechecked; unsupported semantics are withheld; the engine is isolated from model output. Verified caches support the demo offline.
 - All scoring, routing, conflict detection and next checks are deterministic Python, not AI output.
 
 ## Limitations (paste if a field allows)

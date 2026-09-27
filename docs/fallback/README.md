@@ -13,3 +13,5 @@ Captured from the offline app at 1280×800 on 2026-09-26. The app frames are rea
 - `07-pilot.png` — limitations and the proposed one-sale-cycle operating plan.
 
 Every asset was opened and checked for legibility after capture. The recording still must follow the timing and language controls in `docs/demo_script.md`.
+
+The AI-first final pass adds three 1280×800 recovery frames rendered from committed results: `08-ai-reader.png` (Centre evidence plus no-AI counterfactual), `09-ask-verified.png` (bounded Ask LotLine plus live-smoke denominators), and `10-science.png` (scientific results and limits). Their editable HTML sources sit beside them. They are fallback frames, not substitutes for showing the running app.

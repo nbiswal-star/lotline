@@ -108,7 +108,7 @@ def test_every_csv_read_uses_an_allowlist(monkeypatch: pytest.MonkeyPatch) -> No
     monkeypatch.setattr(loaders.pd, "read_csv", spy)
     load_snapshot()
     data_reads = [c for c in calls if c.get("nrows") != 0]
-    assert len(data_reads) == 5
+    assert len(data_reads) == 6  # 5 snapshot CSVs + optional record_text.csv
     for c in data_reads:
         usecols = c.get("usecols")
         assert usecols, f"{c['path']} read without usecols"
@@ -218,4 +218,4 @@ def test_app_starts_without_tests_or_docs(tmp_path: Path) -> None:
     res = subprocess.run([sys.executable, "-c", script], cwd=tmp_path, capture_output=True,
                          text=True, env={"PYTHONPATH": str(tmp_path), "PATH": ""})
     assert res.returncode == 0, res.stderr
-    assert res.stdout.strip() == "OK 5"
+    assert res.stdout.strip() == "OK 6"  # includes optional record_text.csv

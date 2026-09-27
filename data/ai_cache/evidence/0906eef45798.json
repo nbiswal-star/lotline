@@ -1,0 +1,144 @@
+{
+  "pin": "0023E00229000000",
+  "model": "claude-opus-5",
+  "created_at": "2026-09-27T04:37:16Z",
+  "elapsed_s": 13.7,
+  "runs": [
+    {
+      "items": [
+        {
+          "record_id": "CF-PLI-2023-039831",
+          "field": "investigation_findings",
+          "date": "2023-08-21",
+          "quote": "no violation found during time of inspection.",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2023-039831",
+          "field": "investigation_outcome",
+          "date": "2023-08-21",
+          "quote": "No Violation Found",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2023-039831",
+          "field": "status",
+          "date": "2023-08-21",
+          "quote": "Closed",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2023-039831",
+          "field": "case_file_type",
+          "date": "2023-08-21",
+          "quote": "Weeds/Debris",
+          "indicates": "other",
+          "relevance": "background"
+        },
+        {
+          "record_id": "CF-PLI-2022-013273",
+          "field": "investigation_findings",
+          "date": "2022-06-07",
+          "quote": "No violations found at time of inspection.",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2022-013273",
+          "field": "investigation_outcome",
+          "date": "2022-06-07",
+          "quote": "No Violation Found",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2022-013273",
+          "field": "status",
+          "date": "2022-06-07",
+          "quote": "Closed",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2022-013273",
+          "field": "case_file_type",
+          "date": "2022-06-07",
+          "quote": "Weeds/Debris",
+          "indicates": "other",
+          "relevance": "background"
+        }
+      ]
+    },
+    {
+      "items": [
+        {
+          "record_id": "CF-PLI-2023-039831",
+          "field": "investigation_findings",
+          "date": "2023-08-21",
+          "quote": "no violation found during time of inspection.",
+          "indicates": "other",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2023-039831",
+          "field": "investigation_outcome",
+          "date": "2023-08-21",
+          "quote": "No Violation Found",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2023-039831",
+          "field": "status",
+          "date": "2023-08-21",
+          "quote": "Closed",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2023-039831",
+          "field": "case_file_type",
+          "date": "2023-08-21",
+          "quote": "Weeds/Debris",
+          "indicates": "other",
+          "relevance": "background"
+        },
+        {
+          "record_id": "CF-PLI-2022-013273",
+          "field": "investigation_findings",
+          "date": "2022-06-07",
+          "quote": "No violations found at time of inspection.",
+          "indicates": "other",
+          "relevance": "background"
+        },
+        {
+          "record_id": "CF-PLI-2022-013273",
+          "field": "investigation_outcome",
+          "date": "2022-06-07",
+          "quote": "No Violation Found",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2022-013273",
+          "field": "status",
+          "date": "2022-06-07",
+          "quote": "Closed",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2022-013273",
+          "field": "case_file_type",
+          "date": "2022-06-07",
+          "quote": "Weeds/Debris",
+          "indicates": "other",
+          "relevance": "background"
+        }
+      ]
+    }
+  ]
+}

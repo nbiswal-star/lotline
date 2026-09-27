@@ -1,0 +1,144 @@
+{
+  "pin": "0075S00108000000",
+  "model": "claude-opus-5",
+  "created_at": "2026-09-27T04:38:01Z",
+  "elapsed_s": 18.5,
+  "runs": [
+    {
+      "items": [
+        {
+          "record_id": "CF-ES-2026-051255",
+          "field": "investigation_findings",
+          "date": "2026-08-21",
+          "quote": "VIOLATION REMAINS. ROUGHLY HALF OF LOT CUT. LOT RUNS ENTIRE LENGTH BETWEEN McCLURE & LECKY. ONCE REST OF LOT IS CUT CASE WILL BE WITHDRAWN.",
+          "indicates": "vacant_lot_condition",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-ES-2026-051255",
+          "field": "status",
+          "date": "2026-08-07",
+          "quote": "In Court",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-ES-2026-051255",
+          "field": "court_decision",
+          "date": "",
+          "quote": "Court Date Scheduled",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on court or lien status"
+        },
+        {
+          "record_id": "CF-ES-2026-051255",
+          "field": "violation_description",
+          "date": "",
+          "quote": "TALL WEEDS ON LOT AT McCLURE & MALEN ON NORTH SIDE",
+          "indicates": "vacant_lot_condition",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-ES-2026-026126",
+          "field": "investigation_findings",
+          "date": "2026-05-11",
+          "quote": "OVERGROWN VEGETATION ON LOT AT McCLURE AVENUE & MALDEN WAY ON NORTH SIDE",
+          "indicates": "vacant_lot_condition",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2021-000332",
+          "field": "investigation_findings",
+          "date": "2021-01-20",
+          "quote": "razed w/city demo.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "DP-2021-00337",
+          "field": "work_description",
+          "date": "2021-01-08",
+          "quote": "City Funded Demo 1.EMERGENCY DEMOLITION. Remove all garbage and debris, vegetation, fencing, concrete slabs, and steps.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2020-015003",
+          "field": "investigation_findings",
+          "date": "2020-09-04",
+          "quote": "This property is condemed and will be handled by demo inspector",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "background"
+        }
+      ]
+    },
+    {
+      "items": [
+        {
+          "record_id": "CF-ES-2026-051255",
+          "field": "investigation_findings",
+          "date": "2026-08-21",
+          "quote": "VIOLATION REMAINS. ROUGHLY HALF OF LOT CUT. LOT RUNS ENTIRE LENGTH BETWEEN McCLURE & LECKY. ONCE REST OF LOT IS CUT CASE WILL BE WITHDRAWN.",
+          "indicates": "vacant_lot_condition",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-ES-2026-051255",
+          "field": "court_decision",
+          "date": "",
+          "quote": "Court Date Scheduled",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on court or lien status"
+        },
+        {
+          "record_id": "CF-ES-2026-051255",
+          "field": "status",
+          "date": "2026-08-07",
+          "quote": "In Court",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-ES-2026-051255",
+          "field": "violation_description",
+          "date": "",
+          "quote": "TALL WEEDS ON LOT AT McCLURE & MALEN ON NORTH SIDE",
+          "indicates": "vacant_lot_condition",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-ES-2026-026126",
+          "field": "investigation_findings",
+          "date": "2026-05-11",
+          "quote": "OVERGROWN VEGETATION ON LOT AT McCLURE AVENUE & MALDEN WAY ON NORTH SIDE",
+          "indicates": "vacant_lot_condition",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2021-000332",
+          "field": "investigation_findings",
+          "date": "2021-01-20",
+          "quote": "razed w/city demo.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "DP-2021-00337",
+          "field": "work_description",
+          "date": "2021-01-08",
+          "quote": "City Funded Demo 1.EMERGENCY DEMOLITION. Remove all garbage and debris, vegetation, fencing, concrete slabs, and steps.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2020-015003",
+          "field": "investigation_findings",
+          "date": "2020-09-04",
+          "quote": "This property is condemed and will be handled by demo inspector",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "background"
+        }
+      ]
+    }
+  ]
+}

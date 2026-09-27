@@ -1,5 +1,29 @@
 # LotLine final-mile handoff for Claude
 
+## Current takeover state — 2026-09-27 final science pass
+
+The AI-reader milestone has replaced the older "claim ordering" narrative. Start with `AGENTS.md`, `README.md`, `docs/scientific_validation.md`, `docs/AI_PLAN.md`, and `docs/demo_script.md`; treat older statements later in this file as historical where they conflict.
+
+Current implementation and observed live results:
+
+- **A1 is the headline:** Claude retrieves event-bearing passages from heterogeneous PLI, permit and condemned-property text. Code checks record/field/recorded-date identity, exact quote provenance, boundaries, clipped negation, instruction-like content and permit references; it only notes later-dated records and does not establish semantic supersession or temporal truth. Unsupported semantic labels become `unverified_label`; relevance is derived in code. Two same-model runs must reproduce each model-proposed `(record, field, date, quote, label, relevance)` tuple. A deterministic exact `Active` status companion may be attached from an AI-surfaced condemned record outside that recurrence denominator. Never describe the runs as independent confirmation.
+- **No-AI counterfactual:** on the team-labeled development audit (21 records, 3 conflict parcels, 12 labeled relevant), verified Claude retrieval returned TP/FP/FN 12/0/0; the declared keyword scan returned 12/9/0. This is retrospective internal conformance on development data, not accuracy, external validity, proof of model necessity, or measured time savings.
+- **A2 live smoke:** all 12 suggested-question runs across Benezet and Centre answered or safely declined; five adversarial/out-of-scope questions were declined or rejected, with no accepted model prose. Ask LotLine selects fixed frames, engine claim IDs and exact code excerpts; it does not write prose. The reproducible status/frame record is `docs/validation/live_ai_smoke.json`; this is a scripted smoke run, not validation.
+- **A3 is secondary:** after semantic relief-kind verification, only 6/8 selected ZBA decisions produced usable cached cards. Do not headline it, infer approval propensity, or call it a validated precedent base. Relief paths remain deterministic and cards say they are not predictions.
+- **Scientific gate:** `uv run python -m evaluation.run` passes all nine sections; `docs/scientific_validation.md` contains H1–H6 verdicts, threats and the next-study design. The latest full suite before this handoff was 1,815 passed, 1 expected failure, exit 0; rerun after any change.
+- **Live caches:** verified evidence caches for 9 parcels and verified ZBA caches are under `data/ai_cache/`; every load re-verifies against committed source text. No API key is stored. Do not commit or print credentials.
+
+Your remaining assignment is review and demo completion, not production infrastructure:
+
+1. Re-run the full suite, evaluation, memo sweep, 10/10 cases, secret scan and offline app.
+2. Inspect every AI panel at 1280×800, especially Centre's cached evidence, the AI-vs-no-AI expander, Benezet Ask LotLine and rejected/declined states. Capture replacement fallback frames for changed screens.
+3. Audit the demo narration against actual screen values. Keep the scientific limitations on screen; do not strengthen claims.
+4. Run three independent final judges. The responsible-AI judge must explicitly return `SCIENCE: CLEAR`. Treat any semantic/provenance blocker as release-blocking.
+5. If the code milestone is already committed and pushed, do not rewrite it. Make only green, focused follow-up commits. Push after each major cleared milestone; never force-push.
+6. Leave human-only evidence explicitly open: two spoken timed rehearsals, final video playback by a second person, roster/eligibility confirmation, making the repository public, video upload and form attestation/submission.
+
+The demo's central sentence is: **Claude reads messy longitudinal records and proposes evidence; code verifies provenance and recorded dates; deterministic rules abstain; a named human resolves meaning.**
+
 **Status date:** 2026-09-26 ET  
 **Submission deadline:** Sun Sep 27, 2026, 23:59 ET  
 **Goal:** a top-3 finish in the AI Horizons 2026 AI for Housing Hackathon, Challenge 1, startup track  

@@ -1,0 +1,9 @@
+key,label,default_usd,applies_when,role,source,source_date,source_url,note,blank_label
+quiet_title,Quiet-title action,2000,always,row,Pittsburgh Land Bank Task Force report (figures preliminary),2026-01,https://pghlandbank.org/wp-content/uploads/2026/01/2025-2698-PLB-Task-Force-Report-Recommendations-1.pdf,"Task Force preliminary figure: quiet title about $2,000. Treasurer Sale does not clear title.",
+title_exam,Title search / examination,,always,row,,,,Quote from a title examiner.,
+surviving_liens,Surviving municipal / PWSA liens and water claims,,always,row,,,,Not divested by the Treasurer Sale; enter the amount the title search finds.,amount unknown: title search required
+survey,Boundary survey,,always,row,,,,Quote from a licensed surveyor; also resolves corner and lot-area questions.,
+geotechnical,Geotechnical / mine-subsidence review,,terrain_or_undermining,row,,,,Listed because terrain or undermining is flagged in the screening layers.,
+flood_determination,Environmental / floodplain determination,,fema,row,,,,Listed because a FEMA flood hazard area is flagged or the zone is undetermined.,
+holding,Holding costs until disposition,,always,row,,,,"Your estimate (insurance, maintenance, mowing, interest) for your holding period.",
+sheriff_reference,Sheriff Sale acquisition (reference only; different sale route),7300,always,reference,Pittsburgh Land Bank Task Force report (figures preliminary),2026-01,https://pghlandbank.org/wp-content/uploads/2026/01/2025-2698-PLB-Task-Force-Report-Recommendations-1.pdf,"Average Sheriff Sale acquisition cost about $7,300. Shown for context; not added to this Treasurer Sale worksheet.",

@@ -1,0 +1,28 @@
+{
+ "slug": "spring-garden-avenue-158-of-2025",
+ "model": "claude-opus-5",
+ "text_sha256": "9dc996f8fdb156c0b5497882dbb8891cee3399312db735536b2355a600577628",
+ "extracted_at": "2026-09-27T04:44:36+00:00",
+ "raw": {
+  "case_number": "158 of 2025",
+  "decision_date": "2026-01-30",
+  "address": "1065 Spring Garden Avenue",
+  "district": "R1A-H",
+  "lot_description": "The parcel has a triangular shape and an area of 3,550 sf.",
+  "reliefs": [
+   {
+    "kind": "use_variance",
+    "description": "2-unit residential prohibited in R1A-H District",
+    "outcome": "approved",
+    "quote": "The Applicant’s request for variances from Sections 911.02 and 903.03.D to allow for two residential unit use within a structure with a 0’ interior side setback is hereby APPROVED."
+   },
+   {
+    "kind": "dimensional_variance",
+    "description": "5’ interior side setback required; 0’ requested",
+    "outcome": "approved",
+    "quote": "The Applicant’s request for variances from Sections 911.02 and 903.03.D to allow for two residential unit use within a structure with a 0’ interior side setback is hereby APPROVED."
+   }
+  ],
+  "rationale_quote": "The Applicant also presented credible evidence that the unique shape of the parcel precludes strict compliance with the Code’s interior side setback requirement and that a reduced setback will not have any impact on the adjacent parcel."
+ }
+}

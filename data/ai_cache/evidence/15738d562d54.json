@@ -1,0 +1,144 @@
+{
+  "pin": "0010R00108000000",
+  "model": "claude-opus-5",
+  "created_at": "2026-09-27T04:36:18Z",
+  "elapsed_s": 16.7,
+  "runs": [
+    {
+      "items": [
+        {
+          "record_id": "CF-PLI-2024-060361",
+          "field": "investigation_findings",
+          "date": "2025-01-29",
+          "quote": "City demolition has been completed. No violation.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "DP-2022-14466",
+          "field": "status",
+          "date": "2024-11-27",
+          "quote": "Completed",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "DP-2022-14466",
+          "field": "work_description",
+          "date": "2024-11-27",
+          "quote": "Remove all garbage, debris, vegetation, concrete slabs, accessory structures, steps, and fencing from the lot.",
+          "indicates": "vacant_lot_condition",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "DP-2022-14466",
+          "field": "work_description",
+          "date": "2024-11-27",
+          "quote": "Lot shall be graded to match adjacent lots, and so that water is diverted away from neighboring structures.",
+          "indicates": "vacant_lot_condition",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2024-060361",
+          "field": "violation_spec_instructions",
+          "date": "",
+          "quote": "STRUCTURE IS ORDERED TO CITY-FUNDED DEMOLITION DUE TO IMMINENT HAZARD TO HEALTH AND SAFETY.",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2024-060361",
+          "field": "status",
+          "date": "2024-11-18",
+          "quote": "Closed",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "COND-634691",
+          "field": "property_type",
+          "date": "2021-02-18",
+          "quote": "Condemned/Dead End Property",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2023-028455",
+          "field": "investigation_findings",
+          "date": "2023-06-29",
+          "quote": "However the City has a final demolition permit in place to demolish structure. See demo DP-2022-14466: Demolition Permit",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "background"
+        }
+      ]
+    },
+    {
+      "items": [
+        {
+          "record_id": "CF-PLI-2024-060361",
+          "field": "investigation_findings",
+          "date": "2025-01-29",
+          "quote": "City demolition has been completed. No violation.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "DP-2022-14466",
+          "field": "status",
+          "date": "2024-11-27",
+          "quote": "Completed",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "DP-2022-14466",
+          "field": "work_description",
+          "date": "2024-11-27",
+          "quote": "Remove all garbage, debris, vegetation, concrete slabs, accessory structures, steps, and fencing from the lot.",
+          "indicates": "vacant_lot_condition",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "DP-2022-14466",
+          "field": "work_description",
+          "date": "2024-11-27",
+          "quote": "Lot shall be graded to match adjacent lots, and so that water is diverted away from neighboring structures.",
+          "indicates": "vacant_lot_condition",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2024-060361",
+          "field": "violation_spec_instructions",
+          "date": "",
+          "quote": "STRUCTURE IS ORDERED TO CITY-FUNDED DEMOLITION DUE TO IMMINENT HAZARD TO HEALTH AND SAFETY.",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2023-028455",
+          "field": "investigation_findings",
+          "date": "2023-06-29",
+          "quote": "However the City has a final demolition permit in place to demolish structure. See demo DP-2022-14466: Demolition Permit",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "COND-634691",
+          "field": "property_type",
+          "date": "2021-02-18",
+          "quote": "Condemned/Dead End Property",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2021-006343",
+          "field": "investigation_findings",
+          "date": "2024-06-26",
+          "quote": "Closing case. Never scheduled for court. Dead end property. Creating new case for clean and lien",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on court or lien status"
+        }
+      ]
+    }
+  ]
+}

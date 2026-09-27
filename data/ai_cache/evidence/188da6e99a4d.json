@@ -1,0 +1,144 @@
+{
+  "pin": "0010S00005000000",
+  "model": "claude-opus-5",
+  "created_at": "2026-09-27T04:36:36Z",
+  "elapsed_s": 18.2,
+  "runs": [
+    {
+      "items": [
+        {
+          "record_id": "CF-PLI-2024-060362",
+          "field": "investigation_findings",
+          "date": "2025-01-02",
+          "quote": "Demo permit issued. DP-2024-13867. Property is demolished. No violation. Case withdrawn from court.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on court or lien status"
+        },
+        {
+          "record_id": "CF-PLI-2021-010309",
+          "field": "investigation_findings",
+          "date": "2025-01-02",
+          "quote": "Property is demolished. No violation.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2022-047718",
+          "field": "investigation_findings",
+          "date": "2025-01-02",
+          "quote": "Property is demolished. No violation.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "DP-2024-13867",
+          "field": "work_description",
+          "date": "2024-11-27",
+          "quote": "Remove all garbage and debris, vegetation, concrete slabs, accessory structures, steps and fencing from lot.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "DP-2024-13867",
+          "field": "status",
+          "date": "2024-11-27",
+          "quote": "Issued",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2024-060362",
+          "field": "violation_spec_instructions",
+          "date": "",
+          "quote": "STRUCTURE IS ORDERED TO CITY-FUNDED DEMOLITION DUE TO IMMINENT HAZARD TO HEALTH AND SAFETY.",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "CF-PLI-2024-060362",
+          "field": "status",
+          "date": "2024-11-18",
+          "quote": "Closed",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "COND-634629",
+          "field": "property_type",
+          "date": "2020-08-24",
+          "quote": "Condemned/Dead End Property",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "background"
+        }
+      ]
+    },
+    {
+      "items": [
+        {
+          "record_id": "CF-PLI-2024-060362",
+          "field": "investigation_findings",
+          "date": "2025-01-02",
+          "quote": "Demo permit issued. DP-2024-13867. Property is demolished. No violation. Case withdrawn from court.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2021-010309",
+          "field": "investigation_findings",
+          "date": "2025-01-02",
+          "quote": "Property is demolished. No violation.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2022-047718",
+          "field": "investigation_findings",
+          "date": "2025-01-02",
+          "quote": "Property is demolished. No violation.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2024-060362",
+          "field": "investigation_outcome",
+          "date": "2025-01-02",
+          "quote": "Violation Resolved",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "DP-2024-13867",
+          "field": "work_description",
+          "date": "2024-11-27",
+          "quote": "Remove all garbage and debris, vegetation, concrete slabs, accessory structures, steps and fencing from lot.",
+          "indicates": "structure_removed_or_demolished",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "DP-2024-13867",
+          "field": "work_description",
+          "date": "2024-11-27",
+          "quote": "Foundations remain 13. Retaining wall in back remains",
+          "indicates": "vacant_lot_condition",
+          "relevance": "bears on current site condition"
+        },
+        {
+          "record_id": "CF-PLI-2024-060362",
+          "field": "violation_spec_instructions",
+          "date": "",
+          "quote": "STRUCTURE IS ORDERED TO CITY-FUNDED DEMOLITION DUE TO IMMINENT HAZARD TO HEALTH AND SAFETY.",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        },
+        {
+          "record_id": "COND-634629",
+          "field": "property_type",
+          "date": "2020-08-24",
+          "quote": "Condemned/Dead End Property",
+          "indicates": "enforcement_or_court_status",
+          "relevance": "bears on open enforcement"
+        }
+      ]
+    }
+  ]
+}

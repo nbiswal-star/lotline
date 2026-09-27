@@ -1,1 +1,1 @@
-"""AI readers: Claude reads unstructured public records; code verifies every claim it makes."""
+"""AI readers: Claude proposes from unstructured records; code verifies provenance and quotes."""

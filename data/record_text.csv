@@ -1,0 +1,447 @@
+source_id,pin,record_id,record_date,field,text
+pli_violations,0015S00066000000,CF-PLI-2024-040641,2024-07-31,status,Closed
+pli_violations,0015S00066000000,CF-PLI-2024-040641,2024-07-31,case_file_type,Weeds/Debris
+pli_violations,0015S00066000000,CF-PLI-2024-040641,2024-07-31,investigation_outcome,Violation Found
+pli_violations,0015S00066000000,CF-PLI-2024-040641,2024-07-31,investigation_findings,Violation found. Overgrowth and tire on public right-of-way sidewalk causing an obstruction for passersby using the sidewalk.
+pli_violations,0015S00066000000,CF-PLI-2024-040641,2024-08-07,investigation_findings,Violations remain
+pli_violations,0015S00066000000,CF-PLI-2024-040641,2024-08-16,investigation_outcome,Filing Court Paperwork
+pli_violations,0015S00066000000,CF-PLI-2024-040641,2024-08-16,investigation_findings,Tire was removed; overgrowth & debris on sidewalk. Issuing criminal complaint.
+pli_violations,0015S00066000000,CF-PLI-2024-040641,2024-10-17,investigation_outcome,Taking Case To Court
+pli_violations,0015S00066000000,CF-PLI-2024-040641,2024-10-17,investigation_findings,Not corrected. Tire has been removed but overgrowth remains. Continue to court.
+pli_violations,0015S00066000000,CF-PLI-2024-056082,2024-10-19,status,In Court
+pli_violations,0015S00066000000,CF-PLI-2024-056082,2024-10-19,case_file_type,Weeds/Debris
+pli_violations,0015S00066000000,CF-PLI-2024-056082,2024-10-19,investigation_outcome,Violation Found
+pli_violations,0015S00066000000,CF-PLI-2024-056082,2024-10-19,investigation_findings,Existing violation: Overgrowth on vacant land and overgrowth on public right-of-way sidewalk.
+pli_violations,0015S00066000000,CF-PLI-2024-056082,2024-10-29,investigation_findings,No change. Sending second notice of violation.
+pli_violations,0015S00066000000,CF-PLI-2024-056082,2024-11-08,investigation_outcome,Filing Court Paperwork
+pli_violations,0015S00066000000,CF-PLI-2024-056082,2024-11-08,investigation_findings,Not corrected. Overgrowth & debris obstructing sidewalk. Issuing criminal complaint.
+pli_violations,0015S00066000000,CF-ES-2025-068149,2025-12-19,status,Closed
+pli_violations,0015S00066000000,CF-ES-2025-068149,2025-12-19,case_file_type,Refuse Violations
+pli_violations,0015S00066000000,CF-ES-2025-068149,2025-12-19,investigation_outcome,Violation Found
+pli_violations,0015S00066000000,CF-ES-2025-068149,2025-12-19,investigation_findings,LITTER AND DUMPING ON PARCEL
+pli_violations,0015S00066000000,CF-ES-2025-068149,2026-01-06,investigation_outcome,Violation Resolved
+pli_violations,0015S00066000000,CF-ES-2025-068149,2026-01-06,investigation_findings,CORRECTED
+pli_violations,0015S00066000000,CF-PLI-2024-040641,,violation_description,Tire on sidewalk.
+pli_violations,0015S00066000000,CF-PLI-2024-040641,,violation_code_section,2015 IPMC 308.1
+pli_violations,0015S00066000000,CF-PLI-2024-040641,,violation_spec_instructions,Remove the tire from the public right-of-way sidewalk. Maintain to a clean and sanitary condition at all times moving forward.
+pli_violations,0015S00066000000,CF-PLI-2024-040641,,violation_description,Overgrowth growing out onto public right-of-way for this wooded vacant land.
+pli_violations,0015S00066000000,CF-PLI-2024-040641,,violation_code_section,2015 IPMC 302.4
+pli_violations,0015S00066000000,CF-PLI-2024-040641,,violation_spec_instructions,Cut down and remove the overgrowth. Maintain at all times during the growing season (April-October).
+pli_violations,0015S00066000000,CF-PLI-2024-040641,,court_date,2024-10-17
+pli_violations,0015S00066000000,CF-PLI-2024-040641,,docket_number,MJ-05314-NT-0001100-2024
+pli_violations,0015S00066000000,CF-PLI-2024-040641,,court_decision,Court Decision: Guilty
+pli_violations,0015S00066000000,CF-PLI-2024-056082,,violation_description,Overgrowth on vacant land and growing out onto the public right of way sidewalk causing an obstruction for passerby using the sidewalk.
+pli_violations,0015S00066000000,CF-PLI-2024-056082,,violation_code_section,2015 IPMC 302.4
+pli_violations,0015S00066000000,CF-PLI-2024-056082,,violation_spec_instructions,Cut back the overgrowth and remove all of the overgrowth from the public right of way sidewalk so as not to cause an obstruction for individuals using the sidewalk.
+pli_violations,0015S00066000000,CF-ES-2025-068149,,violation_description,IMPROPER STORAGE OF WASTE/ LOOSE BAGS ON PARCEL
+pli_violations,0015S00066000000,CF-ES-2025-068149,,violation_code_section,CITY CODE 619.03(A)
+pli_violations,0015S00066000000,CF-ES-2025-068149,,violation_spec_instructions,"Please store municipal waste and recyclables in durable, watertight containers with close-fitting lids. Containers shall be kept in clean, neat, and sanitary condition at all times."
+pli_violations,0015S00066000000,CF-ES-2025-068149,,violation_description,IMPROPER STORAGE OF CAN ON SIDEWALK
+pli_violations,0015S00066000000,CF-ES-2025-068149,,violation_code_section,CITY CODE 619.03(E)
+pli_violations,0015S00066000000,CF-ES-2025-068149,,violation_spec_instructions,CAN HAS STAYED ON SIDEWALK CONSTANTLY. PLEASE REMOVE CAN FROM SIDEWALK .
+pli_violations,0015S00066000000,CF-ES-2025-068149,,violation_description,LITTER AND DEBRIS ON PARCEL
+pli_violations,0015S00066000000,CF-ES-2025-068149,,violation_code_section,CITY CODE 601.11 (b)(1)
+pli_violations,0015S00066000000,CF-ES-2025-068149,,violation_spec_instructions,PLEASE REMOVE ALL LITTER AND DEBRIS FROM PARCEL. PLEASE ENSURE LITTER AND WASTE AND STORED AND DISPOSED OF PROPERLY.
+pli_violations,0014N00100000000,CF-PLI-2021-030673,2021-09-02,status,Closed
+pli_violations,0014N00100000000,CF-PLI-2021-030673,2021-09-02,case_file_type,Weeds/Debris
+pli_violations,0014N00100000000,CF-PLI-2021-030673,2021-09-02,investigation_outcome,Violation Found
+pli_violations,0014N00100000000,CF-PLI-2021-030673,2021-09-02,investigation_findings,Sending 1st notice to cut and maintain vacant lot
+pli_violations,0014N00100000000,CF-PLI-2021-030673,2021-09-14,investigation_findings,lot remains overgrown - sending 2nd notice.
+pli_violations,0014N00100000000,CF-PLI-2021-030673,2021-10-12,investigation_outcome,Filing Court Paperwork
+pli_violations,0014N00100000000,CF-PLI-2021-030673,2021-10-12,investigation_findings,Overgrowth remains - issuing criminal complaint.
+pli_violations,0014N00100000000,CF-PLI-2021-030673,2021-12-15,investigation_outcome,Taking Case To Court
+pli_violations,0014N00100000000,CF-PLI-2021-030673,2021-12-15,investigation_findings,overgrowth remains - continue to court.
+pli_violations,0014N00100000000,CF-PLI-2021-030673,,violation_description,Exterior
+pli_violations,0014N00100000000,CF-PLI-2021-030673,,violation_code_section,2015 IPMC 301.3
+pli_violations,0014N00100000000,CF-PLI-2021-030673,,violation_spec_instructions,"Required to maintain vacant lot. Required to cut down all high grasses and weeds as well as remove any and all garbage, rubbish and debris from the parcel."
+pli_violations,0014N00100000000,CF-PLI-2021-030673,,court_date,2021-12-16
+pli_violations,0014N00100000000,CF-PLI-2021-030673,,docket_number,"05314-NT-1017-21,NT-1018-21"
+pli_violations,0014N00100000000,CF-PLI-2021-030673,,court_decision,Dismissed for No Service
+pli_violations,0050K00227000000,CF-PLI-2023-032204,2023-07-21,status,Closed
+pli_violations,0050K00227000000,CF-PLI-2023-032204,2023-07-21,case_file_type,Weeds/Debris
+pli_violations,0050K00227000000,CF-PLI-2023-032204,2023-07-21,investigation_outcome,Violation Found
+pli_violations,0050K00227000000,CF-PLI-2023-032204,2023-07-21,investigation_findings,Large overgrowth on property and into alleyway.
+pli_violations,0050K00227000000,CF-PLI-2023-032204,2023-08-01,investigation_findings,Property unchanged.
+pli_violations,0050K00227000000,CF-PLI-2023-032204,2023-08-08,investigation_outcome,Filing Court Paperwork
+pli_violations,0050K00227000000,CF-PLI-2023-032204,2023-11-21,investigation_outcome,Violation Resolved
+pli_violations,0050K00227000000,CF-PLI-2023-032204,2023-11-21,investigation_findings,Violations resolved.
+pli_violations,0050K00227000000,CF-PLI-2024-030979,2024-06-20,status,Closed
+pli_violations,0050K00227000000,CF-PLI-2024-030979,2024-06-20,case_file_type,Weeds/Debris
+pli_violations,0050K00227000000,CF-PLI-2024-030979,2024-06-20,investigation_outcome,Violation Found
+pli_violations,0050K00227000000,CF-PLI-2024-030979,2024-06-20,investigation_findings,High overgrowth on property.
+pli_violations,0050K00227000000,CF-PLI-2024-030979,2024-06-27,investigation_findings,Unchanged.
+pli_violations,0050K00227000000,CF-PLI-2024-030979,2024-07-08,investigation_outcome,Filing Court Paperwork
+pli_violations,0050K00227000000,CF-PLI-2024-030979,2024-08-23,investigation_outcome,Violation Resolved
+pli_violations,0050K00227000000,CF-PLI-2024-030979,2024-08-23,investigation_findings,Withdrawn.
+pli_violations,0050K00227000000,CF-ES-2026-021158,2026-04-20,status,Closed
+pli_violations,0050K00227000000,CF-ES-2026-021158,2026-04-20,case_file_type,Refuse Violations
+pli_violations,0050K00227000000,CF-ES-2026-021158,2026-04-20,investigation_outcome,Violation Found
+pli_violations,0050K00227000000,CF-ES-2026-021158,2026-04-20,investigation_findings,OVERGROWTH ABUTTING OTHER PARCELS
+pli_violations,0050K00227000000,CF-ES-2026-021158,2026-05-04,investigation_findings,hedge still needs trimmed back from neighbor's property
+pli_violations,0050K00227000000,CF-ES-2026-021158,2026-05-15,investigation_outcome,Violation Resolved
+pli_violations,0050K00227000000,CF-ES-2026-021158,2026-05-15,investigation_findings,"property does not appear to be overgrown. there is a hedge running between properties, and it's my understanding that limbs/branches encroaching on one's property can be trimmed back. reading the complaint sent to us: as far as transferring ownership, that is a legal matter. as far as 5025 dearborn from litter perspective there is no violation"
+pli_violations,0050K00227000000,CF-ES-2026-039877,2026-06-26,status,In Court
+pli_violations,0050K00227000000,CF-ES-2026-039877,2026-06-26,case_file_type,Weeds and Debris
+pli_violations,0050K00227000000,CF-ES-2026-039877,2026-06-26,investigation_outcome,Violation Found
+pli_violations,0050K00227000000,CF-ES-2026-039877,2026-06-26,investigation_findings,OVERGROWN WEEDS/GRASS ON PARCEL ENCROACHING ON NEIGHBORING PROPERTIES
+pli_violations,0050K00227000000,CF-ES-2026-039877,2026-07-28,investigation_findings,street obstructed by weeds/overgrowth
+pli_violations,0050K00227000000,CF-ES-2026-039877,2026-08-12,investigation_outcome,Filing Court Paperwork
+pli_violations,0050K00227000000,CF-ES-2026-039877,2026-08-12,investigation_findings,parcel remains overgrown and obstructing public right of way (street/alley). cone placed at site by ?
+pli_violations,0050K00227000000,CF-ES-2026-021158,,violation_description,OVERGROWN WEEDS AND GRASS ON PARCEL ABUTTING NEIGHBORING PROPERTIES
+pli_violations,0050K00227000000,CF-ES-2026-021158,,violation_code_section,CITY CODE 609.01
+pli_violations,0050K00227000000,CF-ES-2026-021158,,violation_spec_instructions,PLEASE CUT BACK WEEDS/GRASS TO A HEIGHT NO GREATER SIX INCHES PLEASE ENSURE ANY FOLIAGE IS NOT ENCROACHING ON PUBLIC RIGHT OF WAY (SIDEWALK/STREET/ALLEY) OR NEIGHBORING PROPERTIES
+pli_violations,0050K00227000000,CF-ES-2026-039877,,violation_description,OVERGROWN WEEDS/GRASS ON PARCEL ENCROACHING ON NEIGHBORING PROPERTIES
+pli_violations,0050K00227000000,CF-ES-2026-039877,,violation_code_section,CITY CODE 609.01
+pli_violations,0050K00227000000,CF-ES-2026-039877,,violation_spec_instructions,PLEASE CUT/REMOVE WEEDS FROM PARCEL. PLEASE CUT GRASS AND WEEDS BACK TO A HEIGHT NO GREATER THAN SIX INCHES. PLEASE ENSURE ALL FOLIAGE IS NOT ON OTHER PROERTIES
+pli_violations,0050K00227000000,CF-ES-2026-039877,,court_date,2026-10-20
+pli_violations,0050K00227000000,CF-ES-2026-039877,,docket_number,MJ-05231-NT-0000350-2026
+pli_violations,0050K00227000000,CF-ES-2026-039877,,court_decision,Court Date Scheduled
+pli_violations,0050K00227000000,CF-PLI-2024-030979,,violation_description,High overgrowth on property. Cut and clear overgrowth from entirety of parcel.
+pli_violations,0050K00227000000,CF-PLI-2024-030979,,violation_code_section,2015 IPMC 302.4
+pli_violations,0050K00227000000,CF-PLI-2024-030979,,violation_spec_instructions,Cut and clear overgrowth from entirety of parcel.
+pli_violations,0050K00227000000,CF-PLI-2024-030979,,court_date,2024-08-29
+pli_violations,0050K00227000000,CF-PLI-2024-030979,,docket_number,"MJ-05231-NT-0000291-2024, 292"
+pli_violations,0050K00227000000,CF-PLI-2024-030979,,court_decision,Withdrawn Before Court Date
+pli_violations,0050K00227000000,CF-PLI-2023-032204,,violation_description,Large overgrowth on property and into alleyway.
+pli_violations,0050K00227000000,CF-PLI-2023-032204,,violation_code_section,2015 IPMC 302.4
+pli_violations,0050K00227000000,CF-PLI-2023-032204,,violation_spec_instructions,Cut and clear all overgrowth from property.
+pli_violations,0050K00227000000,CF-PLI-2023-032204,,court_date,2023-11-29
+pli_violations,0050K00227000000,CF-PLI-2023-032204,,docket_number,MJ-05231-NT-0000475-2023
+pli_violations,0050K00227000000,CF-PLI-2023-032204,,court_decision,Withdrawn Before Court Date
+pli_violations,0010S00005000000,CF-PLI-2021-010309,2021-04-29,status,Closed
+pli_violations,0010S00005000000,CF-PLI-2021-010309,2021-04-29,case_file_type,Vacant Building
+pli_violations,0010S00005000000,CF-PLI-2021-010309,2021-04-29,investigation_outcome,Violation Found
+pli_violations,0010S00005000000,CF-PLI-2021-010309,2021-04-29,investigation_findings,2 story brick two family dwelling with large hole right side of structure.
+pli_violations,0010S00005000000,CF-PLI-2021-010309,2021-05-26,investigation_findings,"Violations still exist, no valid permit issue."
+pli_violations,0010S00005000000,CF-PLI-2021-010309,2021-06-22,investigation_outcome,Filing Court Paperwork
+pli_violations,0010S00005000000,CF-PLI-2021-010309,2021-06-22,investigation_findings,"Violations still exist, no valid permit(s) issued."
+pli_violations,0010S00005000000,CF-PLI-2022-047718,2022-12-07,status,Closed
+pli_violations,0010S00005000000,CF-PLI-2022-047718,2022-12-07,case_file_type,Weeds/Debris
+pli_violations,0010S00005000000,CF-PLI-2022-047718,2022-12-07,investigation_outcome,Violation Found
+pli_violations,0010S00005000000,CF-PLI-2022-047718,2022-12-07,investigation_findings,Extremely overgrown parcel.
+pli_violations,0010S00005000000,CF-PLI-2022-047718,2022-12-14,investigation_findings,overgrown parcel
+pli_violations,0010S00005000000,CF-PLI-2022-047718,2022-12-20,investigation_outcome,Filing Court Paperwork
+pli_violations,0010S00005000000,CF-PLI-2022-047718,2022-12-20,investigation_findings,overgrown parcel.
+pli_violations,0010S00005000000,CF-PLI-2023-005156,2023-02-16,status,Closed
+pli_violations,0010S00005000000,CF-PLI-2023-005156,2023-02-16,case_file_type,Weeds/Debris
+pli_violations,0010S00005000000,CF-PLI-2023-005156,2023-02-16,investigation_outcome,No Violation Found
+pli_violations,0010S00005000000,CF-PLI-2023-005156,2023-02-16,investigation_findings,Condemned property that is in need of a clean and lien. Weeds in front of the property in the public walkway PI-2022-001792
+pli_violations,0010S00005000000,CF-PLI-2024-060362,2024-11-18,status,Closed
+pli_violations,0010S00005000000,CF-PLI-2024-060362,2024-11-18,case_file_type,City Funded Demolitions
+pli_violations,0010S00005000000,CF-PLI-2024-060362,2024-11-18,investigation_outcome,Violation Found
+pli_violations,0010S00005000000,CF-PLI-2024-060362,2024-11-18,investigation_findings,IMMINENT DANGER STRUCTURE ORDERED FOR CITYFUNDED DEMOLITION. Holes in Roof -- Second floor collapse – Exterior wall crumbling
+pli_violations,0010S00005000000,CF-PLI-2024-060362,2024-12-02,investigation_outcome,Filing Court Paperwork
+pli_violations,0010S00005000000,CF-PLI-2024-060362,2024-12-02,investigation_findings,IMMINENT DANGER STRUCTURE ORDERED FOR CITYFUNDED DEMOLITION. Holes in Roof -- Second floor collapse – Exterior wall crumbling Demo permit issued. DP-2024-13867
+pli_violations,0010S00005000000,CF-PLI-2024-064754,2024-12-20,status,Closed
+pli_violations,0010S00005000000,CF-PLI-2024-064754,2024-12-20,case_file_type,Construction Site Maintenance
+pli_violations,0010S00005000000,CF-PLI-2024-064754,2024-12-20,investigation_outcome,No Violation Found
+pli_violations,0010S00005000000,CF-PLI-2024-060362,2025-01-02,investigation_outcome,Violation Resolved
+pli_violations,0010S00005000000,CF-PLI-2024-060362,2025-01-02,investigation_findings,IMMINENT DANGER STRUCTURE ORDERED FOR CITYFUNDED DEMOLITION. Holes in Roof -- Second floor collapse – Exterior wall crumbling Demo permit issued. DP-2024-13867. Property is demolished. No violation. Case withdrawn from court.
+pli_violations,0010S00005000000,CF-PLI-2021-010309,2025-01-02,investigation_outcome,Violation Resolved
+pli_violations,0010S00005000000,CF-PLI-2021-010309,2025-01-02,investigation_findings,Property is demolished. No violation.
+pli_violations,0010S00005000000,CF-PLI-2022-047718,2025-01-02,investigation_outcome,Violation Resolved
+pli_violations,0010S00005000000,CF-PLI-2022-047718,2025-01-02,investigation_findings,Property is demolished. No violation.
+pli_violations,0010S00005000000,CF-PLI-2024-060362,,violation_description,IMMINENT DANGER STRUCTURE ORDERED FOR CITYFUNDED DEMOLITION. Holes in Roof -- Second floor collapse – Exterior wall crumbling
+pli_violations,0010S00005000000,CF-PLI-2024-060362,,violation_code_section,2015 IPMC 110.3
+pli_violations,0010S00005000000,CF-PLI-2024-060362,,violation_spec_instructions,"STRUCTURE IS ORDERED TO CITY-FUNDED DEMOLITION DUE TO IMMINENT HAZARD TO HEALTH AND SAFETY. Due the immediate risk to health and safety, PLI orders demolition of the subject structure within 48 hours of the first request for compliance issued November 18, 2024. A city-funded demolition will be performed per IPMC 110.3"
+pli_violations,0010S00005000000,CF-PLI-2021-010309,,violation_description,"2 story brick two family dwelling with large hole right side of structure. Roof water damaged, wood rot, holes. Chimney mortar deteriorated, bricks falling. Foundation has holes. Exterior walls has holes with loose and rotting materials, water damaged, wood rot. Window frames water damaged, wood rot, broken. Window glazing broken/missing. Front exterior concrete stairs deteriorating. Broken handrail."
+pli_violations,0010S00005000000,CF-PLI-2021-010309,,violation_code_section,2015 IPMC 108.1.1
+pli_violations,0010S00005000000,CF-PLI-2021-010309,,violation_spec_instructions,Secure valid permit(s) and correct condemnation violations or demolish structure.
+pli_violations,0010S00005000000,CF-PLI-2022-047718,,violation_description,Extremely overgrown parcel.
+pli_violations,0010S00005000000,CF-PLI-2022-047718,,violation_code_section,2015 IPMC 302.4
+pli_violations,0010S00005000000,CF-PLI-2022-047718,,violation_spec_instructions,Cut and remove weeds/overgrowth from parcel. Maintain parcel throughout the year.
+condemned_properties,0010S00005000000,COND-634629,2020-08-24,property_type,Condemned/Dead End Property
+condemned_properties,0010S00005000000,COND-634629,2020-08-24,inspection_status,Active
+condemned_properties,0010S00005000000,COND-634629,2020-08-24,latest_inspection_result,Fail
+condemned_properties,0010S00005000000,COND-634629,2020-08-24,latest_inspection_score,1
+pli_permits,0010S00005000000,DP-2024-13867,2024-11-27,permit_type,Demolition Permit
+pli_permits,0010S00005000000,DP-2024-13867,2024-11-27,work_type,CITY FUNDED DEMOLITION
+pli_permits,0010S00005000000,DP-2024-13867,2024-11-27,status,Issued
+pli_permits,0010S00005000000,DP-2024-13867,2024-11-27,work_description,"City Funded Demolition 1. This bid agreement is paid in part or full with American Rescue Plan Act (ARPA) funds, all federal regulations apply. 2. Remove all garbage and debris, vegetation, concrete slabs, accessory structures, steps and fencing from lot. 3. Contract term 90 days from award date. 4. ACHD asbestos application required, survey included 5. Void to be filled with clean material. 6. Lot shall be graded to match adjacent lots, and so that water is diverted away from neighboring structures. 7. Care must be taken to preserve the lot at 10-R-14 – any land movement must be corrected. 8. Fence off entire length of parcel to pedestrian traffic using 6-foot barricade fencing. 9. Pre-Inspection Pictures must be taken of neighboring structure and sidewalk before demolition can begin. 10. Repairs to the neighboring structure and change orders must be approved before any additional work is to begin. 11. Lowest combined bid with 2331 Centre, 2333 Centre & 2400 Centre. 12. Foundations remain 13. Retaining wall in back remains"
+pli_violations,0010R00108000000,CF-PLI-2020-009436,2020-07-23,status,Closed
+pli_violations,0010R00108000000,CF-PLI-2020-009436,2020-07-23,case_file_type,Weeds/Debris
+pli_violations,0010R00108000000,CF-PLI-2020-009436,2020-07-23,investigation_outcome,Violation Found
+pli_violations,0010R00108000000,CF-PLI-2020-009436,2020-07-23,investigation_findings,"Violations found - open structure, overgrowth/debris - clean & lien"
+pli_violations,0010R00108000000,CF-PLI-2020-009436,2020-08-17,investigation_findings,Violations found - overgrowth & debris - clean & lien
+pli_violations,0010R00108000000,CF-PLI-2020-009436,2020-09-08,investigation_outcome,Filing Court Paperwork
+pli_violations,0010R00108000000,CF-PLI-2020-009436,2021-02-15,investigation_outcome,Violation Resolved
+pli_violations,0010R00108000000,CF-PLI-2020-009436,2021-02-15,investigation_findings,Violations remain at this time. This property is on our Dead End properties list as there is not an owner or mailing service. This property will not go to court due to no service. The magistrate will dismissed the case due to “no service.” A request has been sent to DPW for the property to be cleaned up.
+pli_violations,0010R00108000000,CF-PLI-2021-006343,2021-03-19,status,Closed
+pli_violations,0010R00108000000,CF-PLI-2021-006343,2021-03-19,case_file_type,Vacant Building
+pli_violations,0010R00108000000,CF-PLI-2021-006343,2021-03-19,investigation_outcome,Violation Found
+pli_violations,0010R00108000000,CF-PLI-2021-006343,2021-03-19,investigation_findings,"2 STORY FRAME MULTI UNIT APARTMENT BLDG, GIANT HOLE LEFT SIDE OF STRUCTURE."
+pli_violations,0010R00108000000,CF-PLI-2021-006343,2021-04-19,investigation_findings,Violations still exist. No valid permit issue to correct condemnation violations or demolish structure.
+pli_violations,0010R00108000000,CF-PLI-2021-006343,2021-05-14,investigation_outcome,Filing Court Paperwork
+pli_violations,0010R00108000000,CF-PLI-2021-006343,2021-05-14,investigation_findings,"Violations still exist, no valid permits issued."
+pli_violations,0010R00108000000,CF-PLI-2022-003944,2022-02-18,status,Closed
+pli_violations,0010R00108000000,CF-PLI-2022-003944,2022-02-18,case_file_type,Weeds/Debris
+pli_violations,0010R00108000000,CF-PLI-2022-003944,2022-02-18,investigation_outcome,DPW to Correct Issue
+pli_violations,0010R00108000000,CF-PLI-2022-003944,2022-02-18,investigation_findings,Violations found - overgrowth & debris. Front & right side unsecured. Refer to clean & lien
+pli_violations,0010R00108000000,CF-PLI-2023-028455,2023-06-29,status,Closed
+pli_violations,0010R00108000000,CF-PLI-2023-028455,2023-06-29,case_file_type,Building Maintenance
+pli_violations,0010R00108000000,CF-PLI-2023-028455,2023-06-29,investigation_outcome,No Violation Found
+pli_violations,0010R00108000000,CF-PLI-2023-028455,2023-06-29,investigation_findings,Property is dead End property meaning owner cannot be located. However the City has a final demolition permit in place to demolish structure. See demo DP-2022-14466: Demolition Permit
+pli_violations,0010R00108000000,CF-PLI-2023-036203,2023-08-07,status,Closed
+pli_violations,0010R00108000000,CF-PLI-2023-036203,2023-08-07,case_file_type,Building Maintenance
+pli_violations,0010R00108000000,CF-PLI-2023-036203,2023-08-07,investigation_outcome,DPW to Correct Issue
+pli_violations,0010R00108000000,CF-PLI-2023-036203,2023-08-07,investigation_findings,Property is a Dead End property. Sent to DPW for a clean and lien for board up. Corner of Centre Ave and LaPlace St.
+pli_violations,0010R00108000000,CF-PLI-2024-033000,2024-06-26,status,Closed
+pli_violations,0010R00108000000,CF-PLI-2024-033000,2024-06-26,case_file_type,Vacant Building
+pli_violations,0010R00108000000,CF-PLI-2024-033000,2024-06-26,investigation_outcome,DPW to Correct Issue
+pli_violations,0010R00108000000,CF-PLI-2024-033000,2024-06-26,investigation_findings,Dead end property. Send to DPW for clean & lien for board up
+pli_violations,0010R00108000000,CF-PLI-2021-006343,2024-06-26,investigation_outcome,Violation Resolved
+pli_violations,0010R00108000000,CF-PLI-2021-006343,2024-06-26,investigation_findings,Closing case. Never scheduled for court. Dead end property. Creating new case for clean and lien
+pli_violations,0010R00108000000,CF-PLI-2024-042400,2024-08-07,status,Closed
+pli_violations,0010R00108000000,CF-PLI-2024-042400,2024-08-07,case_file_type,Building Maintenance
+pli_violations,0010R00108000000,CF-PLI-2024-042400,2024-08-07,investigation_outcome,DPW to Correct Issue
+pli_violations,0010R00108000000,CF-PLI-2024-042400,2024-08-07,investigation_findings,Sending to DPW for clean and lien.
+pli_violations,0010R00108000000,CF-PLI-2024-042403,2024-08-07,status,Closed
+pli_violations,0010R00108000000,CF-PLI-2024-042403,2024-08-07,case_file_type,Building Maintenance
+pli_violations,0010R00108000000,CF-PLI-2024-042403,2024-08-07,investigation_outcome,DPW to Correct Issue
+pli_violations,0010R00108000000,CF-PLI-2024-042403,2024-08-07,investigation_findings,Sending to DPW for board up.
+pli_violations,0010R00108000000,CF-PLI-2024-060361,2024-11-18,status,Closed
+pli_violations,0010R00108000000,CF-PLI-2024-060361,2024-11-18,case_file_type,City Funded Demolitions
+pli_violations,0010R00108000000,CF-PLI-2024-060361,2024-11-18,investigation_outcome,Violation Found
+pli_violations,0010R00108000000,CF-PLI-2024-060361,2024-11-18,investigation_findings,IMMINENT DANGER STRUCTURE ORDERED FOR CITYFUNDED DEMOLITION. Holes in Roof -- Holes in side walls. -- Vacant and open
+pli_violations,0010R00108000000,CF-PLI-2024-060361,2024-12-02,investigation_outcome,Filing Court Paperwork
+pli_violations,0010R00108000000,CF-PLI-2024-060361,2025-01-29,investigation_outcome,Violation Resolved
+pli_violations,0010R00108000000,CF-PLI-2024-060361,2025-01-29,investigation_findings,City demolition has been completed. No violation.
+pli_violations,0010R00108000000,CF-PLI-2024-033000,,violation_description,Open windows and doors throughout property
+pli_violations,0010R00108000000,CF-PLI-2024-033000,,violation_code_section,2015 IPMC 108.2
+pli_violations,0010R00108000000,CF-PLI-2024-033000,,violation_spec_instructions,Board and secure windows.
+pli_violations,0010R00108000000,CF-PLI-2024-042400,,violation_description,"Property in disrepair, needs boarded. Building not secured. Corner of Centre Ave and LaPlace St."
+pli_violations,0010R00108000000,CF-PLI-2024-042400,,violation_code_section,2015 IPMC 301.3
+pli_violations,0010R00108000000,CF-PLI-2024-042400,,violation_spec_instructions,Property needs boarded. Building not secured. Corner of Centre Ave and LaPlace St.
+pli_violations,0010R00108000000,CF-PLI-2024-042403,,violation_description,"Property in disrepair, needs boarded. Building not secured. Corner of Centre Ave and LaPlace St."
+pli_violations,0010R00108000000,CF-PLI-2024-042403,,violation_code_section,2015 IPMC 108.2
+pli_violations,0010R00108000000,CF-PLI-2024-042403,,violation_spec_instructions,Property needs boarded. Building not secured. Corner of Centre Ave and LaPlace St.
+pli_violations,0010R00108000000,CF-PLI-2024-060361,,violation_description,IMMINENT DANGER STRUCTURE ORDERED FOR CITYFUNDED DEMOLITION. Holes in Roof -- Holes in side walls. -- Vacant and open
+pli_violations,0010R00108000000,CF-PLI-2024-060361,,violation_code_section,2015 IPMC 110.3
+pli_violations,0010R00108000000,CF-PLI-2024-060361,,violation_spec_instructions,"STRUCTURE IS ORDERED TO CITY-FUNDED DEMOLITION DUE TO IMMINENT HAZARD TO HEALTH AND SAFETY. Due the immediate risk to health and safety, PLI orders demolition of the subject structure within 48 hours of the first request for compliance issued November 18, 2024. A city-funded demolition will be performed per IPMC 110.3"
+pli_violations,0010R00108000000,CF-PLI-2020-009436,,violation_description,Overgrowth throughout property & along sidewalks.
+pli_violations,0010R00108000000,CF-PLI-2020-009436,,violation_code_section,302.4
+pli_violations,0010R00108000000,CF-PLI-2020-009436,,violation_spec_instructions,"302.4 Weeds. All premises and exterior property shall be maintained free from weeds or plant growth in excess of 10 inches. All noxious weeds shall be prohibited. Weeds shall be defined as all grasses, annual plants and vegetation, other than trees or shrubs provided. Cut overgrowth."
+pli_violations,0010R00108000000,CF-PLI-2020-009436,,violation_description,Vacant structure - clean & lien - property & sidewalk need cut & cleared of all overgrowth & debris. Structure is also open & needs boarded up & secured immediately.
+pli_violations,0010R00108000000,CF-PLI-2020-009436,,violation_code_section,301.3
+pli_violations,0010R00108000000,CF-PLI-2020-009436,,violation_spec_instructions,"301.3 Vacant structures and land. All vacant structures and premises thereof or vacant land shall be maintained in a clean, safe, secure and sanitary condition as provided herein so as not to cause a blighting problem or adversely affect the public health or safety. Structure needs sealed immediately and land needs to be cut and cleared or the city will step in and clean and lien the property."
+pli_violations,0010R00108000000,CF-PLI-2020-009436,,violation_description,"Heavy accumulation of rubbish, garbage, & debris throughout property & along sidewalks."
+pli_violations,0010R00108000000,CF-PLI-2020-009436,,violation_code_section,308.1
+pli_violations,0010R00108000000,CF-PLI-2020-009436,,violation_spec_instructions,"308.1 Accumulation of rubbish or garbage. All exterior property and premises, and the interior of every structure, shall be free from any accumulation of rubbish, garbage, or debris. Remove all rubbish, garbage, and debris."
+pli_violations,0010R00108000000,CF-PLI-2021-006343,,violation_description,"2 STORY FRAME MULTI UNIT APARTMENT BLDG, GIANT HOLE LEFT SIDE OF STRUCTURE. ROOF WATER DAMAGED, WOOD ROT CHIMNEY MORTAR MISSING CHIMNEY BRICKS LOOSE AND FALLING GUTTERS DETERIORATED DOWNSPOUTS BROKEN AND SEPARATED FROM STRUCTURE EXTERIOR WALLS HAS LOOSE AND ROTTING MATERIAL EXTERIOR WALLS HAS HOLES EXTERIOR WALLS BRICKS ARE FALLING EXTERIOR WALLS ARE WATER DAMAGED, WOOD ROT EXTERIOR WALLS PAINT PEELING WINDOW FRAMES WATER DAMAGED, WOOD ROT WINDOW GLAZINGS BROKEN AND MISSING DOOR FRAMES WATER DAMAGED, WOOD ROT DOORS BROKEN AND OPENED INTERIOR SURFACES WATER DAMAGED, WOOD ROT"
+pli_violations,0010R00108000000,CF-PLI-2021-006343,,violation_code_section,2015 IPMC 108.1.1
+pli_violations,0010R00108000000,CF-PLI-2021-006343,,violation_spec_instructions,SECURE VALID PERMIT(S) AND CORRECT CONDEMNATION VIOLATIONS OR DEMOLISH STRUCTURE.
+pli_violations,0010R00108000000,CF-PLI-2022-003944,,violation_description,Vacant structure - clean & lien - heavy overgrowth & debris throughout property & along sidewalks. Front & right side of structure is open & unsecured.
+pli_violations,0010R00108000000,CF-PLI-2022-003944,,violation_code_section,2015 IPMC 301.3
+pli_violations,0010R00108000000,CF-PLI-2022-003944,,violation_spec_instructions,Cut & clear all overgrowth & debris. Secure & board up all openings & entrances.
+pli_violations,0010R00108000000,CF-PLI-2023-036203,,violation_description,"Property in disrepair, needs boarded. Building not secured. Corner of Centre Ave and LaPlace St."
+pli_violations,0010R00108000000,CF-PLI-2023-036203,,violation_code_section,2015 IPMC 301.3
+pli_violations,0010R00108000000,CF-PLI-2023-036203,,violation_spec_instructions,Board and clean up around property.
+condemned_properties,0010R00108000000,COND-634691,2021-02-18,property_type,Condemned/Dead End Property
+condemned_properties,0010R00108000000,COND-634691,2021-02-18,inspection_status,Active
+condemned_properties,0010R00108000000,COND-634691,2021-02-18,latest_inspection_result,Pass
+condemned_properties,0010R00108000000,COND-634691,2021-02-18,latest_inspection_score,0
+pli_permits,0010R00108000000,DP-2022-14466,2024-11-27,permit_type,Demolition Permit
+pli_permits,0010R00108000000,DP-2022-14466,2024-11-27,work_type,CITY FUNDED DEMOLITION
+pli_permits,0010R00108000000,DP-2022-14466,2024-11-27,status,Completed
+pli_permits,0010R00108000000,DP-2022-14466,2024-11-27,work_description,"City Funded Demolition 1. This bid agreement is paid in part or full with American Rescue Plan Act (ARPA) funds, all federal regulations apply. 2. Remove all garbage, debris, vegetation, concrete slabs, accessory structures, steps, and fencing from the lot. 3. The contract term is 90 days from the award date. 4. ACHD asbestos application required – Survey included 5. Void to be filled with clean material. 6. Lot shall be graded to match adjacent lots, and so that water is diverted away from neighboring structures. 7. Lot at 10-R-94 is City-owned and may be used for staging but must cleaned and graded once work is completed. 8. Fence off the entire length of parcel to pedestrian traffic using 6-foot barricade fencing. 9. Pre-Inspection Pictures must be taken of neighboring structure and sidewalk before demolition can begin. 10. Lowest combined bid with 2514 Centre, 2331 Centre & 2333 Centre. 11. Foundations Remain"
+pli_violations,0042D00039000000,CF-PLI-2022-025760,2022-07-13,status,Closed
+pli_violations,0042D00039000000,CF-PLI-2022-025760,2022-07-13,case_file_type,Weeds/Debris
+pli_violations,0042D00039000000,CF-PLI-2022-025760,2022-07-13,investigation_outcome,Violation Found
+pli_violations,0042D00039000000,CF-PLI-2022-025760,2022-07-13,investigation_findings,"Violation present, Overgrowth."
+pli_violations,0042D00039000000,CF-PLI-2022-025760,2022-07-27,investigation_outcome,Filing Court Paperwork
+pli_violations,0042D00039000000,CF-PLI-2022-025760,2022-09-07,investigation_outcome,Taking Case To Court
+pli_violations,0042D00039000000,CF-PLI-2022-025760,2022-09-07,investigation_findings,"violation present, overgrouth"
+pli_violations,0042D00039000000,CF-PLI-2022-044404,2022-11-01,status,Closed
+pli_violations,0042D00039000000,CF-PLI-2022-044404,2022-11-01,case_file_type,Weeds/Debris
+pli_violations,0042D00039000000,CF-PLI-2022-044404,2022-11-01,investigation_outcome,DPW to Correct Issue
+pli_violations,0042D00039000000,CF-PLI-2022-044404,2022-11-01,investigation_findings,Overgrown Dead end property. Send to clean and lien.
+pli_violations,0042D00039000000,CF-PLI-2022-025760,,violation_description,Overgrowth throughout property.
+pli_violations,0042D00039000000,CF-PLI-2022-025760,,violation_code_section,2015 IPMC 302.4
+pli_violations,0042D00039000000,CF-PLI-2022-025760,,violation_spec_instructions,Clear and remove overgrowth.
+pli_violations,0042D00039000000,CF-PLI-2022-025760,,court_date,2022-09-08
+pli_violations,0042D00039000000,CF-PLI-2022-025760,,docket_number,"MJ-05313-NT-0000474-2022,MJ-05313-NT-0000475-2022,MJ-05313-NT-0000476-2022,MJ-05313-NT-0000477-2022"
+pli_violations,0042D00039000000,CF-PLI-2022-025760,,court_decision,Dismissed for No Service
+pli_violations,0042D00039000000,CF-PLI-2022-044404,,violation_description,Overgrowth throughout property.
+pli_violations,0042D00039000000,CF-PLI-2022-044404,,violation_code_section,2015 IPMC 301.3
+pli_violations,0042D00039000000,CF-PLI-2022-044404,,violation_spec_instructions,Clear and remove overgrowth.
+condemned_properties,0042D00039000000,COND-636880,2022-10-10,property_type,Condemned/Dead End Property
+condemned_properties,0042D00039000000,COND-636880,2022-10-10,inspection_status,Active
+condemned_properties,0042D00039000000,COND-636880,2022-10-10,latest_inspection_result,Pass
+condemned_properties,0042D00039000000,COND-636880,2022-10-10,latest_inspection_score,0
+pli_violations,0010L00127000000,CF-PLI-2022-006675,2022-03-21,status,Closed
+pli_violations,0010L00127000000,CF-PLI-2022-006675,2022-03-21,case_file_type,Weeds/Debris
+pli_violations,0010L00127000000,CF-PLI-2022-006675,2022-03-21,investigation_outcome,Violation Found
+pli_violations,0010L00127000000,CF-PLI-2022-006675,2022-03-21,investigation_findings,"Violation found - Debris - Assessing structure for condemnation, we will cite as necessary"
+pli_violations,0010L00127000000,CF-PLI-2022-007065,2022-03-22,status,Closed
+pli_violations,0010L00127000000,CF-PLI-2022-007065,2022-03-22,case_file_type,Building Maintenance
+pli_violations,0010L00127000000,CF-PLI-2022-007065,2022-03-22,investigation_outcome,Violation Found
+pli_violations,0010L00127000000,CF-PLI-2022-007065,2022-03-22,investigation_findings,Violations found - Deteriorated steps and exterior wall
+pli_violations,0010L00127000000,CF-PLI-2022-006675,2022-04-04,investigation_findings,Violations found - debris
+pli_violations,0010L00127000000,CF-PLI-2022-006675,2022-04-19,investigation_outcome,Violation Resolved
+pli_violations,0010L00127000000,CF-PLI-2022-006675,2022-04-19,investigation_findings,Violation corrected trash removed
+pli_violations,0010L00127000000,CF-PLI-2022-007065,2022-04-20,investigation_findings,Violation present cited for wall and steps
+pli_violations,0010L00127000000,CF-PLI-2022-007065,2022-05-18,investigation_outcome,Filing Court Paperwork
+pli_violations,0010L00127000000,CF-PLI-2022-007065,2022-05-18,investigation_findings,Violation sending to court
+pli_violations,0010L00127000000,CF-PLI-2022-007065,2022-07-21,investigation_outcome,Taking Case To Court
+pli_violations,0010L00127000000,CF-PLI-2022-007065,2022-07-21,investigation_findings,CONT TO 9/19
+pli_violations,0010L00127000000,CF-PLI-2022-032433,2022-08-16,status,Closed
+pli_violations,0010L00127000000,CF-PLI-2022-032433,2022-08-16,case_file_type,Broken Sidewalk
+pli_violations,0010L00127000000,CF-PLI-2022-032433,2022-08-16,investigation_outcome,Violation Found
+pli_violations,0010L00127000000,CF-PLI-2022-032433,2022-08-16,investigation_findings,Sidewalk in disrepair. Violation cited.
+pli_violations,0010L00127000000,CF-PLI-2022-032433,2022-09-13,investigation_findings,side walk in disrepair.
+pli_violations,0010L00127000000,CF-PLI-2022-007065,2022-09-14,investigation_findings,"Exterior wall damage, stairs damage. Continue to court."
+pli_violations,0010L00127000000,CF-PLI-2022-040501,2022-10-03,status,Closed
+pli_violations,0010L00127000000,CF-PLI-2022-040501,2022-10-03,case_file_type,Vacant Building
+pli_violations,0010L00127000000,CF-PLI-2022-040501,2022-10-03,investigation_outcome,Violation Found
+pli_violations,0010L00127000000,CF-PLI-2022-040501,2022-10-03,investigation_findings,"3 story brick lodge/hall, left of structure has long crack that cause the exterior brick wall to crumble leaving a multiple holes."
+pli_violations,0010L00127000000,CF-PLI-2022-040608,2022-10-04,status,Closed
+pli_violations,0010L00127000000,CF-PLI-2022-040608,2022-10-04,case_file_type,Vacant Building
+pli_violations,0010L00127000000,CF-PLI-2022-040608,2022-10-04,investigation_outcome,Violation Found
+pli_violations,0010L00127000000,CF-PLI-2022-040608,2022-10-04,investigation_findings,"3 story brick lodge/hall, left exterior wall has given way resulting in an imminent danger of collapse."
+pli_violations,0010L00127000000,CF-PLI-2022-040608,2022-10-05,investigation_findings,Violations still exist.
+pli_violations,0010L00127000000,CF-PLI-2022-040608,2022-10-06,investigation_outcome,Filing Court Paperwork
+pli_violations,0010L00127000000,CF-PLI-2022-040608,2022-10-06,investigation_findings,"Violations still exist, proceed to court."
+pli_violations,0010L00127000000,CF-PLI-2022-032433,2022-10-13,investigation_outcome,Filing Court Paperwork
+pli_violations,0010L00127000000,CF-PLI-2022-032433,2022-10-13,investigation_findings,sidewalk in disrepair
+pli_violations,0010L00127000000,CF-PLI-2022-040501,2022-10-28,investigation_findings,Violations still exist.
+pli_violations,0010L00127000000,CF-PLI-2022-007065,2022-11-10,investigation_findings,Building in disrepair. separating.
+pli_violations,0010L00127000000,CF-PLI-2022-040501,2022-12-01,investigation_outcome,Filing Court Paperwork
+pli_violations,0010L00127000000,CF-PLI-2022-040608,2022-12-01,investigation_outcome,Taking Case To Court
+pli_violations,0010L00127000000,CF-PLI-2022-007065,2022-12-15,investigation_findings,conditions exist
+pli_violations,0010L00127000000,CF-PLI-2022-032433,2022-12-19,investigation_outcome,Violation Resolved
+pli_violations,0010L00127000000,CF-PLI-2022-040501,2023-01-27,investigation_outcome,Taking Case To Court
+pli_violations,0010L00127000000,CF-PLI-2022-040501,2023-01-27,investigation_findings,"Violations still exist, proceed to court."
+pli_violations,0010L00127000000,CF-PLI-2023-009920,2023-03-24,status,Closed
+pli_violations,0010L00127000000,CF-PLI-2023-009920,2023-03-24,case_file_type,Vacant Building
+pli_violations,0010L00127000000,CF-PLI-2023-009920,2023-03-24,investigation_outcome,Violation Found
+pli_violations,0010L00127000000,CF-PLI-2023-009920,2023-03-24,investigation_findings,Vacant Condemned Structure
+pli_violations,0010L00127000000,CF-PLI-2023-010006,2023-03-27,status,Closed
+pli_violations,0010L00127000000,CF-PLI-2023-010006,2023-03-27,case_file_type,Vacant Building
+pli_violations,0010L00127000000,CF-PLI-2023-010006,2023-03-27,investigation_outcome,Violation Found
+pli_violations,0010L00127000000,CF-PLI-2023-010006,2023-03-27,investigation_findings,City Funded Demolition
+pli_violations,0010L00127000000,CF-PLI-2023-010006,2023-03-30,investigation_outcome,Filing Court Paperwork
+pli_violations,0010L00127000000,CF-PLI-2022-040501,2023-04-06,investigation_outcome,Violation Resolved
+pli_violations,0010L00127000000,CF-PLI-2022-040501,2023-04-06,investigation_findings,"Structure razed, city funded."
+pli_violations,0010L00127000000,CF-PLI-2022-040608,2023-04-06,investigation_outcome,Violation Resolved
+pli_violations,0010L00127000000,CF-PLI-2022-040608,2023-04-06,investigation_findings,"Structure razed, city funded."
+pli_violations,0010L00127000000,CF-PLI-2023-009920,2023-04-10,investigation_outcome,Violation Resolved
+pli_violations,0010L00127000000,CF-PLI-2023-009920,2023-04-10,investigation_findings,building demolished
+pli_violations,0010L00127000000,CF-PLI-2023-010006,2023-07-10,investigation_outcome,Taking Case To Court
+pli_violations,0010L00127000000,CF-PLI-2023-010006,2023-07-10,investigation_findings,CONT TO 8/16
+pli_violations,0010L00127000000,CF-PLI-2023-010006,2023-08-15,investigation_outcome,Violation Resolved
+pli_violations,0010L00127000000,CF-PLI-2023-010006,2023-08-15,investigation_findings,City funded demolition. See file notes for photo. City has demolished buikdng. No violation. Case withdrawn.
+pli_violations,0010L00127000000,CF-PLI-2022-006675,,violation_description,Accumulation of rubbish and debris along front sidewalk and the rear of the building.
+pli_violations,0010L00127000000,CF-PLI-2022-006675,,violation_code_section,2015 IPMC 308.1
+pli_violations,0010L00127000000,CF-PLI-2022-006675,,violation_spec_instructions,"Exterior property and premises, and the interior of every structure, shall be free from any accumulation of rubbish or garbage."
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,violation_description,Deteriorated stairway in the rear of the property
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,violation_code_section,2015 IPMC 304.10
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,violation_spec_instructions,"obtain necessary permits online at onestoppgh.pittsburghpa.gov repair, replace, or remove steps"
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,violation_description,Deteriorated left exterior wall
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,violation_code_section,2015 IPMC 304.6
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,violation_spec_instructions,Obtain necessary permits online at onestoppgh.pittsburghpa.gov and repair exterior wall
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,court_date,2022-08-01
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,docket_number,MJ-05228-NT-0000164-2022
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,court_decision,Court Decision: Continued
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,court_date,2022-09-19
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,court_date,2022-11-14
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,court_date,2022-12-19
+pli_violations,0010L00127000000,CF-PLI-2022-007065,,court_decision,Court Decision: Dismissed
+pli_violations,0010L00127000000,CF-PLI-2022-032433,,violation_description,Sidewalk in disrepair
+pli_violations,0010L00127000000,CF-PLI-2022-032433,,violation_code_section,2015 IPMC 302.3
+pli_violations,0010L00127000000,CF-PLI-2022-032433,,violation_spec_instructions,"repair or replace sidewalk 302.3 walking surfaces presents a hazard to pedestrians and must be repaired or replaced to eliminate the hazard. Sidewalk is broken, deteriorated, and presents a hazard. Obtain proper permit and repair sidewalk. Property owners are responsible for maintaining sidewalks along their property. For working on or repairing a sidewalk, the Department of Mobility and Infrastructure (""DOMI"") requires a permit. You can contact DOMI at 412-255-8850 or email: domipermits@pittsburghpa.gov Apply for a Zoning and Development Review (ZDR) application for the sidewalk permit. Apply online at OneStopPGH.pittsburghph.gov. For how to apply for things on PITTSSBURGH ONESTOP computers/internet: https://pittsburghpa.gov/onestoppgh/tutorials The violation will be marked as abated following issuance of the appropriate permit(s) and repair to sidewalk."
+pli_violations,0010L00127000000,CF-PLI-2022-040501,,violation_description,"3 story brick lodge/hall, left of structure has long crack that cause the exterior brick wall to crumble leaving a multiple holes."
+pli_violations,0010L00127000000,CF-PLI-2022-040501,,violation_code_section,2015 IPMC 108.1.1
+pli_violations,0010L00127000000,CF-PLI-2022-040501,,violation_spec_instructions,Secure valid permit(s) and correct condemnation violations or demolish structure.
+pli_violations,0010L00127000000,CF-PLI-2022-040501,,violation_code_section,2015 IPMC 108.1.3
+pli_violations,0010L00127000000,CF-PLI-2022-040501,,violation_spec_instructions,Secure valid permit(s) and correct condemnation violation.
+pli_violations,0010L00127000000,CF-PLI-2022-040501,,court_date,2023-05-03
+pli_violations,0010L00127000000,CF-PLI-2022-040501,,docket_number,"MJ-05003-NT-0004919-2022,MJ-05003-NT-0004920-2022"
+pli_violations,0010L00127000000,CF-PLI-2022-040501,,court_decision,Court Date Scheduled
+pli_violations,0010L00127000000,CF-PLI-2022-040501,,court_date,2023-02-02
+pli_violations,0010L00127000000,CF-PLI-2022-040501,,docket_number,MJ-05003-NT-0004919-2022
+pli_violations,0010L00127000000,CF-PLI-2022-040501,,court_decision,Court Decision: Continued
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,violation_description,"IMMINENT DANGER STRUCTURE ORDERED FOR CITY-FUNDED DEMOLITION. 3 story brick lodge/hall - Left exterior wall has given way, resulting in an imminent danger of collapse."
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,violation_code_section,2015 IPMC 110.1
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,violation_spec_instructions,"STRUCTURE IS ORDERED TO CITY-FUNDED DEMOLITION DUE TO IMMINENT HAZARD TO HEALTH AND SAFETY. ""Due the immediate risk to health and safety, PLI orders demolition of the subject structure within 48 hours of the first request for compliance issued October 4, 2022."
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,violation_description,"Location: IMMINENT DANGER STRUCTURE ORDERED FOR CITYFUNDED DEMOLITION. 3 Story brick lodge/hall -- Left exterior wall has given way, resulting in an imminent danger of collapse."
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,violation_code_section,2015 IPMC 110.3
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,violation_spec_instructions,"STRUCTURE IS ORDERED TO CITY-FUNDED DEMOLITION DUE TO IMMINENT HAZARD TO HEALTH AND SAFETY. Due the immediate risk to health and safety, PLI orders demolition of the subject structure within 48 hours of the first request for compliance issued February 16, 2022. A city-funded demolition will be performed per IPMC 110.3."
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,court_date,2022-12-07
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,docket_number,"MJ-05003-NT-0003967-2022,MJ-05003-NT-0003968-2022"
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,court_decision,Court Decision: Continued
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,court_date,2022-12-14
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,court_date,2023-02-02
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,court_date,2023-05-03
+pli_violations,0010L00127000000,CF-PLI-2022-040608,,court_decision,Court Date Scheduled
+pli_violations,0010L00127000000,CF-PLI-2023-009920,,violation_description,"Unsafe Structure - Imminent Danger exists ,severe structural damage, bricks collapsing onto sidewalk, building bowing."
+pli_violations,0010L00127000000,CF-PLI-2023-009920,,violation_code_section,2015 IPMC 109.1
+pli_violations,0010L00127000000,CF-PLI-2023-009920,,violation_spec_instructions,"Obtain permits and repair building, or Demolish building."
+pli_violations,0010L00127000000,CF-PLI-2023-010006,,violation_description,"IMMINENT DANGER STRUCTURE ORDERED FOR CITY-FUNDED DEMOLITION. 4 story commercial building - Left corner has given way, resulting in an imminent danger of collapse."
+pli_violations,0010L00127000000,CF-PLI-2023-010006,,violation_code_section,2015 IPMC 110.1
+pli_violations,0010L00127000000,CF-PLI-2023-010006,,violation_spec_instructions,"Special Instruction: STRUCTURE IS ORDERED TO CITY-FUNDED DEMOLITION DUE TO IMMINENT HAZARD TO HEALTH AND SAFETY. ""Due the immediate risk to health and safety, PLI orders demolition of the subject structure within 48 hours of the first request for compliance issued March 27, 2023"
+pli_violations,0010L00127000000,CF-PLI-2023-010006,,violation_code_section,2015 IPMC 110.3
+pli_violations,0010L00127000000,CF-PLI-2023-010006,,violation_spec_instructions,"STRUCTURE IS ORDERED TO CITY-FUNDED DEMOLITION DUE TO IMMINENT HAZARD TO HEALTH AND SAFETY. Due the immediate risk to health and safety, PLI orders demolition of the subject structure within 48 hours of the first request for compliance issued March 27, 2023. A city-funded demolition will be performed per IPMC 110.3"
+pli_violations,0010L00127000000,CF-PLI-2023-010006,,court_date,2023-07-31
+pli_violations,0010L00127000000,CF-PLI-2023-010006,,docket_number,MJ-05228-NT-0000240-2023
+pli_violations,0010L00127000000,CF-PLI-2023-010006,,court_decision,Court Decision: Continued
+pli_violations,0010L00127000000,CF-PLI-2023-010006,,court_date,2023-08-16
+pli_violations,0010L00127000000,CF-PLI-2023-010006,,court_decision,Court Date Scheduled
+pli_permits,0010L00127000000,DP-2023-05344,2023-03-27,permit_type,Demolition Permit
+pli_permits,0010L00127000000,DP-2023-05344,2023-03-27,work_type,CITY FUNDED DEMOLITION
+pli_permits,0010L00127000000,DP-2023-05344,2023-03-27,status,Completed
+pli_permits,0010L00127000000,DP-2023-05344,2023-03-27,work_description,"City Funded Demolition 1. EMERGENCY CURB-SIDE DEMOLITION. Remove all garbage and debris, vegetation, concrete slabs, steps and fencing. 2. Contract term 20 days start date: 3/25/2023, 3:00 PM. Contract ending date: 4/14/2023 3:00 PM 3. ACHD asbestos application required 4. Void to be filled with clean material. 5. Lot shall be graded to match adjacent lots, and so that water is diverted away from neighboring structures. 6. Fence off entire length of parcel to pedestrian traffic using 6-foot barricade fencing. 7. Structure must be made safe within 48 hrs"
+pli_violations,0075S00108000000,CF-PLI-2020-015003,2020-09-03,status,Closed
+pli_violations,0075S00108000000,CF-PLI-2020-015003,2020-09-03,case_file_type,Vacant Building
+pli_violations,0075S00108000000,CF-PLI-2020-015003,2020-09-03,investigation_outcome,Assigning to Another OneStopPGH Department
+pli_violations,0075S00108000000,CF-PLI-2020-015003,2020-09-03,investigation_findings,This complaint should be handled by demo inspector
+pli_violations,0075S00108000000,CF-PLI-2020-015003,2020-09-04,investigation_outcome,No Violation Found
+pli_violations,0075S00108000000,CF-PLI-2020-015003,2020-09-04,investigation_findings,Demo inspector has this case
+pli_violations,0075S00108000000,CF-PLI-2020-015003,2020-09-04,investigation_findings,This property is condemed and will be handled by demo inspector
+pli_violations,0075S00108000000,CF-PLI-2020-019262,2020-10-15,status,Closed
+pli_violations,0075S00108000000,CF-PLI-2020-019262,2020-10-15,case_file_type,Building Maintenance
+pli_violations,0075S00108000000,CF-PLI-2020-019262,2020-10-15,investigation_outcome,No Violation Found
+pli_violations,0075S00108000000,CF-PLI-2020-019262,2020-10-15,investigation_findings,No violation.
+pli_violations,0075S00108000000,CF-PLI-2021-000332,2021-01-06,status,In Court
+pli_violations,0075S00108000000,CF-PLI-2021-000332,2021-01-06,case_file_type,Vacant Building
+pli_violations,0075S00108000000,CF-PLI-2021-000332,2021-01-06,investigation_outcome,Violation Found
+pli_violations,0075S00108000000,CF-PLI-2021-000332,2021-01-06,investigation_findings,"roof collapsed,walls bowing.out on city demo."
+pli_violations,0075S00108000000,CF-PLI-2021-000332,2021-01-11,investigation_findings,"building collapsing,to be razed w/city demo."
+pli_violations,0075S00108000000,CF-PLI-2021-000332,2021-01-20,investigation_outcome,Filing Court Paperwork
+pli_violations,0075S00108000000,CF-PLI-2021-000332,2021-01-20,investigation_findings,razed w/city demo.
+pli_violations,0075S00108000000,CF-ES-2026-026126,2026-05-11,status,Closed
+pli_violations,0075S00108000000,CF-ES-2026-026126,2026-05-11,case_file_type,Weeds and Debris
+pli_violations,0075S00108000000,CF-ES-2026-026126,2026-05-11,investigation_outcome,Violation Found
+pli_violations,0075S00108000000,CF-ES-2026-026126,2026-05-11,investigation_findings,OVERGROWN VEGETATION ON LOT AT McCLURE AVENUE & MALDEN WAY ON NORTH SIDE
+pli_violations,0075S00108000000,CF-ES-2026-026126,2026-05-18,investigation_outcome,Violation Resolved
+pli_violations,0075S00108000000,CF-ES-2026-026126,2026-05-18,investigation_findings,VIOLATION CORRECTED
+pli_violations,0075S00108000000,CF-ES-2026-051255,2026-08-07,status,In Court
+pli_violations,0075S00108000000,CF-ES-2026-051255,2026-08-07,case_file_type,Weeds and Debris
+pli_violations,0075S00108000000,CF-ES-2026-051255,2026-08-07,investigation_outcome,Violation Found
+pli_violations,0075S00108000000,CF-ES-2026-051255,2026-08-07,investigation_findings,TALL WEEDS ON LOT AT McCLURE & MALEN ON NORTH SIDE
+pli_violations,0075S00108000000,CF-ES-2026-051255,2026-08-14,investigation_findings,VIOLATION REMAINS
+pli_violations,0075S00108000000,CF-ES-2026-051255,2026-08-21,investigation_outcome,Filing Court Paperwork
+pli_violations,0075S00108000000,CF-ES-2026-051255,2026-08-21,investigation_findings,VIOLATION REMAINS. ROUGHLY HALF OF LOT CUT. LOT RUNS ENTIRE LENGTH BETWEEN McCLURE & LECKY. ONCE REST OF LOT IS CUT CASE WILL BE WITHDRAWN.
+pli_violations,0075S00108000000,CF-ES-2026-026126,,violation_description,OVERGROWN VEGETATION ON LOT AT McCLURE AVENUE & MALDEN WAY ON NORTH SIDE
+pli_violations,0075S00108000000,CF-ES-2026-026126,,violation_code_section,CITY CODE 609.01
+pli_violations,0075S00108000000,CF-ES-2026-026126,,violation_spec_instructions,PLEASE MOW/CUT ALL TALL WEEDS/GRASS ON PARCEL AND DISPOSE OF CLIPPINGS/TRIMMINGS. MAINTAIN GOING FORWARD THROUGH SEASON. WEEDS/GRASS ON PARCEL SHALL NOT EXCEED SIX (6) INCHES IN HEIGHT AT ANY GIVEN TIME. THANK YOU.
+pli_violations,0075S00108000000,CF-ES-2026-051255,,violation_description,TALL WEEDS ON LOT AT McCLURE & MALEN ON NORTH SIDE
+pli_violations,0075S00108000000,CF-ES-2026-051255,,violation_code_section,CITY CODE 609.01
+pli_violations,0075S00108000000,CF-ES-2026-051255,,violation_spec_instructions,PLEASE CUT/TRIM ALL TALL WEEDS FROM PARCEL & SIDEWALK AREAS AND DISPOSE OF CLIPPINGS/TRIMMINGS. MAINTAIN GOING FORWARD.
+pli_violations,0075S00108000000,CF-ES-2026-051255,,court_date,2026-10-21
+pli_violations,0075S00108000000,CF-ES-2026-051255,,docket_number,MJ-05242-NT-0000792-2026
+pli_violations,0075S00108000000,CF-ES-2026-051255,,court_decision,Court Date Scheduled
+pli_violations,0075S00108000000,CF-PLI-2021-000332,,violation_description,"If the owner of a premises or owner’s authorized agent fails to comply with a demolition order within the time prescribed, the code official shall cause the structure to be demolished and removed, either through an available public agency or by contract or arrangement with private persons, and the cost of such demolition and removal shall be charged against the real estate upon which the structure is located and shall be a lien upon such real estate."
+pli_violations,0075S00108000000,CF-PLI-2021-000332,,violation_code_section,2015 IPMC 110.1 & 110.3
+pli_violations,0075S00108000000,CF-PLI-2021-000332,,violation_spec_instructions,"The code official shall order the owner or owner’s authorized agent of any premises upon which is located any structure, which in the code official’s or owner’s authorized agent judgment after review is so deteriorated or dilapidated or has become so out of repair as to be dangerous, unsafe, insanitary or otherwise unfit for human habitation or occupancy, and such that it is unreasonable to repair the structure, to demolish and remove such structure; or if such structure is capable of being made safe by repairs, to repair and make safe and sanitary, or to board up and hold for future repair or to demolish and remove at the owner’s option; or where there has been a cessation of normal construction of any structure for a period of more than two years, the code official shall order the owner or owner’s authorized agent to demolish and remove such structure, or board up until future repair. Boarding the building up for future repair shall not extend beyond one year, unless approved by the building official"
+pli_permits,0075S00108000000,DP-2021-00337,2021-01-08,permit_type,Demolition Permit
+pli_permits,0075S00108000000,DP-2021-00337,2021-01-08,work_type,CITY FUNDED DEMOLITION
+pli_permits,0075S00108000000,DP-2021-00337,2021-01-08,status,Completed
+pli_permits,0075S00108000000,DP-2021-00337,2021-01-08,work_description,"City Funded Demo 1.EMERGENCY DEMOLITION. Remove all garbage and debris, vegetation, fencing, concrete slabs, and steps. 2.Contract term 10 days start date: 1/7/2021, 11:00 AM. Contract ending date: 1/17/2021, 11:00 AM. 3.Remaining void to be filled with clean material. 4.ACHD asbestos application is required. 5.Fence off entire length of parcel to pedestrian traffic using 6-foot barricade fencing. 6.Structure to be made safe within 24 hours of contract inception. 7.Lot shall be graded to match adjacent properties."
+pli_violations,0023E00229000000,CF-PLI-2022-013273,2022-06-07,status,Closed
+pli_violations,0023E00229000000,CF-PLI-2022-013273,2022-06-07,case_file_type,Weeds/Debris
+pli_violations,0023E00229000000,CF-PLI-2022-013273,2022-06-07,investigation_outcome,No Violation Found
+pli_violations,0023E00229000000,CF-PLI-2022-013273,2022-06-07,investigation_findings,No violations found at time of inspection.
+pli_violations,0023E00229000000,CF-PLI-2023-039831,2023-08-21,status,Closed
+pli_violations,0023E00229000000,CF-PLI-2023-039831,2023-08-21,case_file_type,Weeds/Debris
+pli_violations,0023E00229000000,CF-PLI-2023-039831,2023-08-21,investigation_outcome,No Violation Found
+pli_violations,0023E00229000000,CF-PLI-2023-039831,2023-08-21,investigation_findings,no violation found during time of inspection.

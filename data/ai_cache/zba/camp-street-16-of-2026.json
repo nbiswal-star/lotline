@@ -1,0 +1,28 @@
+{
+ "slug": "camp-street-16-of-2026",
+ "model": "claude-opus-5",
+ "text_sha256": "6dcacb1c9d31d8b5db8eb2e5d053e3866a75100d1c8330c482fc86ca34cb247b",
+ "extracted_at": "2026-09-27T04:44:52+00:00",
+ "raw": {
+  "case_number": "16 of 2026",
+  "decision_date": "2026-04-29",
+  "address": "3315 Camp Street",
+  "district": "R2-L",
+  "lot_description": "The dimensions of the parcel are 55’ by 65’ (3,575 sf) and it is currently vacant.",
+  "reliefs": [
+   {
+    "kind": "dimensional_variance",
+    "description": "Variance Section 903.03.B.2 30’ rear setback required; 6’-11” requested",
+    "outcome": "approved",
+    "quote": "The Applicant’s request for variances from Section 903.03.B.2 to allow the construction of a house with limited front and rear setbacks is hereby APPROVED."
+   },
+   {
+    "kind": "dimensional_variance",
+    "description": "30’ front setback required; 8’ requested",
+    "outcome": "approved",
+    "quote": "The Applicant’s request for variances from Section 903.03.B.2 to allow the construction of a house with limited front and rear setbacks is hereby APPROVED."
+   }
+  ],
+  "rationale_quote": "The Applicant provided credible evidence that the depth and topography of the parcel are unique conditions that preclude strict compliance with the Code’s setback standards, and that the setbacks proposed for the house would not have a significant impact on the surrounding neighborhood."
+ }
+}

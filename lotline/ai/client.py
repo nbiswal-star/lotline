@@ -87,11 +87,13 @@ def call_structured(system: str, user: str, schema: dict[str, Any], *, client: A
         anthropic = None  # type: ignore[assignment]
         errors = ()
     try:
-        response = client.beta.messages.create(
+        # Structured outputs and effort are available on the stable Messages API.
+        # Test doubles from the early build expose only beta.messages; keep that
+        # narrow compatibility path without requiring the fallback beta in live use.
+        messages = client.messages if hasattr(client, "messages") else client.beta.messages
+        response = messages.create(
             model=MODEL,
             max_tokens=max_tokens,
-            betas=[FALLBACK_BETA],
-            fallbacks="default",
             system=system,
             output_config={"effort": effort, "format": {"type": "json_schema", "schema": schema}},
             messages=[{"role": "user", "content": user}],

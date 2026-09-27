@@ -23,6 +23,7 @@ from lotline.models import (
     DistrictRule,
     ParcelContext,
     ParcelFacts,
+    RecordText,
     Reconciliation,
     SourceEntry,
     Snapshot,
@@ -38,6 +39,8 @@ ADVERT_FILE = "advert_2026-09-16_reconciliation.csv"
 PARCEL_FACTS_FILE = "parcel_facts.csv"
 DISTRICT_RULES_FILE = "district_rules.csv"
 MANIFEST_FILE = "source_manifest.csv"
+# Optional: enforcement-record text for the AI evidence reader. Absent -> no record text.
+RECORD_TEXT_FILE = "record_text.csv"
 
 # --------------------------------------------------------------------------
 # Column allowlists. Only these columns are ever read from each file.
@@ -68,6 +71,10 @@ RULE_OPTIONAL_COLUMNS: tuple[str, ...] = ("rules_as_of", "amended_by", "site_sta
 MANIFEST_COLUMNS: tuple[str, ...] = (
     "source_id", "snapshot_as_of", "query_completed", "local_artifact", "scope",
 )
+RECORD_TEXT_COLUMNS: tuple[str, ...] = ("source_id", "pin", "record_id", "record_date", "field", "text")
+RECORD_TEXT_SOURCES = frozenset({"pli_violations", "condemned_properties", "pli_permits"})
+# Artifacts a manifest entry may name without the file being present.
+OPTIONAL_ARTIFACTS = frozenset({RECORD_TEXT_FILE})
 
 # --------------------------------------------------------------------------
 # Expected universe counts for this frozen snapshot (Treasury pull 2026-09-24,
@@ -423,6 +430,30 @@ def _load_keyed[T](
     return {row[key]: build(row) for row in _rows(df)}
 
 
+def _load_record_text(path: Path) -> dict[str, tuple[RecordText, ...]]:
+    """Enforcement-record text by PIN; an absent file means no record text (never an error)."""
+    if not path.is_file():
+        return {}
+    df = _read_csv(path, RECORD_TEXT_COLUMNS)
+    out: dict[str, list[RecordText]] = {}
+    for r in _rows(df):
+        w = f"{RECORD_TEXT_FILE} record {r['record_id']}"
+        if not PIN_PATTERN.match(r["pin"]):
+            raise SnapshotError(f"{w}: bad PIN {r['pin']!r}")
+        if r["source_id"] not in RECORD_TEXT_SOURCES:
+            raise SnapshotError(f"{w}: unknown source_id {r['source_id']!r}")
+        out.setdefault(r["pin"], []).append(RecordText(
+            source_id=r["source_id"],
+            pin=r["pin"],
+            record_id=required_text(r["record_id"], where=f"{w} record_id"),
+            record_date=(_check_date(r["record_date"], where=f"{w} record_date").isoformat()
+                         if r["record_date"] else None),
+            field=required_text(r["field"], where=f"{w} field"),
+            text=required_text(r["text"], where=f"{w} text"),
+        ))
+    return {pin: tuple(rows) for pin, rows in out.items()}
+
+
 # --------------------------------------------------------------------------
 # Startup assertions
 # --------------------------------------------------------------------------
@@ -462,7 +493,8 @@ def _check_manifest(manifest: Mapping[str, SourceEntry], data_dir: Path, today: 
         raise SnapshotError(f"{MANIFEST_FILE}: no entry for source(s) {missing} used by facts")
     for entry in manifest.values():
         artifact = entry.local_artifact
-        if artifact.endswith(".csv") and not (data_dir / artifact).is_file():
+        if artifact.endswith(".csv") and artifact not in OPTIONAL_ARTIFACTS \
+                and not (data_dir / artifact).is_file():
             raise SnapshotError(
                 f"{MANIFEST_FILE}: source {entry.source_id} points to missing file {artifact}"
             )
@@ -520,6 +552,7 @@ def load_snapshot(data_dir: Path = DATA_DIR, today: date | None = None) -> Snaps
         manifest=manifest,
         reconciliation=reconciliation,
         load_warnings=tuple(treasury_notes) + tuple(w for p in parcels.values() for w in p.load_warnings),
+        record_text=_load_record_text(data_dir / RECORD_TEXT_FILE),
     )
 
 

@@ -1,0 +1,23 @@
+# Team-labeled BEFORE any model run (2026-09-27, by reading data/record_text.csv by hand). Relevant = bears on current site condition or open enforcement for the current-condition conflict. Recall of the AI reader and the keyword baseline is computed against this file.
+record_id,pin,relevant,reason
+CF-PLI-2024-060362,0010S00005000000,Y,City-funded demolition casefile; cites demo permit DP-2024-13867; 2025-01-02 finding says property is demolished and case withdrawn
+CF-PLI-2021-010309,0010S00005000000,Y,Vacant-building casefile; closing 2025-01-02 finding says property is demolished; bears on current condition
+CF-PLI-2022-047718,0010S00005000000,Y,Weeds casefile; closing 2025-01-02 finding says property is demolished; bears on current condition
+CF-PLI-2023-005156,0010S00005000000,N,2023 weeds casefile; background before the 2024 demolition order
+CF-PLI-2024-064754,0010S00005000000,N,Construction-site casefile with no violation; its only free-text note was dropped for naming a person
+COND-634629,0010S00005000000,Y,Condemned/dead-end list still shows an active case; the other side of the current-condition conflict
+DP-2024-13867,0010S00005000000,Y,Demolition permit cited in PLI text; permits data records status Issued (close-out not recorded)
+CF-PLI-2024-060361,0010R00108000000,Y,City-funded demolition casefile; 2025-01-29 finding says city demolition has been completed
+DP-2022-14466,0010R00108000000,Y,Demolition permit cited in PLI text; permits data records status Completed
+CF-PLI-2023-028455,0010R00108000000,Y,2023 finding says a final demolition permit (DP-2022-14466) is in place; links permit to parcel
+COND-634691,0010R00108000000,Y,Condemned/dead-end list still shows an active case; the other side of the current-condition conflict
+CF-PLI-2020-009436,0010R00108000000,N,2020-2021 weeds and open-structure casefile; background before the demolition
+CF-PLI-2021-006343,0010R00108000000,N,2021 vacant-building casefile describing the structure; background before the demolition
+CF-PLI-2022-003944,0010R00108000000,N,2022 overgrowth and unsecured-structure casefile; background before the demolition
+CF-PLI-2023-036203,0010R00108000000,N,2023 board-up referral; background before the demolition
+CF-PLI-2024-033000,0010R00108000000,N,Mid-2024 board-up referral; background before the demolition order
+CF-PLI-2024-042400,0010R00108000000,N,Aug 2024 clean-and-lien referral; background before the demolition order
+CF-PLI-2024-042403,0010R00108000000,N,Aug 2024 board-up referral; background before the demolition order
+COND-636880,0042D00039000000,Y,Condemned/dead-end list shows an active case on a lot assessed as vacant
+CF-PLI-2022-044404,0042D00039000000,Y,Latest PLI record: overgrown dead-end property sent to clean and lien; describes lot condition without structure language
+CF-PLI-2022-025760,0042D00039000000,Y,2022 overgrowth casefile; court case dismissed for no service; enforcement status and lot condition

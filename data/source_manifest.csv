@@ -14,3 +14,4 @@ condemned_properties,2026-09-24,Y,parcel_facts.csv,Active condemned/dead-end cas
 rco_overlays,2026-09-24,Y,parcel_facts.csv,Community-review contact only; not endorsement
 historic_overlays,2026-09-24,Y,parcel_facts.csv,Historic-review screening flag
 zoning_code,2026-09-24,Y,district_rules.csv,Versioned use and dimensional rules with citations
+record_text,2026-09-27,Y,record_text.csv,"PLI violation, condemned-property and PLI permit text fields for 15 golden parcels (446 rows); untrusted source text for the AI evidence reader; never read by the engine"

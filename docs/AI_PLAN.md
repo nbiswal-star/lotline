@@ -2,7 +2,7 @@
 
 ## Positioning
 
-**Claude reads the record. Rules decide. Code verifies every AI claim.**
+**Claude reads the record. Rules decide. Code verifies source identity and every displayed quote.**
 
 An analyst screening a tax-sale list spends most of their time reading unstructured public records: enforcement case notes, condemnation files, zoning board decisions and the code itself. LotLine uses Claude to do that reading. A deterministic engine still owns every score and outcome so that results are auditable. Every AI statement must quote or cite a source that code checks, and anything that fails verification is not shown. Without a key, the readers are unavailable and everything else works.
 
@@ -10,15 +10,15 @@ An analyst screening a tax-sale list spends most of their time reading unstructu
 
 | # | Capability | What Claude does | How code verifies | Status |
 |---|---|---|---|---|
-| A1 | **Enforcement-record reader** | Reads every PLI violation and condemnation record for a lot (free text such as "Property is demolished. Demo permit DP-2024-13867") and extracts the items relevant to current site condition and open enforcement | Each item's quote must be an exact substring of the cited record, and its record ID and date must match. There is no free-form AI prose: summary lines are templates filled from verified items | Building |
-| A2 | **Ask LotLine** (grounded Q&A) | Answers plain-language questions about a lot ("Could I build a two-family house here?", "Why is this deferred?") from engine output and stored code excerpts | Every sentence cites facts or code sections that exist. The memo checker runs on every sentence, plus new rules: permission claims must agree with the rule table, utilities/title/market claims must be cited, and no promises of approval. Out-of-scope questions are declined | Building |
-| A3 | **Variance precedent reader** | Reads Zoning Board of Adjustment decision PDFs and extracts relief requested, outcome, date and rationale | Every quote is an exact substring of the decision text, and the date, district and case number appear in it. Code, not AI, matches cards to lots | Building |
-| A4 | **Next-check request drafter** (stretch) | For a named next check (for example "PLI: confirm demolition for record CF-PLI-2024-060362"), drafts the email or letter the analyst would send to the named owner | Every record ID, date, address and code section in the draft must exist in the parcel's facts. Forbidden words and source selection are rejected. It is a draft only; a human sends it | Proposed |
-| A5 | **Aerial-imagery observer** (stretch, higher risk) | Looks at a dated public County orthophoto of the lot and reports whether a building footprint appears | This can't be quote-verified. It would be shown only as "AI observation of a {year} aerial image, unverified", never used by the engine, and dated. Only if a public imagery source with clear terms is reachable | Proposed, needs vetting |
-| A6 | **Portfolio copilot** (stretch) | Answers questions across all 14 lots ("Which lots need only a survey and title work?") | Code first filters engine results to candidate lots; Claude explains only those, with the same per-sentence verification as A2 | Proposed |
-| P1 | Live snapshot drift check | None (deterministic) | A read-only comparison of the snapshot with live WPRDC | Building |
-| P2 | Pre-development cost worksheet | None | Defaults are cited or left blank for the user; nothing is invented | Building |
-| P3 | Outcome map | None | Offline-safe rendering | Building |
+| A1 | **Enforcement-record reader** | Searches loaded PLI, condemnation and permit text and proposes passages relevant to current condition and enforcement | Model-proposed tuples recur across two runs; IDs, fields, recorded dates and exact quotes are checked; unsupported semantics are withheld; deterministic structured companions are labeled by design | **Complete; development audit only** |
+| A2 | **Ask LotLine** (grounded Q&A) | Maps plain-language questions to fixed frames, engine claims and stored code excerpts | No model prose reaches users; permission claims must agree with rules; unsupported topics are declined | **Complete; 12+5 live smoke** |
+| A3 | **Variance precedent reader** | Reads selected ZBA decisions and extracts relief, outcome, date and rationale | Exact quotes and metadata are checked; relief-kind patterns are checked; code matches cards to lots | **Secondary; 6/8 usable, not predictive** |
+| A4 | **Internal next-check ticket** | None; deterministic template attaches verified evidence to the engine's named owner | No outgoing message; identifiers come from engine/evidence output | **Complete, deterministic** |
+| A5 | **Aerial-imagery observer** | — | Cut because the observation could not be adequately verified | **Cut** |
+| A6 | **Portfolio copilot** | — | Cut because deterministic triage is clearer for 14 lots | **Cut** |
+| P1 | Live snapshot drift check | None (deterministic) | A read-only comparison of the snapshot with live WPRDC | **Complete** |
+| P2 | Pre-development cost worksheet | None | Defaults are cited or left blank for the user; nothing is invented | **Complete** |
+| P3 | Outcome map | None | Offline-safe rendering | **Complete** |
 
 ## Evidence the AI adds value (to be measured, not asserted)
 
@@ -36,7 +36,7 @@ The engine is never changed by AI output. There is no AI prose without verificat
 | Item | Decision | Reason |
 |---|---|---|
 | A1 Enforcement-record reader | **Keep. This is the headline.** | All three reviewers. |
-| | Harden verification | Quotes of at least 8 tokens aligned to clause boundaries; a guard against clipped negations; code assigns record dates and flags superseded records; the "indicates" label is checked against a keyword lexicon (disagreement drops the label); two extraction passes must agree; instruction-like quotes are rejected. |
+| | Harden verification | Quotes of at least 8 tokens aligned to clause boundaries; a guard against clipped negations; code assigns recorded dates and neutrally notes later-dated records; the "indicates" label is checked against a keyword lexicon (absence or disagreement withholds the label); model-proposed tuples must recur across two runs; instruction-like quotes are rejected. |
 | | Cross-check demolition claims | Checked in code against the WPRDC PLI permits data. |
 | | Wording | Always "the record says", never "the site is". |
 | | Measure against a baseline | Recall against pre-run team labels, compared with a no-AI keyword baseline. |
@@ -48,4 +48,4 @@ The engine is never changed by AI output. There is no AI prose without verificat
 | P2 Cost worksheet | **Make it sale-specific.** | Surviving liens and water claims, redemption risk, quiet title, survey, demolition lien. No filler rows. |
 | Video | **Lead with the AI reading Centre's records.** | Show the verified quote, then the rules refusing to score, then the next check; show a deliberate rejection; keep live Q&A scripted. |
 
-**Tagline:** *LotLine's AI reads every public record on a tax-sale lot, quotes what matters, and stops analysts from spending title money on lots whose records disagree.*
+**Tagline:** *Claude searches loaded enforcement histories and surfaces quote-grounded conflict evidence before analysts decide whether to begin paid diligence.*

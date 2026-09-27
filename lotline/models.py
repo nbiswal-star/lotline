@@ -204,6 +204,24 @@ class Reconciliation:
 
 
 @dataclass(frozen=True)
+class RecordText:
+    """One text field of one public enforcement record (data/record_text.csv).
+
+    Untrusted source text: it may be read and quoted by the AI evidence reader
+    (``lotline.ai.evidence``), which verifies every quote in code. The engine
+    never reads it; if it ever became a ``Fact`` its evidence_class would be
+    "untrusted_text".
+    """
+
+    source_id: str  # "pli_violations" | "condemned_properties" | "pli_permits"
+    pin: str
+    record_id: str  # casefile number, condemned-list row id or permit number
+    record_date: str | None  # ISO date of the record row; None when the source gives none
+    field: str
+    text: str
+
+
+@dataclass(frozen=True)
 class Snapshot:
     """Everything the app loads at startup, immutable."""
 
@@ -215,6 +233,9 @@ class Snapshot:
     reconciliation: Reconciliation
     # Load-time notes about values treated as unknown (e.g. a 0 sf Treasury lot area).
     load_warnings: tuple[str, ...] = ()
+    # Optional enforcement-record text by PIN, for the AI evidence reader only.
+    # Not part of ParcelContext: the engine cannot see it.
+    record_text: dict[str, tuple[RecordText, ...]] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)

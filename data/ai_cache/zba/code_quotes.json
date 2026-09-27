@@ -1,0 +1,22 @@
+{
+ "model": "claude-opus-5",
+ "selected_at": "2026-09-27T04:45:07+00:00",
+ "quotes": {
+  "use_variance": {
+   "section": "911.01",
+   "quote": "F. Not Permitted. Uses that are not associated with a letter in a district column shall be considered prohibited uses and shall not be allowed in the respective district unless otherwise expressly permitted by other regulations of this Code."
+  },
+  "administrator_exception_h": {
+   "section": "911.04.A.69",
+   "quote": "If the lot in which the owner/applicant is requesting to build upon is determined to meet these five (5) conditions, the Zoning Administrator will then review the plot plan for compliance with the Development Standards in Sections 905.02.C, 905.02.D, and 905.02.E."
+  },
+  "lot_of_record": {
+   "section": "921.04.A",
+   "quote": "If the lot or parcel was vacant on the date which this code became applicable to it and is in separate ownership from abutting lots or parcels, then the Zoning Administrator shall approve the use of the lot as an Administrator Exception for a single-unit residential use"
+  },
+  "dimensional_variance": {
+   "section": "922.09.E",
+   "quote": "No variance in the strict application of any provisions of this Zoning Code shall be granted by the Zoning Board of Adjustment unless it finds that all of the following conditions exist"
+  }
+ }
+}

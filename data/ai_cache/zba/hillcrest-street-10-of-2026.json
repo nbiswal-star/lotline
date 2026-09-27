@@ -1,0 +1,22 @@
+{
+ "slug": "hillcrest-street-10-of-2026",
+ "model": "claude-opus-5",
+ "text_sha256": "53d8a10a959c008126694457a5c227263572c06ea8dce7cb912c8e5954ad97f0",
+ "extracted_at": "2026-09-27T04:44:57+00:00",
+ "raw": {
+  "case_number": "10 of 2026",
+  "decision_date": "2026-04-13",
+  "address": "5409 Hillcrest Street",
+  "district": "R2-H",
+  "lot_description": "The Subject Property has an irregular, trapezoidal shape and the combined area of the three parcels is approximately 6,700 sf.",
+  "reliefs": [
+   {
+    "kind": "dimensional_variance",
+    "description": "Variance Sections 903.03.D.2/925.06.C 3’ interior side setback required; 0’ requested",
+    "outcome": "approved_with_conditions",
+    "quote": "The Applicant’s request for variances from Sections 903.03.D.2/925.06.C to allow the construction of three houses with 0’ side setbacks, as described to the Board, is hereby APPROVED; subject to the condition that a fence shall be constructed along the property line shared with the 413 N. Graham Street parcel."
+   }
+  ],
+  "rationale_quote": "The Applicant presented credible evidence that the width of the lots that comprise the Subject Property is a unique characteristic that precludes strict compliance with the Code’s setback standards, and that the proposal represents the minimum variances that would allow for construction of three houses on the site."
+ }
+}

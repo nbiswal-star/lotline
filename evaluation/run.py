@@ -32,6 +32,7 @@ REGISTRY: tuple[tuple[str, int, str], ...] = (
     ("missingness", 5, "Missingness and uncertainty injection"),
     ("ablation", 6, "Unsafe comparator / ablation"),
     ("adversarial", 7, "Adversarial language fidelity"),
+    ("ai_reader", 8, "AI reader versus no-AI keyword baseline"),
     ("repro", 9, "Reproducibility record"),
 )
 

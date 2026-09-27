@@ -109,7 +109,7 @@ def test_loads_from_copy_of_data_dir(data_copy: Path, snapshot: Snapshot) -> Non
 
 
 def test_future_snapshot_date_rejected_only_when_today_given(data_copy: Path) -> None:
-    assert load_snapshot(data_copy, today=date(2026, 9, 26)) is not None
+    assert load_snapshot(data_copy, today=date(2026, 9, 27)) is not None  # record_text fetched 2026-09-27
     with pytest.raises(SnapshotError, match="dated after"):
         load_snapshot(data_copy, today=date(2026, 9, 1))
 

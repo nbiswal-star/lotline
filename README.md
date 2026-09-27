@@ -1,12 +1,14 @@
 # LotLine
 
-**A development feasibility navigator that catches conflicting public records before anyone acts on a tax-sale lot.**
+**Claude searches loaded enforcement histories and surfaces quote-grounded conflict evidence before analysts decide whether to begin paid diligence.**
 
 AI Horizons 2026 AI for Housing Hackathon · Challenge 1: Development Feasibility & Pro Forma Navigator · Startup track
 
 ![LotLine's offline sale pipeline, from 96 open-data records to 14 advertised vacant lots](docs/fallback/01-pipeline.png)
 
-> **Decision support only.** LotLine is a screening aid for staff review. It is not legal, financial, title, survey or zoning advice, and it never states that a parcel is buildable. Every packet ends in named human checks.
+> **Decision support only.** LotLine is a screening aid for staff review. It is not legal, financial, title, survey or zoning advice, and it never states that a parcel has final development approval. Every packet ends in named human checks.
+
+**Why AI—and what happens without it.** Enforcement histories arrive as heterogeneous free text: orders, inspections, court notes, demolition permits and condemnation status can describe different moments in a property's history. Claude performs the semantic retrieval task: it proposes event-bearing passages from those records. Code then accepts only source-matched IDs, dates, fields and exact quotes, withholds unsupported semantic labels, and requires the same exact evidence tuple in two repeated runs. On the labeled development audit set (21 records across 3 conflict parcels), the verified reader surfaced all 12 team-labeled relevant records with 0 irrelevant records; the no-AI keyword scan surfaced the same 12 plus 9 irrelevant records. This is retrospective internal conformance on a tiny team-labeled set—not accuracy, generalization, or proof of analyst time savings. The deterministic engine makes the identical parcel decision with or without Claude.
 
 **The problem, in one real sale.** For the City Treasurer Sale on October 2, 2026, the open-data feed lists **96** parcels but the City advertises **77**. Of those, 63 are structures and **14** are vacant lots. One "vacant" lot measures 1,672 sq ft in the assessment record and 4,305 sq ft in County GIS, on opposite sides of its 2,400 sq ft zoning minimum. Three "vacant" lots still have active condemned/dead-end cases attached. A tool that scores whichever field it loads first gets these wrong; LotLine detects the conflict and refuses to score through it.
 
@@ -47,7 +49,7 @@ The manual split, district rules, source manifest, polygon zoning, slope25, unde
 
 - **Claude Code (Claude Opus 5.5)**: coding assistant used during the build.
 - **OpenAI Codex**: used before the build to review the plan and restructure prepared CSVs, and during the build to review, test and implement parts of the application and documentation.
-- **Claude (Anthropic API)**: optional runtime selection and ordering of engine-approved memo claims behind a deterministic checker (added during the build).
+- **Claude (Anthropic API)**: optional runtime reader for unstructured enforcement records, bounded question router over engine-authored claims and cited code excerpts, and memo claim selector. Model output never changes an engine outcome or score.
 
 ## Libraries
 
@@ -62,18 +64,19 @@ uv run streamlit run app.py      # opens http://localhost:8501; works fully offl
 uv run pytest -q                 # full test suite
 ```
 
-Optional: set `ANTHROPIC_API_KEY` to let Claude select and order an approved set of cited claims. The assembled memo is shown only if the deterministic claim checker accepts it; otherwise, and whenever the key, network or model is unavailable, the deterministic cited memo is shown. Nothing else uses the network.
+Optional: set `ANTHROPIC_API_KEY` to run the record reader, Ask LotLine and cited memo assembly. Verified record-reader caches keep the headline demo available offline. When the key, network or model is unavailable, deterministic screening and memo output remain available.
 
 ## How it works
 
-**The engine decides; Claude assembles; the checker enforces.**
+**Claude reads the record. Rules decide. Code verifies source identity, recorded dates and every displayed quote.**
 
 1. **Immutable snapshots** (`lotline/loaders.py`). Cached CSVs are loaded with explicit column allowlists and validated at startup (schemas, unique PINs, dates, and the universe counts 96 / 77 / 19 / 63 / 14). Answer-key columns cannot be selected, and test labels are never read by the app.
 2. **Runtime reconciliation** (`lotline/reconcile.py`). The City advertisement is matched to the WPRDC list by normalized PIN, with the upset price as a cross-check.
 3. **Flat, cited facts** (`lotline/facts.py`). Every value becomes a fact `PIN:field:source` with its source and as-of date. District rules become `RULE:district:field` facts.
 4. **Deterministic engine** (`lotline/engine/`). Pure functions own routing, conflict detection (critical / material / disclose), use entitlement, the illustrative setback screen, hazard families, evidence coverage, the Development Ease result, barriers and next checks. All thresholds live in `lotline/engine/policy.py`. Unknown inputs are withheld, never scored as zero.
-5. **Memo and claim checker** (`lotline/memo/`). A deterministic cited memo is always available. Claude may optionally select and order 6–12 immutable, engine-approved claim IDs; it cannot submit prose, citations, outcomes, scores, checks or owners. The server resolves those IDs, inserts mandatory status, adverse evidence and action claims, then runs the same deterministic checker as defense in depth. Unknown, duplicate, malformed or rejected selections fall back to the deterministic memo.
-6. **Streamlit UI** (`app.py`, `lotline/ui/`) renders engine output only. It has four views: sale pipeline and triage, parcel packet, compare, and integrity.
+5. **Verified AI readers** (`lotline/ai/`). The enforcement reader searches longitudinal record prose for event-bearing quotes; exact IDs, fields, dates and quotes are rechecked, semantic labels are withheld unless a deterministic lexicon supports them, and model-proposed tuples must recur across two model runs. Code may attach an exact structured status field from an AI-surfaced condemned record; that companion is deterministic enrichment, outside the recurrence denominator. Ask LotLine maps natural questions to fixed answer frames, engine claim IDs and verbatim code excerpts; no model-written prose reaches the UI. ZBA extraction is secondary and is not used to predict approval.
+6. **Memo and claim checker** (`lotline/memo/`). A deterministic cited memo is always available. Claude may optionally select and order immutable engine-approved claim IDs. Unknown, duplicate, malformed or rejected selections fall back to the deterministic memo.
+7. **Streamlit UI** (`app.py`, `lotline/ui/`) renders engine output only. It has four views: sale pipeline and triage, parcel packet, compare, and integrity.
 
 ## Data sources
 
@@ -101,12 +104,12 @@ Zoning-rule values and every change to the hand-authored test labels are documen
 
 - **Real:** all parcel, sale, assessment, enforcement and screening-layer values, taken from the public sources above as of the dates shown.
 - **Derived:** reconciliation, area gaps, conflict levels, score components, coverage, outcomes, barriers and next checks. The deterministic engine computes these at runtime.
-- **Approximate:** envelope widths and depths use each parcel's minimum bounding rectangle and base setbacks. Corner status and nearby streets come from a 30 ft proximity heuristic. These are shown as an "illustrative base-setback screen", never as a buildable envelope.
+- **Approximate:** envelope widths and depths use each parcel's minimum bounding rectangle and base setbacks. Corner status and nearby streets come from a 30 ft proximity heuristic. These are shown as an "illustrative base-setback screen", never as a final development envelope.
 - **Synthetic (labeled in the app):** the three integrity fixtures. These are a memo draft that picks a side in a conflict, an injected instruction in violation text, and a stale-source snapshot. They exist only to show that the checker and engine fail safely.
 
 ## Limitations
 
-- **Decision support only.** LotLine is not legal, title, survey, financial, appraisal or zoning advice. "Advance to staff review" means an apparent lower-discretion zoning path worth staff time. It does not mean the lot is buildable or a good acquisition.
+- **Decision support only.** LotLine is not legal, title, survey, financial, appraisal or zoning advice. "Advance to staff review" means an apparent lower-discretion zoning path worth staff time. It does not mean the lot has development approval or is a good acquisition.
 - **Scope of v1.** It covers the vacant lots in one Treasurer Sale (14 advertised vacant parcels from a 96-record list). The 63 advertised structures are routed out, and a model for them is future work. Sheriff's Sale and Land Bank inventories are not loaded.
 - **Not evaluated:** contextual front setbacks (Ch. 925), attached and party-wall options, utility capacity and laterals, legal access, title, market demand and appraisal, and community-plan alignment. Each appears as a named next check, not a score.
 - **Screening layers are not determinations.** Slope, landslide, undermining and flood overlaps come from public GIS layers. We could not verify whether the slope layer matches the Steep Slope Overlay (§906.08) map, so the tool says "possible review".

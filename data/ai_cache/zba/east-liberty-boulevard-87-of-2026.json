@@ -1,0 +1,22 @@
+{
+ "slug": "east-liberty-boulevard-87-of-2026",
+ "model": "claude-opus-5",
+ "text_sha256": "eb0037a334d6dd1eff6055ac2395c9d1cae3505cf506833179c5090f7927fb69",
+ "extracted_at": "2026-09-27T04:45:00+00:00",
+ "raw": {
+  "case_number": "87 of 2026",
+  "decision_date": "2026-08-19",
+  "address": "East Liberty Boulevard",
+  "district": "RM-M",
+  "lot_description": "The dimensions of the parcel are 25’ by 95’ (2,375 sf) and it is currently vacant.",
+  "reliefs": [
+   {
+    "kind": "dimensional_variance",
+    "description": "Variance Section 903.03.D.2 25’ exterior side setback required; 7’-8” requested",
+    "outcome": "approved",
+    "quote": "The Applicant’s request for a variance from Section 903.03.D.2 to allow for the construction of a single-family house on the Subject Property with a 7’-8” exterior side setback is hereby APPROVED."
+   }
+  ],
+  "rationale_quote": "The Applicant presented credible evidence that the 25’ width of the Subject Property is a unique characteristic of the site and that strict compliance with the Code’s 25’ exterior side setback requirement would prevent any development of it."
+ }
+}

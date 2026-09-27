@@ -14,6 +14,7 @@ import streamlit as st
 from lotline.loaders import context_for, load_snapshot
 from lotline.models import Outcome
 from lotline.ui import memo_adapter as memo
+from lotline.ui import panels
 from lotline.ui import text
 from lotline.ui import viewmodels as vmod
 
@@ -166,7 +167,9 @@ def render_header(snapshot, results) -> None:
     left, right = st.columns([3, 2], vertical_alignment="center")
     with left:
         st.markdown(f"# {text.APP_NAME}")
-        st.markdown(f"<div style='font-size:1.08rem;margin-top:-0.6rem'>{esc(text.PITCH)}</div>",
+        st.markdown(f"<div style='font-size:1.08rem;margin-top:-0.6rem'>{esc(text.PITCH)}</div>"
+                    f"<div style='margin-top:0.45rem'><span class='ll-ai-mark'>AI reader</span> "
+                    f"<b>{esc(text.PRINCIPLE)}</b></div>",
                     unsafe_allow_html=True)
     with right:
         dates = " · ".join(f"{label} {d}" for label, d in vmod.snapshot_dates(snapshot))
@@ -203,6 +206,7 @@ def render_pipeline(snapshot, results) -> None:
 """,
         unsafe_allow_html=True,
     )
+    panels.render_map(snapshot, results)
 
     st.divider()
     st.subheader(f"Triage board: {f.vacant} advertised vacant lots")
@@ -353,6 +357,10 @@ def render_packet(snapshot, results, cfg) -> None:
         render_routing_packet(p)
         return
 
+    has_conflict = any(c.level in ("critical", "material") for c in p.conflicts)
+    if has_conflict:
+        panels.render_evidence(snapshot, pin, prominent=True)
+
     render_scores(p)
     st.markdown("### Flags by area")
     tiles = {t.key: t for t in p.tiles}
@@ -361,8 +369,16 @@ def render_packet(snapshot, results, cfg) -> None:
     for col, key in zip([*r1, *r2], ("zoning", "environmental", "infrastructure", "policy")):
         with col:
             render_tile(snapshot, tiles[key], p if key == "policy" else None)
+            if key == "zoning":
+                panels.render_precedents(results[pin])
+            if key == "policy" and not has_conflict:
+                panels.render_evidence(snapshot, pin, prominent=False)
 
     render_barriers_and_checks(p)
+    panels.render_tickets(snapshot, p, vmod.sale_date(snapshot),
+                          " · ".join(f"{label} {d}" for label, d in vmod.snapshot_dates(snapshot)))
+    panels.render_costs(snapshot, results[pin])
+    panels.render_ask(results[pin], pin)
     render_memo(snapshot, results, pin)
     render_provenance(p)
 
@@ -623,6 +639,10 @@ def render_integrity(snapshot, results, cfg) -> None:
                 "conflicts, prose atoms and next checks come from deterministic rules. Claude may "
                 "select and order approved claim IDs, but it cannot submit prose or alter citations. "
                 "The checker verifies the assembled memo and any failure shows the deterministic fallback.")
+    st.markdown(f"**AI readers: {text.PRINCIPLE}** Claude reads enforcement records, questions and Zoning "
+                "Board decisions; code keeps only verbatim-verified quotes and cited sentences, and the engine's "
+                "outcome never depends on AI output. With no API key, cached re-verified readings are shown and "
+                "everything else runs offline.")
 
     with st.container(border=True):
         st.markdown("#### Claim checker and red-team cases")
@@ -680,6 +700,8 @@ def render_integrity(snapshot, results, cfg) -> None:
             "- Frozen snapshot: sale status can change by payment or court order."
         )
 
+    panels.render_freshness(snapshot)
+
     st.markdown("#### Data sources and snapshot dates")
     st.dataframe(pd.DataFrame(vmod.source_rows(snapshot)), hide_index=True, use_container_width=True)
     with st.expander("Glossary"):
@@ -692,6 +714,7 @@ def render_integrity(snapshot, results, cfg) -> None:
 # --------------------------------------------------------------------------
 
 st.markdown(CSS, unsafe_allow_html=True)
+st.markdown(panels.AI_CSS, unsafe_allow_html=True)
 SNAPSHOT = get_snapshot()
 RESULTS = get_results(date.today())
 CONFIG = get_config()
