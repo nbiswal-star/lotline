@@ -246,8 +246,10 @@ def headline(items: list[EvidenceItemVM]) -> str | None:
     Deterministic: the latest-dated PLI quote reporting a completed demolition, and an Active
     condemned-properties status. LotLine does not choose between them.
     """
-    demo = sorted((i for i in items if i.source == "pli_violations" and _DEMOLITION_DONE.search(i.quote)
-                   and i.date[:1].isdigit()), key=lambda i: (i.date, i.record_id), reverse=True)
+    demo = sorted((i for i in items if i.source == "pli_violations"
+                   and i.indicates_code == "structure_removed_or_demolished"
+                   and _DEMOLITION_DONE.search(i.quote) and i.date[:1].isdigit()),
+                  key=lambda i: (i.date, i.record_id), reverse=True)
     cond = next((i for i in items if i.source == "condemned_properties"
                  and re.fullmatch(r"\s*active\s*", i.quote, re.I)), None)
     parts = []

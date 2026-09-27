@@ -1,0 +1,20 @@
+{
+  "contract_sha256": "625b244f441bed1db9463d803d5d9ac9ad7be8d938a05f93736012516ae27879",
+  "created_utc": "2026-09-27T13:56:07Z",
+  "image_sha256": "2c838235db47f2433bc470a2212ed87ee4152183c17e04c6b174149d44292896",
+  "model": "claude-opus-5",
+  "request_id": "req_011CfU4QPyqFP5TeDdxgRFQg",
+  "result": {
+    "image_quality": "limited",
+    "limitations": [
+      "tree_cover",
+      "shadows",
+      "imagery_date_unknown",
+      "parcel_boundary_not_visible",
+      "off_nadir"
+    ],
+    "street_context": "street_edge_visible",
+    "structure_footprint": "unclear",
+    "surface_cover": "mixed"
+  }
+}

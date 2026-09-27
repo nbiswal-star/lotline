@@ -108,7 +108,7 @@ def test_every_csv_read_uses_an_allowlist(monkeypatch: pytest.MonkeyPatch) -> No
     monkeypatch.setattr(loaders.pd, "read_csv", spy)
     load_snapshot()
     data_reads = [c for c in calls if c.get("nrows") != 0]
-    assert len(data_reads) == 6  # 5 snapshot CSVs + optional record_text.csv
+    assert len(data_reads) == 7  # 5 snapshot CSVs + optional record text + allowlisted parcel points
     for c in data_reads:
         usecols = c.get("usecols")
         assert usecols, f"{c['path']} read without usecols"

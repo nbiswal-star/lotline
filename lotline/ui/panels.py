@@ -171,6 +171,80 @@ def current_evidence(pin: str, snapshot: Snapshot | None) -> ai.EvidenceVM | Non
     return evidence_state(pin, snapshot)
 
 
+def render_visual_crosscheck(pin: str, snapshot: Snapshot) -> None:
+    """Real parcel imagery plus a bounded categorical AI read; never an engine input."""
+    try:
+        from lotline.ai import visual
+        asset = visual.asset_for(pin)
+    except Exception:  # noqa: BLE001 - optional imagery cannot break a packet
+        return
+    if asset is None:
+        return
+    with st.container(border=True):
+        ai_head("Multimodal cross-check: target parcel × dated records")
+        left, right = st.columns([3, 2], vertical_alignment="top")
+        with left:
+            st.image(str(asset.path), width="stretch",
+                     caption="Real aerial context; yellow line is the County parcel polygon")
+            st.caption(
+                f"{asset.attribution}. Retrieved {asset.retrieved_utc[:10]}; imagery acquisition date "
+                f"{asset.imagery_date or 'not provided'}. {asset.center_basis}."
+            )
+        key = f"visual_read_{pin}"
+        read = st.session_state.get(key)
+        if read is None:
+            read = visual.load_cached(asset)
+            if read is not None:
+                st.session_state[key] = read
+        with right:
+            st.markdown("**Bounded visual observations**")
+            st.caption("Claude returns fixed categories only—no free-form prose and no parcel decision.")
+            if st.button("Run image × records cross-check", key=f"visual_btn_{pin}",
+                         disabled=not ai.credentials()):
+                try:
+                    with st.spinner("Claude is classifying bounded visual features…"):
+                        read = visual.observe(asset)
+                    st.session_state[key] = read
+                except Exception as exc:  # noqa: BLE001 - optional reader fails closed
+                    st.warning(f"Visual reader unavailable ({type(exc).__name__}); cached result kept if available.")
+            if read is None:
+                st.caption("No verified visual read is cached. The image remains source context only.")
+            else:
+                footprint = {
+                    "clearly_visible": "structure-like footprint clearly visible",
+                    "not_visible": "no structure-like footprint clearly visible",
+                    "unclear": "structure visibility unclear",
+                }
+                surface = {
+                    "mostly_vegetated": "mostly vegetated", "mixed": "mixed cover",
+                    "mostly_impervious": "mostly impervious", "unclear": "unclear",
+                }
+                street = {
+                    "street_edge_visible": "street edge visible", "not_visible": "not visible",
+                    "unclear": "unclear",
+                }
+                quality = {"adequate": "adequate for coarse categories", "limited": "limited",
+                           "unusable": "unusable"}
+                st.markdown(f"- **Footprint:** {footprint[read.structure_footprint]}")
+                st.markdown(f"- **Surface:** {surface[read.surface_cover]}")
+                st.markdown(f"- **Street context:** {street[read.street_context]}")
+                st.markdown(f"- **Image quality:** {quality[read.image_quality]}")
+                evidence = current_evidence(pin, snapshot)
+                treasury = snapshot.treasury.get(pin)
+                structured_vacant = bool(treasury and "VACANT" in treasury.usedesc.upper())
+                status = visual.cross_modal_status(
+                    read, evidence.items if evidence else (), structured_vacant=structured_vacant,
+                    structured_structure=bool(treasury and treasury.is_structure))
+                st.info(f"**Cross-modal result:** {status}", icon=":material/compare_arrows:")
+                st.caption(("cached · image hash re-verified" if read.cached else "live · bounded categories")
+                           + f" · Model: {read.model}"
+                           + (f" · Read: {read.created_utc}" if read.created_utc else "")
+                           + (f" · Limits: {', '.join(x.replace('_', ' ') for x in read.limitations)}"
+                              if read.limitations else ""))
+        st.caption("Visual evidence can corroborate or challenge a record interpretation; it cannot validate "
+                   "imagery recency, current site condition, zoning, title, hazards or development feasibility.")
+
+
 def evidence_check_rows(pin: str, snapshot: Snapshot | None) -> list[dict[str, str]]:
     vm = current_evidence(pin, snapshot)
     if vm is None or not vm.verified or not vm.checks:

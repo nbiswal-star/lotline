@@ -136,10 +136,13 @@ def test_naive_policies_diverge_on_centre_10s5(comparison) -> None:
     assert not row["N2"]["view"]["advance"] and not row["N4"]["divergences"]
 
 
-def test_n3_would_advance_the_other_condemned_centre_lot(comparison) -> None:
-    row = _row(comparison, "10-R-108")
-    assert not row["lotline"]["advance"] and row["N3"]["view"]["advance"]
-    assert comparison["counts"]["N3"]["naive_advances_lotline_not"] == 1
+def test_n3_would_advance_two_lots_if_condition_records_are_ignored(comparison) -> None:
+    # Completing RIV-RM dimensions made Walcott otherwise scorable; the ablation
+    # now exposes the same unsafe effect there as on the second Centre lot.
+    for short in ("10-R-108", "42-D-39"):
+        row = _row(comparison, short)
+        assert not row["lotline"]["advance"] and row["N3"]["view"]["advance"]
+    assert comparison["counts"]["N3"]["naive_advances_lotline_not"] == 2
 
 
 def test_n4_collapses_corner_ranges(comparison) -> None:

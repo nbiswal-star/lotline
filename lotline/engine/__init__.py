@@ -35,6 +35,7 @@ from .derived import (
 from .dimensions import score_dimensional
 from .hazards import hazard_families, score_environment
 from .routing import RoutingInputs, route
+from .riparian import riparian_screen
 from .scoring import component_display, ease_result
 from .staleness import sale_date_passed_warning, stale_source_warnings
 from .use import score_use
@@ -79,8 +80,14 @@ def screen(ctx: ParcelContext, *, today: date | None = None) -> ScreeningResult:
     critical = has_critical(conflicts)
     unqueried = tuple(s for s in policy.G3_SOURCES if not sources_queried(ctx.manifest, (s,)))
 
+    riparian = None
+    if facts is not None and rule is not None and rule.district == "RIV-RM":
+        riparian = riparian_screen(
+            ctx.point_lat, ctx.point_lon, facts.mbr_short_side_ft, facts.mbr_long_side_ft,
+            ctx.river_geometry,
+        )
     use = score_use(rule)
-    dim = score_dimensional(ctx.pin, facts, rule, conflicts)
+    dim = score_dimensional(ctx.pin, facts, rule, conflicts, riparian)
     env = score_environment(ctx.pin, facts, unqueried)
     families = hazard_families(facts, unqueried)
 
@@ -120,6 +127,12 @@ def screen(ctx: ParcelContext, *, today: date | None = None) -> ScreeningResult:
         result.area_gap_pct = round(gap.pct, 2)
         result.area_gap_symmetric_pct = round(gap.symmetric_pct, 2)
     result.upset_to_assessed_land = upset_to_assessed_land(ctx)
+    if riparian is not None:
+        result.riparian_status = riparian.status
+        result.riparian_distance_ft = round(riparian.distance_ft, 1)
+        result.riparian_low_ft = round(riparian.low_ft, 1)
+        result.riparian_high_ft = round(riparian.high_ft, 1)
+        result.riparian_note = riparian.note
 
     inputs = CheckInputs(
         ctx=ctx,
@@ -131,6 +144,7 @@ def screen(ctx: ParcelContext, *, today: date | None = None) -> ScreeningResult:
         environment=env,
         unqueried_layers=unqueried,
         upset_to_assessed_land=result.upset_to_assessed_land,
+        riparian=riparian,
     )
     result.barriers = barriers(inputs)
     result.next_checks = next_checks(inputs)
@@ -156,6 +170,20 @@ def _derived_facts(ctx: ParcelContext, result: ScreeningResult) -> list[Fact]:
         out.append(derived_fact(ctx, "upset_to_assessed_land", result.upset_to_assessed_land,
                                 unit="ratio", note=RATIO_NOTE,
                                 inputs=("city_advertisement", "county_assessments")))
+    if result.riparian_status is not None:
+        out.append(derived_fact(
+            ctx, "riparian_status", result.riparian_status, unit=None,
+            note=result.riparian_note or "Approximate RIV riparian-buffer screen",
+            inputs=("river_hydrography", "county_parcels", "zoning_code"),
+            evidence_class="approximate",
+        ))
+        out.append(derived_fact(
+            ctx, "riparian_distance_band_ft",
+            (result.riparian_low_ft, result.riparian_high_ft), unit="ft",
+            note=result.riparian_note or "Approximate RIV riparian-buffer screen",
+            inputs=("river_hydrography", "county_parcels", "zoning_code"),
+            evidence_class="approximate",
+        ))
     geo_inputs = ("county_parcels", "zoning_code")
     for s in result.scenarios:
         out.append(derived_fact(ctx, f"envelope_{s.label}_width_ft", round(s.width_ft, 1), unit="ft",

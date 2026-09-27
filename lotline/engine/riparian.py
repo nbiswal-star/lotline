@@ -14,7 +14,8 @@ Method (offline, no GIS library):
   radius, cos(latitude) scaling on longitude). Across the few thousand feet
   that matter here the error is far below one foot, which is negligible next to
   the band below.
-- Band: ± half the MBR diagonal (the point may sit anywhere in the lot) ± a
+- Band: ± the full MBR diagonal (the source does not establish where the point
+  sits within the lot, so the farthest MBR corner is conservatively allowed) ± a
   hydrography margin (the mapped shoreline vs. the 710 ft contour; see
   ``HYDROGRAPHY_MARGIN_FT``).
 - Classes: the whole band beyond 125 ft -> outside; the whole band at or
@@ -73,7 +74,7 @@ class RiparianResult:
     low_ft: float
     high_ft: float
     river: str
-    half_diagonal_ft: float
+    parcel_diagonal_ft: float
     margin_ft: float
     buffer_ft: float
     note: str
@@ -127,21 +128,21 @@ def distance_to_rivers(lat: float, lon: float, rivers: Iterable[RiverPolygon]) -
     return best
 
 
-def mbr_half_diagonal_ft(short_side_ft: float | None, long_side_ft: float | None) -> float | None:
+def mbr_diagonal_ft(short_side_ft: float | None, long_side_ft: float | None) -> float | None:
     if short_side_ft is None or long_side_ft is None or short_side_ft < 0 or long_side_ft < 0:
         return None
-    return math.hypot(short_side_ft, long_side_ft) / 2.0
+    return math.hypot(short_side_ft, long_side_ft)
 
 
 def classify(
     distance_ft: float,
-    half_diagonal_ft: float,
+    positional_uncertainty_ft: float,
     *,
     margin_ft: float = HYDROGRAPHY_MARGIN_FT,
     buffer_ft: float = RIPARIAN_BUFFER_FT,
 ) -> tuple[str, float, float]:
     """(status, low_ft, high_ft) for a point distance and its uncertainty band."""
-    spread = half_diagonal_ft + margin_ft
+    spread = positional_uncertainty_ft + margin_ft
     low, high = max(0.0, distance_ft - spread), distance_ft + spread
     if low > buffer_ft:
         return OUTSIDE, low, high
@@ -163,24 +164,25 @@ def riparian_screen(
     """Approximate §905.04.E.4.a screen. None when any input is missing (unknown, never 'outside')."""
     if lat is None or lon is None:
         return None
-    half = mbr_half_diagonal_ft(mbr_short_side_ft, mbr_long_side_ft)
-    if half is None:
+    diagonal = mbr_diagonal_ft(mbr_short_side_ft, mbr_long_side_ft)
+    if diagonal is None:
         return None
     nearest = distance_to_rivers(lat, lon, rivers)
     if nearest is None:
         return None
-    status, low, high = classify(nearest.distance_ft, half, margin_ft=margin_ft, buffer_ft=buffer_ft)
+    status, low, high = classify(nearest.distance_ft, diagonal, margin_ft=margin_ft, buffer_ft=buffer_ft)
     note = (
         f"Approximate: Treasury point to the nearest {nearest.river} shoreline edge "
         f"(Allegheny County Major Rivers polygon, local planar approximation) = "
-        f"{nearest.distance_ft:,.0f} ft; band ±{half:,.0f} ft (half the lot's MBR diagonal) "
+        f"{nearest.distance_ft:,.0f} ft; band ±{diagonal:,.0f} ft (full lot MBR diagonal; "
+        "source-point location within the lot is not established) "
         f"±{margin_ft:,.0f} ft (mapped shoreline vs. the 710 ft Project Pool Elevation) = "
         f"{low:,.0f}–{high:,.0f} ft against the {buffer_ft:,.0f} ft riparian buffer "
         f"(§{RIPARIAN_CITATION}). Not a survey; the Zoning Administrator determines the buffer line."
     )
     return RiparianResult(
         status=status, distance_ft=nearest.distance_ft, low_ft=low, high_ft=high,
-        river=nearest.river, half_diagonal_ft=half, margin_ft=margin_ft, buffer_ft=buffer_ft,
+        river=nearest.river, parcel_diagonal_ft=diagonal, margin_ft=margin_ft, buffer_ft=buffer_ft,
         note=note,
     )
 
@@ -188,5 +190,5 @@ def riparian_screen(
 __all__ = [
     "HYDROGRAPHY_MARGIN_FT", "INSIDE", "OUTSIDE", "POSSIBLY_WITHIN", "RIPARIAN_BUFFER_FT",
     "RIPARIAN_CITATION", "RiparianResult", "RiverDistance", "RiverPolygon", "classify",
-    "distance_to_rivers", "mbr_half_diagonal_ft", "riparian_screen",
+    "distance_to_rivers", "mbr_diagonal_ft", "riparian_screen",
 ]

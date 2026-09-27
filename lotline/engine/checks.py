@@ -24,6 +24,7 @@ from . import policy
 from .conflicts import area_gap, large_gap
 from .dimensions import SETBACK_NAMES, DimensionalResult, depth_band, valid_area, width_band
 from .hazards import FEMA_SFHA, TERRAIN, UNDERMINING, effective_sfha, layer_names
+from .riparian import OUTSIDE, RiparianResult
 
 # --- canonical check texts ---------------------------------------------------
 CORNER = "corner/frontage status"
@@ -50,6 +51,7 @@ GEOMETRY = "parcel geometry (bounding-rectangle sides)"
 LAYER_REQUERY = "re-run screening layer query"
 SETBACK_RULE = "confirm district setbacks"
 MIN_LOT_RULE = "confirm district minimum lot size"
+RIPARIAN = "confirm RIV riparian-buffer line (§905.04.E.4.a)"
 
 BASE_CHECKS: tuple[str, ...] = (policy.CURRENT_SALE_STATUS_CHECK, CONTEXTUAL, SURVEY, TITLE,
                                LEGAL_ACCESS, UTILITIES, MARKET)
@@ -80,6 +82,7 @@ OWNERS: dict[str, str] = {
     LAYER_REQUERY: "acquisition staff (GIS data refresh)",
     SETBACK_RULE: "Zoning Administrator",
     MIN_LOT_RULE: "Zoning Administrator",
+    RIPARIAN: "Zoning Administrator + PA-licensed surveyor",
     policy.CURRENT_SALE_STATUS_CHECK: policy.CURRENT_SALE_STATUS_OWNER,
 }
 DIMENSIONS_OWNER = "Zoning Administrator"
@@ -99,6 +102,7 @@ class CheckInputs:
     environment: ComponentScore | None = None
     unqueried_layers: tuple[str, ...] = ()
     upset_to_assessed_land: float | None = None
+    riparian: RiparianResult | None = None
 
 
 def _kinds(conflicts: list[Conflict], level: ConflictLevel) -> set[str]:
@@ -308,6 +312,20 @@ def next_checks(i: CheckInputs) -> list[NextCheck]:
                 DIMENSIONS_OWNER))
     if not no_housing:
         tagged.extend(_district_review_checks(ctx))
+    if ctx.rule is not None and ctx.rule.district == "RIV-RM" and not no_housing:
+        if i.riparian is None:
+            add("missing_input", _nc(RIPARIAN, "RIV-RM: river geometry or parcel geometry unavailable"))
+        elif i.riparian.status == OUTSIDE:
+            add("district_procedure", _nc(
+                RIPARIAN,
+                f"approximate distance band {i.riparian.low_ft:,.0f}–{i.riparian.high_ft:,.0f} ft is "
+                "outside the 125 ft screen; the mapped shoreline is not the 710 ft contour",
+            ))
+        else:
+            add("site_standard", _nc(
+                RIPARIAN,
+                f"approximate screen is {i.riparian.status}; locate the 125 ft buffer from the 710 ft contour",
+            ))
     for fam in i.hazard_families:
         add("hazard", _nc(HAZARD_CHECKS[fam], _hazard_trigger(fam, ctx)))
     if _fema_unknown(i) and FEMA_SFHA not in i.hazard_families:
@@ -407,6 +425,13 @@ def barriers(i: CheckInputs) -> list[str]:
                     for c in (rule.single_unit_permission, rule.two_unit_permission))):
         add("rules_not_encoded",
             f"{rule.district} use permission is not in the screening vocabulary; use path not established")
+
+    if rule is not None and rule.district == "RIV-RM":
+        if i.riparian is None:
+            add("missing_input", "RIV-RM riparian-buffer distance is unknown; dimensional fit withheld")
+        elif i.riparian.status != OUTSIDE:
+            add("site_standard", f"approximate RIV-RM riparian screen is {i.riparian.status}; "
+                "the 125 ft buffer requires Zoning Administrator / surveyor confirmation")
 
     # Other missing inputs, each named.
     if _geometry_missing(ctx):

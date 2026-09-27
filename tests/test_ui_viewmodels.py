@@ -16,6 +16,7 @@ from lotline.ui import viewmodels as vm
 from tests.conftest import BENEZET, CENTRE_10S5, REPO_ROOT
 
 MICHIGAN_15S66 = "0015S00066000000"
+WALCOTT = "0042D00039000000"
 PIN_LITERAL = re.compile(r"(?<![0-9A-Za-z])\d{4}[A-Z]\d{5}[0-9A-Z]{4}\d{2}(?![0-9A-Za-z])")
 
 
@@ -136,6 +137,17 @@ def test_compare_columns(snapshot, results) -> None:
     centre = vm.compare_columns(snapshot, results, [CENTRE_10S5])
     centre_rows = next(iter(centre.values()))
     assert centre_rows["Components"].startswith("Not shown: critical conflict")
+
+
+def test_riv_rm_zoning_tile_uses_legal_distinctions_not_engine_conventions(snapshot, results) -> None:
+    packet = vm.packet(snapshot, results, WALCOTT)
+    zoning = next(tile for tile in packet.tiles if tile.key == "zoning")
+    rows = dict(zoning.rows)
+    assert "no stated district minimum" in rows["Lot area (both sources)"]
+    assert "district minimum 0" not in rows["Lot area (both sources)"]
+    use = rows["Housing use path (§911.02)"]
+    assert "single-unit detached prohibited" in use
+    assert "attached housing not evaluated" in use
 
 
 def test_dates_and_rule_limits_come_from_snapshot(snapshot) -> None:

@@ -3,7 +3,7 @@
 <!-- GENERATED FILE: regenerate offline with the command below; do not edit by hand. -->
 
 - Command: `uv run python -m evaluation.ai_scale --report` (reads cached model outputs; no API key or network needed)
-- Protocol: [`ai_scale_protocol.md`](ai_scale_protocol.md) (registered before any model call; amendments dated)
+- Protocol: [`ai_scale_protocol.md`](ai_scale_protocol.md) (written before model calls according to recorded timestamps; not externally registered)
 - Sample fetched from WPRDC: 2026-09-27T11:03:02Z – 2026-09-27T11:03:13Z; seed 20260927
 - Model: claude-opus-5; extraction passes cached: [1]
 - **Status: development-set estimate of one derived parcel rule, not a benchmark.**
@@ -30,12 +30,22 @@ n = 150 parcels (75 DEMOLISHED, 75 NOT_DEMOLISHED). Balanced sampling fixes prev
 | B2 structured (Vacant Lots type) + keyword | 35/48 = 72.9% [59.0%, 83.4%] | 35/75 = 46.7% [35.8%, 57.8%] | 0.569 | 62/75 = 82.7% [72.6%, 89.6%] | 35/13/40/62 | 17/150 = 11.3% [7.2%, 17.4%] |
 | B3 recency + keyword (latest casefile) | 18/22 = 81.8% [61.5%, 92.7%] | 18/75 = 24.0% [15.8%, 34.8%] | 0.371 | 71/75 = 94.7% [87.1%, 97.9%] | 18/4/57/71 | 128/150 = 85.3% [78.8%, 90.1%] |
 | B4 demolished/demolition/DP- rule | 46/61 = 75.4% [63.3%, 84.5%] | 46/75 = 61.3% [50.0%, 71.5%] | 0.676 | 60/75 = 80.0% [69.6%, 87.5%] | 46/15/29/60 | 89/150 = 59.3% [51.3%, 66.9%] |
+| B5 contextual completion rule (post hoc; negation/modal rejection) | 35/37 = 94.6% [82.3%, 98.5%] | 35/75 = 46.7% [35.8%, 57.8%] | 0.625 | 73/75 = 97.3% [90.8%, 99.3%] | 35/2/40/73 | 113/150 = 75.3% [67.9%, 81.5%] |
 | No reader (always abstain) | n/a (0/0) | 0/75 = 0.0% [0.0%, 4.9%] | 0.000 | 75/75 = 100.0% [95.1%, 100.0%] | 0/0/75/75 | 150/150 = 100.0% [97.5%, 100.0%] |
 | AI secondary: demolition item is latest record | 18/18 = 100.0% [82.4%, 100.0%] | 18/75 = 24.0% [15.8%, 34.8%] | 0.387 | 75/75 = 100.0% [95.1%, 100.0%] | 18/0/57/75 | 38/150 = 25.3% [19.0%, 32.8%] |
 | AI secondary: any demolition label | 44/44 = 100.0% [92.0%, 100.0%] | 44/75 = 58.7% [47.4%, 69.1%] | 0.739 | 75/75 = 100.0% [95.1%, 100.0%] | 44/0/31/75 | 34/150 = 22.7% [16.7%, 30.0%] |
 | Keyword secondary: any demolition lexicon hit | 55/96 = 57.3% [47.3%, 66.7%] | 55/75 = 73.3% [62.4%, 82.0%] | 0.643 | 34/75 = 45.3% [34.6%, 56.6%] | 55/41/20/34 | 54/150 = 36.0% [28.8%, 43.9%] |
 
-Best baseline by F1 (declared comparison): **B4 demolished/demolition/DP- rule**. AI-vs-best disagreements: AI only | ref DEMOLISHED: 6, B4 only | ref DEMOLISHED: 22, B4 only | ref NOT_DEMOLISHED: 15.
+Strongest baseline by F1 in this development analysis: **B4 demolished/demolition/DP- rule**. B5 is post hoc; B1–B4 were timestamped before calls. AI-vs-best disagreements: AI only | ref DEMOLISHED: 6, B4 only | ref DEMOLISHED: 22, B4 only | ref NOT_DEMOLISHED: 15.
+
+Paired stratified parcel bootstrap (4,000 resamples), AI minus the best simple baseline. Intervals are descriptive development-set uncertainty, not external-validity intervals:
+
+| Metric delta | Mean [2.5%, 97.5%] |
+|---|---|
+| precision | +0.246 [+0.157, +0.338] |
+| recall | -0.213 [-0.347, -0.080] |
+| f1 | -0.106 [-0.229, +0.012] |
+| discordance | -0.201 [-0.293, -0.120] |
 
 Secondary: STRUCTURE_PRESENT prediction against NOT_DEMOLISHED.
 
@@ -54,6 +64,7 @@ Prediction distribution by stratum (D = DEMOLISHED, P = STRUCTURE_PRESENT, A = A
 | B2 structured (Vacant Lots type) + keyword | D 35 / P 30 / A 10 | D 13 / P 55 / A 7 |
 | B3 recency + keyword (latest casefile) | D 18 / P 0 / A 57 | D 4 / P 0 / A 71 |
 | B4 demolished/demolition/DP- rule | D 46 / P 0 / A 29 | D 15 / P 0 / A 60 |
+| B5 contextual completion rule (post hoc; negation/modal rejection) | D 35 / P 0 / A 40 | D 2 / P 0 / A 73 |
 
 ## Automatically checkable metrics (pass 1)
 
@@ -67,7 +78,7 @@ Prediction distribution by stratum (D = DEMOLISHED, P = STRUCTURE_PRESENT, A = A
 | Verified demolition-done items shown | 39 |
 | Wrong-and-shown rate (demolition-done items on NOT_DEMOLISHED parcels / all shown) | 0/39 = 0.0% [0.0%, 9.0%] |
 
-Per-layer rejection counts (first failing verifier check per proposed item; enables offline ablation):
+First-failing verifier checks (descriptive rejection counts, not a counterfactual layer ablation):
 
 | Verifier check | Items dropped |
 |---|---|
@@ -75,6 +86,20 @@ Per-layer rejection counts (first failing verifier check per proposed item; enab
 | not_on_boundary | 7 |
 | unknown_record | 2 |
 | too_short | 1 |
+
+Counterfactual verifier-layer ablation on the cached k=1 raw proposals, using the current deterministic verifier without an entailment-judge call. Each row disables exactly one layer:
+
+| Replay | TP/FP/FN/TN | F1 | Items shown | FP change |
+|---|---|---|---|---|
+| all deterministic layers | 30/0/45/75 | 0.571 | 1148 | +0 |
+| without provenance | 30/0/45/75 | 0.571 | 1150 | +0 |
+| without substring | 30/0/45/75 | 0.571 | 1148 | +0 |
+| without boundary | 30/0/45/75 | 0.571 | 1156 | +0 |
+| without negation | 30/0/45/75 | 0.571 | 1148 | +0 |
+| without attribution | 30/0/45/75 | 0.571 | 1149 | +0 |
+| without injection | 30/0/45/75 | 0.571 | 1150 | +0 |
+| without lexicon | 30/0/45/75 | 0.571 | 1148 | +0 |
+| without permit | 30/0/45/75 | 0.571 | 1148 | +0 |
 
 Verified item labels: enforcement_or_court_status 555, structure_present 225, structure_removed_or_demolished 66, unverified_label 179, vacant_lot_condition 126.
 
@@ -137,11 +162,11 @@ The permits data carries no completion date, so the earliest qualifying permit i
 
 ## Self-consistency
 
-Only one extraction pass was run (k=1). The app's two-run intersection rule was not applied, so verified items here passed provenance/quote/lexicon checks but not repeated-run consistency.
+Only one extraction pass was run (k=1). The current app's three-run union and same-model entailment check were not applied, so this study does not estimate live-runtime stability or performance.
 
 ## Exploratory (post hoc): demolition labels withheld by the lexicon gate
 
-Not pre-registered; found during error analysis. Parcels where the model labelled a verbatim quote `structure_removed_or_demolished` but the verifier withheld the label because the keyword lexicon did not match: 10 DEMOLISHED vs 0 NOT_DEMOLISHED parcels.
+Post hoc; found during error analysis. Parcels where the model labelled a verbatim quote `structure_removed_or_demolished` but the verifier withheld the label because the keyword lexicon did not match: 10 DEMOLISHED vs 0 NOT_DEMOLISHED parcels.
 
 | PIN | Reference | AI primary prediction | Withheld quote |
 |---|---|---|---|
@@ -218,8 +243,8 @@ Item level (descriptive, all parcels): verified demolition-labelled items by cas
 
 **What this shows.**
 
-- **Precision is where the AI reader differs from grep.** On 150 randomly sampled parcels scored against City permit and condemned-list data (no team labels), the primary AI rule never asserted a completed demolition on a standing condemned structure: 0/75 false positives, precision 30/30 (95% CI 88.6–100%). The frozen keyword rule B1 applies the same "demolished/razed/completed" regex to the same text. It had equal recall within noise (33/75 vs 30/75) but 6 false positives. All six are inspector boilerplate such as "must be repaired or demolished" or "has not been razed or repaired". Reading context, not the regex, removes them. On the automatically checkable side, 0/39 verified "demolition done" quotes were shown on a NOT_DEMOLISHED parcel.
-- **On F1, the best simple baseline wins.** B4 (any "demolished", "demolition" or DP- reference) reaches F1 0.676 against the AI's 0.571: recall 61% vs 40%, with 15 false positives vs 0. The pre-registered headline comparison is therefore not an AI win on F1. The two systems trade recall against precision. For LotLine's use, a quote shown to a human resolver as demolition evidence, a false positive is the costlier error. That judgment is the team's and is not something this study measured.
+- **Precision against the City-record proxy is where the AI reader differs from grep.** On 150 randomly sampled parcels scored against City permit and condemned-list data (no team labels), the primary AI rule made 0/75 demolition assertions discordant with the active-condemned/no-demolition-permit proxy stratum; precision against that proxy was 30/30 (95% CI 88.6–100%). This proxy does not verify present-day site condition. The frozen keyword rule B1 applies the same "demolished/razed/completed" regex to the same text. It had similar recall (33/75 vs 30/75) but 6 proxy discordances. All six are inspector boilerplate such as "must be repaired or demolished" or "has not been razed or repaired". Reading context, not the regex, removes them. On the automatically checkable side, 0/39 verified "demolition done" quotes were shown on a NOT_DEMOLISHED-proxy parcel.
+- **On F1, the best simple baseline wins.** B4 (any "demolished", "demolition" or DP- reference) reaches F1 0.676 against the AI's 0.571: recall 61% vs 40%, with 15 proxy discordances vs 0. The timestamped headline comparison is therefore not an AI win on F1. The two systems trade recall against precision. For LotLine's use, a quote shown to a human resolver as demolition evidence, a proxy discordance may be costlier than a miss. That judgment is the team's and is not something this study measured.
 - **Recall is limited by the record and by the verifier, not only by the model.** Of the 45 AI misses, many parcels have no text that could say "demolished": 11 DEMOLISHED parcels have no PLI text dated on or after the permit, and several more have only unrelated casefiles (fire safety, sidewalks). The exploratory table shows a second limit. In 5 missed parcels the model correctly surfaced "torn down", "building is gone" or "PROPERTY WAS RAISED", but the deterministic lexicon gate withheld the label. Across all 150 parcels, a withheld demolition label occurred only on DEMOLISHED parcels. The secondary "any verified demolition label" rule (AI-S2) reaches 44/75 recall at 44/44 precision. It was declared before results, but it is secondary and is not promoted here.
 - **Verification rarely fires on real text.** 98% of proposed items passed provenance/quote checks. Of the 23 rejections, most were over-long or off-boundary quotes. The lexicon label gate, not quote verification, is the layer with real effect (179 labels withheld).
 - **Cost is small.** $0.052 per parcel on average (p95 $0.10), 8 s mean latency, $7.78 in total for 150 parcels at k=1.

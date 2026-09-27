@@ -496,7 +496,9 @@ def _tiles(snapshot: Snapshot, pin: str, result: ScreeningResult) -> list[TileVM
     z_rows.append(("Housing use path (§911.02)", result.use.reason if result.use and result.use.reason
                    else "district rules not encoded"))
     area = f"Assessment {_sf(f.assess_lotarea_sf)} · County GIS {_sf(f.county_gis_area_sf)}"
-    if rule is not None and rule.min_lot_sf is not None:
+    if rule is not None and rule.min_lot_sf == 0:
+        area += " · no stated district minimum"
+    elif rule is not None and rule.min_lot_sf is not None:
         area += f" · district minimum {_sf(rule.min_lot_sf)}"
     elif rule is not None and not rule.dimensions_encoded:
         area += " · district minimum not encoded in v1"

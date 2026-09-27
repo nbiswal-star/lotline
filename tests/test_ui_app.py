@@ -7,6 +7,7 @@ from streamlit.testing.v1 import AppTest
 
 from lotline.engine import screen
 from lotline.loaders import context_for, load_snapshot, lookup_pin
+from lotline.ui.viewmodels import short_pin
 from tests.conftest import BENEZET, CENTRE_10S5, REPO_ROOT
 
 MICHIGAN_15S66 = "0015S00066000000"
@@ -71,6 +72,18 @@ def test_centre_packet(at: AppTest) -> None:
             assert any(c.summary in w.value for w in at.warning)
     assert r.ease.display in _texts(at)
     assert "Component values are not shown because a critical conflict" in _texts(at)
+    assert "Multimodal cross-check" in _texts(at)
+    assert "Image does not resolve the record evidence" in _texts(at)
+
+
+def test_structure_routing_packet_has_visual_audit(at: AppTest) -> None:
+    structure_pin = next(pin for pin, item in SNAP.treasury.items() if item.is_structure)
+    at.radio(key="view").set_value("Parcel packet").run()
+    at.text_input(key="pin_text").input(short_pin(structure_pin)).run()
+    assert not at.exception, at.exception
+    body = _texts(at)
+    assert "routed record; not screened" in body
+    assert "Multimodal cross-check" in body
 
 
 def test_unknown_pin(at: AppTest) -> None:
@@ -108,7 +121,16 @@ def test_compare_view(at: AppTest) -> None:
 
 def test_integrity_view(at: AppTest) -> None:
     at.radio(key="view").set_value("Integrity").run()
+    body = _texts(at)
+    assert "Measured AI delta" in body
+    assert "0/75" in body and "15/75" in body
+    assert "frozen one-pass reader" in body
+    assert "Engine outcomes are unchanged" in body
+    assert "Multimodal delta" in body
+    assert "29 structure-routed records" in body
+    assert any(metric.label == "Vision abstentions" and metric.value == "45" for metric in at.metric)
+    assert "93/96" in body
     assert not at.exception, at.exception
     assert "The engine decides; Claude assembles; the checker enforces." in _texts(at)
-    assert "not encoded: **RIV-RM**" in _texts(at)
+    assert "not encoded: **none**" in _texts(at)
     assert "summary(run_cases())" not in _texts(at)

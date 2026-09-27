@@ -154,12 +154,16 @@ def test_lnc_district_dimensions_scored(all_results):
     assert not any("not encoded" in b for b in c.barriers)
 
 
-def test_riv_rm_dimensions_still_withheld(all_results):
+def test_riv_rm_dimensions_and_riparian_screen_are_wired(all_results):
     r = all_results[WALCOTT]
-    assert r.dimensional.status == "withheld" and "§905.04.E" in r.dimensional.reason
-    assert "review §905.04.E (RIV-RM) dimensions" in [c.check for c in r.next_checks]
+    assert (r.dimensional.status, r.dimensional.low, r.dimensional.high) == ("known", 2, 2)
+    assert r.setback_screen == "Illustrative only: interior 26x113 ft"
+    assert r.riparian_status == "outside buffer"
+    assert (round(r.riparian_low_ft), round(r.riparian_high_ft)) == (501, 793)
+    assert "§905.04.E.4.a" in r.dimensional.reason
+    assert "confirm RIV riparian-buffer line (§905.04.E.4.a)" in [c.check for c in r.next_checks]
     assert not any("908" in c.check for c in r.next_checks)
-    assert r.coverage_display == "4/5"
+    assert r.coverage_display == "5/5"
 
 
 def test_hazard_check_triggers_cite_overlay_sections(all_results):
@@ -206,9 +210,10 @@ def test_acquisition_burden_barrier(all_results):
             in all_results[WYLIE].barriers)
 
 
-def test_riv_rm_barrier_is_a_tool_gap(all_results):
-    assert ("LotLine does not yet model RIV-RM dimensions (§905.04.E); this is a tool limitation, "
-            "not a records problem") in all_results[WALCOTT].barriers
+def test_riv_rm_no_longer_has_a_tool_gap_barrier(all_results):
+    r = all_results[WALCOTT]
+    assert not any("not model" in b or "not encoded" in b for b in r.barriers)
+    assert r.barriers[0] == "current site condition is unverified"
 
 
 def test_areas_formatted_with_thousands_separators(all_results):

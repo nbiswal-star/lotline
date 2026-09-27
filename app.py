@@ -15,6 +15,7 @@ from lotline.loaders import context_for, load_snapshot
 from lotline.models import Outcome
 from lotline.ui import memo_adapter as memo
 from lotline.ui import panels
+from lotline.ui import science
 from lotline.ui import text
 from lotline.ui import viewmodels as vmod
 
@@ -206,7 +207,9 @@ def render_pipeline(snapshot, results) -> None:
 """,
         unsafe_allow_html=True,
     )
-    panels.render_map(snapshot, results)
+    with st.expander("Optional parcel map (not used in the recorded demo)", expanded=False):
+        st.caption("The triage table below is the primary workflow. Open this map only when WebGL is available.")
+        panels.render_map(snapshot, results)
 
     st.divider()
     st.subheader(f"Triage board: {f.vacant} advertised vacant lots")
@@ -352,6 +355,8 @@ def render_packet(snapshot, results, cfg) -> None:
                        f"{c.summary}", icon=":material/warning:")
         else:
             st.info(f"**Disclosed difference (no score change).** {c.summary}", icon=":material/info:")
+
+    panels.render_visual_crosscheck(pin, snapshot)
 
     if p.routing:
         render_routing_packet(p)
@@ -644,6 +649,71 @@ def render_integrity(snapshot, results, cfg) -> None:
                 "Board decisions; code keeps only verbatim-verified quotes and cited sentences, and the engine's "
                 "outcome never depends on AI output. With no API key, cached re-verified readings are shown and "
                 "everything else runs offline.")
+
+    scale = science.load_problem_scale()
+    if scale is not None:
+        with st.container(border=True):
+            st.markdown("#### Problem at scale: records that demand reconciliation")
+            a, b, c = st.columns(3)
+            a.metric("Vacant-assessed Pittsburgh parcels", f"{scale.vacant_unique:,}")
+            b.metric("Unique active-condemned parcels", f"{scale.condemned_unique:,}")
+            c.metric("In both public records", f"{scale.overlap_unique:,}")
+            st.caption(
+                f"Exact parcel-ID join: {scale.overlap_unique:,}/{scale.vacant_unique:,} "
+                f"({scale.overlap_pct_vacant:.1f}%) of vacant-assessed parcels and "
+                f"{scale.overlap_unique:,}/{scale.condemned_unique:,} "
+                f"({scale.overlap_pct_condemned:.1f}%) of unique active-condemned IDs; County assessment "
+                f"as of {scale.assessment_as_of}. This is a records-overlap count—not present site condition, "
+                "unsafe-building status, development feasibility or evidence that AI is necessary."
+            )
+
+    delta = science.load_ai_delta()
+    if delta is not None:
+        with st.container(border=True):
+            st.markdown("#### Measured AI delta: contextual retrieval versus simple rules")
+            a, b, c = st.columns(3)
+            a.metric("Frozen AI proxy discordances", f"{delta.ai_fp}/{delta.reference_proxy_n}")
+            b.metric("Pre-call B4 proxy discordances", f"{delta.baseline_fp}/{delta.reference_proxy_n}")
+            c.metric("AI recall / pre-call B4 recall",
+                     f"{delta.ai_tp}/{delta.reference_positive_n} · "
+                     f"{delta.baseline_tp}/{delta.reference_positive_n}")
+            st.dataframe(pd.DataFrame(science.comparison_rows(delta)), hide_index=True,
+                         use_container_width=True)
+            st.caption(
+                f"{delta.sample_n} parcels randomly sampled within two balanced eligible proxy strata; "
+                f"total cached model spend ${delta.total_cost_usd:.2f}. The negative reference is an "
+                "active condemned-list record with no demolition permit—not verified present-day site "
+                f"condition. Proxy-discordant demolition assertions: AI {delta.ai_fp}/{delta.reference_proxy_n}; "
+                f"highest-F1 pre-call simple rule (B4) {delta.baseline_fp}/{delta.reference_proxy_n}. "
+                f"A post-hoc contextual deterministic rule (B5) reduced discordances to "
+                f"{delta.contextual_fp}/{delta.reference_proxy_n} and achieved F1 {delta.contextual_f1}, "
+                f"versus AI F1 {delta.ai_f1}. The AI result supports a conservative precision tradeoff—not "
+                "LLM necessity or overall superiority. These results evaluate a frozen one-pass reader without the newer "
+                "three-run union or entailment judge. Engine outcomes are unchanged with or without AI."
+            )
+
+    visual_audit = science.load_multimodal_audit()
+    if visual_audit is not None:
+        with st.container(border=True):
+            st.markdown("#### Multimodal delta: a review queue the records alone cannot produce")
+            a, b, c = st.columns(3)
+            a.metric("Hash-verified AI reads", f"{visual_audit.valid_reads}/{visual_audit.cohort_n}")
+            b.metric("Visual–record review flags", visual_audit.review_flags)
+            c.metric("Vision abstentions", visual_audit.abstentions)
+            st.markdown(
+                f"The records-only route performs **zero image–record comparisons**. The bounded visual "
+                f"observer flags **{visual_audit.routed_structure_review_flags} structure-routed records** "
+                "where no clear footprint is visible, so an analyst can check imagery date, demolition "
+                "permits, inspections or the site before treating the assessment class as current."
+            )
+            st.caption(
+                "The assessment class is not image ground truth, the imagery acquisition date is unavailable, "
+                "and no blind visual labels exist. A flag is not proof of vacancy or demolition; unclear is an "
+                f"explicit abstention. Exact footprint categories agreed on {visual_audit.exact_repeat_agreement}/96 "
+                "parcels across two consecutive runs; the same 29 structure-routed records were flagged. "
+                "This is a build-time stability check, not a reliability estimate. The visual model never changes "
+                "routing, outcomes or scores."
+            )
 
     with st.container(border=True):
         st.markdown("#### Claim checker and red-team cases")

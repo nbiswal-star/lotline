@@ -1,0 +1,3974 @@
+{
+  "0001D00259C70300": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.00071160123204,
+      40.4397964346397,
+      -79.99871160123203,
+      40.4417964346397
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.99970657814798,
+        40.44086950188445
+      ],
+      [
+        -79.99978431710466,
+        40.44074882222678
+      ],
+      [
+        -79.99971662560915,
+        40.44072336739495
+      ],
+      [
+        -79.99963888535943,
+        40.4408440465776
+      ],
+      [
+        -79.99970657814798,
+        40.44086950188445
+      ]
+    ],
+    "file": "parcel-0001d00259c70300-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "5f27478c00412a75ecd650371383763a2b372533cdab9b4dd77eec3010755657",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0001N00095000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.01586959648019,
+      40.43227327737687,
+      -80.01386959648018,
+      40.43427327737687
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.01505113312298,
+        40.433257704488305
+      ],
+      [
+        -80.014702213352,
+        40.43321861634097
+      ],
+      [
+        -80.01468805983738,
+        40.43328638923747
+      ],
+      [
+        -80.01503767081017,
+        40.43332793841277
+      ],
+      [
+        -80.01505113312298,
+        40.433257704488305
+      ]
+    ],
+    "file": "parcel-0001n00095000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "ea620c7a3677d1263a29eb3688bc58a43ab01fabe54380181dc3b2a8e354c066",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0004G00123000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.0076873084802,
+      40.42957176662447,
+      -80.00568730848019,
+      40.431571766624465
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.00653810502473,
+        40.43058335299674
+      ],
+      [
+        -80.00672778227961,
+        40.430681246589096
+      ],
+      [
+        -80.00683651193567,
+        40.43056130018444
+      ],
+      [
+        -80.00664679442927,
+        40.43046228665984
+      ],
+      [
+        -80.00653810502473,
+        40.43058335299674
+      ]
+    ],
+    "file": "parcel-0004g00123000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "764660fc6ef332c1ef6c3b688866d936227595f6ea7ef598ce03da0b1611e653",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0010F00018000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.97637667307342,
+      40.44718073583682,
+      -79.97437667307341,
+      40.44918073583681
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.97523681078161,
+        40.44808608402363
+      ],
+      [
+        -79.97539258577831,
+        40.44833103550481
+      ],
+      [
+        -79.97551653536523,
+        40.448277757742495
+      ],
+      [
+        -79.97536978770765,
+        40.44803043616882
+      ],
+      [
+        -79.97523681078161,
+        40.44808608402363
+      ]
+    ],
+    "file": "parcel-0010f00018000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "1e650d1cb887415736fb6d4a3572554f5905def42e8ea08571a29e4756276f74",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0010G00225000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.97479881390188,
+      40.44784894723059,
+      -79.97279881390187,
+      40.449848947230585
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.9736700235875,
+        40.44874925460322
+      ],
+      [
+        -79.97384550181548,
+        40.44898332565953
+      ],
+      [
+        -79.97392760421624,
+        40.44894890962773
+      ],
+      [
+        -79.97375307366713,
+        40.448714568801634
+      ],
+      [
+        -79.9736700235875,
+        40.44874925460322
+      ]
+    ],
+    "file": "parcel-0010g00225000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "11b308eab91822190d4a4614b2c802d7355a6114ebcf2f161f65a10e9c165375",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0010H00154000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.96928908176571,
+      40.44796558814051,
+      -79.9672890817657,
+      40.44996558814051
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.96842966085072,
+        40.44881707874769
+      ],
+      [
+        -79.96806125111372,
+        40.44895837820072
+      ],
+      [
+        -79.96815395357751,
+        40.44911409753334
+      ],
+      [
+        -79.96851691241767,
+        40.448960112947226
+      ],
+      [
+        -79.96842966085072,
+        40.44881707874769
+      ]
+    ],
+    "file": "parcel-0010h00154000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "17146f2f48a399494b7e3fd02f8b5470b0a175283e1797e5c01b87fe44a2151e",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0010K00052000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.97809068177412,
+      40.44460173830601,
+      -79.97609068177411,
+      40.44660173830601
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.97718729186064,
+        40.44568159768306
+      ],
+      [
+        -79.97705343291304,
+        40.44549901437359
+      ],
+      [
+        -79.9769940716876,
+        40.44552448133273
+      ],
+      [
+        -79.97713356539604,
+        40.445704462238425
+      ],
+      [
+        -79.97718729186064,
+        40.44568159768306
+      ]
+    ],
+    "file": "parcel-0010k00052000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "2375aa41119b9f6f25502f2fd10d96e8d6595ba26ff626c1c3dce330316bb838",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0010K00204000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.97792799245758,
+      40.446441085528896,
+      -79.97592799245757,
+      40.44844108552889
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.97701590584552,
+        40.447461317632175
+      ],
+      [
+        -79.97695567385028,
+        40.447374242992026
+      ],
+      [
+        -79.97684007906963,
+        40.447425598431245
+      ],
+      [
+        -79.97689712853757,
+        40.44750792806576
+      ],
+      [
+        -79.97701590584552,
+        40.447461317632175
+      ]
+    ],
+    "file": "parcel-0010k00204000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "1c99703e91517a9e72eddbcd095ed70db75092ab321fdcb8576d27f70b657244",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0010L00127000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.97528642364239,
+      40.446247437567784,
+      -79.97328642364238,
+      40.44824743756778
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.97416068721557,
+        40.44716560898814
+      ],
+      [
+        -79.97432035537659,
+        40.44739073857366
+      ],
+      [
+        -79.97438672000469,
+        40.447361409224555
+      ],
+      [
+        -79.97437273419543,
+        40.44732609303733
+      ],
+      [
+        -79.97441216006919,
+        40.44730909089609
+      ],
+      [
+        -79.97430389326504,
+        40.447104136561904
+      ],
+      [
+        -79.97416068721557,
+        40.44716560898814
+      ]
+    ],
+    "file": "parcel-0010l00127000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "334d3c86f597c8a083ad3329225ab1b7bfd7d0e5180e1dc89892c37f930c4fe4",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0010L00167000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.97278062505438,
+      40.44683921254035,
+      -79.97078062505437,
+      40.44883921254034
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.9716752787286,
+        40.44775027502482
+      ],
+      [
+        -79.97182440178645,
+        40.44795648303968
+      ],
+      [
+        -79.97188597138017,
+        40.44793065624537
+      ],
+      [
+        -79.9717409600601,
+        40.447721942041
+      ],
+      [
+        -79.9716752787286,
+        40.44775027502482
+      ]
+    ],
+    "file": "parcel-0010l00167000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "e7901f3e4642b1ac7d1340274a8e189dc6d01ed575afdf137ba49192f853717b",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0010R00108000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.97293166892482,
+      40.44444620092586,
+      -79.9709316689248,
+      40.446446200925855
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.97181964226081,
+        40.44556788030345
+      ],
+      [
+        -79.97188244847356,
+        40.44558328430401
+      ],
+      [
+        -79.97198450177443,
+        40.44536169958938
+      ],
+      [
+        -79.97204369558881,
+        40.44533664926424
+      ],
+      [
+        -79.97198492960577,
+        40.445324689028176
+      ],
+      [
+        -79.9719202010844,
+        40.44530911754771
+      ],
+      [
+        -79.97181964226081,
+        40.44556788030345
+      ]
+    ],
+    "file": "parcel-0010r00108000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "1bf83f0ad72418833d555cc5f11575f150d4cddde545fff9e6d940c84855a084",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0010S00005000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.97122721734979,
+      40.4442711520391,
+      -79.96922721734978,
+      40.446271152039095
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.9700508275271,
+        40.44506873974432
+      ],
+      [
+        -79.97032178861143,
+        40.445502620990624
+      ],
+      [
+        -79.97040360717249,
+        40.445473451800744
+      ],
+      [
+        -79.97012807231953,
+        40.44503968308757
+      ],
+      [
+        -79.9700508275271,
+        40.44506873974432
+      ]
+    ],
+    "file": "centre-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "da53eaa938b6df1c790d424eccedfa3c9cacc918ada55768838cffdd52ded0ec",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0012K00068000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.97659123186236,
+      40.42688699932432,
+      -79.97459123186235,
+      40.42888699932431
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.97556377059423,
+        40.42780267541598
+      ],
+      [
+        -79.9755629892143,
+        40.42781035384255
+      ],
+      [
+        -79.9755470420863,
+        40.42796706674212
+      ],
+      [
+        -79.97561866619202,
+        40.42797132323264
+      ],
+      [
+        -79.97563542163839,
+        40.427806665548225
+      ],
+      [
+        -79.97556377059423,
+        40.42780267541598
+      ]
+    ],
+    "file": "parcel-0012k00068000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "f7444388a397bde1209d19cdf6941f361827fee793756ddf140c6c7af046b8a9",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0013A00233000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.98060588616116,
+      40.4217390969796,
+      -79.97860588616115,
+      40.423739096979595
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.97952602498617,
+        40.42286467735049
+      ],
+      [
+        -79.97959294030187,
+        40.42287814571849
+      ],
+      [
+        -79.97968574733615,
+        40.42261515066809
+      ],
+      [
+        -79.97961114602656,
+        40.422600048240696
+      ],
+      [
+        -79.97952602498617,
+        40.42286467735049
+      ]
+    ],
+    "file": "parcel-0013a00233000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "8f13b5644ab06f69990830da7695145457ba34112b6b57f3960aa26f7bda4160",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0013G00066000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.97335317923088,
+      40.42002051486403,
+      -79.97135317923087,
+      40.42202051486402
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.97240018888994,
+        40.42109154146133
+      ],
+      [
+        -79.97243408757707,
+        40.421098098482375
+      ],
+      [
+        -79.97240213509838,
+        40.42095970205913
+      ],
+      [
+        -79.97231400892069,
+        40.42094293124567
+      ],
+      [
+        -79.97227227088467,
+        40.42106654223279
+      ],
+      [
+        -79.97234594751076,
+        40.42108091170463
+      ],
+      [
+        -79.97240018888994,
+        40.42109154146133
+      ]
+    ],
+    "file": "parcel-0013g00066000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "12e4694c69c682e0964cc1d0ac0c8435a2a83c64bc2232d3b153b172004524bc",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0014C00305000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.9889737564205,
+      40.42079773493274,
+      -79.9869737564205,
+      40.422797734932736
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.98793485776262,
+        40.42170628740112
+      ],
+      [
+        -79.98795193102043,
+        40.421893299443745
+      ],
+      [
+        -79.98801265507838,
+        40.421878502663894
+      ],
+      [
+        -79.98799743600931,
+        40.421702170421725
+      ],
+      [
+        -79.98793485776262,
+        40.42170628740112
+      ]
+    ],
+    "file": "parcel-0014c00305000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "69aeaba0616cebfa0b5c84eafcada100ec8a7edd9f6dc5a1fd0f6d6c567c1aa1",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0014H00051000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.98750571706204,
+      40.41898883165625,
+      -79.98550571706203,
+      40.420988831656246
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.98635255719412,
+        40.419924561255854
+      ],
+      [
+        -79.98656405167638,
+        40.420113362144484
+      ],
+      [
+        -79.98663947448544,
+        40.42005844905438
+      ],
+      [
+        -79.98665887692994,
+        40.42004768472856
+      ],
+      [
+        -79.98643813293307,
+        40.41986430116801
+      ],
+      [
+        -79.98635255719412,
+        40.419924561255854
+      ]
+    ],
+    "file": "parcel-0014h00051000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "dfce4f6bb41fe2cee550c2e723ec988c430cae8f35224f6664f5cd44f7fb9bb2",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0014J00217000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.99901236264208,
+      40.417107968015586,
+      -79.99701236264207,
+      40.41910796801558
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.99796531692132,
+        40.41793523561315
+      ],
+      [
+        -79.99796887608774,
+        40.418282043440364
+      ],
+      [
+        -79.9980594083628,
+        40.41828014519364
+      ],
+      [
+        -79.99805089804421,
+        40.4179338925908
+      ],
+      [
+        -79.99796531692132,
+        40.41793523561315
+      ]
+    ],
+    "file": "parcel-0014j00217000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "c6f04112efdccaba93ad5facd21508ffbba43596f6edcbff9da0f4907f0a074a",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0014J00218000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.99892079066845,
+      40.417109538974806,
+      -79.99692079066844,
+      40.4191095389748
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.99787270524915,
+        40.417936674569766
+      ],
+      [
+        -79.99788349243569,
+        40.41828384233646
+      ],
+      [
+        -79.99796887608774,
+        40.418282043440364
+      ],
+      [
+        -79.99796531692132,
+        40.41793523561315
+      ],
+      [
+        -79.99787270524915,
+        40.417936674569766
+      ]
+    ],
+    "file": "parcel-0014j00218000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "cbac0778fe607dd92c73dfb2c8aee09759dda2832f8cd8f58d4e7b3e1b02e786",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0014J00219000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.99883426237096,
+      40.41711113691022,
+      -79.99683426237095,
+      40.41911113691022
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.99787270524915,
+        40.417936674569766
+      ],
+      [
+        -79.99778503230623,
+        40.41793803639799
+      ],
+      [
+        -79.99780037959746,
+        40.41828559925067
+      ],
+      [
+        -79.99788349243569,
+        40.41828384233646
+      ],
+      [
+        -79.99787270524915,
+        40.417936674569766
+      ]
+    ],
+    "file": "parcel-0014j00219000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "6688d449291d18c285e31078a3eddef862b19963dd2eec090326a3cf71c53e5a",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0014M00076000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.98409714449531,
+      40.416991431371876,
+      -79.9820971444953,
+      40.41899143137187
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.98303044906054,
+        40.41774029670045
+      ],
+      [
+        -79.9830521257441,
+        40.41824605976548
+      ],
+      [
+        -79.98316383993006,
+        40.41824287092359
+      ],
+      [
+        -79.98313541703752,
+        40.417736802978276
+      ],
+      [
+        -79.98303044906054,
+        40.41774029670045
+      ]
+    ],
+    "file": "parcel-0014m00076000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "31acf2d52575efa0c3c86a8f06b4f938ba6671c00b6c1957a18f94efda54f95c",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0014N00100000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.00025102672352,
+      40.41513227838523,
+      -79.99825102672351,
+      40.417132278385225
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.99920560255231,
+        40.416270192733485
+      ],
+      [
+        -79.99930110310802,
+        40.41626929540292
+      ],
+      [
+        -79.99929505520744,
+        40.41599436403697
+      ],
+      [
+        -79.999200950339,
+        40.415997663715395
+      ],
+      [
+        -79.99920560255231,
+        40.416270192733485
+      ]
+    ],
+    "file": "parcel-0014n00100000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "e22bed7d11238cf9dae0818af9f6a03ff4dc028de69deb424609c379ce100aff",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0014R00172000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.98933825315154,
+      40.41386516771394,
+      -79.98733825315153,
+      40.41586516771394
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.98815992226297,
+        40.41489985300765
+      ],
+      [
+        -79.9885190727793,
+        40.41489692017913
+      ],
+      [
+        -79.98851597205214,
+        40.414830482420236
+      ],
+      [
+        -79.98815743352378,
+        40.414838370333065
+      ],
+      [
+        -79.98815992226297,
+        40.41489985300765
+      ]
+    ],
+    "file": "parcel-0014r00172000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "d59dcc21de369c3856cb8463f9566af9fb65bb56997736de8282702cb30c3c54",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0015S00066000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.00119598627057,
+      40.414697279461656,
+      -79.99919598627056,
+      40.41669727946165
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.00014869992168,
+        40.415835296284065
+      ],
+      [
+        -80.0002577890233,
+        40.41583344558943
+      ],
+      [
+        -80.0002509815105,
+        40.41555926263924
+      ],
+      [
+        -80.00013418351784,
+        40.41556160765894
+      ],
+      [
+        -80.00014869992168,
+        40.415835296284065
+      ]
+    ],
+    "file": "michigan-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "b5127beb825067d314a815a61689f3a60cdf75b7da10516f40efaf3e1512ee01",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0016N00110000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.0304497126829,
+      40.41497127905287,
+      -80.02844971268289,
+      40.416971279052866
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.02931548417469,
+        40.41578711108529
+      ],
+      [
+        -80.02925203173434,
+        40.41615544702045
+      ],
+      [
+        -80.0296313642234,
+        40.416151577003376
+      ],
+      [
+        -80.02964739363142,
+        40.41578845584173
+      ],
+      [
+        -80.0294133915939,
+        40.41578739920001
+      ],
+      [
+        -80.02931548417469,
+        40.41578711108529
+      ]
+    ],
+    "file": "parcel-0016n00110000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "9986ce2654439c1d094675470c8efa1869934402eb4dfd837cc20c91fecfabc2",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0018J00268000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.04917995523328,
+      40.42588066229766,
+      -80.04717995523328,
+      40.42788066229765
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.04798583626105,
+        40.4270095319493
+      ],
+      [
+        -80.04806444265313,
+        40.427038700565156
+      ],
+      [
+        -80.04811728100344,
+        40.427062156365025
+      ],
+      [
+        -80.04814019349506,
+        40.42707465140584
+      ],
+      [
+        -80.04837407420553,
+        40.426801881313416
+      ],
+      [
+        -80.04823690993409,
+        40.42673525345448
+      ],
+      [
+        -80.04813689082262,
+        40.42668667318947
+      ],
+      [
+        -80.04798583626105,
+        40.4270095319493
+      ]
+    ],
+    "file": "parcel-0018j00268000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "581c3bcf75c35e04dcd9299c47ef5135d8d968a9fc6de4b547548fa971d54964",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0020F00122000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.04328994056559,
+      40.44807940234781,
+      -80.04128994056558,
+      40.450079402347804
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.04208744233114,
+        40.44906317201605
+      ],
+      [
+        -80.0421502806112,
+        40.44919354429433
+      ],
+      [
+        -80.04249243880004,
+        40.44909495403476
+      ],
+      [
+        -80.04242872556924,
+        40.44896526040128
+      ],
+      [
+        -80.04208744233114,
+        40.44906317201605
+      ]
+    ],
+    "file": "parcel-0020f00122000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "3af35c4819ae3b3921fe42228c9a276d18f531e3bffe1647914f93db9fe8b2bf",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0022P00124000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.02758707223839,
+      40.453320930533465,
+      -80.02558707223838,
+      40.45532093053346
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.02659064582849,
+        40.454074161755436
+      ],
+      [
+        -80.02642633663271,
+        40.454105041009456
+      ],
+      [
+        -80.02657989654553,
+        40.45456769931149
+      ],
+      [
+        -80.02665893849621,
+        40.454553258865516
+      ],
+      [
+        -80.02674780784405,
+        40.454537022784635
+      ],
+      [
+        -80.02659064582849,
+        40.454074161755436
+      ]
+    ],
+    "file": "parcel-0022p00124000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "61f195a5e2d1b1742f73f055cc80fe2b7faa60b9182046302b18822e1a7dc95d",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0023E00229000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.01355967232618,
+      40.45674042113949,
+      -80.01155967232617,
+      40.45874042113949
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.01272564585045,
+        40.45767475727455
+      ],
+      [
+        -80.01237430606537,
+        40.45774792082287
+      ],
+      [
+        -80.01239433004591,
+        40.457806085004435
+      ],
+      [
+        -80.01242095560742,
+        40.457800618001166
+      ],
+      [
+        -80.01274503858698,
+        40.457734073925
+      ],
+      [
+        -80.01272564585045,
+        40.45767475727455
+      ]
+    ],
+    "file": "parcel-0023e00229000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "3ec82e64aa354c4393618f6e2cd4aaa0b7ab73aa67da243481811aaca509acc7",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0023H00136000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.00174947686159,
+      40.458967738956765,
+      -79.99974947686158,
+      40.46096773895676
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.00057123651474,
+        40.460028017988925
+      ],
+      [
+        -80.00092816457109,
+        40.45996468750924
+      ],
+      [
+        -80.0009280496517,
+        40.459907459924594
+      ],
+      [
+        -80.00057078915208,
+        40.45997423210494
+      ],
+      [
+        -80.00057123651474,
+        40.460028017988925
+      ]
+    ],
+    "file": "parcel-0023h00136000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "e6f098d0e961a41b49cbff841391a02ffd57cdcf463d39802c3472014cec510c",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0027H00144011200": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.95222628344101,
+      40.447569264183834,
+      -79.950226283441,
+      40.44956926418383
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.95122736820188,
+        40.448538585360794
+      ],
+      [
+        -79.95119480755574,
+        40.44855019437225
+      ],
+      [
+        -79.9512251992397,
+        40.448599943006876
+      ],
+      [
+        -79.95125775932625,
+        40.448588334451394
+      ],
+      [
+        -79.95122736820188,
+        40.448538585360794
+      ]
+    ],
+    "file": "parcel-0027h00144011200-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "ee07b01b49425c170a9f21aae4bfb919d6f1516bdbfa32dec2f9294dfd787927",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0027L00182000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.9581456820434,
+      40.44626608769024,
+      -79.95614568204338,
+      40.448266087690236
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.95702573232191,
+        40.447444745129836
+      ],
+      [
+        -79.9573874221598,
+        40.44718656823243
+      ],
+      [
+        -79.95726347320712,
+        40.44708743025064
+      ],
+      [
+        -79.95690394192698,
+        40.447345657592884
+      ],
+      [
+        -79.95702573232191,
+        40.447444745129836
+      ]
+    ],
+    "file": "parcel-0027l00182000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "345f14bf1a57d7e69e768e26239d57fc6d0ebc265583e482972e0224bac3c5e7",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0029G00286000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.95489517596617,
+      40.42890025444375,
+      -79.95289517596616,
+      40.43090025444374
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.95367579781444,
+        40.42991345000743
+      ],
+      [
+        -79.95409600625001,
+        40.42996957390378
+      ],
+      [
+        -79.9541145541179,
+        40.42988839870442
+      ],
+      [
+        -79.95369508327359,
+        40.429830934983706
+      ],
+      [
+        -79.95367579781444,
+        40.42991345000743
+      ]
+    ],
+    "file": "parcel-0029g00286000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "c778276e37814e2ba6784bc305cc8e9b29188afbd8d81a0b88b845ef2fd45f80",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0030A00087000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.96614651925036,
+      40.42124951520305,
+      -79.96414651925035,
+      40.42324951520305
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.96500933734183,
+        40.42232050763214
+      ],
+      [
+        -79.96507086202332,
+        40.422361545339385
+      ],
+      [
+        -79.96528370115888,
+        40.422182507091726
+      ],
+      [
+        -79.9652247363052,
+        40.422137485066706
+      ],
+      [
+        -79.96500933734183,
+        40.42232050763214
+      ]
+    ],
+    "file": "parcel-0030a00087000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "41f302585ed115aafcda2e045b2877c3e68e56223fd4cfc25a58ca3cfe5b7752",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0033E00163000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.99845786336812,
+      40.40872736570635,
+      -79.99645786336811,
+      40.41072736570634
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.99732801888456,
+        40.40984594608345
+      ],
+      [
+        -79.99756022150929,
+        40.40984751584711
+      ],
+      [
+        -79.9975950909367,
+        40.409815944586796
+      ],
+      [
+        -79.99749263852662,
+        40.40981372797683
+      ],
+      [
+        -79.99748916296844,
+        40.40974979506828
+      ],
+      [
+        -79.99741452023696,
+        40.40974669129408
+      ],
+      [
+        -79.99740153727633,
+        40.40968044855525
+      ],
+      [
+        -79.99738246008214,
+        40.40966038555067
+      ],
+      [
+        -79.99736317797745,
+        40.409607215565586
+      ],
+      [
+        -79.99732063579953,
+        40.40961069863214
+      ],
+      [
+        -79.99732801888456,
+        40.40984594608345
+      ]
+    ],
+    "file": "parcel-0033e00163000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "f9cf47e6ae957ce9689e10fae72463855a89cfeb806cc96cb27c63bed3c0ac04",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0033R00337000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.99174643182094,
+      40.40330814084734,
+      -79.98974643182093,
+      40.40530814084733
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.99048155687353,
+        40.404344245805305
+      ],
+      [
+        -79.99051149727048,
+        40.404407598799395
+      ],
+      [
+        -79.99101130676834,
+        40.40427486243416
+      ],
+      [
+        -79.99098082547522,
+        40.40420868289528
+      ],
+      [
+        -79.99048155687353,
+        40.404344245805305
+      ]
+    ],
+    "file": "parcel-0033r00337000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "29c8a24b84201abb6378959cff472f1b5537ec0a97cff4269c8bd89d66455453",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0034A00290000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.01742112649379,
+      40.41045540020462,
+      -80.01430606695084,
+      40.412610486357075
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.01641985735498,
+        40.41150450455071
+      ],
+      [
+        -80.01614062651348,
+        40.4111858733456
+      ],
+      [
+        -80.01610613339948,
+        40.41114810646791
+      ],
+      [
+        -80.01596876636377,
+        40.41122949551617
+      ],
+      [
+        -80.0158141112699,
+        40.41130417524244
+      ],
+      [
+        -80.01569812785819,
+        40.41135381855014
+      ],
+      [
+        -80.01555980099702,
+        40.411406641939024
+      ],
+      [
+        -80.01542390739368,
+        40.41145171076087
+      ],
+      [
+        -80.01530733608963,
+        40.411483766718526
+      ],
+      [
+        -80.01595954459724,
+        40.41191778009379
+      ],
+      [
+        -80.01614047008216,
+        40.411756087406566
+      ],
+      [
+        -80.01641985735498,
+        40.41150450455071
+      ]
+    ],
+    "file": "parcel-0034a00290000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "4037c48f2311fe0455e8978d1c29b108b3e01320b3a52ca82c5129ae89d20fa3",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0035N00157000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.03063331577772,
+      40.405074489189126,
+      -80.02863331577771,
+      40.40707448918912
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.02948860399913,
+        40.40598227400446
+      ],
+      [
+        -80.02969060621862,
+        40.40622017970359
+      ],
+      [
+        -80.02977802755629,
+        40.40617623591569
+      ],
+      [
+        -80.0295640261988,
+        40.40592879867465
+      ],
+      [
+        -80.02948860399913,
+        40.40598227400446
+      ]
+    ],
+    "file": "parcel-0035n00157000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "61853bf72db6c26dbadcf297a05778e1905a03366b8433f265e4ac4dad0bcd91",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0040G00273000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.05726461177721,
+      40.437864199174285,
+      -80.0552646117772,
+      40.43986419917428
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.05614465918931,
+        40.438750827632425
+      ],
+      [
+        -80.0562895038143,
+        40.43900614586911
+      ],
+      [
+        -80.05638456436512,
+        40.438974731635604
+      ],
+      [
+        -80.05623038409074,
+        40.43872225247946
+      ],
+      [
+        -80.05614465918931,
+        40.438750827632425
+      ]
+    ],
+    "file": "parcel-0040g00273000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "667564657c16109ef8d26dbf515aa2dafad0d98305f9909da2919f96c51dded1",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0042D00039000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.05387614104819,
+      40.460912483362144,
+      -80.05187614104818,
+      40.46291248336214
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.05266316091902,
+        40.46194405507346
+      ],
+      [
+        -80.05270132960364,
+        40.46200945684062
+      ],
+      [
+        -80.05308912117735,
+        40.46187713402325
+      ],
+      [
+        -80.05305400794035,
+        40.46181550988367
+      ],
+      [
+        -80.05266316091902,
+        40.46194405507346
+      ]
+    ],
+    "file": "parcel-0042d00039000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "d641ea94ddad29fbd1c2128eebd8bdf073f68d9f638c7d99387c21ce60d4c6f7",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0042D00205000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.05141318125375,
+      40.45959270455001,
+      -80.04941318125374,
+      40.46159270455001
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.05030067822072,
+        40.46048405121461
+      ],
+      [
+        -80.05029355919595,
+        40.46049116953293
+      ],
+      [
+        -80.0502476080255,
+        40.460536965128234
+      ],
+      [
+        -80.05052285569468,
+        40.460701357885405
+      ],
+      [
+        -80.05056839261732,
+        40.460656977453596
+      ],
+      [
+        -80.05057875448199,
+        40.46064677148394
+      ],
+      [
+        -80.05030067822072,
+        40.46048405121461
+      ]
+    ],
+    "file": "parcel-0042d00205000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "4ad7d0adf6419405702915b7964fe4954f2cfc6cdfecd97a00211290373f4ddd",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0042M00016000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.05408870623475,
+      40.45442951633908,
+      -80.05208870623474,
+      40.45642951633908
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.05303918169497,
+        40.455274744631176
+      ],
+      [
+        -80.05290993116171,
+        40.455349333007
+      ],
+      [
+        -80.05298631245444,
+        40.455428486865074
+      ],
+      [
+        -80.05313462001465,
+        40.455584288046985
+      ],
+      [
+        -80.05326748130777,
+        40.45551479977462
+      ],
+      [
+        -80.05306096650948,
+        40.45529707074093
+      ],
+      [
+        -80.05303918169497,
+        40.455274744631176
+      ]
+    ],
+    "file": "parcel-0042m00016000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "c3ec39b817cfc6490efc8d081e8c3eea09193685588f0d54ee7fd73d8c3f315f",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0042M00109000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.05230981763117,
+      40.45453050083396,
+      -80.05030981763116,
+      40.456530500833956
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.05111757107984,
+        40.45555150400548
+      ],
+      [
+        -80.0512243653672,
+        40.455665736874785
+      ],
+      [
+        -80.05150206418247,
+        40.45550787747289
+      ],
+      [
+        -80.05139666946317,
+        40.455395264793125
+      ],
+      [
+        -80.05111757107984,
+        40.45555150400548
+      ]
+    ],
+    "file": "parcel-0042m00109000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "989315d28e6f29b666e8170189ad443640b686f5d77ee33c9cdde0dd452b99d6",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0045A00302000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.03069314067747,
+      40.470142348945764,
+      -80.02869314067746,
+      40.47214234894576
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.02950838595987,
+        40.471126598089484
+      ],
+      [
+        -80.02953946496655,
+        40.47122165883256
+      ],
+      [
+        -80.02987789539506,
+        40.471155263536545
+      ],
+      [
+        -80.02984691183696,
+        40.471063039058954
+      ],
+      [
+        -80.02950838595987,
+        40.471126598089484
+      ]
+    ],
+    "file": "parcel-0045a00302000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "068ea10292a850727b16ba567f9144f97e56b677f0d0face33ec8ef8534f7470",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0045E00287000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.03067105124418,
+      40.467274819394966,
+      -80.02867105124417,
+      40.46927481939496
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.02950041031706,
+        40.46827161760037
+      ],
+      [
+        -80.02951952039854,
+        40.46833174255464
+      ],
+      [
+        -80.02984169217129,
+        40.46827665035423
+      ],
+      [
+        -80.02982262578895,
+        40.46821789623529
+      ],
+      [
+        -80.02950041031706,
+        40.46827161760037
+      ]
+    ],
+    "file": "parcel-0045e00287000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "4c81f60fc7c9c672bcfff77e74a007d4f1568b865d7a3a2b618c918d5451b422",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0045N00305000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.0323498760061,
+      40.462329062948136,
+      -80.03034987600608,
+      40.46432906294813
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.03156087545821,
+        40.46327394043228
+      ],
+      [
+        -80.03155712924995,
+        40.46326904015071
+      ],
+      [
+        -80.03151246303435,
+        40.46321070219634
+      ],
+      [
+        -80.03145820839406,
+        40.463221094336355
+      ],
+      [
+        -80.03113887655395,
+        40.463298423868494
+      ],
+      [
+        -80.03117884290475,
+        40.46343139909545
+      ],
+      [
+        -80.03118361784405,
+        40.46344742369992
+      ],
+      [
+        -80.03156087545821,
+        40.46327394043228
+      ]
+    ],
+    "file": "parcel-0045n00305000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "505c3d3b8eb2aa3f18cd28c1cf759b2cae683b52603d688e7302c30fb6e1c9f4",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0046N00351000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.0155857295534,
+      40.46203154593143,
+      -80.01358572955338,
+      40.46403154593143
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.01436049092793,
+        40.462923836338575
+      ],
+      [
+        -80.01462255195754,
+        40.4632283743066
+      ],
+      [
+        -80.01481096817885,
+        40.46313024348949
+      ],
+      [
+        -80.01467960493035,
+        40.46299231895934
+      ],
+      [
+        -80.01452946289885,
+        40.46283471755625
+      ],
+      [
+        -80.01436049092793,
+        40.462923836338575
+      ]
+    ],
+    "file": "parcel-0046n00351000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "1f78880b7b26364315020ff12cc41e01634b8604b8b5faaf53b28d0a958d933b",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0050K00227000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.94399671652072,
+      40.465010450694884,
+      -79.9419967165207,
+      40.46701045069488
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.94293180006093,
+        40.46614196097622
+      ],
+      [
+        -79.94300447763095,
+        40.46615190890535
+      ],
+      [
+        -79.94306163298049,
+        40.465878048497565
+      ],
+      [
+        -79.94299617472095,
+        40.4658689924844
+      ],
+      [
+        -79.94296358001095,
+        40.46600720544718
+      ],
+      [
+        -79.94293180006093,
+        40.46614196097622
+      ]
+    ],
+    "file": "parcel-0050k00227000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "f4b05ca3a1f9acf67c8ff59178161a427840d7e09cdd8816150895f8ef531ffe",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0052A00156000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.94981244445867,
+      40.450450002756945,
+      -79.94781244445866,
+      40.45245000275694
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.94862817675428,
+        40.451402376271346
+      ],
+      [
+        -79.94870107641879,
+        40.451585053891634
+      ],
+      [
+        -79.94891464879103,
+        40.451520762768034
+      ],
+      [
+        -79.94896243808357,
+        40.451498390045934
+      ],
+      [
+        -79.94899034445328,
+        40.45147229977585
+      ],
+      [
+        -79.94899671216304,
+        40.45144712396312
+      ],
+      [
+        -79.9489948057786,
+        40.451416268131574
+      ],
+      [
+        -79.94895241442786,
+        40.45131495162225
+      ],
+      [
+        -79.94862817675428,
+        40.451402376271346
+      ]
+    ],
+    "file": "parcel-0052a00156000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "410423bbddb6b3d163c1cce6105949cb44db64a4b5afae241a479388b669cd14",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0052D00275000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.93622574380126,
+      40.45128741987033,
+      -79.93422574380125,
+      40.45328741987033
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.93540370601802,
+        40.45226628494595
+      ],
+      [
+        -79.93537217490042,
+        40.452208370014276
+      ],
+      [
+        -79.9350477815845,
+        40.45231944066949
+      ],
+      [
+        -79.93507401667138,
+        40.452366469726385
+      ],
+      [
+        -79.93540370601802,
+        40.45226628494595
+      ]
+    ],
+    "file": "parcel-0052d00275000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "68f0df8f6a1ecaff47a2bf63716b970db5b06522863cbde68bba34229adf771b",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0052G00001000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.94179292367107,
+      40.449329741265,
+      -79.93979292367106,
+      40.45132974126499
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.94093769358285,
+        40.4501203260656
+      ],
+      [
+        -79.94054396303729,
+        40.45025384804989
+      ],
+      [
+        -79.94051040755313,
+        40.450272077028856
+      ],
+      [
+        -79.94049165385687,
+        40.450289414242754
+      ],
+      [
+        -79.94048683178758,
+        40.450307009760344
+      ],
+      [
+        -79.9404937315164,
+        40.45032584768905
+      ],
+      [
+        -79.94050291623984,
+        40.450345741419035
+      ],
+      [
+        -79.9406165769195,
+        40.45053915646438
+      ],
+      [
+        -79.94109901555454,
+        40.4503701381905
+      ],
+      [
+        -79.94093769358285,
+        40.4501203260656
+      ]
+    ],
+    "file": "parcel-0052g00001000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "b93e88cb1f1355478be1db728f7ce1937d1b9515e7a3b6ded55c058b16e850b9",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0052K00208000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.94505848805015,
+      40.44562762883846,
+      -79.94305848805014,
+      40.447627628838454
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.9438461499046,
+        40.44654941488339
+      ],
+      [
+        -79.94385086219596,
+        40.44668704073351
+      ],
+      [
+        -79.9438518519932,
+        40.446716105301086
+      ],
+      [
+        -79.94427082619569,
+        40.44670464664671
+      ],
+      [
+        -79.94426877674627,
+        40.4466440345029
+      ],
+      [
+        -79.94426521955268,
+        40.44653915237583
+      ],
+      [
+        -79.9438461499046,
+        40.44654941488339
+      ]
+    ],
+    "file": "parcel-0052k00208000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "7b4334dd13b63e495d74ec40fa7b11343db4b08dd05960cee800b80e43568534",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0052L00299000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.93858871260792,
+      40.44459286343368,
+      -79.93658871260791,
+      40.44659286343367
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.93731933395149,
+        40.44568714021245
+      ],
+      [
+        -79.93751943783154,
+        40.44568234522776
+      ],
+      [
+        -79.93779534216777,
+        40.44567469754493
+      ],
+      [
+        -79.93783446941818,
+        40.445663873501886
+      ],
+      [
+        -79.93785294738467,
+        40.44564659949905
+      ],
+      [
+        -79.93786193597256,
+        40.445634652452796
+      ],
+      [
+        -79.93787347605173,
+        40.445609550317926
+      ],
+      [
+        -79.93785830976705,
+        40.4454985866549
+      ],
+      [
+        -79.9373039491641,
+        40.445543383294904
+      ],
+      [
+        -79.93731072192267,
+        40.445606814797394
+      ],
+      [
+        -79.93731933395149,
+        40.44568714021245
+      ]
+    ],
+    "file": "parcel-0052l00299000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "f30e2701a315cd0ec404d2f7f684e6eb6e1590b78be41e2b6dca0d8c49b2e3f9",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0054M00051000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.93458882752125,
+      40.42564269599821,
+      -79.93258882752124,
+      40.4276426959982
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.93346291805574,
+        40.42655406249412
+      ],
+      [
+        -79.93363200586978,
+        40.426768888515824
+      ],
+      [
+        -79.93371473698677,
+        40.426730094281446
+      ],
+      [
+        -79.93354344381858,
+        40.426516503480585
+      ],
+      [
+        -79.93346291805574,
+        40.42655406249412
+      ]
+    ],
+    "file": "parcel-0054m00051000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "1bd9e5c7d4acd2567fad562efd5c763824bb1fc81d4bc1096b9dc7257fafbe2f",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0055B00259000A00": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.94331416646261,
+      40.42113063015412,
+      -79.9413141664626,
+      40.42313063015411
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.94213671971384,
+        40.42212207613448
+      ],
+      [
+        -79.94214698556448,
+        40.42217542554521
+      ],
+      [
+        -79.94249161321137,
+        40.42213909259578
+      ],
+      [
+        -79.94248134947507,
+        40.422085834763024
+      ],
+      [
+        -79.94213671971384,
+        40.42212207613448
+      ]
+    ],
+    "file": "parcel-0055b00259000a00-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "158d5a59e8d29539439bdff876e5f384917a2a1ef99046c9ccc598d1fd42d403",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0060L00238000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.98918641626727,
+      40.39613104186648,
+      -79.98718641626726,
+      40.39813104186648
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.9880310871826,
+        40.39709478747054
+      ],
+      [
+        -79.98812185737076,
+        40.39724629532963
+      ],
+      [
+        -79.98834174535195,
+        40.39718933503076
+      ],
+      [
+        -79.98825114072851,
+        40.39701578840333
+      ],
+      [
+        -79.9880310871826,
+        40.39709478747054
+      ]
+    ],
+    "file": "parcel-0060l00238000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "a7bc356218c0ca6f355ff08cf16ed61f9ea05c20b585c6f094ddfcaf15bdd341",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0062D00203000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.01816856944524,
+      40.4026799351527,
+      -80.01616856944523,
+      40.40467993515269
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.01698169478603,
+        40.403678110066394
+      ],
+      [
+        -80.01732132148175,
+        40.40376402635114
+      ],
+      [
+        -80.01735544410442,
+        40.40368381788299
+      ],
+      [
+        -80.01701574984163,
+        40.40359584395425
+      ],
+      [
+        -80.01698169478603,
+        40.403678110066394
+      ]
+    ],
+    "file": "parcel-0062d00203000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "2c838235db47f2433bc470a2212ed87ee4152183c17e04c6b174149d44292896",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0062E00097000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.03061499365757,
+      40.399758771277625,
+      -80.02861499365756,
+      40.40175877127762
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.02981175431509,
+        40.400796389975184
+      ],
+      [
+        -80.02980800144545,
+        40.40071193410007
+      ],
+      [
+        -80.02941823300002,
+        40.40072340397165
+      ],
+      [
+        -80.02942235597286,
+        40.40080560845518
+      ],
+      [
+        -80.02981175431509,
+        40.400796389975184
+      ]
+    ],
+    "file": "parcel-0062e00097000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "c25ea76bfbec137b4446d909c3673c53ff20d3dd1a1d247ab9090aad93caf847",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0070H00051000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.06782297533276,
+      40.44815695636368,
+      -80.06582297533275,
+      40.45015695636368
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.06678628059042,
+        40.44935856451277
+      ],
+      [
+        -80.0669351009893,
+        40.44943043209596
+      ],
+      [
+        -80.06716926216272,
+        40.4490410528943
+      ],
+      [
+        -80.0670494237499,
+        40.44894622663434
+      ],
+      [
+        -80.0667331101541,
+        40.448883480631395
+      ],
+      [
+        -80.06647668850279,
+        40.449193919690515
+      ],
+      [
+        -80.0666158076497,
+        40.449262361821006
+      ],
+      [
+        -80.06678628059042,
+        40.44935856451277
+      ]
+    ],
+    "file": "parcel-0070h00051000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "03d67bd2e1a8f3e7e3f22425e9a85ad165c77c30c0c2e94e93aa814196d95673",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0075S00108000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.03569292648831,
+      40.47353313680803,
+      -80.0336929264883,
+      40.475533136808025
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.03451413362023,
+        40.474492613846536
+      ],
+      [
+        -80.03455772484854,
+        40.47462508777675
+      ],
+      [
+        -80.03487171935636,
+        40.47456671391216
+      ],
+      [
+        -80.03483196055912,
+        40.474441185839304
+      ],
+      [
+        -80.03451413362023,
+        40.474492613846536
+      ]
+    ],
+    "file": "parcel-0075s00108000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "edc6247f01146ef924226bab3bfba1fbb730e4709202cc0608a5f398820e0091",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0076A00168000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.03093667762911,
+      40.478926449232084,
+      -80.0289366776291,
+      40.48092644923208
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.02978516095914,
+        40.480043767427865
+      ],
+      [
+        -80.03010513916374,
+        40.48002853390494
+      ],
+      [
+        -80.03008693299279,
+        40.4798091310363
+      ],
+      [
+        -80.02976821609448,
+        40.479821753709686
+      ],
+      [
+        -80.02977724089043,
+        40.479942484291165
+      ],
+      [
+        -80.02978516095914,
+        40.480043767427865
+      ]
+    ],
+    "file": "parcel-0076a00168000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "b86a9b78ee9f584be533da35fe4fc9d530eacd5cce1ec813c8c46764d552bb9e",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0076N00384000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.02985103145036,
+      40.47293999251365,
+      -80.02785103145035,
+      40.47493999251365
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.02892513854798,
+        40.47398936639045
+      ],
+      [
+        -80.02878146796162,
+        40.47380772132251
+      ],
+      [
+        -80.02877692435273,
+        40.4740722637048
+      ],
+      [
+        -80.02892513854798,
+        40.47398936639045
+      ]
+    ],
+    "file": "parcel-0076n00384000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "17264d435f7ec38f46e1daebcc19a7c9bef1c249b52ad2ff26ae5253b5a71b7c",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0077N00329000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.0152439973757,
+      40.47121963677404,
+      -80.0132439973757,
+      40.47321963677403
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.0141972511857,
+        40.47207179775261
+      ],
+      [
+        -80.01421177701741,
+        40.47236875570636
+      ],
+      [
+        -80.01429074356568,
+        40.472366477772816
+      ],
+      [
+        -80.01427783797718,
+        40.47207051784171
+      ],
+      [
+        -80.0141972511857,
+        40.47207179775261
+      ]
+    ],
+    "file": "parcel-0077n00329000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "df6c7343dd449e761dceb9c5aea2a7c07000ede1d600bb8856bc4b3833392a5e",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0081M00270000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.93670280903237,
+      40.47429407577458,
+      -79.93470280903236,
+      40.476294075774575
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.93549754697386,
+        40.47534201463144
+      ],
+      [
+        -79.93550233110315,
+        40.47541561439815
+      ],
+      [
+        -79.93591329884572,
+        40.475340418424516
+      ],
+      [
+        -79.93589207943457,
+        40.47527164301133
+      ],
+      [
+        -79.93586930829643,
+        40.475208948683395
+      ],
+      [
+        -79.9358480536699,
+        40.475172537151
+      ],
+      [
+        -79.93549231921901,
+        40.47526848967609
+      ],
+      [
+        -79.93549754697386,
+        40.47534201463144
+      ]
+    ],
+    "file": "parcel-0081m00270000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "3d7e4362e2209f01c65fedf54518373c01c60e397f10e6de704d251536988ad7",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0081R00122000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.93943070780321,
+      40.47183665253913,
+      -79.9374307078032,
+      40.47383665253913
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.93840040488944,
+        40.47265983576679
+      ],
+      [
+        -79.93831253422941,
+        40.472680376451805
+      ],
+      [
+        -79.9383006960588,
+        40.4726831308612
+      ],
+      [
+        -79.93836967345993,
+        40.472883977076
+      ],
+      [
+        -79.9384157871417,
+        40.473018248776356
+      ],
+      [
+        -79.93844729841697,
+        40.47301948098074
+      ],
+      [
+        -79.93847439617169,
+        40.47302054053414
+      ],
+      [
+        -79.93854054133182,
+        40.47302166441215
+      ],
+      [
+        -79.93856071954761,
+        40.473022007248815
+      ],
+      [
+        -79.93843688418569,
+        40.47265129782945
+      ],
+      [
+        -79.93840040488944,
+        40.47265983576679
+      ]
+    ],
+    "file": "parcel-0081r00122000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "368cffa588c82aea6d738c3aee06ae3d8c6ca91107f583d4f9898c9c821b5123",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0084M00374000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.91961013846469,
+      40.45580377967039,
+      -79.91761013846468,
+      40.457803779670385
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.91838210333786,
+        40.456695507403445
+      ],
+      [
+        -79.91877453497358,
+        40.45696503704856
+      ],
+      [
+        -79.91883817359151,
+        40.45691257994189
+      ],
+      [
+        -79.91883800955355,
+        40.45691246739658
+      ],
+      [
+        -79.9184725689963,
+        40.45666192999124
+      ],
+      [
+        -79.91844426048496,
+        40.45664252229221
+      ],
+      [
+        -79.91838210333786,
+        40.456695507403445
+      ]
+    ],
+    "file": "parcel-0084m00374000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "c402843230329d5cc869b972578e6837556cc3b5806fe5a776f3b20880fd7a52",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0084N00358000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.93086305218668,
+      40.454134189821424,
+      -79.92886305218667,
+      40.45613418982142
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.92962891382635,
+        40.45516862590096
+      ],
+      [
+        -79.92972073397775,
+        40.455252078162815
+      ],
+      [
+        -79.92977442668175,
+        40.45523364826399
+      ],
+      [
+        -79.930097190547,
+        40.45511482265586
+      ],
+      [
+        -79.93004381961053,
+        40.45501630148003
+      ],
+      [
+        -79.92962891382635,
+        40.45516862590096
+      ]
+    ],
+    "file": "parcel-0084n00358000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "ca1bcc22d00ae7d520f8b76c75127df987d6cca61feef3e8a90835d818471c61",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0085A00182000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.93179829301417,
+      40.451256811603876,
+      -79.92979829301416,
+      40.45325681160387
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.93061639212844,
+        40.452266184032524
+      ],
+      [
+        -79.93066308889688,
+        40.45234852397603
+      ],
+      [
+        -79.93098019389988,
+        40.45223435449402
+      ],
+      [
+        -79.93093976701041,
+        40.45216509923173
+      ],
+      [
+        -79.93061639212844,
+        40.452266184032524
+      ]
+    ],
+    "file": "parcel-0085a00182000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "83a0f678e03185a4fefca8dd447378910c30fc646fcf6ac4d003d96c9a991f25",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0085C00270B00300": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.92402994047778,
+      40.45020574841519,
+      -79.92202994047777,
+      40.45220574841519
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.92296740854887,
+        40.45117244969477
+      ],
+      [
+        -79.92298635164788,
+        40.45125351833546
+      ],
+      [
+        -79.92309247240668,
+        40.45123904665409
+      ],
+      [
+        -79.92307352860566,
+        40.45115797849492
+      ],
+      [
+        -79.92296740854887,
+        40.45117244969477
+      ]
+    ],
+    "file": "parcel-0085c00270b00300-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "e2a78ba8ad39e09a2e3f6ff21dea14b03d23666c27d7194d8cc8b6bb73d76fe9",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0085F00130000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.92875939551355,
+      40.448541458868306,
+      -79.92675939551354,
+      40.4505414588683
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.9277464851082,
+        40.44943521864777
+      ],
+      [
+        -79.92759163288038,
+        40.449647699088835
+      ],
+      [
+        -79.92792715814672,
+        40.44953888167533
+      ],
+      [
+        -79.927833935462,
+        40.449477268859255
+      ],
+      [
+        -79.9277794272464,
+        40.44944755548513
+      ],
+      [
+        -79.9277464851082,
+        40.44943521864777
+      ]
+    ],
+    "file": "parcel-0085f00130000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "655e0ba6039ce3d04b71836bb3550c2a874f3048c0f4db4aa79760024056721d",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0086H00003000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.92093173453578,
+      40.43940456719685,
+      -79.91893173453578,
+      40.44140456719685
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.91968295442383,
+        40.440364534220244
+      ],
+      [
+        -79.91968761768126,
+        40.44046930140772
+      ],
+      [
+        -79.92018051464773,
+        40.440432307188445
+      ],
+      [
+        -79.92017056780107,
+        40.44038146406793
+      ],
+      [
+        -79.92007291299414,
+        40.44039619066759
+      ],
+      [
+        -79.92006624924076,
+        40.44033983298598
+      ],
+      [
+        -79.91989138399238,
+        40.44035109509584
+      ],
+      [
+        -79.91968295442383,
+        40.440364534220244
+      ]
+    ],
+    "file": "parcel-0086h00003000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "a732f9975f35a2c543c6c31ac3682931525aa4d92adcfd4b76c5c1bbcef1940b",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0087A00190000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.93126134299524,
+      40.43100944517068,
+      -79.92926134299523,
+      40.433009445170676
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.930113609316,
+        40.43186134054169
+      ],
+      [
+        -79.93013030460779,
+        40.43226157373994
+      ],
+      [
+        -79.93041174416679,
+        40.432230540171794
+      ],
+      [
+        -79.93039232406633,
+        40.43175731660141
+      ],
+      [
+        -79.93013092396338,
+        40.43179425746959
+      ],
+      [
+        -79.93011094182368,
+        40.43179707802069
+      ],
+      [
+        -79.930113609316,
+        40.43186134054169
+      ]
+    ],
+    "file": "parcel-0087a00190000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "e5e6de278de41499085801992f93b54761b22899e14420b5b63fac2a45817f0c",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0088F00065000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.92875774395048,
+      40.41942027232324,
+      -79.92675774395047,
+      40.42142027232323
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.92749591901293,
+        40.420407101015485
+      ],
+      [
+        -79.92751839804399,
+        40.42050527532122
+      ],
+      [
+        -79.92801956888802,
+        40.42043523651204
+      ],
+      [
+        -79.92801694360554,
+        40.420423526339505
+      ],
+      [
+        -79.92799748038998,
+        40.42033526932525
+      ],
+      [
+        -79.92749591901293,
+        40.420407101015485
+      ]
+    ],
+    "file": "parcel-0088f00065000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "c9d0e31a0dd57df49a9b55d85bd6ab7a8fc5d65a72f15f76a5a8971790f2f87c",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0088G00313000A00": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.92150815755602,
+      40.419117058265414,
+      -79.91950815755601,
+      40.42111705826541
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.92066545934841,
+        40.42018649167166
+      ],
+      [
+        -79.92060161778213,
+        40.42001058331335
+      ],
+      [
+        -79.92035085576363,
+        40.42006369078328
+      ],
+      [
+        -79.92040756441897,
+        40.420223533217474
+      ],
+      [
+        -79.92066545934841,
+        40.42018649167166
+      ]
+    ],
+    "file": "parcel-0088g00313000a00-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "5f2f4f5eefc1dfdfbf26a2785486aa0eeb3975f1fa045b0e224a80ba6808f955",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0088R00001000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.92496871955984,
+      40.41524651804385,
+      -79.92296871955983,
+      40.41724651804385
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.92399241998386,
+        40.41593200997881
+      ],
+      [
+        -79.92364329172551,
+        40.41645276245703
+      ],
+      [
+        -79.92397269581882,
+        40.41658023882737
+      ],
+      [
+        -79.92400021497855,
+        40.416538747340844
+      ],
+      [
+        -79.92419952691931,
+        40.41619389796286
+      ],
+      [
+        -79.92429414739416,
+        40.4160540286108
+      ],
+      [
+        -79.92421785970997,
+        40.416023178013916
+      ],
+      [
+        -79.92400530070036,
+        40.415912797260326
+      ],
+      [
+        -79.92399241998386,
+        40.41593200997881
+      ]
+    ],
+    "file": "parcel-0088r00001000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "baa4a151e028d49cce2991f5634da8da17cfa0ad513990da2e4d9752985e05a7",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0088R00012000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.92447874202996,
+      40.41502510764975,
+      -79.92247874202995,
+      40.41702510764974
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.92361995822188,
+        40.415737953361564
+      ],
+      [
+        -79.92341012302734,
+        40.41605353165258
+      ],
+      [
+        -79.92337786966726,
+        40.4161030585124
+      ],
+      [
+        -79.92325267370784,
+        40.41630159495477
+      ],
+      [
+        -79.9233287640199,
+        40.41633104177723
+      ],
+      [
+        -79.92369358493877,
+        40.41577389631104
+      ],
+      [
+        -79.92370481035208,
+        40.41575675282144
+      ],
+      [
+        -79.9236324452495,
+        40.415719173522255
+      ],
+      [
+        -79.92361995822188,
+        40.415737953361564
+      ]
+    ],
+    "file": "parcel-0088r00012000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "b4d660b907fb01a30d9125dac785124ec4af8b28389f8c654efd4d35628a45c0",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0091E00023000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.93357593841462,
+      40.388835637051265,
+      -79.93157593841461,
+      40.39083563705126
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.93239260606559,
+        40.38982421758514
+      ],
+      [
+        -79.93240935288927,
+        40.389895110183474
+      ],
+      [
+        -79.93275927076364,
+        40.38985145134634
+      ],
+      [
+        -79.93274618147449,
+        40.38977616391906
+      ],
+      [
+        -79.93239260606559,
+        40.38982421758514
+      ]
+    ],
+    "file": "parcel-0091e00023000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "f78e7bb1fe7fc3330f69b66f6c839083fde5efd1a3f21e6508ca53c5ff16dfcc",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0095M00032000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.98431511774675,
+      40.38681439764735,
+      -79.98231511774674,
+      40.388814397647344
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.98307691422663,
+        40.38782247145484
+      ],
+      [
+        -79.98351425677036,
+        40.38793508737493
+      ],
+      [
+        -79.98355332126687,
+        40.38779977991374
+      ],
+      [
+        -79.98313280224814,
+        40.38769370791976
+      ],
+      [
+        -79.98307691422663,
+        40.38782247145484
+      ]
+    ],
+    "file": "parcel-0095m00032000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "70605d1d94dfbf640d11eecc0060efea9350cd000afd52690194f933e33d10e2",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0095N00019000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.00020879698083,
+      40.38436881003428,
+      -79.99820879698082,
+      40.38636881003428
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.99898286698678,
+        40.38546085109106
+      ],
+      [
+        -79.99919738068176,
+        40.38556737819594
+      ],
+      [
+        -79.99943472697487,
+        40.38526782110909
+      ],
+      [
+        -79.99923307829772,
+        40.38517024187263
+      ],
+      [
+        -79.99898286698678,
+        40.38546085109106
+      ]
+    ],
+    "file": "parcel-0095n00019000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "1ac9edadf3044436b4524052a359916b7db32b57abd94b4ba062d13feccfef27",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0114G00098000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.0396399801273,
+      40.486466459572235,
+      -80.0376399801273,
+      40.48846645957223
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.03862267572329,
+        40.48763210204759
+      ],
+      [
+        -80.03866610468667,
+        40.487640077307944
+      ],
+      [
+        -80.03876359272151,
+        40.487320398287366
+      ],
+      [
+        -80.03861250600102,
+        40.48729284183651
+      ],
+      [
+        -80.03851636753308,
+        40.48761258333695
+      ],
+      [
+        -80.03862267572329,
+        40.48763210204759
+      ]
+    ],
+    "file": "parcel-0114g00098000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "59edbee3097c549a6f98adb1640d5d2151a809875f23c9b6c4bf287f60552a72",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0116P00181000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -80.01134642097449,
+      40.48189793327427,
+      -80.00934642097448,
+      40.483897933274264
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -80.01004932253903,
+        40.4828673978218
+      ],
+      [
+        -80.01018994223871,
+        40.48309299237052
+      ],
+      [
+        -80.01064351940994,
+        40.482932666371624
+      ],
+      [
+        -80.01050231060205,
+        40.48270287417801
+      ],
+      [
+        -80.01004932253903,
+        40.4828673978218
+      ]
+    ],
+    "file": "parcel-0116p00181000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "a8e07c4b58cf7f3b69d42947bf8709a750e89a52cae60a146c196a4a7678b666",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0124H00151000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.90153990562482,
+      40.46837538382619,
+      -79.8995399056248,
+      40.47037538382619
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.90037611470565,
+        40.46925617462614
+      ],
+      [
+        -79.90056516051806,
+        40.46954730532825
+      ],
+      [
+        -79.90070369654396,
+        40.46949452633105
+      ],
+      [
+        -79.90051600069208,
+        40.469203462324124
+      ],
+      [
+        -79.90037611470565,
+        40.46925617462614
+      ]
+    ],
+    "file": "parcel-0124h00151000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "a1fb72c44d4fc3f8fc2e3ed37f75e7ca624e1f43601370b7cdfd13ad2e43005c",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0124S00101000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.90374762311396,
+      40.462904159881084,
+      -79.90174762311395,
+      40.46490415988108
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.90277331275114,
+        40.46400790769332
+      ],
+      [
+        -79.90282739301172,
+        40.46403980585492
+      ],
+      [
+        -79.90283828476784,
+        40.46402909405778
+      ],
+      [
+        -79.90286442509374,
+        40.4640033004039
+      ],
+      [
+        -79.90293275522532,
+        40.464032234369554
+      ],
+      [
+        -79.90301723707353,
+        40.46394778222824
+      ],
+      [
+        -79.90272301741562,
+        40.46376851390724
+      ],
+      [
+        -79.90249041827832,
+        40.4638304147802
+      ],
+      [
+        -79.90247800915438,
+        40.46383372502658
+      ],
+      [
+        -79.90267747473771,
+        40.46395137961642
+      ],
+      [
+        -79.90272993399212,
+        40.46398232181534
+      ],
+      [
+        -79.90277331275114,
+        40.46400790769332
+      ]
+    ],
+    "file": "parcel-0124s00101000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "b12898205af6bd4bf3abf6c9013f0cf7a93cf532762e701d2a8d5b6dd376421c",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0126D00161000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.9037949073096,
+      40.4505614233585,
+      -79.9017949073096,
+      40.452561423358496
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.90305144802379,
+        40.451509659435594
+      ],
+      [
+        -79.9027372119116,
+        40.451388785999455
+      ],
+      [
+        -79.90253836659541,
+        40.45161810158327
+      ],
+      [
+        -79.90289155542716,
+        40.45173406071754
+      ],
+      [
+        -79.90305144802379,
+        40.451509659435594
+      ]
+    ],
+    "file": "parcel-0126d00161000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "fdb033316478febf35c689d3cd24e9e4c0745bffa55e2088f9a17f6a0ca4393b",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0126F00057000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.91182174827006,
+      40.44825866850997,
+      -79.90982174827005,
+      40.45025866850997
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.91060835618049,
+        40.4493687518822
+      ],
+      [
+        -79.91078968633502,
+        40.44943323357517
+      ],
+      [
+        -79.91080379572414,
+        40.449438256710906
+      ],
+      [
+        -79.91103514035962,
+        40.449146358778
+      ],
+      [
+        -79.9110202464198,
+        40.449141300010545
+      ],
+      [
+        -79.91083719743311,
+        40.44907908030903
+      ],
+      [
+        -79.91079432417519,
+        40.44913334556999
+      ],
+      [
+        -79.91078268249622,
+        40.44912859324131
+      ],
+      [
+        -79.91073498991473,
+        40.44918625449527
+      ],
+      [
+        -79.9107488089511,
+        40.449190960680596
+      ],
+      [
+        -79.91060835618049,
+        40.4493687518822
+      ]
+    ],
+    "file": "parcel-0126f00057000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "a336040a96ac57c92b89d703b279bf50a04253eaa7d9153995437866241f0b6c",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0126J00058000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.915788518995,
+      40.44615340133693,
+      -79.91378851899499,
+      40.448153401336924
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.914598477215,
+        40.447223480990836
+      ],
+      [
+        -79.91476973334724,
+        40.44731552334933
+      ],
+      [
+        -79.91497189305666,
+        40.44709121337387
+      ],
+      [
+        -79.914978560775,
+        40.44708402819104
+      ],
+      [
+        -79.91480768821987,
+        40.44699127932452
+      ],
+      [
+        -79.9148007717216,
+        40.44699953425225
+      ],
+      [
+        -79.914598477215,
+        40.447223480990836
+      ]
+    ],
+    "file": "parcel-0126j00058000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "534eaaade6162467f5f6c9ebb5a8d2600a2fc12b220d466ddd614821e554702e",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0129D00222000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.90277651445587,
+      40.421467765856754,
+      -79.90077651445586,
+      40.42346776585675
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.90158610979758,
+        40.42254623205599
+      ],
+      [
+        -79.90176308307518,
+        40.42263157379792
+      ],
+      [
+        -79.90196691911414,
+        40.42239043539825
+      ],
+      [
+        -79.90178182704554,
+        40.42230395791559
+      ],
+      [
+        -79.90158610979758,
+        40.42254623205599
+      ]
+    ],
+    "file": "parcel-0129d00222000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "97242e979c979a5a6106ff87e22be879c470fb65a9b32859748b6161f2b75ef1",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0129J00046000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.91585737826432,
+      40.415807553565145,
+      -79.91385737826431,
+      40.41780755356514
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.91471593180557,
+        40.41688411506552
+      ],
+      [
+        -79.91477521713001,
+        40.4169264211012
+      ],
+      [
+        -79.91499882472307,
+        40.41672959388212
+      ],
+      [
+        -79.91494272489233,
+        40.41668868602908
+      ],
+      [
+        -79.91471593180557,
+        40.41688411506552
+      ]
+    ],
+    "file": "parcel-0129j00046000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "9d25d910a7f27965a9429cd775987207fb7d66acffb8aef97d0a02f3baf3af38",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0131N00031000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.91660509569266,
+      40.39499379931336,
+      -79.91460509569265,
+      40.39699379931336
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.9154025192883,
+        40.395940848773606
+      ],
+      [
+        -79.91569461823373,
+        40.39614618389513
+      ],
+      [
+        -79.91580767209702,
+        40.39604681412268
+      ],
+      [
+        -79.91552029723417,
+        40.3958414147316
+      ],
+      [
+        -79.9154025192883,
+        40.395940848773606
+      ]
+    ],
+    "file": "benezet-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "c5c3f7ca23b738b5c59c742d17351225c28cadd4e2726937b17da6c245277c6a",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0172N00133000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.89844975480099,
+      40.47298907433388,
+      -79.89644975480098,
+      40.47498907433388
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.8972228652818,
+        40.47395018660997
+      ],
+      [
+        -79.8973455450721,
+        40.47410203756949
+      ],
+      [
+        -79.89740581019211,
+        40.474176657616844
+      ],
+      [
+        -79.89767664432017,
+        40.47395935371485
+      ],
+      [
+        -79.89755116485836,
+        40.473801491050914
+      ],
+      [
+        -79.89723107810917,
+        40.47394646430468
+      ],
+      [
+        -79.8972228652818,
+        40.47395018660997
+      ]
+    ],
+    "file": "parcel-0172n00133000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "d18e2572a8f0103be9e8f17582388a3d01e1f9d8d835ab380b338b073a20e578",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0173P00082000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.89251229451843,
+      40.46276070150445,
+      -79.89051229451842,
+      40.464760701504446
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.89134144048766,
+        40.46372934996613
+      ],
+      [
+        -79.89134318605123,
+        40.463797583264984
+      ],
+      [
+        -79.89168314854918,
+        40.46379266325779
+      ],
+      [
+        -79.89168231588572,
+        40.46372381974391
+      ],
+      [
+        -79.89134144048766,
+        40.46372934996613
+      ]
+    ],
+    "file": "parcel-0173p00082000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "3ad1aeff837dde55e7da83799a6195a7ca04af7a0f0e833dfefd4a6731af3091",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0175C00342000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.88808863114853,
+      40.45112005714204,
+      -79.88608863114852,
+      40.45312005714204
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.88695373157778,
+        40.452136506172444
+      ],
+      [
+        -79.88716759685738,
+        40.45218746792111
+      ],
+      [
+        -79.88722353071928,
+        40.45205264636297
+      ],
+      [
+        -79.88698012705616,
+        40.45205341619318
+      ],
+      [
+        -79.88695373157778,
+        40.452136506172444
+      ]
+    ],
+    "file": "parcel-0175c00342000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "0d7df0fcf5a38cfd108783d11cbeaed5e089e782ffd2bb08546be1b962c32258",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0176N00040000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.89726829727462,
+      40.434646243454246,
+      -79.89526829727461,
+      40.43664624345424
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.89602128883513,
+        40.43565930368904
+      ],
+      [
+        -79.8960620579403,
+        40.43575490758891
+      ],
+      [
+        -79.89651530571409,
+        40.43564249076746
+      ],
+      [
+        -79.89647378614805,
+        40.435551704522744
+      ],
+      [
+        -79.89646749707431,
+        40.43553757931957
+      ],
+      [
+        -79.89602128883513,
+        40.43565930368904
+      ]
+    ],
+    "file": "parcel-0176n00040000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "6bfea70cf4c55bb68cd3bd2ec144a897200fe498176b27a171517f5e538771a4",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0231F00292000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.87818621962168,
+      40.456687957465796,
+      -79.87618621962167,
+      40.45868795746579
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.87739931463682,
+        40.45776400612994
+      ],
+      [
+        -79.87712835883312,
+        40.457515947079735
+      ],
+      [
+        -79.87697312460652,
+        40.45760148419331
+      ],
+      [
+        -79.87698251765752,
+        40.457610557476464
+      ],
+      [
+        -79.87724099283245,
+        40.457859967851846
+      ],
+      [
+        -79.87738660603054,
+        40.45777171101566
+      ],
+      [
+        -79.87739931463682,
+        40.45776400612994
+      ]
+    ],
+    "file": "parcel-0231f00292000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "8fdcae3e9e8cf6484268d309950d58a25f71ed064b02e73fb97261614434cdbc",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0231N00229000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.8837240953128,
+      40.45327327370232,
+      -79.8813721949287,
+      40.45527327370232
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.88212816290931,
+        40.45415767769225
+      ],
+      [
+        -79.88219163391126,
+        40.45438886971239
+      ],
+      [
+        -79.88280341482236,
+        40.45431227734228
+      ],
+      [
+        -79.8829681273322,
+        40.454296697194934
+      ],
+      [
+        -79.88220173054894,
+        40.45416851669489
+      ],
+      [
+        -79.88212816290931,
+        40.45415767769225
+      ]
+    ],
+    "file": "parcel-0231n00229000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "4ac5d73971a048ff0ee55277e05ad86aebd9555cdf34f2a6995a0090c543200d",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  },
+  "0232E00119000000": {
+    "attribution": "Source: Esri, Vantor, Earthstar Geographics, and the GIS User Community; parcel outline \u00a9 Allegheny County DCS-GIS",
+    "bbox_wgs84": [
+      -79.88126839157316,
+      40.44881478383068,
+      -79.87926839157315,
+      40.45081478383067
+    ],
+    "center_basis": "yellow outline is the County parcel polygon; white dot is its vertex-average center",
+    "county_polygon_wgs84": [
+      [
+        -79.88006877445322,
+        40.44981172076502
+      ],
+      [
+        -79.88009229533614,
+        40.44988791665334
+      ],
+      [
+        -79.88046800869309,
+        40.44982042508403
+      ],
+      [
+        -79.88044395252297,
+        40.44974165100801
+      ],
+      [
+        -79.88006877445322,
+        40.44981172076502
+      ]
+    ],
+    "file": "parcel-0232e00119000000-parcel-context.jpg",
+    "imagery_date": null,
+    "retrieved_utc": "2026-09-27T13:24:38Z",
+    "sha256": "a5252bd66ef08dff396e04e910bbde895e98878b0e904571b0caa427a44bba63",
+    "source": "Esri World Imagery + Allegheny County OPENDATA/Parcels outline"
+  }
+}

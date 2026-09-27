@@ -24,6 +24,7 @@ from lotline.models import (
 
 from . import policy
 from .conflicts import material_affects
+from .riparian import OUTSIDE, RiparianResult
 
 
 @dataclass(frozen=True)
@@ -138,6 +139,7 @@ def score_dimensional(
     facts: ParcelFacts | None,
     rule: DistrictRule | None,
     conflicts: list[Conflict],
+    riparian: RiparianResult | None = None,
 ) -> DimensionalResult:
     if rule is None:
         return _withheld("district rules not encoded; dimensional fit not evaluated",
@@ -190,6 +192,19 @@ def score_dimensional(
     if rule.min_lot_sf is None:
         return _withheld(f"{d} minimum lot area not encoded", (rule_fact_id(d, "min_lot_sf"),),
                          short=f"{d} minimum lot area not encoded")
+    if d == "RIV-RM" and riparian is None:
+        return _withheld(
+            "RIV-RM riparian-buffer distance is unknown; dimensional fit is withheld (§905.04.E.4.a)",
+            (rule_fact_id(d, "dimensional_citation"),),
+            short="riparian-buffer distance unknown",
+        )
+    if d == "RIV-RM" and riparian.status != OUTSIDE:
+        return _withheld(
+            f"RIV-RM riparian screen is {riparian.status}; dimensional fit is withheld until the "
+            "125 ft buffer is located by the Zoning Administrator / surveyor (§905.04.E.4.a)",
+            (derived_fact_id(pin, "riparian_status"), rule_fact_id(d, "dimensional_citation")),
+            short=f"riparian screen: {riparian.status}",
+        )
 
     scenarios = compute_scenarios(
         facts.mbr_short_side_ft, facts.mbr_long_side_ft, rule, facts.possible_corner
@@ -208,6 +223,8 @@ def score_dimensional(
     )
     if facts.possible_corner:
         ids = ids + (fact_id(pin, "possible_corner"),)
+    if d == "RIV-RM":
+        ids = ids + (derived_fact_id(pin, "riparian_status"),)
 
     if material_affects(conflicts, "dimensional"):
         return DimensionalResult(
@@ -258,6 +275,12 @@ def score_dimensional(
         for s in scenarios
     )
     reason = f"{detail}. {policy.DIMENSIONAL_ASSUMPTION}"
+    if d == "RIV-RM" and riparian is not None:
+        reason += (
+            f" Approximate riparian screen: {riparian.status}; distance band "
+            f"{riparian.low_ft:,.0f}–{riparian.high_ft:,.0f} ft versus the 125 ft buffer "
+            "(§905.04.E.4.a)."
+        )
     if len(scenarios) > 1:
         reason = f"corner status unverified, range shown: {reason}"
     return DimensionalResult(

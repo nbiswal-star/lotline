@@ -116,6 +116,13 @@ def test_no_per_unit_density_test():
     assert (u.low, u.high, u.status) == (2, 2, "known")
 
 
+def test_riv_rm_use_copy_distinguishes_detached_from_unmodeled_attached() -> None:
+    u = score_use(rule(district="RIV-RM", single_unit_permission="PROHIBITED", two_unit_permission="P"))
+    assert "single-unit detached prohibited" in u.reason
+    assert "attached housing not evaluated" in u.reason
+    assert "two-unit permitted by right" in u.reason
+
+
 # --- dimensional -----------------------------------------------------------------
 
 

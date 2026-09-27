@@ -553,6 +553,8 @@ def load_snapshot(data_dir: Path = DATA_DIR, today: date | None = None) -> Snaps
         reconciliation=reconciliation,
         load_warnings=tuple(treasury_notes) + tuple(w for p in parcels.values() for w in p.load_warnings),
         record_text=_load_record_text(data_dir / RECORD_TEXT_FILE),
+        parcel_points=load_parcel_points(data_dir),
+        river_geometry=load_river_geometry(data_dir),
     )
 
 
@@ -574,6 +576,7 @@ def context_for(snapshot: Snapshot, pin: str) -> ParcelContext | None:
         return None
     facts = snapshot.parcels.get(pin)
     district = resolved_district(treasury, facts)
+    point = snapshot.parcel_points.get(pin)
     return ParcelContext(
         pin=pin,
         treasury=treasury,
@@ -581,6 +584,9 @@ def context_for(snapshot: Snapshot, pin: str) -> ParcelContext | None:
         facts=facts,
         rule=snapshot.rules.get(district) if district else None,
         manifest=snapshot.manifest,
+        point_lat=point[0] if point else None,
+        point_lon=point[1] if point else None,
+        river_geometry=snapshot.river_geometry,
     )
 
 

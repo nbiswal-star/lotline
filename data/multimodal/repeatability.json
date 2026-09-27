@@ -1,0 +1,25 @@
+{
+  "scope": "Two consecutive full-cohort live runs with identical system prompt, user instruction, schema, images and model; the first raw cache was overwritten by the second run.",
+  "model": "claude-opus-5",
+  "cohort_n": 96,
+  "run_a": {
+    "categories": {"clearly_visible": 5, "not_visible": 47, "unclear": 44},
+    "assessment_structure_review_flags": 35,
+    "structure_routed_review_flags": 29
+  },
+  "run_b": {
+    "categories": {"clearly_visible": 3, "not_visible": 48, "unclear": 45},
+    "assessment_structure_review_flags": 36,
+    "structure_routed_review_flags": 29
+  },
+  "exact_category_agreement_n": 93,
+  "exact_category_agreement_denominator": 96,
+  "structure_routed_review_set_agreement_n": 29,
+  "structure_routed_review_set_union_n": 29,
+  "changed": [
+    {"pin": "0014H00051000000", "run_a": "unclear", "run_b": "not_visible"},
+    {"pin": "0060L00238000000", "run_a": "clearly_visible", "run_b": "unclear"},
+    {"pin": "0124H00151000000", "run_a": "clearly_visible", "run_b": "unclear"}
+  ],
+  "limitation": "This is a two-run build-time stability record, not a preregistered reliability study. The first raw cache and request metadata were overwritten; only its generated parcel-level evaluation result was retained before comparison."
+}

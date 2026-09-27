@@ -1,6 +1,7 @@
 """Citywide evaluation of the AI enforcement-record reader against structured public data.
 
-Protocol (pre-registered, with dated amendments): docs/validation/ai_scale_protocol.md.
+Protocol written before model calls according to recorded timestamps, with dated amendments:
+docs/validation/ai_scale_protocol.md. It was not externally registered.
 Inputs (from ``scripts/fetch_scale_sample.py``): data/validation_scale/{reference,records,sample}.csv.
 
     uv run python -m evaluation.ai_scale --run [--pass N]   # live: one extraction call per parcel
@@ -59,6 +60,21 @@ BUDGET_USD = 15.0
 WORKERS = 6
 
 B4_PATTERN = re.compile(r"\bdemolished\b|\bdemolition\b|\bDP-\d{4}-\d+\b", re.I)
+CONTEXT_DONE = re.compile(
+    r"\b(?:property|structure|building|house)\s+(?:is|was|has been)\s+"
+    r"(?:demolished|razed|removed|torn down|gone)\b|"
+    r"\b(?:demolition|demo)\s+(?:is |was |has been )?(?:complete|completed|finished)\b|"
+    r"\b(?:demolished|razed|torn down)\b",
+    re.I,
+)
+CONTEXT_NOT_DONE = re.compile(
+    r"\b(?:not|never)\b.{0,35}\b(?:demolished|razed|removed|torn down)\b|"
+    r"\b(?:must|needs?|should|scheduled|selected|ordered|planned|proposed|awaiting|permit(?:ted)?)\b"
+    r".{0,55}\b(?:demolish(?:ed)?|demolition|razed|removed|torn down)\b|"
+    r"\b(?:repair(?:ed)?|rehabilitat(?:e|ed))\s+(?:or|/)\s+demolish(?:ed)?\b|"
+    r"\bto be\s+(?:demolished|razed|removed|torn down)\b",
+    re.I,
+)
 PERMIT_REF = re.compile(r"\bDP-\d{4}-\d+\b")
 DEMO = "DEMOLISHED"
 PRESENT = "STRUCTURE_PRESENT"
@@ -238,6 +254,15 @@ def _latest_casefile(recs: tuple[RecordText, ...]) -> tuple[RecordText, ...]:
     return tuple(r for r in recs if r.record_id == top)
 
 
+def _contextual_completion(recs: tuple[RecordText, ...]) -> bool:
+    """Strong deterministic comparator: completion language minus modal/negated clauses."""
+    for rec in recs:
+        for clause in re.split(r"(?<=[.!?;])\s+|[\r\n]+", rec.text):
+            if CONTEXT_DONE.search(clause) and not CONTEXT_NOT_DONE.search(clause):
+                return True
+    return False
+
+
 def baselines(recs: tuple[RecordText, ...]) -> dict[str, str]:
     present = bool(_any(recs, LEXICON["structure_present"]))
     b1 = DEMO if _any(recs, DEMOLITION_DONE) else (PRESENT if present else ABSTAIN)
@@ -245,8 +270,37 @@ def baselines(recs: tuple[RecordText, ...]) -> dict[str, str]:
     b2 = DEMO if (vacant_lot_type or _any(recs, DEMOLITION_DONE)) else (PRESENT if present else ABSTAIN)
     b3 = DEMO if _any(_latest_casefile(recs), DEMOLITION_DONE) else ABSTAIN
     b4 = DEMO if _any(recs, B4_PATTERN) else ABSTAIN
+    b5 = DEMO if _contextual_completion(recs) else ABSTAIN
     kw_s2 = DEMO if _any(recs, LEXICON[STRUCT_REMOVED]) else ABSTAIN
-    return {"B1": b1, "B2": b2, "B3": b3, "B4": b4, "KW-S2": kw_s2, "NONE": ABSTAIN}
+    return {"B1": b1, "B2": b2, "B3": b3, "B4": b4, "B5": b5,
+            "KW-S2": kw_s2, "NONE": ABSTAIN}
+
+
+def _f1_value(c: dict[str, int]) -> float:
+    den = 2 * c["tp"] + c["fp"] + c["fn"]
+    return 2 * c["tp"] / den if den else 0.0
+
+
+def paired_bootstrap(systems: dict[str, dict[str, str]], truth: dict[str, str],
+                     left: str, right: str, n_boot: int = 4000) -> dict[str, str]:
+    """Stratified paired parcel bootstrap; percentile CIs for left-minus-right deltas."""
+    strata = [[p for p in sorted(truth) if truth[p] == label] for label in (DEMO, "NOT_DEMOLISHED")]
+    rng = random.Random(SEED + 41)
+    draws: dict[str, list[float]] = {"precision": [], "recall": [], "f1": [], "discordance": []}
+    for _ in range(n_boot):
+        sample = [rng.choice(group) for group in strata for _ in range(len(group))]
+        vals = []
+        for system in (left, right):
+            tp = sum(systems[system][p] == DEMO and truth[p] == DEMO for p in sample)
+            fp = sum(systems[system][p] == DEMO and truth[p] != DEMO for p in sample)
+            fn = sum(systems[system][p] != DEMO and truth[p] == DEMO for p in sample)
+            c = {"tp": tp, "fp": fp, "fn": fn}
+            vals.append((tp / (tp + fp) if tp + fp else 1.0, tp / (tp + fn), _f1_value(c),
+                         fp / len(strata[1])))
+        for key, a, b in zip(draws, vals[0], vals[1], strict=True):
+            draws[key].append(a - b)
+    return {key: f"{statistics.mean(v):+.3f} [{_q(v, .025):+.3f}, {_q(v, .975):+.3f}]"
+            for key, v in draws.items()}
 
 
 @dataclass
@@ -358,12 +412,13 @@ def compute() -> dict[str, Any]:
         per_parcel.append(pin)
 
     # --- headline metrics
-    order = ["AI", "B1", "B2", "B3", "B4", "NONE", "AI-S1", "AI-S2", "KW-S2"] + \
+    order = ["AI", "B1", "B2", "B3", "B4", "B5", "NONE", "AI-S1", "AI-S2", "KW-S2"] + \
         [k for k in systems if k.startswith("AI-union") or k.startswith("AI-intersect")]
     labels = {
         "AI": "LotLine AI reader, k=1 (primary)", "B1": "B1 keyword DEMOLITION_DONE",
         "B2": "B2 structured (Vacant Lots type) + keyword", "B3": "B3 recency + keyword (latest casefile)",
         "B4": "B4 demolished/demolition/DP- rule", "NONE": "No reader (always abstain)",
+        "B5": "B5 contextual completion rule (post hoc; negation/modal rejection)",
         "AI-S1": "AI secondary: demolition item is latest record", "AI-S2": "AI secondary: any demolition label",
         "KW-S2": "Keyword secondary: any demolition lexicon hit",
     }
@@ -377,7 +432,8 @@ def compute() -> dict[str, Any]:
                       "f1": f1(c["tp"], c["fp"], c["fn"]), "abstain": pct(abstain, len(pins)),
                       "specificity": pct(c["tn"], c["tn"] + c["fp"]),
                       "f1_value": (2 * c["tp"] / (2 * c["tp"] + c["fp"] + c["fn"])) if n_pos + n_pred else 0.0}
-    best = max(("B1", "B2", "B3", "B4"), key=lambda s: (metrics[s]["f1_value"], s))
+    best = max(("B1", "B2", "B3", "B4", "B5"), key=lambda s: (metrics[s]["f1_value"], s))
+    paired = paired_bootstrap(systems, truth, "AI", best)
 
     present_rows = []
     for s in ("AI", "B1", "B2"):
@@ -386,7 +442,7 @@ def compute() -> dict[str, Any]:
 
     # --- abstention by stratum
     abst_rows = []
-    for s in ("AI", "B1", "B2", "B3", "B4"):
+    for s in ("AI", "B1", "B2", "B3", "B4", "B5"):
         row = [labels[s]]
         for st in (DEMO, "NOT_DEMOLISHED"):
             ps = [p for p in pins if truth[p] == st]
@@ -530,9 +586,11 @@ def compute() -> dict[str, Any]:
         if qs:
             withheld_demo.append((p, truth[p], systems["AI"][p], _clip(qs[0], 110)))
     current = current_app_verifier(pins, truth, records, p1)
+    layer_ablation = current_app_layer_ablation(pins, truth, records, p1)
 
     return {
-        "calib": calib, "current": current, "withheld_demo": withheld_demo,
+        "calib": calib, "current": current, "layer_ablation": layer_ablation,
+        "withheld_demo": withheld_demo,
         "meta": meta, "pins": pins, "truth": truth, "systems": {k: dict(v) for k, v in systems.items()},
         "labels": labels, "order": order, "metrics": metrics, "best": best, "present_rows": present_rows,
         "abst_rows": abst_rows, "status_counts": dict(status_counts), "proposed": proposed,
@@ -543,7 +601,7 @@ def compute() -> dict[str, Any]:
         "latency": lat, "tin": tin, "tout": tout, "costs": costs, "all_cost": all_cost, "models": models,
         "passes": passes, "mention_rows": mention_rows, "temporal_rows": temporal_rows, "gaps": gaps,
         "disagreements": disagreements, "best_dis": {f"{k[0]} | ref {k[1]}": v for k, v in best_dis.items()},
-        "err_rows": err_rows, "n_errors": len(errors), "agreement": agreement,
+        "err_rows": err_rows, "n_errors": len(errors), "agreement": agreement, "paired": paired,
         "n_records": {p: len({r.record_id for r in records.get(p, ())}) for p in pins},
     }
 
@@ -584,6 +642,52 @@ def current_app_verifier(pins: list[str], truth: dict[str, str], records: dict[s
                 "f1": f1(c["tp"], c["fp"], c["fn"])}
     except Exception as exc:  # noqa: BLE001 - app API drift is reported, never hidden
         return {"error": f"{type(exc).__name__}: {exc}"}
+
+
+def current_app_layer_ablation(
+    pins: list[str], truth: dict[str, str], records: dict[str, tuple[RecordText, ...]],
+    p1: dict[str, dict[str, Any]],
+) -> list[tuple[str, str, str, str, str]]:
+    """Replay cached raw proposals with one deterministic verifier layer disabled at a time.
+
+    This evaluates the current verifier on the frozen k=1 proposals without an entailment-judge
+    call. It is a genuine counterfactual code ablation, but not an evaluation of the live k=3 stack.
+    """
+    try:
+        import lotline.ai.evidence as cur
+    except Exception as exc:  # noqa: BLE001
+        return [(f"unavailable: {type(exc).__name__}", "—", "—", "—", "—")]
+
+    def score(off: frozenset[str]) -> tuple[dict[str, int], int]:
+        preds: dict[str, str] = {}
+        shown = 0
+        for pin in pins:
+            row = p1.get(pin)
+            if not row or row.get("status") != "ok":
+                preds[pin] = ABSTAIN
+                continue
+            d = cur.digest_from_runs(
+                pin, records.get(pin, ()), [row["raw"]], status_ok="verified",
+                model=None, created_at=None, judge=False, off=off,
+            )
+            items = d.items if d.status == "verified" else ()
+            shown += len(items)
+            done = [i for i in items if i.indicates == STRUCT_REMOVED and cur.DEMOLITION_DONE.search(i.quote)]
+            preds[pin] = DEMO if done else ABSTAIN
+        return confusion(preds, truth), shown
+
+    rows = []
+    for label, off in [("all deterministic layers", frozenset())] + [
+        (f"without {layer}", frozenset({layer}))
+        for layer in ("provenance", "substring", "boundary", "negation", "attribution",
+                      "injection", "lexicon", "permit")
+    ]:
+        c, shown = score(off)
+        rows.append((label, f"{c['tp']}/{c['fp']}/{c['fn']}/{c['tn']}",
+                     f1(c["tp"], c["fp"], c["fn"]), str(shown), ""))
+    base_fp = int(rows[0][1].split("/")[1])
+    return [(label, counts, score_f1, shown, f"{int(counts.split('/')[1]) - base_fp:+d}")
+            for label, counts, score_f1, shown, _ in rows]
 
 
 # --------------------------------------------------------------------------
@@ -819,7 +923,7 @@ def render(r: dict[str, Any]) -> str:
         "<!-- GENERATED FILE: regenerate offline with the command below; do not edit by hand. -->",
         "",
         f"- Command: `{COMMAND}` (reads cached model outputs; no API key or network needed)",
-        "- Protocol: [`ai_scale_protocol.md`](ai_scale_protocol.md) (registered before any model call; amendments dated)",
+        "- Protocol: [`ai_scale_protocol.md`](ai_scale_protocol.md) (written before model calls according to recorded timestamps; not externally registered)",
         f"- Sample fetched from WPRDC: {meta.get('fetch_started_utc')} – {meta.get('fetch_finished_utc')}; seed {meta.get('seed')}",
         f"- Model: {', '.join(r['models']) or 'n/a'}; extraction passes cached: {r['passes'] or 'none'}",
         "- **Status: development-set estimate of one derived parcel rule, not a benchmark.**",
@@ -849,8 +953,15 @@ def render(r: dict[str, Any]) -> str:
             (L[s], m[s]["precision"], m[s]["recall"], m[s]["f1"], m[s]["specificity"],
              f"{m[s]['tp']}/{m[s]['fp']}/{m[s]['fn']}/{m[s]['tn']}", m[s]["abstain"]) for s in r["order"]], sort=False),
         "",
-        f"Best baseline by F1 (declared comparison): **{L[r['best']]}**. AI-vs-best disagreements: "
+        f"Strongest baseline by F1 in this development analysis: **{L[r['best']]}**. "
+        "B5 is post hoc; B1–B4 were timestamped before calls. AI-vs-best disagreements: "
         + (", ".join(f"{k}: {v}" for k, v in sorted(r["best_dis"].items())) or "none") + ".",
+        "",
+        "Paired stratified parcel bootstrap (4,000 resamples), AI minus the best simple baseline. "
+        "Intervals are descriptive development-set uncertainty, not external-validity intervals:",
+        "",
+        md_table(["Metric delta", "Mean [2.5%, 97.5%]"],
+                 [(k, v) for k, v in r["paired"].items()], sort=False),
         "",
         "Secondary: STRUCTURE_PRESENT prediction against NOT_DEMOLISHED.",
         "",
@@ -873,17 +984,23 @@ def render(r: dict[str, Any]) -> str:
              pct(r["wrong_shown"], r["demo_items"])),
         ], sort=False),
         "",
-        "Per-layer rejection counts (first failing verifier check per proposed item; enables offline ablation):",
+        "First-failing verifier checks (descriptive rejection counts, not a counterfactual layer ablation):",
         "",
         md_table(["Verifier check", "Items dropped"], sorted(r["reason_counts"].items(), key=lambda kv: (-kv[1], kv[0])),
                  sort=False) if r["reason_counts"] else "No proposed item was rejected.",
+        "",
+        "Counterfactual verifier-layer ablation on the cached k=1 raw proposals, using the current "
+        "deterministic verifier without an entailment-judge call. Each row disables exactly one layer:",
+        "",
+        md_table(["Replay", "TP/FP/FN/TN", "F1", "Items shown", "FP change"],
+                 r["layer_ablation"], sort=False),
         "",
         "Verified item labels: " + ", ".join(f"{k} {v}" for k, v in sorted(r["indicates_counts"].items())) + ".",
         "",
     ]
     if r["wrong_shown_examples"]:
         lines += ["Wrong-and-shown examples (verified demolition-done quote on a parcel the City data record as a "
-                  "standing condemned structure):", "",
+                  "active-condemned/no-demolition-permit proxy):", "",
                   md_table(["PIN", "Record", "Date", "Quote"], r["wrong_shown_examples"], sort=False), ""]
     lines += [
         "## Cost and latency (pass 1, per parcel)",
@@ -934,11 +1051,12 @@ def render(r: dict[str, Any]) -> str:
                   + f". Parcel prediction identical across passes: {pct(a['prediction_agree'], a['parcels'])}.", ""]
     else:
         lines += ["## Self-consistency", "",
-                  "Only one extraction pass was run (k=1). The app's two-run intersection rule was not applied, "
-                  "so verified items here passed provenance/quote/lexicon checks but not repeated-run consistency.", ""]
+                  "Only one extraction pass was run (k=1). The current app's three-run union and same-model "
+                  "entailment check were not applied, so this study does not estimate live-runtime stability or "
+                  "performance.", ""]
     wd = r["withheld_demo"]
     lines += ["## Exploratory (post hoc): demolition labels withheld by the lexicon gate", "",
-              "Not pre-registered; found during error analysis. Parcels where the model labelled a verbatim quote "
+              "Post hoc; found during error analysis. Parcels where the model labelled a verbatim quote "
               "`structure_removed_or_demolished` but the verifier withheld the label because the keyword lexicon "
               f"did not match: {sum(1 for x in wd if x[1] == DEMO)} DEMOLISHED vs "
               f"{sum(1 for x in wd if x[1] != DEMO)} NOT_DEMOLISHED parcels.", ""]
@@ -1016,12 +1134,13 @@ def run() -> Section:
         f"Citywide development-set estimate (n={len(r['pins'])} parcels, reference = City permit and "
         "condemned-list data, not team labels). Full report: `docs/validation/ai_scale_results.md`.",
         md_table(["System", "Precision", "Recall", "F1"], [
-            (r["labels"][s], m[s]["precision"], m[s]["recall"], m[s]["f1"]) for s in ("AI", "B1", "B2", "B3", "B4")],
+            (r["labels"][s], m[s]["precision"], m[s]["recall"], m[s]["f1"])
+            for s in ("AI", "B1", "B2", "B3", "B4", "B5")],
             sort=False),
         checks.markdown(),
     ])
     return Section(id="ai_scale", title="AI reader at citywide scale vs structured public reference",
-                   markdown=md, data={k: r["metrics"][k] for k in ("AI", "B1", "B2", "B3", "B4")},
+                   markdown=md, data={k: r["metrics"][k] for k in ("AI", "B1", "B2", "B3", "B4", "B5")},
                    verdict_inputs={"n": len(r["pins"]), "best_baseline": r["best"]}, assertions=checks.items)
 
 
@@ -1041,7 +1160,7 @@ def main(argv: list[str] | None = None) -> int:
                                                              "demo_items", "gaps", "all_cost", "agreement")},
                                            indent=1, sort_keys=True, default=str) + "\n", encoding="utf-8")
         m = r["metrics"]
-        for s in ("AI", "B1", "B2", "B3", "B4"):
+        for s in ("AI", "B1", "B2", "B3", "B4", "B5"):
             print(f"{s:5} P {m[s]['precision']:32} R {m[s]['recall']:32} F1 {m[s]['f1']}")
         print(f"wrote {REPORT.relative_to(REPO_ROOT)}; spend ${r['all_cost']:.2f}")
     return 0

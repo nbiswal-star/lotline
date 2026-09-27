@@ -15,7 +15,7 @@ from lotline.engine.riparian import (
     RiverPolygon,
     classify,
     distance_to_rivers,
-    mbr_half_diagonal_ft,
+    mbr_diagonal_ft,
     riparian_screen,
 )
 from lotline.loaders import load_parcel_points, load_river_geometry
@@ -43,7 +43,7 @@ def _river_south_of(feet: float, *, hole: bool = False) -> RiverPolygon:
 
 
 # --------------------------------------------------------------------------
-# Classification boundaries (125 ft buffer, band = half diagonal + margin)
+# Classification boundaries (125 ft buffer, band = positional uncertainty + margin)
 # --------------------------------------------------------------------------
 
 
@@ -76,10 +76,10 @@ def test_point_straddling_the_line_is_possibly_within() -> None:
     assert classify(0, 200)[0] == POSSIBLY_WITHIN  # a huge lot can reach past the buffer
 
 
-def test_half_diagonal() -> None:
-    assert mbr_half_diagonal_ft(30, 40) == 25
-    assert mbr_half_diagonal_ft(None, 40) is None
-    assert mbr_half_diagonal_ft(-1, 40) is None
+def test_full_diagonal_conservatively_covers_an_unlocated_source_point() -> None:
+    assert mbr_diagonal_ft(30, 40) == 50
+    assert mbr_diagonal_ft(None, 40) is None
+    assert mbr_diagonal_ft(-1, 40) is None
 
 
 # --------------------------------------------------------------------------
@@ -98,7 +98,9 @@ def test_point_on_water_is_zero_and_inside() -> None:
     river = _river_south_of(-300)  # shoreline 300 ft north: the point is on the water
     d = distance_to_rivers(LAT0, LON0, [river])
     assert d is not None and d.on_water and d.distance_ft == 0.0
-    assert riparian_screen(LAT0, LON0, 20, 100, [river]).status == INSIDE
+    # The point is on water, but an unlocated point plus a large parcel means
+    # the whole parcel cannot be classified inside the buffer.
+    assert riparian_screen(LAT0, LON0, 20, 100, [river]).status == POSSIBLY_WITHIN
 
 
 def test_island_hole_is_land() -> None:
@@ -115,10 +117,10 @@ def test_nearest_of_several_rivers() -> None:
 
 
 def test_screen_classes_on_synthetic_shores() -> None:
-    # 26 x 118 lot: half diagonal about 60.4 ft; band about +/- 85.4 ft.
+    # 26 x 118 lot: full diagonal about 120.8 ft; band about +/- 145.8 ft.
     assert riparian_screen(LAT0, LON0, 26, 118, [_river_south_of(400)]).status == OUTSIDE
     assert riparian_screen(LAT0, LON0, 26, 118, [_river_south_of(150)]).status == POSSIBLY_WITHIN
-    assert riparian_screen(LAT0, LON0, 26, 118, [_river_south_of(30)]).status == INSIDE
+    assert riparian_screen(LAT0, LON0, 10, 10, [_river_south_of(30)]).status == INSIDE
 
 
 def test_missing_inputs_are_unknown_not_outside() -> None:
@@ -153,4 +155,5 @@ def test_walcott_is_outside_the_riparian_buffer() -> None:
     assert result.river == "Ohio River"
     assert 600 < result.distance_ft < 700
     assert result.low_ft > riparian.RIPARIAN_BUFFER_FT
+    assert (round(result.low_ft), round(result.high_ft)) == (501, 793)
     assert "905.04.E.4.a" in result.note and "Approximate" in result.note

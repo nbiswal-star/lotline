@@ -236,6 +236,9 @@ class Snapshot:
     # Optional enforcement-record text by PIN, for the AI evidence reader only.
     # Not part of ParcelContext: the engine cannot see it.
     record_text: dict[str, tuple[RecordText, ...]] = field(default_factory=dict)
+    # Optional offline geometry used only by the deterministic RIV riparian screen.
+    parcel_points: dict[str, tuple[float, float]] = field(default_factory=dict)
+    river_geometry: tuple[object, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -248,6 +251,9 @@ class ParcelContext:
     facts: ParcelFacts | None  # None -> no prepared parcel facts (e.g. structures)
     rule: DistrictRule | None  # None -> district rules not encoded
     manifest: dict[str, SourceEntry]
+    point_lat: float | None = None
+    point_lon: float | None = None
+    river_geometry: tuple[object, ...] = ()
 
 
 # --------------------------------------------------------------------------
@@ -364,6 +370,11 @@ class ScreeningResult:
     area_gap_pct: float | None = None
     area_gap_symmetric_pct: float | None = None
     upset_to_assessed_land: float | None = None
+    riparian_status: str | None = None
+    riparian_distance_ft: float | None = None
+    riparian_low_ft: float | None = None
+    riparian_high_ft: float | None = None
+    riparian_note: str | None = None
     barriers: list[str] = field(default_factory=list)
     next_checks: list[NextCheck] = field(default_factory=list)
     facts: list[Fact] = field(default_factory=list)

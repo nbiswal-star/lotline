@@ -43,10 +43,17 @@ def score_use(rule: DistrictRule | None) -> ComponentScore:
     def path(code: str) -> str:
         return policy.PERMISSION_LABELS.get(code.strip().upper(), code)
 
-    reason = (
-        f"{rule.district} (§{rule.use_citation}): single-unit {path(rule.single_unit_permission)}; "
-        f"two-unit {path(rule.two_unit_permission)}"
-    )
+    if rule.district == "RIV-RM":
+        reason = (
+            f"RIV-RM (§{rule.use_citation}): single-unit detached "
+            f"{path(rule.single_unit_permission)}; attached housing not evaluated; "
+            f"two-unit {path(rule.two_unit_permission)}"
+        )
+    else:
+        reason = (
+            f"{rule.district} (§{rule.use_citation}): single-unit {path(rule.single_unit_permission)}; "
+            f"two-unit {path(rule.two_unit_permission)}"
+        )
     return ComponentScore(name="use", low=score, high=score, status="known", reason=reason, fact_ids=ids,
                           short_reason=_use_short(rule, single, two, path))
 

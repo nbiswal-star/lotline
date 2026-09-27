@@ -36,19 +36,18 @@ class AIOutputError(ValueError):
     """Claude answered, but the answer is unusable (truncated, empty, not JSON)."""
 
 
-def _load_dotenv_key() -> None:
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        return
+def _dotenv_key() -> str | None:
+    """Read the repo-local key without mutating global process state."""
     env = REPO_ROOT / ".env"
     try:
         lines = env.read_text(encoding="utf-8").splitlines()
     except OSError:
-        return
+        return None
     for line in lines:
         name, sep, value = line.strip().partition("=")
         if sep and name.strip() == "ANTHROPIC_API_KEY" and value.strip():
-            os.environ["ANTHROPIC_API_KEY"] = value.strip().strip('"').strip("'")
-            return
+            return value.strip().strip('"').strip("'")
+    return None
 
 
 OFFLINE_ENV = "LOTLINE_OFFLINE"
@@ -63,8 +62,8 @@ def credentials_available() -> bool:
     """True when an API key (or auth token) is configured and offline mode is off; no network call."""
     if offline_mode():
         return False
-    _load_dotenv_key()
-    return bool(os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"))
+    return bool(os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN") or
+                _dotenv_key())
 
 
 def make_client(timeout_s: float = DEFAULT_TIMEOUT_S) -> Any:
@@ -76,7 +75,11 @@ def make_client(timeout_s: float = DEFAULT_TIMEOUT_S) -> Any:
         import anthropic
     except Exception as exc:  # noqa: BLE001
         raise AIUnavailable("anthropic SDK not installed") from exc
-    return anthropic.Anthropic(timeout=timeout_s, max_retries=1)
+    key = os.environ.get("ANTHROPIC_API_KEY") or _dotenv_key()
+    kwargs: dict[str, Any] = {"timeout": timeout_s, "max_retries": 1}
+    if key:
+        kwargs["api_key"] = key
+    return anthropic.Anthropic(**kwargs)
 
 
 @dataclass(frozen=True)
@@ -86,7 +89,7 @@ class AIResponse:
     request_id: str | None
 
 
-def call_structured(system: str, user: str, schema: dict[str, Any], *, client: Any = None,
+def call_structured(system: str, user: Any, schema: dict[str, Any], *, client: Any = None,
                     effort: str = "medium", timeout_s: float = DEFAULT_TIMEOUT_S,
                     max_tokens: int = MAX_TOKENS) -> AIResponse:
     """One Claude request whose output must match ``schema``; returns the parsed object."""

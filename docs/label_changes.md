@@ -250,10 +250,25 @@ Figures 3 and 4 (graphics) were not reviewed.
 ### Method (`lotline/engine/riparian.py`, pure; loaders in `lotline/loaders.py`)
 
 - **Distance:** from the Treasury point (lat/lon, read by `load_parcel_points`, which reads only `pin, lat, lon`) to the nearest river-polygon edge. It is computed offline in a local equirectangular plane centred on the point, with no new dependencies; error is under 1 ft at these distances.
-- **Uncertainty band:** ± half the lot's MBR diagonal (the point may sit anywhere in the lot), plus ±25 ft for mapped shoreline vs. the 710 ft contour. The polygons were digitized near normal pool, and 710 ft is the shared Emsworth pool. At Walcott the independent 2004 County "Hydrology Areas" layer gives 630 ft against 647 ft here, a 17 ft difference that the 25 ft margin covers.
+- **Uncertainty band (corrected after housing-practice review):** ± the full lot MBR diagonal because the public-source point's position within the lot is not established, plus ±25 ft for mapped shoreline vs. the 710 ft contour. The earlier half-diagonal assumption only covered the whole lot if the point were central and was not supported by source metadata. The polygons were digitized near normal pool, and 710 ft is the shared Emsworth pool. At Walcott the independent 2004 County "Hydrology Areas" layer gives 630 ft against 647 ft here, a 17 ft difference that the 25 ft margin covers.
 - **Classes:** "outside buffer" if the whole band is beyond 125 ft; "inside buffer" if the whole band is at or within 125 ft; otherwise "possibly within buffer (inside uncertainty)". A point on the water has distance 0.
 - `tests/test_boundaries.py`: `math` was added to the stdlib allowlist for engine purity. It is pure arithmetic and performs no I/O.
 
 ### Result for Walcott St (RIV-RM)
 
-Nearest river: the Ohio. Point distance **647 ft**. Band ±85 ft (half diagonal of the 26 × 118 ft MBR = 60 ft, plus 25 ft), giving **562–732 ft**. Classification: **outside buffer**. This is approximate, not a survey. The Zoning Administrator determines the buffer line.
+Nearest river: the Ohio. Point distance **647 ft**. The corrected band is ±146 ft (full diagonal of the 26 × 118 ft MBR = 121 ft, plus 25 ft), giving **501–793 ft**. Classification remains **outside buffer**. This is approximate, not a survey. The Zoning Administrator determines the buffer line.
+
+### Part 2: engine integration and label change
+
+The verified §905.04.E standards are now encoded in `data/district_rules.csv`: no minimum lot-size gate (`0` in the engine's established convention), front envelope subtraction `0` with the 0–10 ft / 60% facade build-to requirement retained in the site-standard note, rear 5 ft, and side setbacks 0 because §905.04.E states none. `dimensions_encoded` changes from `N` to `Y`.
+
+The engine now receives the allowlisted parcel point and cached County river polygons through `ParcelContext`, computes the riparian screen as a pure function, and withholds dimensional fit whenever the result is missing, inside, or possibly within the buffer. An outside result still produces a named Zoning Administrator / licensed-surveyor confirmation because the shoreline polygon is only a stand-in for the 710 ft contour.
+
+| PIN | Field | Before | After | Reason / citation |
+|---|---|---|---|---|
+| 0042D00039000000 | dimensional / envelope | withheld; RIV-RM not encoded; no envelope | 2; `Illustrative only: interior 26x113 ft` | §905.04.E.4.b–c; corrected approximate riparian band 501–793 ft is wholly outside 125 ft (§905.04.E.4.a) |
+
+The RIV-RM use sentence now distinguishes the §911.02 rows: **single-unit detached prohibited; attached housing not evaluated; two-unit permitted by right**. The `0` minimum-lot value remains only the engine's convention for “no stated district minimum”; the UI no longer displays it as a statutory 0 sf minimum.
+| 0042D00039000000 | evidence coverage | 4/5 | 5/5 | RIV-RM use and dimensional rules are now encoded; geometry source is recorded in the manifest |
+| 0042D00039000000 | barriers | included RIV-RM tool gap | tool-gap barrier removed; current-condition conflict remains first | The parcel remains `Defer: missing or conflicting records`; no conflict is resolved |
+| 0042D00039000000 | next checks | review unencoded RIV-RM dimensions | confirm RIV riparian-buffer line (§905.04.E.4.a) | County shoreline is approximate and not the Code's 710 ft contour |

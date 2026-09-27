@@ -745,6 +745,15 @@ def test_invalid_calibrator_is_ignored(tmp_path: Path, monkeypatch: pytest.Monke
     assert ev.load_calibration() is None
 
 
+def test_committed_parcel_calibrator_is_not_reused_as_item_confidence(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("LOTLINE_CALIBRATION_PATH", raising=False)
+    # The scale-study artifact has a different target/schema. Fail closed rather than present a
+    # parcel development estimate as an item-level probability.
+    assert ev.load_calibration() is None
+
+
 # --------------------------------------------------------------------------
 # Baselines and ablation hooks
 # --------------------------------------------------------------------------

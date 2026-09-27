@@ -11,10 +11,10 @@ record) and each citing the record ids and quotes that prompted it:
   applicable to it, so the resolver must confirm that condition first;
 * (b) a quote mentions a City-funded demolition or a lien: a demolition / municipal lien search.
 
-A site-condition trigger counts an item when its displayed label is a structure label, or, if the
-label was withheld (lexicon/judge disagreement or judge unavailable), when the code keyword
-lexicon on the verified quote itself finds structure or demolition wording. No model text is
-used; every string shown is a fixed template plus verified record ids, years and quotes.
+A site-condition trigger counts an item only when its displayed, verified semantic label is a
+structure label. A quote whose label was withheld (lexicon/judge disagreement or judge
+unavailable) cannot be promoted again by a keyword match. No model-written prose is used; every
+string shown is a fixed template plus verified record ids, years and quotes.
 """
 
 from __future__ import annotations
@@ -43,11 +43,7 @@ RELIEF_PATH_SUFFIX = ("PLI records describe a structure on this parcel — the l
 
 CITY_FUNDED = re.compile(r"\bcity[- ]funded\b", re.I)
 LIEN = re.compile(r"\bliens?\b", re.I)
-DEMOLITION_WORDS = re.compile(r"\bdemolish\w*|\bdemolition\b|\bdemo\b|\braz(?:e|ed|es|ing)\b", re.I)
 DEMOLITION_DONE = re.compile(r"\bdemolished\b|\brazed\b|\bdemolition (?:has been |was )?completed\b", re.I)
-STRUCTURE_WORDS = re.compile(
-    r"\bstructures?\b|\bbuildings?\b|\bbuikdng\b|\bbldg\b|\bdwelling\b|\bhouse\b|\broofs?\b|\bwalls?\b"
-    r"|\bporch\b|\bcollaps\w*|\bfoundations?\b", re.I)
 
 
 @dataclass(frozen=True)
@@ -92,12 +88,7 @@ def _structure_item(item: Any) -> bool:
     if str(_get(item, "source_id", "source", default="")) not in CONDITION_SOURCES:
         return False
     label = str(_get(item, "indicates", default=""))
-    if label in STRUCTURE_LABELS:
-        return True
-    if label in {"vacant_lot_condition", "enforcement_or_court_status", "other"}:
-        return False  # a verified non-structure label wins over keywords
-    quote = str(_get(item, "quote", default=""))
-    return bool(DEMOLITION_WORDS.search(quote) or STRUCTURE_WORDS.search(quote))
+    return label in STRUCTURE_LABELS
 
 
 def structure_refs(digest: Any) -> list[EvidenceRef]:

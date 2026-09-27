@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LotLine multimodal parcel audit</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#17243a;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{width:1280px;height:800px;padding:34px 44px;background:linear-gradient(135deg,#f8fafc 0,#eef4fb 100%)}
+.eyebrow{font-size:14px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#27639c}.title{font-size:32px;font-weight:800;margin:7px 0 8px}.sub{font-size:17px;color:#526277;margin-bottom:22px}
+.grid{display:grid;grid-template-columns:1.22fr .98fr;gap:24px}.card{background:#fff;border:1px solid #d8e1ec;border-radius:16px;box-shadow:0 8px 28px rgba(38,62,92,.08);overflow:hidden}
+.image{width:100%;height:535px;object-fit:cover;display:block}.caption{padding:10px 15px;font-size:12px;color:#627086;border-top:1px solid #e3e9f1}
+.right{padding:22px}.label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#61728a}.result{font-size:23px;font-weight:800;margin:5px 0 15px}.obs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 17px}.obs div{padding:12px;background:#f4f7fb;border-radius:10px;font-size:14px}.obs b{display:block;margin-bottom:4px}
+.status{padding:14px;border-left:5px solid #d88910;background:#fff7e8;border-radius:8px;font-size:16px;line-height:1.4}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}.metric{padding:12px 8px;text-align:center;background:#eaf3fd;border-radius:10px}.metric strong{display:block;font-size:24px;color:#164f85}.metric span{font-size:11px;color:#4e6177}.foot{margin-top:15px;padding-top:13px;border-top:1px solid #e1e7ef;font-size:13px;line-height:1.45;color:#536278}
+</style>
+</head>
+<body><main>
+  <div class="eyebrow">LotLine · bounded multimodal evidence</div>
+  <div class="title">A real parcel image that can disagree—and abstain</div>
+  <div class="sub">Centre Ave · County parcel geometry + aerial imagery + fixed-category Claude observation</div>
+  <div class="grid">
+    <section class="card">
+      <img class="image" src="../../data/parcel_imagery/centre-parcel-context.jpg" alt="Real aerial image with the target County parcel outlined in yellow">
+      <div class="caption">Esri World Imagery + Allegheny County OPENDATA parcel outline · retrieved 2026-09-27 · imagery acquisition date not provided · outline is not a survey</div>
+    </section>
+    <section class="card right">
+      <div class="label">Hash-bound Claude read · enum-only output</div>
+      <div class="result">Structure visibility: unclear</div>
+      <div class="obs">
+        <div><b>Surface</b>Mixed cover</div><div><b>Street context</b>Street edge visible</div>
+        <div><b>Image quality</b>Adequate for coarse categories</div><div><b>Limits</b>Date unknown · shadows · tree cover</div>
+      </div>
+      <div class="status"><b>Cross-modal result:</b> the image does not resolve the demolition-labelled record against the active condemned record. Both remain visible; the parcel stays deferred.</div>
+      <div class="metrics">
+        <div class="metric"><strong>96/96</strong><span>hash-verified reads</span></div>
+        <div class="metric"><strong>36</strong><span>current review flags</span></div>
+        <div class="metric"><strong>45</strong><span>current abstentions</span></div>
+      </div>
+      <div class="foot"><b>What AI adds:</b> a visual–record discrepancy queue the records-only pipeline cannot produce. <b>What it cannot do:</b> prove vacancy, demolition, recency, zoning, title, hazards or development feasibility. The deterministic engine is unchanged.</div>
+    </section>
+  </div>
+</main></body></html>

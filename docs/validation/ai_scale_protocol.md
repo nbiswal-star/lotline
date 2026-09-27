@@ -1,7 +1,9 @@
-# Pre-registered protocol: citywide evaluation of the AI enforcement-record reader
+# Timestamped development protocol: citywide evaluation of the AI enforcement-record reader
 
-- **Registered:** 2026-09-27T11:01Z (07:01 ET), before any sample was drawn and before any model call for this study.
-- **Frozen:** this file is not edited after results exist. Any departure is recorded in a dated "Deviations" section appended at the end.
+This protocol was written before model calls according to the repository's recorded timestamps, but it was not registered in an external immutable registry. It should not be described as preregistered.
+
+- **Recorded:** 2026-09-27T11:01Z (07:01 ET), before any sample was drawn and before any model call for this study; not externally registered.
+- **Change record:** the original design is retained below. Post-result clarifications, deviations and exploratory additions were made after results and are explicitly marked in the dated sections at the end; this file must not be described as frozen or preregistered.
 - **Code:** `scripts/fetch_scale_sample.py` (sample + reference), `evaluation/ai_scale.py` (model run, scoring, report).
 - **Results:** `docs/validation/ai_scale_results.md`.
 
@@ -9,7 +11,7 @@
 
 Existing AI-reader evidence (`evaluation/ai_reader.py`) uses ~15 sale parcels and team-authored relevance labels. This study asks a narrower but independently checkable question at larger scale:
 
-> Given only a parcel's PLI violation free text, does the LotLine reader (Claude proposal + deterministic quote verifier) surface verified evidence that the structure was demolished, for parcels that structured City permit data independently record as demolished — and does it avoid doing so for parcels that City data record as still-standing condemned structures? How does it compare with a keyword rule on the same text?
+> Given only a parcel's PLI violation free text, does the LotLine reader (Claude proposal + deterministic quote verifier) surface verified demolition evidence for parcels with a qualifying City demolition-permit record—and avoid doing so for parcels carrying an active condemned-list record and no demolition permit? How does it compare with a keyword rule on the same text?
 
 The reference is structured public data. The team writes no labels.
 
@@ -93,7 +95,7 @@ No success threshold is set for the AI; this is a descriptive comparison. It is 
 - **Selection bias:** strata are extreme cases (completed demolition vs. active condemnation). Balanced 75/75 sampling fixes prevalence at 50%; precision at citywide prevalence would differ. Results do not transfer to ordinary parcels.
 - **Construct:** the reader is designed to surface quotes for a human, not to classify parcels; this study measures one derived parcel rule.
 
-## Amendment 1 (registered 2026-09-27 ~11:03Z, concurrently with the sample fetch and before any model call)
+## Amendment 1 (recorded 2026-09-27 ~11:03Z, concurrently with the sample fetch and before any model call)
 
 Added on external methods review. It changes no population, reference or sampling rule; the sample fetch (11:03:02–11:03:13Z) ran concurrently, and no model output existed. (Timestamp corrected from an earlier typed "11:04Z" before any results.)
 
@@ -104,18 +106,18 @@ Added on external methods review. It changes no population, reference or samplin
    - **B3 recency+keyword:** only the fields of the single most recent casefile (max `investigation_date`); DEMOLISHED if they match `DEMOLITION_DONE`.
    - KW-S2 (any `LEXICON["structure_removed_or_demolished"]` hit) stays as a secondary high-recall rule.
    The headline reports the AI against the **best** baseline by F1, not only against B1.
-3. **Self-consistency.** Pass 1 (k=1) runs on all sampled parcels and is the primary AI prediction. A second extraction pass runs only if cumulative spend after pass 1 plus the projected cost of pass 2 is ≤ $15. If it runs, report the per-parcel exact-tuple agreement distribution and, as a secondary rule, the app's two-run intersection (`digest_from_runs` over both runs). Otherwise report k=1 and say so.
+3. **Self-consistency.** Pass 1 (k=1) runs on all sampled parcels and is the primary AI prediction. A second extraction pass runs only if cumulative spend after pass 1 plus the projected cost of pass 2 is ≤ $15. If it runs, report the per-parcel exact-tuple agreement distribution and, as a secondary rule, the then-current two-run intersection (`digest_from_runs` over both runs). Otherwise report k=1 and say so. The app later changed to a three-run union plus same-model entailment check; that configuration is outside this experiment.
 4. **Cost/latency:** tokens, cost and wall-clock latency per parcel reported as mean and p95.
 5. **Automatically checkable metrics:** verification pass rate (verified items / proposed items), abstention rate, and **wrong-and-shown rate** = verified demolition-done items shown on NOT_DEMOLISHED parcels / all verified demolition-done items shown.
-6. **Per-layer rejection counts:** for every proposed item, the verifier's first failing check (`verify_items` reason codes) and the lexicon label-withholding count are stored so a layer ablation can be computed offline from the cache.
+6. **Verifier rejection accounting:** store every proposed item's first failing check (`verify_items` reason codes) and the lexicon label-withholding count. These are descriptive rejection counts, not a counterfactual layer ablation.
 
-## Amendment 2 (registered 2026-09-27T11:04Z, after the sample fetch, before any model call; no outcome inspected)
+## Amendment 2 (recorded 2026-09-27T11:04Z, after the sample fetch, before any model call; no outcome inspected)
 
 1. **Baseline B4 (record-flagging rule from the AI-delta review):** at record level it flags a record if it comes from a non-PLI structured source (none exist in this PLI-only input), OR its text says demolished/demolition or cites `DP-\d{4}-\d+`, OR it is the parcel's latest PLI record. The "latest record" clause adds a record to review but asserts nothing, so the parcel-level prediction is: DEMOLISHED if any field matches `\bdemolished\b|\bdemolition\b|\bDP-\d{4}-\d+\b`. B4 is reported with B1–B3 and is eligible to be the "best baseline".
 2. **Demolition-date accuracy:** for DEMOLISHED parcels the AI predicts as DEMOLISHED, compare the record date of the earliest verified demolition-done item (dates come from the record, never the model) with the reference permit date. The permits data carries **no final/completion date**; the earliest qualifying permit `issue_date` is used and the gap (days) is reported as a distribution, not as correct/incorrect.
 3. **k:** the union-of-k reader has not landed in `lotline/ai/evidence.py` at registration time (file unchanged since 06:55 ET; `RUNS = 2`, intersection rule). The primary AI prediction is therefore **k=1**. If budget allows further passes, union-of-k and intersection-of-k over the cached passes are computed offline as secondary rules and labelled as such.
 
-## Amendment 3 (registered 2026-09-27T11:10Z: calibrated confidence; after pass-1 model outputs were cached, before any AI metric, prediction or verified item was inspected)
+## Amendment 3 (recorded 2026-09-27T11:10Z: calibrated confidence; after pass-1 model outputs were cached, before any AI metric, prediction or verified item was inspected)
 
 State at registration: pass 1 (k=1) has run on all 150 parcels (spend $7.78, 0 errors); the report has not been generated on model outputs and no AI prediction has been looked at. Baseline metrics (B1–B4) were seen in a code dry run with no model outputs.
 
@@ -141,3 +143,14 @@ State at registration: pass 1 (k=1) has run on all 150 parcels (spend $7.78, 0 e
 2. **Post-hoc exploratory table.** The table of demolition labels withheld by the lexicon gate was added after error analysis and is labelled as post hoc in the results. The error notes and the discussion were also written after results.
 3. **Amendment 1 timestamp** was corrected from a typed "11:04Z" to "~11:03Z, concurrent with the sample fetch" before any result existed.
 4. **Reliability PNG** requires matplotlib, which is not a project dependency. `uv run --with matplotlib python -m evaluation.ai_scale --report` writes it. Without matplotlib the report and calibration JSON still regenerate and the PNG is left unchanged.
+5. **Upstream reference rows are not committed in full.** `reference.csv` preserves the sampled parcel IDs and the derived permit/condemned fields used for scoring, and `records.csv` preserves the complete model input. The full public permit and condemned-table rows used to construct the candidate frame were not retained. The fetch script is committed, but a later refetch queries mutable sources and therefore cannot independently reconstruct the exact original candidate frame. This limits source-to-reference reproducibility and is separate from the offline reproducibility of the reported metrics from the committed derived reference.
+
+## Amendment 4 (post hoc, after results and independent methods review)
+
+The following additions were made after results were known and are explicitly exploratory:
+
+- **B5 contextual completion rule:** a stronger deterministic comparator that accepts completion phrases while rejecting negated, modal, ordered, scheduled, permitted and repair-or-demolish clauses.
+- **Paired parcel bootstrap:** 4,000 stratified resamples of the AI-minus-best-baseline precision, recall, F1 and proxy-discordance deltas.
+- **Verifier-layer replay:** cached pass-1 proposals are rechecked with one current deterministic verifier layer disabled at a time. This is a counterfactual code ablation on frozen proposals without an entailment-judge call; it is not an evaluation of the current live `k=3` stack.
+
+The committed calibration JSON estimates a parcel-level target from the frozen `k=1` development sample. It does not match the runtime item-confidence schema and is intentionally not loaded by the app. It must not be repurposed as item confidence.

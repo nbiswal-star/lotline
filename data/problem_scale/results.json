@@ -1,0 +1,13 @@
+{
+  "assessment_as_of": [
+    "2026-09-01"
+  ],
+  "assessment_rows": 22354,
+  "condemned_rows": 3569,
+  "condemned_unique": 2895,
+  "fetch_finished_utc": "2026-09-27T11:45:13Z",
+  "overlap_pct_condemned": 18.5,
+  "overlap_pct_vacant": 2.4,
+  "overlap_unique": 536,
+  "vacant_unique": 22354
+}

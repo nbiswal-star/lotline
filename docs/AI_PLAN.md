@@ -10,11 +10,11 @@ An analyst screening a tax-sale list spends most of their time reading unstructu
 
 | # | Capability | What Claude does | How code verifies | Status |
 |---|---|---|---|---|
-| A1 | **Enforcement-record reader** | Searches loaded PLI, condemnation and permit text and proposes passages relevant to current condition and enforcement | Model-proposed tuples recur across two runs; IDs, fields, recorded dates and exact quotes are checked; unsupported semantics are withheld; deterministic structured companions are labeled by design | **Complete; development audit only** |
+| A1 | **Enforcement-record reader** | Searches loaded PLI, condemnation and permit text and proposes passages relevant to current condition and enforcement | Current live mode unions three same-model proposal runs, reports recurrence, checks IDs/fields/dates/exact quotes, and applies a same-model entailment gate; unsupported semantics are withheld | **Complete; frozen k=1 scale evidence does not validate the newer live configuration** |
 | A2 | **Ask LotLine** (grounded Q&A) | Maps plain-language questions to fixed frames, engine claims and stored code excerpts | No model prose reaches users; permission claims must agree with rules; unsupported topics are declined | **Complete; 12+5 live smoke** |
 | A3 | **Variance precedent reader** | Reads selected ZBA decisions and extracts relief, outcome, date and rationale | Exact quotes and metadata are checked; relief-kind patterns are checked; code matches cards to lots | **Secondary; 6/8 usable, not predictive** |
 | A4 | **Internal next-check ticket** | None; deterministic template attaches verified evidence to the engine's named owner | No outgoing message; identifiers come from engine/evidence output | **Complete, deterministic** |
-| A5 | **Aerial-imagery observer** | — | Cut because the observation could not be adequately verified | **Cut** |
+| A5 | **Bounded multimodal parcel observer** | Reads real aerial context clipped around a County parcel polygon and returns only fixed visual categories | All 96 image bytes and parcel outlines are source-cached; response schema, enum values and image hashes are checked; code compares categories with verified record labels/assessment class and keeps discordance or uncertainty explicit; never enters the engine | **Complete for all 96 sale-feed parcels; full-cohort coverage/discordance audit, no accuracy claim** |
 | A6 | **Portfolio copilot** | — | Cut because deterministic triage is clearer for 14 lots | **Cut** |
 | P1 | Live snapshot drift check | None (deterministic) | A read-only comparison of the snapshot with live WPRDC | **Complete** |
 | P2 | Pre-development cost worksheet | None | Defaults are cited or left blank for the user; nothing is invented | **Complete** |
@@ -36,7 +36,7 @@ The engine is never changed by AI output. There is no AI prose without verificat
 | Item | Decision | Reason |
 |---|---|---|
 | A1 Enforcement-record reader | **Keep. This is the headline.** | All three reviewers. |
-| | Harden verification | Quotes of at least 8 tokens aligned to clause boundaries; a guard against clipped negations; code assigns recorded dates and neutrally notes later-dated records; the "indicates" label is checked against a keyword lexicon (absence or disagreement withholds the label); model-proposed tuples must recur across two runs; instruction-like quotes are rejected. |
+| | Harden verification | Quotes of at least 8 tokens aligned to clause boundaries; guards against clipped negation, hearsay and instruction-like text; code assigns recorded dates and neutrally notes later-dated records. The current live reader unions three same-model proposal runs, reports recurrence, and applies a same-model entailment check. A tuple need not recur to be included, so recurrence is not independent confirmation. |
 | | Cross-check demolition claims | Checked in code against the WPRDC PLI permits data. |
 | | Wording | Always "the record says", never "the site is". |
 | | Measure against a baseline | Recall against pre-run team labels, compared with a no-AI keyword baseline. |
@@ -44,7 +44,8 @@ The engine is never changed by AI output. There is no AI prose without verificat
 | A3 Variance precedents | **Keep, narrowed.** | Case number, date, relief kind and a verbatim outcome sentence. Honest granted/decided counts, with their denominator. |
 | New: required-relief paths | **Add.** | The brief asks for "required variances". Code derives the trigger from the engine, a deterministic table gives the path, Claude selects the supporting code quote (verified), and precedents attach. |
 | A4 Request drafter | **Change to an internal task ticket.** | Templated and deterministic, with the verified evidence attached. Not outgoing mail. |
-| A5 Aerial observer, A6 Portfolio copilot | **Cut.** | A5 can't be verified and is misleading. A6 is a filter, and a table beats a chatbot for 14 lots. |
+| A5 Aerial observer | **Reintroduced only as a bounded audit after adding real imagery, County polygons, fixed categories, image/contract-hash verification, full-cohort coverage and explicit abstention.** | It never claims site truth or enters the engine. The current run reports 36 review flags and 45 abstentions; two-run exact-category agreement is 93/96 and the same 29 structure-routed records were flagged. No accuracy claim. |
+| A6 Portfolio copilot | **Cut.** | A filter/table is clearer for 14 development-screened lots. |
 | P2 Cost worksheet | **Make it sale-specific.** | Surviving liens and water claims, redemption risk, quiet title, survey, demolition lien. No filler rows. |
 | Video | **Lead with the AI reading Centre's records.** | Show the verified quote, then the rules refusing to score, then the next check; show a deliberate rejection; keep live Q&A scripted. |
 

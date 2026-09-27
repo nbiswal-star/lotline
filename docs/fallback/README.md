@@ -1,9 +1,9 @@
 # Fallback capture manifest
 
-Captured from the offline app at 1280×800 on 2026-09-26. The app frames are real browser captures, not mockups or generated images. The title and pilot frames are the repository-owned HTML slides used by the demo script.
+Captured from the offline app at 1280×800 on 2026-09-26, with the pipeline hero refreshed in a real headless Chrome session on 2026-09-27. The app frames are real browser captures, not mockups or generated images. The title and pilot frames are the repository-owned HTML slides used by the demo script.
 
 - `00-title.png` — hackathon, challenge, LotLine and presenter.
-- `01-pipeline.png` — 96 → 77 → 63 + 14 and the full triage-column header.
+- `01-pipeline.png` — current AI-reader header, 96 → 77 → 63 + 14, optional map collapsed, and the triage workflow below.
 - `02-benezet.png` — Benezet score components and evidence coverage.
 - `02b-benezet-checks.png` — pre-spend gate and parcel-specific check with named owners.
 - `03-centre.png` — critical/material banners, Not scorable and no component values.
@@ -14,4 +14,4 @@ Captured from the offline app at 1280×800 on 2026-09-26. The app frames are rea
 
 Every asset was opened and checked for legibility after capture. The recording still must follow the timing and language controls in `docs/demo_script.md`.
 
-The AI-first final pass adds three 1280×800 recovery frames rendered from committed results: `08-ai-reader.png` (Centre evidence plus no-AI counterfactual), `09-ask-verified.png` (bounded Ask LotLine plus live-smoke denominators), and `10-science.png` (scientific results and limits). Their editable HTML sources sit beside them. They are fallback frames, not substitutes for showing the running app.
+The AI-first final pass adds four 1280×800 recovery frames rendered from committed results: `08-ai-reader.png` (Centre evidence plus no-AI counterfactual), `09-ask-verified.png` (bounded Ask LotLine plus live-smoke denominators), `10-science.png` (scientific results and limits), and `11-multimodal.png` (the real Centre aerial, bounded visual read, full-cohort counters and unresolved cross-modal result). Their editable HTML sources sit beside them. They are fallback frames, not substitutes for showing the running app.

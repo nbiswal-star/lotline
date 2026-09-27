@@ -104,7 +104,7 @@ def run() -> Section:
                  f"{sum(d['status'] == 'cached_verified' for d in details)}/{len(details)}")
     # Frozen before inspecting live results: the AI must recover at least as many
     # labeled relevant records and surface fewer irrelevant record ids than grep.
-    checks.check("AI is Pareto-better than the frozen keyword baseline",
+    checks.check("development-set observation: AI matches recall with fewer false positives than B1",
                  ai_t["tp"] >= kw_t["tp"] and ai_t["fp"] < kw_t["fp"],
                  f"AI TP/FP {ai_t['tp']}/{ai_t['fp']}; keyword TP/FP {kw_t['tp']}/{kw_t['fp']}")
 

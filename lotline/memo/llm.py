@@ -118,11 +118,11 @@ def _has_credentials(client: Any) -> bool:
 def make_client(timeout_s: float = DEFAULT_TIMEOUT_S) -> Any:
     """Create the SDK client lazily; raise ``LLMUnavailable`` if no credentials resolve."""
     try:
-        import anthropic
-    except Exception as exc:  # noqa: BLE001 - optional at runtime
-        raise LLMUnavailable("Anthropic SDK not installed") from exc
-    try:
-        client = anthropic.Anthropic(timeout=timeout_s, max_retries=1)
+        from lotline.ai.client import AIUnavailable, make_client as shared_make_client
+        client = shared_make_client(timeout_s)
+    except AIUnavailable as exc:
+        reason = "no API key" if "no API key" in str(exc) else str(exc)
+        raise LLMUnavailable(reason) from exc
     except Exception as exc:  # noqa: BLE001 - credential chain errors must not leak details
         raise LLMUnavailable("no API key") from exc
     if not _has_credentials(client):

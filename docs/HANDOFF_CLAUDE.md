@@ -1,5 +1,7 @@
 # LotLine final-mile handoff for Claude
 
+> **Historical handoff.** The authoritative current state is `docs/STATUS.md`; the concise takeover prompt is `docs/HANDOFF_FINAL_CLAUDE.md`.
+
 ## Current takeover state — 2026-09-27 final science pass
 
 **Pushed milestone:** `9cf4b4f62df7c0de13fffc535bd97ce2af226692` on `origin/main` (`Merge AI-native evidence readers and scientific validation`). The history-preserving merge has parents `b7a47b4` and `6d062f4`.

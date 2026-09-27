@@ -76,8 +76,10 @@ def centre(snapshot):
 
 @pytest.fixture
 def no_credentials(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    from lotline.ai import client as shared_client
     for var in CREDENTIAL_ENV:
         monkeypatch.delenv(var, raising=False)
+    monkeypatch.setattr(shared_client, "REPO_ROOT", tmp_path)
     monkeypatch.setenv("HOME", str(tmp_path))
     monkeypatch.setenv("XDG_CONFIG_HOME", str(tmp_path / ".config"))
     monkeypatch.setenv(llm.CACHE_ENV, str(tmp_path / "llm_cache"))

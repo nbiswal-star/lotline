@@ -204,8 +204,10 @@ def test_blank_setbacks_stay_none(snapshot: Snapshot) -> None:
     assert h.min_lot_sf == 3200.0
     assert (h.front_setback_ft, h.rear_setback_ft, h.exterior_side_ft, h.interior_side_ft) == (
         None, None, None, None)
-    assert snapshot.rules["RIV-RM"].min_lot_sf is None
-    assert snapshot.rules["RIV-RM"].front_setback_ft is None and snapshot.rules["RIV-RM"].rear_setback_ft == 5.0
+    riv = snapshot.rules["RIV-RM"]
+    assert riv.min_lot_sf == 0.0
+    assert (riv.front_setback_ft, riv.rear_setback_ft, riv.exterior_side_ft,
+            riv.interior_side_ft) == (0.0, 5.0, 0.0, 0.0)
     assert snapshot.rules["R1A-VH"].min_lot_sf == 0.0  # a real zero is kept distinct from blank
     blockers = {d for d, r in snapshot.rules.items() if r.site_standard_blocks_dimensional}
     assert blockers == {"H"}
@@ -364,7 +366,7 @@ def test_rule_provenance_fields_loaded(snapshot: Snapshot) -> None:
     assert fields["rules_as_of"] == "2026-09-16" and "amended_by" in fields
 
 
-def test_p_and_lnc_dimensions_encoded(snapshot: Snapshot) -> None:
+def test_p_lnc_and_riv_rm_dimensions_encoded(snapshot: Snapshot) -> None:
     p, lnc = snapshot.rules["P"], snapshot.rules["LNC"]
     assert p.dimensions_encoded and p.dimensional_citation == "905.01.C"
     assert (p.min_lot_sf, p.front_setback_ft, p.rear_setback_ft, p.exterior_side_ft, p.interior_side_ft) == (
@@ -372,7 +374,7 @@ def test_p_and_lnc_dimensions_encoded(snapshot: Snapshot) -> None:
     assert lnc.dimensions_encoded and lnc.dimensional_citation == "904.02.C"
     assert (lnc.min_lot_sf, lnc.front_setback_ft, lnc.rear_setback_ft, lnc.exterior_side_ft,
             lnc.interior_side_ft) == (0.0, 0.0, 20.0, 0.0, 0.0)
-    assert snapshot.rules["RIV-RM"].dimensions_encoded is False
+    assert snapshot.rules["RIV-RM"].dimensions_encoded is True
 
 
 def test_rule_provenance_columns_optional(data_copy: Path) -> None:
