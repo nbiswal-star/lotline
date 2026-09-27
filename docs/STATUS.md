@@ -75,6 +75,18 @@
 >
 > **If time runs short, cut in this order:** the drift check, then the map, then the cost worksheet, then task tickets, then A3 counts. Never cut A1 (the headline), the verification rules or the offline fallback.
 
+## Builder results at handoff (in `wip/ai-readers`)
+
+- **A2 Ask LotLine is DONE** (built on the atom-selection design). `lotline/ai/ask.py`, `lotline/ai/verify.py`, `data/code_excerpts.json` (22 cited verbatim excerpts), memo allowlist v3, and `tests/test_ai_ask.py` (18/18).
+  - Every one of the 38 hostile-prose sentences the memo checker used to accept is now rejected, by the new rules PERMISSION_AGREES and UNSUPPORTED_TOPIC.
+  - Across the 1,265 engine-approved claims, 0 are flagged.
+  - Remaining: live runs of `SUGGESTED_QUESTIONS` on Benezet and Centre, an optional verified cache under `data/ai_cache/ask/`, and wiring into the UI.
+  - Correction: the rule "uses not associated with a letter are prohibited" is **§911.01.F**, not 911.02.F. Fix any doc that cites 911.02.F.
+- **Known failures to fix first:**
+  - `tests/test_ai_evidence.py` imports `httpx`, which isn't installed. The anthropic SDK 1.x uses `httpx2`; use it, or a plain fake.
+  - `tests/test_boundaries.py::test_app_code_never_names_forbidden_columns[precedents.py]` flags words in `lotline/ai/precedents.py`'s prompt. Reword the prompt; don't weaken the test.
+- **A1 evidence reader, A3 precedents and the UI were stopped mid-task.** Run their tests and read each module against `docs/AI_PLAN.md`.
+
 ## Known facts to keep straight
 
 - **Outcomes on the 14 advertised vacant lots:** 7 Advance, 3 Defer (records conflict), 3 Defer (site, Hillside), 1 Do not advance. The other 82 records: 63 structures and 19 not advertised.
