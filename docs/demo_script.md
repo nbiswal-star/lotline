@@ -27,3 +27,7 @@ Scene numbers (§) are referenced in the rehearsal log.
 
 | Take | Date/time | Runtime | Notes |
 |---|---|---|---|
+
+## Verified fallback assets
+
+The 1280×800 app captures were opened and checked on 2026-09-26: `00-title.png`, `01-pipeline.png`, `02-benezet.png`, `02b-benezet-checks.png`, `03-centre.png`, `04-compare.png`, `05-integrity.png`, `06-memo.png`, and `07-pilot.png`. See `docs/fallback/README.md` for the frame-by-frame manifest. These assets do not replace the two timed spoken rehearsals required above.

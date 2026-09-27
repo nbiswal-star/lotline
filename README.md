@@ -4,9 +4,13 @@
 
 AI Horizons 2026 AI for Housing Hackathon · Challenge 1: Development Feasibility & Pro Forma Navigator · Startup track
 
+![LotLine's offline sale pipeline, from 96 open-data records to 14 advertised vacant lots](docs/fallback/01-pipeline.png)
+
 > **Decision support only.** LotLine is a screening aid for staff review. It is not legal, financial, title, survey or zoning advice, and it never states that a parcel is buildable. Every packet ends in named human checks.
 
 **The problem, in one real sale.** For the City Treasurer Sale on October 2, 2026, the open-data feed lists **96** parcels but the City advertises **77**. Of those, 63 are structures and **14** are vacant lots. One "vacant" lot measures 1,672 sq ft in the assessment record and 4,305 sq ft in County GIS, on opposite sides of its 2,400 sq ft zoning minimum. Three "vacant" lots still have active condemned/dead-end cases attached. A tool that scores whichever field it loads first gets these wrong; LotLine detects the conflict and refuses to score through it.
+
+![Centre Avenue conflict handling: both records shown, score withheld](docs/fallback/03-centre.png)
 
 **What it found.** Of the 14 advertised vacant lots, LotLine advances **7 to staff review**, each with a named list of checks and who resolves them. It **refuses to score 3** because their public records conflict, sends **3 Hillside lots to survey** before any score, and flags **1** as not zoned for housing. The other 63 advertised parcels are routed out as structures, and the 19 open-data records that are not in the City advertisement are routed out of the sale universe. Nothing is silently dropped.
 
