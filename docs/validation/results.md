@@ -3,8 +3,8 @@
 <!-- GENERATED FILE: do not edit by hand. Regenerate with the command below. -->
 
 - Command: `uv run python -m evaluation.run`
-- Repository HEAD: `e1e074f`
-- Generated (UTC): 2026-09-27T18:00:50Z
+- Repository HEAD: `84ed4bd`
+- Generated (UTC): 2026-09-27T18:26:29Z
 - Software: python 3.12.14, pandas 3.0.6, streamlit 1.64.0, anthropic 1.8.0, pytest 9.1.1
 - Scope: one frozen snapshot of one dated Pittsburgh Treasurer Sale (Treasury pull 2026-09-24; City advertisement dated 2026-09-16). Nothing here measures predictive accuracy, real-world outcomes or generalization.
 
@@ -1135,7 +1135,7 @@ Internal assertions: **18/18 held.**
 | streamlit | 1.64.0 |
 | anthropic | 1.8.0 |
 | pytest | 9.1.1 |
-| git HEAD (short) | e1e074f |
+| git HEAD (short) | 84ed4bd |
 
 **Determinism:** two fresh snapshot loads + full screens in one process produced identical serialized results (sha256 `5851209096458312dcc7eb6160b8503f3d02395ac8e8588a3062ddab746c6514`) and identical triage CSV (sha256 `274f474e7b8e300952ae8e592eeb55503eca9de1c9b8dd07bf451bf02d770326`).
 

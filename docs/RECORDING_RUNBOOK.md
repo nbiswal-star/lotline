@@ -4,8 +4,9 @@ This is the operational companion to `docs/demo_script.md`, which holds the word
 
 ## 0. One-time setup (with internet, before recording day)
 
+Run the following commands from the cloned repository root:
+
 ```bash
-cd the repository root            # or wherever the repo is cloned
 git pull --ff-only origin main
 curl -LsSf https://astral.sh/uv/install.sh | sh   # only if `uv` is missing
 export PATH="$HOME/.local/bin:$PATH"
@@ -17,9 +18,9 @@ uv run python -m evaluation.run         # regenerates docs/validation/results.md
 ## 1. Pre-flight (10 minutes before each take)
 
 1. **Close everything noisy.** Turn on Do Not Disturb (Control Center → Focus). Quit Slack, mail and other notifiers. Hide the Dock (⌥⌘D).
-2. **Start the main recording app with live AI enabled:**
+2. **Start the main recording app with live AI enabled.** Run the following commands from the cloned repository root:
    ```bash
-   cd the repository root && export PATH="$HOME/.local/bin:$PATH"
+   export PATH="$HOME/.local/bin:$PATH"
    uv run streamlit run app.py --server.port 8501
    ```
    Wait for `URL: http://localhost:8501`. Before recording, click the Centre record reader and one scripted Benezet question. Confirm the result says **live · verified**; if it falls back, keep the **cached · re-verified now** label visible and do not describe it as live.

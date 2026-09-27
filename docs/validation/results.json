@@ -1,8 +1,8 @@
 {
   "meta": {
     "command": "uv run python -m evaluation.run",
-    "generated_utc": "2026-09-27T18:00:50Z",
-    "git_head": "e1e074f",
+    "generated_utc": "2026-09-27T18:26:29Z",
+    "git_head": "84ed4bd",
     "versions": {
       "anthropic": "1.8.0",
       "pandas": "3.0.6",
