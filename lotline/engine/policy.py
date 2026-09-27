@@ -55,10 +55,12 @@ DISCLOSE_GAP_PCT = 10.0  # symmetric or directional gap above this is disclosed
 # A disclose-level gap this large (directional or symmetric) adds a deed and
 # record-area reconciliation check and a barrier, without changing any score.
 LARGE_GAP_PCT = 25.0
+# Gap comparisons use this tolerance so a gap of exactly 10% / 25% is not tipped over by float error.
+GAP_EPSILON_PCT = 1e-9
 
 # Upset price / assessed land value at or above this adds an acquisition-burden
 # barrier (indicator only, not market value).
-ACQUISITION_BURDEN_RATIO = 3.0
+ACQUISITION_BURDEN_RATIO = 3.0  # compared against the ratio as displayed (rounded to 0.1), so a raw 2.95 shows and triggers as 3.0x
 
 CURRENT_CONDITION_WORDING = (
     "Assessment classifies the parcel as vacant, while an active condemned/dead-end "

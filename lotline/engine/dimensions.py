@@ -229,9 +229,9 @@ def score_dimensional(
         return DimensionalResult(
             ComponentScore(
                 "dimensional", None, None, "withheld",
-                f"lot area missing from the {which} record; conformity in all sources not established",
+                f"lot area missing from the {which} record{'s' if ' and ' in which else ''}; conformity in all sources not established",
                 ids,
-                short_reason=f"lot area missing from the {which} record",
+                short_reason=f"lot area missing from the {which} record{'s' if ' and ' in which else ''}",
             ),
             scenarios,
             format_setback_screen(scenarios, withheld_for_area=True).replace(

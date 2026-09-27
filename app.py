@@ -631,7 +631,7 @@ def render_integrity(snapshot, results, cfg) -> None:
         if summary is not None:
             passed, total, rows = summary
             tone = "good" if passed == total else "critical"
-            st.markdown(badge(f"{passed}/{total} cases passed · runs offline", tone), unsafe_allow_html=True)
+            st.markdown(badge(f"{passed}/{total} cases passed · no network needed", tone), unsafe_allow_html=True)
             st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
         else:
             st.caption("Live case results load here when the claim checker is available "

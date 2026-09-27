@@ -107,6 +107,16 @@ def required_engine_claims(result: ScreeningResult, draft: Iterable[Claim]) -> l
         if next_claim is not None:
             mandatory.append(next_claim)
 
+    # The pre-spend gate (confirm the parcel is still advertised before incurring costs) is an action
+    # anchor too: an assembled memo must never read as "go ahead" without it.
+    from lotline.engine.policy import CURRENT_SALE_STATUS_CHECK
+    gate_index = next((i for i, nc in enumerate(result.next_checks) if nc.check == CURRENT_SALE_STATUS_CHECK), None)
+    if gate_index is not None:
+        needle = f":next_check_{gate_index + 1}:engine"
+        gate_claim = next((c for c in deterministic if any(needle in fid for fid in c.fact_ids)), None)
+        if gate_claim is not None:
+            mandatory.append(gate_claim)
+
     out = [c for c in mandatory if c.text not in present]
     seen: set[tuple[str, str, tuple[str, ...]]] = set()
     unique: list[Claim] = []

@@ -13,7 +13,7 @@ DECISION_SUPPORT = (
     "Decision support only — not legal, financial, title, survey or zoning advice. "
     "Every result ends in named human checks."
 )
-OFFLINE_BADGE = "Runs offline · frozen public-records snapshot"
+OFFLINE_BADGE = "Works with or without internet · dated public-records snapshot · optional Claude memo when online"
 
 # Outcome groups for the triage board, in display order (not a ranking).
 OUTCOME_ORDER: tuple[Outcome, ...] = (

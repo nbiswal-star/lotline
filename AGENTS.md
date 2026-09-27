@@ -27,5 +27,6 @@ After `pytest`, check the **exit code** (`echo $?`). Piping it through `tail` on
 ## Git
 
 - Identity (repo-local): `Anit Kumar Sahu <anit.sahu@gmail.com>`. Remote: `git@github.com:anitksahu/lotline.git`, branch `main`.
+- Commits show only the human contributor. Never add `Co-Authored-By:` trailers or other AI attribution to commit messages. AI use is disclosed in the README instead, as the hackathon requires.
 - Commit only on a green suite. Write clear messages. Don't rewrite history, don't force-push, and don't push without the user's go-ahead.
 - Commit history must stay intact from kickoff; the organizers check it.

@@ -11,6 +11,7 @@ Engine-derived facts (area gap, envelopes, scores) are produced by the engine.
 
 from __future__ import annotations
 
+import re
 from collections.abc import Mapping
 from dataclasses import fields
 
@@ -101,6 +102,19 @@ def _as_of(manifest: Mapping[str, SourceEntry], source: str) -> str:
     return entry.snapshot_as_of
 
 
+# Source fields that must hold an ISO date. Anything else found there is free text from a public
+# source: it is kept for provenance but classed as untrusted, so no memo quotes it and no model can
+# select it as a claim (see lotline/memo/deterministic.py).
+DATE_FIELDS = frozenset({"pli_latest_event", "condemned_case_created"})
+_ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def _evidence_class(name: str, value: object, approximate: bool) -> str:
+    if name in DATE_FIELDS and value is not None and not (isinstance(value, str) and _ISO_DATE.match(value)):
+        return "untrusted_text"
+    return "approximate" if approximate else "raw"
+
+
 def _record_facts(
     pin: str,
     record: ParcelFacts | TreasuryRecord | AdvertRecord,
@@ -118,11 +132,11 @@ def _record_facts(
                 id=fact_id(pin, f.name, source),
                 pin=pin,
                 field=f.name,
-                value=getattr(record, f.name),
+                value=(value := getattr(record, f.name)),
                 unit=UNITS.get(f.name),
                 source=source,
                 as_of=_as_of(manifest, source),
-                evidence_class="approximate" if note else "raw",
+                evidence_class=_evidence_class(f.name, value, bool(note)),
                 conflict_group=CONFLICT_GROUPS.get(f.name),
                 note=note,
             )

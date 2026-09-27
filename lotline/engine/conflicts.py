@@ -99,7 +99,7 @@ def lot_area_conflict(ctx: ParcelContext) -> Conflict | None:
             ),
             affects=("dimensional",),
         )
-    if abs(gap.pct) <= policy.DISCLOSE_GAP_PCT:
+    if abs(gap.pct) <= policy.DISCLOSE_GAP_PCT + policy.GAP_EPSILON_PCT:
         return None
     if minimum is None:
         if rule is not None and rule.dimensions_applicable and not rule.dimensions_encoded:
@@ -207,7 +207,7 @@ def has_critical(conflicts: list[Conflict]) -> bool:
 
 def large_gap(gap: AreaGap | None) -> bool:
     """Directional or symmetric gap at or above policy.LARGE_GAP_PCT."""
-    return gap is not None and max(abs(gap.pct), gap.symmetric_pct) >= policy.LARGE_GAP_PCT
+    return gap is not None and max(abs(gap.pct), gap.symmetric_pct) >= policy.LARGE_GAP_PCT - policy.GAP_EPSILON_PCT
 
 
 def material_affects(conflicts: list[Conflict], component: str) -> list[Conflict]:

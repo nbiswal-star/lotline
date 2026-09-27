@@ -273,7 +273,7 @@ def next_checks(i: CheckInputs) -> list[NextCheck]:
     elif large_gap(gap):
         add("area_gap", _nc(DEED_AREA, f"disclose-level area gap >= {policy.LARGE_GAP_PCT:g}% (no score change)"))
     elif missing_area and _dim_needs_inputs(ctx):
-        add("missing_input", _nc(DEED_AREA, f"lot area missing from the {' and '.join(missing_area)} record"))
+        add("missing_input", _nc(DEED_AREA, f"lot area missing from the {' and '.join(missing_area)} record{'s' if len(missing_area) > 1 else ''}"))
 
     # Missing-input checks (name the input that is missing).
     if facts is None:
@@ -302,7 +302,10 @@ def next_checks(i: CheckInputs) -> list[NextCheck]:
                                        trigger="lot area below the district minimum in at least one source"))
     if _dims_unencoded(ctx) and not no_housing:
         add("rules_not_encoded",
-            _nc(f"review {_dims_label(ctx)} dimensions", "rule: dimensions_encoded=N", DIMENSIONS_OWNER))
+            _nc(f"review {_dims_label(ctx)} dimensions" if ctx.rule is not None
+                else f"add or review {_district(ctx)} district rules for use and dimensions (missing from LotLine)",
+                "rule: dimensions_encoded=N" if ctx.rule is not None else "rule: district row missing",
+                DIMENSIONS_OWNER))
     if not no_housing:
         tagged.extend(_district_review_checks(ctx))
     for fam in i.hazard_families:
@@ -418,7 +421,7 @@ def barriers(i: CheckInputs) -> list[str]:
         add("rules_not_encoded", f"{rule.district} minimum lot size is not encoded; dimensional fit withheld")
     missing_area = _missing_area_sources(ctx)
     if missing_area and _dim_needs_inputs(ctx) and not _missing_setbacks(ctx) and not _geometry_missing(ctx):
-        add("missing_input", f"lot area is missing from the {' and '.join(missing_area)} record; "
+        add("missing_input", f"lot area is missing from the {' and '.join(missing_area)} record{'s' if len(missing_area) > 1 else ''}; "
             "conformity in all sources not established")
     if i.unqueried_layers and ctx.facts is not None:
         add("missing_input", f"environmental screening incomplete: {layer_names(i.unqueried_layers)} layer query "
