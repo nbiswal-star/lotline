@@ -1,4 +1,4 @@
-# LotLine recording runbook: from a cold machine to an error-free 3:45–3:55 video
+# LotLine recording runbook: from a cold machine to an error-free 4:10–4:20 video
 
 This is the operational companion to `docs/demo_script.md`, which holds the words. This file covers the clicks, the checks and the recovery steps. Every step below was walked through in Chrome at 1280×800 against the offline app on 2026-09-27 00:00–00:15 ET. All five views, the unknown-PIN path, Benezet and Centre rendered with no errors.
 
@@ -38,13 +38,14 @@ uv run python -m evaluation.run         # regenerates docs/validation/results.md
 | Scene | Time | Do this | Make sure the frame shows |
 |---|---|---|---|
 | 0 | 0:00–0:10 | Title-card tab | "AI Horizons 2026 AI for Housing Hackathon · Challenge 1 · Nibedita Biswal". **Mandatory**: the rules require the hackathon name and team up front |
-| 1 | 0:10–0:28 | Switch to the app tab (⌃Tab). **Sale pipeline** is selected | Header snapshot dates and the blue decision-support banner stay in frame |
-| 2 | 0:28–1:08 | Click **Parcel packet**, then **Centre Ave (10-S-5)**. Show **AI record reader**, then scroll to the real aerial + County outline | Cached, re-verified evidence; the January 2025 demolition/withdrawal quote; then the `unclear` bounded visual read and explicit "does not resolve" result. State that all 96 parcels work and that vision never decides |
-| 3 | 1:08–1:42 | Continue through Centre's conflict banners, score card, zoning tile and first checks | Red **Critical conflict**, amber **Material conflict**, "Not scorable" with no component values; Assessment 1,672 sf · County GIS 4,305 sf · minimum 2,400 sf; PLI close-out and deed checks |
-| 4 | 1:42–2:07 | Click **Sale pipeline** and move from the funnel to the triage board/map | 96 → 77 (77/77 PIN and price) → 63 + 14; chips **Advance 7 · Defer site 3 · Defer records 3 · Do not advance 1**; "Triage, not ranking" |
-| 5 | 2:07–2:42 | Return to **Parcel packet**, select **Benezet St**, scroll to **Ask LotLine**. Ask the scripted two-family question, then the investment question | First answer uses a fixed frame, engine facts, cited code and Zoning Administrator route; second is a clear decline. If running offline, use verified fallback capture rather than pretending a live answer |
-| 6 | 2:42–3:18 | Click **Integrity** and show both AI-delta cards | 150-parcel text-reader result and the 96/96 multimodal audit: current run 36 visual–record review flags and 45 abstentions; exact categories agreed 93/96 across two runs and the same 29 structure-routed records were flagged. Say these are discrepancy signals, not accuracy or site truth |
-| 7 | 3:18–3:52 | Switch to the pilot-slide tab | Blinded next-study design, pilot metrics and limitations; closing thesis: AI reads, rules abstain, people resolve. Stop recording 1 second after the last word |
+| 1 | 0:10–0:35 | Stay on the title-card tab while giving the intro | What LotLine does: reconciles the sale list, screens vacant lots with cited rules, Claude reads records and images, code verifies, conflicts are withheld and routed to a named person |
+| 2 | 0:35–0:53 | Switch to the app tab (⌃Tab). **Sale pipeline** is selected | Header snapshot dates and the blue decision-support banner stay in frame |
+| 3 | 0:53–1:33 | Click **Parcel packet**, then **Centre Ave (10-S-5)**. Show **AI record reader**, then scroll to the real aerial + County outline | Cached, re-verified evidence; the January 2025 demolition/withdrawal quote; then the `unclear` bounded visual read and explicit "does not resolve" result. State that all 96 parcels work and that vision never decides |
+| 4 | 1:33–2:07 | Continue through Centre's conflict banners, score card, zoning tile and first checks | Red **Critical conflict**, amber **Material conflict**, "Not scorable" with no component values; Assessment 1,672 sf · County GIS 4,305 sf · minimum 2,400 sf; PLI close-out and deed checks |
+| 5 | 2:07–2:32 | Click **Sale pipeline** and move from the funnel to the triage board/map | 96 → 77 (77/77 PIN and price) → 63 + 14; chips **Advance 7 · Defer site 3 · Defer records 3 · Do not advance 1**; "Triage, not ranking" |
+| 6 | 2:32–3:07 | Return to **Parcel packet**, select **Benezet St**, scroll to **Ask LotLine**. Ask the scripted two-family question, then the investment question | First answer uses a fixed frame, engine facts, cited code and Zoning Administrator route; second is a clear decline. If running offline, use verified fallback capture rather than pretending a live answer |
+| 7 | 3:07–3:43 | Click **Integrity** and show both AI-delta cards | 150-parcel text-reader result and the 96/96 multimodal audit: current run 36 visual–record review flags and 45 abstentions; exact categories agreed 93/96 across two runs and the same 29 structure-routed records were flagged. Say these are discrepancy signals, not accuracy or site truth |
+| 8 | 3:43–4:17 | Switch to the pilot-slide tab | Blinded next-study design, pilot metrics and limitations; closing thesis: AI reads, rules abstain, people resolve. Stop recording 1 second after the last word |
 
 **Ask LotLine (scene 5).** The 12 scripted live questions were verified before recording. Use the live action only after a rehearsal with the recording key; otherwise insert the verified fallback capture and keep its offline/cached state visible. A rejection is a valid safety result—never retry until a preferred answer appears.
 
@@ -66,7 +67,7 @@ Stop the live server, then run `LOTLINE_OFFLINE=1 uv run --offline streamlit run
 | "Connection error" or a blank page | Streamlit stopped. Restart with the command in §1.2 and warm up again |
 | Wrong parcel in the packet | Use the quick-pick buttons (Benezet / Centre / Michigan). Don't type PINs on camera |
 | A view looks different from this runbook | Stop. Use the matching `docs/fallback/*.png` frame for that scene in the edit, and note it in the rehearsal log |
-| Overran 5:00 or under 3:00 | Retake. Hard limits are 3:00–5:00; aim for 3:45–3:55 |
+| Overran 5:00 or under 3:00 | Retake. Hard limits are 3:00–5:00; aim for 4:10–4:20 |
 
 ## 5. After recording
 
