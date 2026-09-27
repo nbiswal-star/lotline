@@ -1,0 +1,46 @@
+{
+  "coefficients": {
+    "demo_done": 0.95303,
+    "demo_in_latest": 0.785567,
+    "log_demo_items": 2.271716,
+    "log_present_items": -0.41069
+  },
+  "created": "2026-09-27",
+  "excluded_features": {
+    "entailment_judge": "not present in lotline/ai/evidence.py at registration",
+    "k_run_agreement": "unavailable: k=1 (budget rule)",
+    "permit_corroboration": "excluded: reference is permit-derived (leakage); not in the PLI-only input"
+  },
+  "feature_definitions": {
+    "demo_done": "1 if >=1 verified structure_removed_or_demolished item whose quote matches DEMOLITION_DONE",
+    "demo_in_latest": "1 if a verified demolition-labelled item is from the parcel's most recent casefile",
+    "log_demo_items": "ln(1 + number of verified items labelled structure_removed_or_demolished)",
+    "log_present_items": "ln(1 + number of verified items labelled structure_present)"
+  },
+  "form": "logistic: p = 1 / (1 + exp(-(intercept + sum(coef_i * feature_i))))",
+  "heldout_metrics": {
+    "calibrated (logistic, 4 features)": {
+      "brier": "0.139 [0.105, 0.176]",
+      "ece_5bin": "0.093 [0.044, 0.184]"
+    },
+    "constant 0.5 (sample prevalence)": {
+      "brier": "0.250 [0.250, 0.250]",
+      "ece_5bin": "0.000 [0.000, 0.150]"
+    },
+    "raw binary AI decision (1.0 / 0.0)": {
+      "brier": "0.250 [0.150, 0.367]",
+      "ece_5bin": "0.250 [0.150, 0.367]"
+    }
+  },
+  "intercept": -0.325997,
+  "l2_lambda": 1.0,
+  "limits": "n=90 calibration / 60 held-out parcels; one city; extreme strata only; reference noise (permit status is not a completion date; condemned list can lag). Evidence for a human reviewer; never a site-condition fact.",
+  "model": "claude-opus-5 via lotline.ai.evidence (k=1 extraction, effort medium)",
+  "n_calibration": 90,
+  "n_heldout": 60,
+  "prevalence_note": "Fitted on a balanced 50/50 sample. For a population with prevalence pi, add ln(pi / (1 - pi)) to the intercept before applying.",
+  "sample_fetched_utc": "2026-09-27T11:03:13Z",
+  "split": "by parcel, stratified, random.Random(20260927), 60/40",
+  "target": "P(City data record a completed demolition | reader output) for a parcel that is either a completed-demolition parcel or an active condemned structure (protocol docs/validation/ai_scale_protocol.md)",
+  "version": "reader-calibration-v1"
+}

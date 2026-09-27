@@ -11,7 +11,9 @@ client passed for that read refuses any network request).
 
 from __future__ import annotations
 
+import concurrent.futures
 import importlib
+import re
 import time
 from collections.abc import Mapping
 from dataclasses import dataclass, field
@@ -23,6 +25,16 @@ PRINCIPLE = "Claude reads the record. Rules decide. Code verifies source identit
 OFFLINE_NOTE = "No API key? Everything except the AI readers works offline."
 PRECEDENT_NOTE = "Similar case — not a prediction."
 RELIEF_BANNER = "Possible relief path (not a determination) — confirm with the Zoning Administrator."
+LIVE_TIMEOUT_S = 45.0  # wall clock for one live reader click; then the cached verified read is shown
+LIVE_LABEL = "live · verified"
+CACHED_LABEL = "cached · re-verified now"
+UNVERIFIED_DISPLAY = "label not verified — quote only"
+WITHHELD_DISPLAY = {
+    "unverified_label": UNVERIFIED_DISPLAY,
+    "label withheld: judge unsure": "label withheld (judge unsure) — quote only",
+    "label withheld: judge unavailable": "label withheld (judge not run) — quote only",
+}
+LATEST_CURRENCY = "latest record for this lot"
 
 
 def module(name: str, *attrs: str) -> Any | None:
@@ -89,6 +101,19 @@ class EvidenceItemVM:
     relevance: str
     currency: str | None
     corroboration: str | None
+    indicates_code: str = ""
+
+
+def indicates_phrase(code: str, evidence_mod: Any = None) -> str:
+    """Plain wording for a label code (never a raw code on screen)."""
+    if not code:
+        return ""
+    if code in WITHHELD_DISPLAY:
+        return WITHHELD_DISPLAY[code]
+    table = getattr(evidence_mod, "INDICATES_PHRASE", None) if evidence_mod is not None else None
+    if isinstance(table, Mapping) and code in table:
+        return str(table[code])
+    return code.replace("_", " ")
 
 
 @dataclass
@@ -104,10 +129,20 @@ class EvidenceVM:
     created_at: str | None = None
     elapsed_s: float | None = None
     cached: bool = False
+    raw: Any = None  # the verified digest itself (for Ask LotLine and evidence-prompted checks)
+    headline: str | None = None
+    checks: list[Any] = field(default_factory=list)  # evidence_checks.EvidenceCheck
+    live_failure: str | None = None  # why a live read fell back to the cached read
 
     @property
     def verified(self) -> bool:
         return self.status in ("verified", "cached_verified")
+
+    @property
+    def source_label(self) -> str | None:
+        if not self.verified:
+            return None
+        return CACHED_LABEL if self.cached else LIVE_LABEL
 
     @property
     def counter(self) -> str:
@@ -117,10 +152,21 @@ class EvidenceVM:
 
     @property
     def timing(self) -> str | None:
+        n = self.record_count
+        recs = f"{n} record{'s' if n != 1 else ''}"
+        if self.cached:
+            when = _short_date(self.created_at)
+            if self.elapsed_s is not None and when:
+                return f"cached read (re-verified now); originally read in {self.elapsed_s:.1f} s on {when}"
+            return "cached read (re-verified now)"
         if self.elapsed_s is None:
             return None
-        base = f"Claude read {self.record_count} record{'s' if self.record_count != 1 else ''} in {self.elapsed_s:.1f} s"
-        return base + (" (cached, re-verified now)" if self.cached else "")
+        return f"Claude read {recs} in {self.elapsed_s:.1f} s"
+
+
+def _short_date(iso: Any) -> str | None:
+    m = re.match(r"(\d{4}-\d{2}-\d{2})", str(iso or ""))
+    return m.group(1) if m else None
 
 
 def _currency_label(v: Any) -> str | None:
@@ -142,17 +188,27 @@ def digest_vm(d: Any, *, elapsed_s: float | None = None, cached: bool | None = N
     rejected_count = rejected if isinstance(rejected, int) else len(_tuple(rejected))
     items = []
     if status in ("verified", "cached_verified"):
-        for it in _tuple(_get(d, "items", ())):
+        raw_items = _tuple(_get(d, "items", ()))
+        latest_ids = {str(_get(it, "record_id", "")) for it in raw_items
+                      if str(_get(it, "currency", "") or "") == LATEST_CURRENCY}
+        for it in raw_items:
+            code = str(_get(it, "indicates", "") or "")
+            currency = _currency_label(_get(it, "currency"))
+            date = str(_get(it, "record_date", "") or "date not recorded")
+            if str(_get(it, "currency", "") or "") == LATEST_CURRENCY and len(latest_ids) > 1:
+                # Several records share the latest date: none of them is "the" latest record.
+                currency = f"latest date on file ({date}), shared by {len(latest_ids)} records"
             items.append(EvidenceItemVM(
                 record_id=str(_get(it, "record_id", "")),
                 source=str(_get(it, "source_id", "") or ""),
-                date=str(_get(it, "record_date", "") or "date not recorded"),
+                date=date,
                 field=str(_get(it, "field", "") or ""),
                 quote=str(_get(it, "quote", "")),
-                indicates=str(_get(it, "indicates", "") or ""),
+                indicates=indicates_phrase(code, evidence_mod),
                 relevance=str(_get(it, "relevance", "") or ""),
-                currency=_currency_label(_get(it, "currency")),
+                currency=currency,
                 corroboration=(str(_get(it, "corroboration")) if _get(it, "corroboration") else None),
+                indicates_code=code,
             ))
     note, lines = None, []
     if evidence_mod is not None:
@@ -175,7 +231,46 @@ def digest_vm(d: Any, *, elapsed_s: float | None = None, cached: bool | None = N
         model=_get(d, "model"), created_at=str(_get(d, "created_at") or "") or None,
         elapsed_s=elapsed_s if elapsed_s is not None else (float(stored) if stored is not None else None),
         cached=status == "cached_verified" if cached is None else cached,
+        raw=d if status in ("verified", "cached_verified") else None,
+        headline=headline(items) if status in ("verified", "cached_verified") else None,
+        checks=evidence_checks(d),
     )
+
+
+_DEMOLITION_DONE = re.compile(r"\bdemolished\b|\brazed\b|\bdemolition (?:has been |was )?completed\b", re.I)
+
+
+def headline(items: list[EvidenceItemVM]) -> str | None:
+    """The most decision-relevant verified quote and the structured record it contradicts (both shown).
+
+    Deterministic: the latest-dated PLI quote reporting a completed demolition, and an Active
+    condemned-properties status. LotLine does not choose between them.
+    """
+    demo = sorted((i for i in items if i.source == "pli_violations" and _DEMOLITION_DONE.search(i.quote)
+                   and i.date[:1].isdigit()), key=lambda i: (i.date, i.record_id), reverse=True)
+    cond = next((i for i in items if i.source == "condemned_properties"
+                 and re.fullmatch(r"\s*active\s*", i.quote, re.I)), None)
+    parts = []
+    if demo:
+        d = demo[0]
+        parts.append(f"PLI record {d.record_id} ({d.date}): “{d.quote}”")
+    if cond is not None:
+        parts.append(f"the condemned-properties list record {cond.record_id} ({cond.date}) still shows "
+                     f"status “{cond.quote.strip()}”")
+    if not parts:
+        return None
+    if len(parts) == 2:
+        return f"{parts[0]} — {parts[1]}. Both are shown; LotLine does not choose between them."
+    return parts[0][0].upper() + parts[0][1:] + "."
+
+
+def evidence_checks(d: Any) -> list[Any]:
+    """Evidence-prompted checks (lotline.ai.evidence_checks); empty if the module is missing."""
+    try:
+        from lotline.ai.evidence_checks import evidence_checks as fn
+        return list(fn(d))
+    except Exception:  # noqa: BLE001 - never break the packet
+        return []
 
 
 def cached_evidence(pin: str, snapshot: Any) -> EvidenceVM | None:
@@ -191,8 +286,37 @@ def cached_evidence(pin: str, snapshot: Any) -> EvidenceVM | None:
     return vm if vm.status in ("cached_verified", "verified", "no_records") else None
 
 
-def read_evidence(pin: str, snapshot: Any) -> EvidenceVM:
-    """User clicked: run the reader (may call Claude). Never raises."""
+def record_count(pin: str, snapshot: Any) -> int:
+    """Distinct enforcement records on file for this parcel (for the in-progress message)."""
+    try:
+        return len({r.record_id for r in getattr(snapshot, "record_text", {}).get(pin, ())})
+    except Exception:  # noqa: BLE001
+        return 0
+
+
+def _live_client() -> Any:
+    from lotline.ai.client import make_client
+    client = make_client(LIVE_TIMEOUT_S)
+    try:
+        return client.with_options(max_retries=0)
+    except Exception:  # noqa: BLE001
+        return client
+
+
+def _with_fallback(pin: str, snapshot: Any, reason: str) -> EvidenceVM:
+    cached = cached_evidence(pin, snapshot)
+    if cached is not None and cached.verified:
+        cached.live_failure = reason
+        return cached
+    return EvidenceVM(status="unavailable", reason=reason)
+
+
+def read_evidence(pin: str, snapshot: Any, *, timeout_s: float = LIVE_TIMEOUT_S) -> EvidenceVM:
+    """User clicked: a live Claude read (fresh, not the cache) within ``timeout_s``. Never raises.
+
+    On no key, offline mode, a timeout, an API failure or a rejected reading, the cached verified
+    read is re-verified and shown instead (labeled as cached), so the panel is never blank.
+    """
     mod = module("evidence", "evidence_digest")
     if mod is None:
         return EvidenceVM(status="unavailable", reason="record reader not installed")
@@ -200,12 +324,20 @@ def read_evidence(pin: str, snapshot: Any) -> EvidenceVM:
         cached = cached_evidence(pin, snapshot)
         return cached or EvidenceVM(status="unavailable", reason="no API key configured")
     start = time.perf_counter()
+    pool = concurrent.futures.ThreadPoolExecutor(max_workers=1)
     try:
-        d = mod.evidence_digest(pin, snapshot)
+        fut = pool.submit(lambda: mod.evidence_digest(pin, snapshot, client=_live_client(), use_cache=False))
+        d = fut.result(timeout=timeout_s)
+    except concurrent.futures.TimeoutError:
+        return _with_fallback(pin, snapshot, f"live read exceeded {timeout_s:.0f} s")
     except Exception as exc:  # noqa: BLE001
-        return EvidenceVM(status="unavailable", reason=type(exc).__name__)
+        return _with_fallback(pin, snapshot, f"live read failed ({type(exc).__name__})")
+    finally:
+        pool.shutdown(wait=False, cancel_futures=True)
     elapsed = time.perf_counter() - start
     status = str(_get(d, "status", ""))
+    if status not in ("verified", "cached_verified", "no_records"):
+        return _with_fallback(pin, snapshot, f"live read {status}" + (f": {_get(d, 'reason')}" if _get(d, "reason") else ""))
     return digest_vm(d, elapsed_s=None if status == "cached_verified" else elapsed, evidence_mod=mod)
 
 
@@ -237,6 +369,23 @@ FRAME_LABEL = {
     "what_a_rule_says": "What a rule says",
     "investment_advice": "Declined: investment advice",
     "declined_investment_advice": "Declined: investment advice",
+    "use_permission": "Can this use be built here",
+    "direct_answer_from_engine": "Answer from the engine packet",
+    "decline_out_of_scope": "Outside LotLine's scope",
+    "record_evidence": "What the enforcement record says",
+}
+DECLINE_REASON = {
+    "investment_advice": "Investment advice is outside LotLine's scope",
+    "market_value": "Market value and price are outside LotLine's scope",
+    "legal_determination": "Legal, title and zoning determinations are outside LotLine's scope",
+    "outside_snapshot": "That is not established by this parcel's screening records",
+    "other": "That is outside what this parcel's screening packet answers",
+    "empty question": "Type a question about this parcel",
+}
+ANSWER_SOURCE_LABEL = {
+    "live": "live · verified",
+    "cached": "cached answer · re-verified now",
+    "record_evidence": "record evidence · quote-verified",
 }
 
 
@@ -256,6 +405,23 @@ class AnswerVM:
     violations: list[str]
     reason: str | None
     model: str | None
+    source: str | None = None
+    elapsed_s: float | None = None
+    created_at: str | None = None
+
+    @property
+    def source_label(self) -> str | None:
+        if self.status not in ("answered", "declined") or not self.source:
+            return None
+        base = ANSWER_SOURCE_LABEL.get(self.source, self.source)
+        if self.source == "live" and self.elapsed_s is not None:
+            return f"{base} · {self.elapsed_s:.1f} s"
+        return base
+
+    @property
+    def decline_text(self) -> str:
+        r = self.reason or "other"
+        return DECLINE_REASON.get(r, r.replace("_", " "))
 
 
 def frame_label(frame: Any) -> str | None:
@@ -270,7 +436,7 @@ def suggested_questions() -> list[str]:
     if mod is None:
         return []
     try:
-        return [str(q) for q in getattr(mod, "SUGGESTED_QUESTIONS", ())][:6]
+        return [str(q) for q in getattr(mod, "SUGGESTED_QUESTIONS", ())][:8]
     except Exception:  # noqa: BLE001
         return []
 
@@ -298,15 +464,23 @@ def answer_vm(a: Any, question: str) -> AnswerVM:
         violations=[_violation_text(v) for v in _tuple(_get(a, "violations", ()))],
         reason=_get(a, "reason"),
         model=_get(a, "model"),
+        source=_get(a, "source"),
+        elapsed_s=_get(a, "elapsed_s"),
+        created_at=_get(a, "created_at"),
     )
 
 
-def ask_question(question: str, result: Any) -> AnswerVM:
+def ask_question(question: str, result: Any, evidence: Any = None) -> AnswerVM:
+    """Ask LotLine. ``evidence`` is the parcel's verified record digest, when one is loaded."""
     mod = module("ask", "ask")
     if mod is None:
         return AnswerVM(question, "unavailable", None, [], [], "Ask LotLine is not installed", None)
     try:
-        return answer_vm(mod.ask(question, result), question)
+        try:
+            a = mod.ask(question, result, evidence=evidence)
+        except TypeError:  # an older ask() without the evidence keyword
+            a = mod.ask(question, result)
+        return answer_vm(a, question)
     except Exception as exc:  # noqa: BLE001
         return AnswerVM(question, "unavailable", None, [], [], type(exc).__name__, None)
 
@@ -347,6 +521,7 @@ class ReliefPathVM:
     code_quote: str
     precedents: list[str]
     counts: str | None
+    caution: str | None = None
 
 
 def outcome_counts_line(outcomes: list[str]) -> str | None:
@@ -411,12 +586,15 @@ def _counts_text(c: Any) -> str | None:
     return f"{g} granted / {n} decided" if g is not None and n is not None else str(c)
 
 
-def relief_paths(result: Any) -> list[ReliefPathVM] | None:
+def relief_paths(result: Any, evidence: Any = None) -> list[ReliefPathVM] | None:
     mod = module("precedents", "relief_paths")
     if mod is None:
         return None
     try:
-        paths = mod.relief_paths(result)
+        try:
+            paths = mod.relief_paths(result, evidence=evidence)
+        except TypeError:  # an older relief_paths() without the evidence keyword
+            paths = mod.relief_paths(result)
     except Exception:  # noqa: BLE001
         return None
     out = []
@@ -432,5 +610,6 @@ def relief_paths(result: Any) -> list[ReliefPathVM] | None:
             trigger=str(_get(p, "trigger", "") or ""), path=str(_get(p, "path", "") or ""),
             code_ref=str(_get(p, "code_ref", "") or ""), code_quote=str(_get(p, "code_quote", "") or ""),
             precedents=[x for x in precs if x], counts=_counts_text(_get(p, "counts")),
+            caution=(str(_get(p, "caution")) if _get(p, "caution") else None),
         ))
     return out

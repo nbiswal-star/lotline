@@ -24,7 +24,7 @@ import hashlib
 import json
 import os
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -122,6 +122,7 @@ class ReliefPath:
     note: str = RELIEF_PATH_NOTE
     quote_section: str | None = None  # excerpt id the quote comes from
     quote_selected_by: str = "fixed excerpt (verified)"  # or "claude (quote-verified)"
+    caution: str | None = None  # evidence-prompted caution (verified record quotes), never engine
 
 
 # --------------------------------------------------------------------------
@@ -501,8 +502,13 @@ def _screened(result: ScreeningResult) -> bool:
     return result.outcome not in (Outcome.OUT_OF_UNIVERSE, Outcome.STRUCTURE)
 
 
+def _single_unit_is_exception(v: _ParcelView) -> bool:
+    """Single-unit is itself an Administrator Exception here (H): a two-unit use variance is moot."""
+    return v.single == "A"
+
+
 def _two_unit_matches(v: _ParcelView, cards: list[PrecedentCard]):
-    if not (_housing_possible(v) and v.two == "PROHIBITED"):
+    if not (_housing_possible(v) and v.two == "PROHIBITED") or _single_unit_is_exception(v):
         return []
     return _match(cards, district_family(v.district), _is_two_unit_use, "two-unit use variance")
 
@@ -582,8 +588,9 @@ PATH_TABLE: dict[str, tuple[str, str, tuple[str, ...], tuple[str, str]]] = {
                         "be subject to the following conditions in the H District."),
     ),
     "lot_of_record": (
-        "Lot of record (§921.04.A): Administrator Exception for single-unit use; otherwise a "
-        "dimensional variance",
+        "Lot of record (§921.04.A): only if the lot was vacant on the date the Code became applicable "
+        "to it and is in separate ownership from abutting lots, an Administrator Exception for "
+        "single-unit use; otherwise a dimensional variance",
         "§921.04.A (nonconforming vacant lot of record); variance criteria §922.09.E",
         ("921.04.A", "922.09.E"),
         ("921.04.A", "If the lot or parcel was vacant on the date which this code became applicable "
@@ -696,9 +703,24 @@ def _path(key: str, trigger: str, matches, count_label: str, cards: list[Precede
                       quote_selected_by=by)
 
 
-def relief_paths(result: ScreeningResult, *, cards: list[PrecedentCard] | None = None
-                 ) -> list[ReliefPath]:
-    """Possible relief paths for engine triggers (deterministic table; offline)."""
+def _structure_on_record(evidence: Any) -> bool:
+    """A verified record digest describes a structure on this parcel (evidence-prompted, not engine)."""
+    if evidence is None:
+        return False
+    try:
+        from lotline.ai.evidence_checks import structure_refs
+        return bool(structure_refs(evidence))
+    except Exception:  # noqa: BLE001 - a missing helper never breaks the relief paths
+        return False
+
+
+def relief_paths(result: ScreeningResult, *, cards: list[PrecedentCard] | None = None,
+                 evidence: Any = None) -> list[ReliefPath]:
+    """Possible relief paths for engine triggers (deterministic table; offline).
+
+    ``evidence`` is an optional verified record digest for this parcel. It never adds or removes a
+    path; it only appends the lot-of-record caution when verified quotes describe a structure.
+    """
     if not _screened(result):
         return []
     v = _view(result)
@@ -718,16 +740,22 @@ def relief_paths(result: ScreeningResult, *, cards: list[PrecedentCard] | None =
                          f"single-unit housing is an Administrator Exception in {d} (§911.02), "
                          "subject to survey-dependent conditions (§911.04.A.69)",
                          [], "", cards, sections, selected))
-    if _housing_possible(v) and v.two == "PROHIBITED":
+    if _housing_possible(v) and v.two == "PROHIBITED" and not _single_unit_is_exception(v):
+        # In H, single-unit is itself an Administrator Exception (§911.04.A.69 path above), so a
+        # two-unit use variance is not the relevant next relief and is not shown.
         m = _two_unit_matches(v, cards)
         out.append(_path("use_variance", f"two-unit housing not permitted in {d} (§911.02)",
                          m, "Two-unit use variances", cards, sections, selected))
     if _housing_possible(v) and v.min_lot and v.areas and any(a < v.min_lot for _s, a in v.areas):
         recorded = "; ".join(f"{src} {a:,.0f} sf" for src, a in v.areas)
-        out.append(_path("lot_of_record",
-                         f"recorded lot area ({recorded}) vs the {v.min_lot:,.0f} sf {d} minimum "
-                         "in at least one source",
-                         [], "", cards, sections, selected))
+        lor = _path("lot_of_record",
+                    f"recorded lot area ({recorded}) vs the {v.min_lot:,.0f} sf {d} minimum "
+                    "in at least one source",
+                    [], "", cards, sections, selected)
+        if _structure_on_record(evidence):
+            from lotline.ai.evidence_checks import RELIEF_PATH_SUFFIX
+            lor = replace(lor, path=f"{lor.path}. {RELIEF_PATH_SUFFIX}", caution=RELIEF_PATH_SUFFIX)
+        out.append(lor)
     narrow = _narrow(v) if _housing_possible(v) else []
     if narrow:
         parts = [f"{'if corner, ' if label == 'corner' else ''}illustrative {label} envelope about "

@@ -582,3 +582,59 @@ def context_for(snapshot: Snapshot, pin: str) -> ParcelContext | None:
         rule=snapshot.rules.get(district) if district else None,
         manifest=snapshot.manifest,
     )
+
+
+# --------------------------------------------------------------------------
+# Optional geometry: river shorelines and parcel points for the RIV riparian
+# screen (lotline/engine/riparian.py). Both are optional: a missing or
+# malformed file yields no geometry, and the screen then reports "unknown".
+# --------------------------------------------------------------------------
+
+RIVER_GEOMETRY_FILE = "geo/rivers_allegheny_county.geojson"
+PARCEL_POINT_COLUMNS: tuple[str, ...] = ("pin", "lat", "lon")
+
+
+def load_river_geometry(data_dir: Path = DATA_DIR) -> tuple:
+    """River polygons from the cached County "Major Rivers" GeoJSON; () if absent or unreadable."""
+    import json
+
+    from lotline.engine.riparian import RiverPolygon
+
+    path = Path(data_dir) / RIVER_GEOMETRY_FILE
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+        rivers = []
+        for feature in doc.get("features", []):
+            geom = feature.get("geometry") or {}
+            name = str((feature.get("properties") or {}).get("NAME", "")).strip() or "river"
+            polys = geom.get("coordinates", [])
+            if geom.get("type") == "Polygon":
+                polys = [polys]
+            elif geom.get("type") != "MultiPolygon":
+                continue
+            for poly in polys:
+                rings = tuple(tuple((float(c[0]), float(c[1])) for c in ring) for ring in poly)
+                if rings and len(rings[0]) >= 3:
+                    rivers.append(RiverPolygon(name=name, rings=rings))
+        return tuple(rivers)
+    except (OSError, ValueError, TypeError, KeyError, IndexError, AttributeError):
+        return ()
+
+
+def load_parcel_points(data_dir: Path = DATA_DIR) -> dict[str, tuple[float, float]]:
+    """Treasury point (lat, lon) per PIN; {} if the columns are absent. Reads only pin/lat/lon."""
+    path = Path(data_dir) / TREASURY_FILE
+    try:
+        df = _read_csv(path, PARCEL_POINT_COLUMNS)
+    except SnapshotError:
+        return {}
+    points: dict[str, tuple[float, float]] = {}
+    for r in _rows(df):
+        try:
+            lat = optional_float(r["lat"], where=f"{TREASURY_FILE} lat")
+            lon = optional_float(r["lon"], where=f"{TREASURY_FILE} lon")
+        except SnapshotError:
+            continue  # a malformed point is unknown, never guessed
+        if lat is not None and lon is not None:
+            points[r["pin"]] = (lat, lon)
+    return points

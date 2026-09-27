@@ -15,3 +15,4 @@ rco_overlays,2026-09-24,Y,parcel_facts.csv,Community-review contact only; not en
 historic_overlays,2026-09-24,Y,parcel_facts.csv,Historic-review screening flag
 zoning_code,2026-09-24,Y,district_rules.csv,Versioned use and dimensional rules with citations
 record_text,2026-09-27,Y,record_text.csv,"PLI violation, condemned-property and PLI permit text fields for 15 golden parcels (446 rows); untrusted source text for the AI evidence reader; never read by the engine"
+river_hydrography,2026-09-27,Y,geo/rivers_allegheny_county.geojson,"Allegheny County GIS layer 'Allegheny County Major Rivers' (Allegheny, Monongahela, Ohio river polygons; layer data last edited 2015-10-28), fetched 2026-09-27T11:09Z from https://services1.arcgis.com/vdNDkVykv9vEWFX4/arcgis/rest/services/Major_Rivers/FeatureServer/0; approximate shoreline standing in for the 710 ft Project Pool Elevation (§905.04.B.4); informational use only per County use constraints"

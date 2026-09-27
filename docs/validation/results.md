@@ -3,9 +3,9 @@
 <!-- GENERATED FILE: do not edit by hand. Regenerate with the command below. -->
 
 - Command: `uv run python -m evaluation.run`
-- Repository HEAD: `b7a47b4`
-- Generated (UTC): 2026-09-27T05:00:25Z
-- Software: python 3.12.12, pandas 3.0.6, streamlit 1.64.0, anthropic 1.8.0, pytest 9.1.1
+- Repository HEAD: `ecae7de`
+- Generated (UTC): 2026-09-27T11:19:31Z
+- Software: python 3.12.14, pandas 3.0.6, streamlit 1.64.0, anthropic 1.8.0, pytest 9.1.1
 - Scope: one frozen snapshot of one dated Pittsburgh Treasurer Sale (Treasury pull 2026-09-24; City advertisement dated 2026-09-16). Nothing here measures predictive accuracy, real-world outcomes or generalization.
 
 ## Summary
@@ -19,8 +19,9 @@
 | 5 | Missingness and uncertainty injection | ok | 9/9 |
 | 6 | Experiment 6: unsafe comparator / ablation (post-hoc, illustrative) | ok | 6/6 |
 | 7 | Experiment 7: adversarial language fidelity (enumerated cases) | ok | 9/9 |
-| 8 | AI enforcement-record reader versus no-AI keyword baseline | ok | 8/8 |
+| 8 | AI enforcement-record reader versus no-AI keyword baseline | ok | 18/18 |
 | 9 | Reproducibility record | ok | 3/3 |
+| 10 | AI reader at citywide scale vs structured public reference | ok | 2/2 |
 
 ## 1. Cohort reconstruction (independent join)
 
@@ -227,7 +228,7 @@ Overall: 240/240 field-parcel cells agree (16 fields × 15 parcels). This is rep
 
 None. Every disagreement found during development was resolved by a recorded label or engine change (below), so zero disagreements is expected by construction and is not evidence of correctness.
 
-**Limitation (co-revision):** labels and engine were revised together in 4 recorded passes in `docs/label_changes.md` (Expected-label changes (rule verification, 2026-09-26); Round 2: judge review (2026-09-26); Round 3: decision-impact ordering (2026-09-26); Round 4: current-sale pre-spend gate (2026-09-26)). In those passes both label values and engine rules changed after the two were compared, with a cited reason for each change. That makes this a regression and specification-consistency check. A defensible accuracy estimate needs labels produced blind to engine output by independent practitioners (see the prospective study below).
+**Limitation (co-revision):** labels and engine were revised together in 5 recorded passes in `docs/label_changes.md` (Expected-label changes (rule verification, 2026-09-26); Round 2: judge review (2026-09-26); Round 3: decision-impact ordering (2026-09-26); Round 4: current-sale pre-spend gate (2026-09-26); Round 5: RIV-RM modeled — part 1, verified standards and riparian geometry (2026-09-27)). In those passes both label values and engine rules changed after the two were compared, with a cited reason for each change. That makes this a regression and specification-consistency check. A defensible accuracy estimate needs labels produced blind to engine output by independent practitioners (see the prospective study below).
 
 **Less co-revised comparison: pre-build prescreen vs current engine (outcome family only).** `docs/prep/golden_set_prescreen.csv` holds the team's preliminary outcomes written before the build window (also team-authored, and never read by the app). Outcome family agreement: **12/15**. Every change moved a parcel from Defer to Advance after district dimensions were encoded (a less conservative direction), each with a recorded, cited reason:
 
@@ -831,27 +832,42 @@ The reference contains team judgments recorded before the team inspected these c
 
 | Method | Relevant-record recall | Record precision | False positives | Misses |
 |---|---|---|---|---|
-| Claude + exact-quote verifier | 12/12 (100.0%) | 12/12 (100.0%) | 0 | 0 |
-| Keyword/lexicon baseline (no AI) | 12/12 (100.0%) | 12/21 (57.1%) | 9 | 0 |
+| Claude + exact-quote verifier | 26/26 (100.0%) | 26/28 (92.9%) | 2 | 0 |
+| Keyword/lexicon baseline (no AI) | 26/26 (100.0%) | 26/43 (60.5%) | 17 | 0 |
 
 | PIN | Records | Relevant | AI TP/N | AI FP | AI FN | Keyword TP/N | Keyword FP | Keyword FN | Repeated-run tuple consistency |
 |---|---|---|---|---|---|---|---|---|---|
+| 0010L00127000000 | 8 | 5 | 5/5 | 0 | 0 | 5/5 | 3 | 0 | 7/7 |
 | 0010R00108000000 | 11 | 4 | 4/4 | 0 | 0 | 4/4 | 7 | 0 | 7/9 |
 | 0010S00005000000 | 7 | 5 | 5/5 | 0 | 0 | 5/5 | 2 | 0 | 6/10 |
+| 0014N00100000000 | 1 | 1 | 1/1 | 0 | 0 | 1/1 | 0 | 0 | 8/8 |
+| 0015S00066000000 | 3 | 2 | 2/2 | 1 | 0 | 2/2 | 1 | 0 | 7/9 |
 | 0042D00039000000 | 3 | 3 | 3/3 | 0 | 0 | 3/3 | 0 | 0 | 8/8 |
+| 0050K00227000000 | 4 | 2 | 2/2 | 0 | 0 | 2/2 | 2 | 0 | 7/9 |
+| 0075S00108000000 | 6 | 4 | 4/4 | 1 | 0 | 4/4 | 2 | 0 | 8/8 |
 
-Internal assertions: **8/8 held.**
+Internal assertions: **18/18 held.**
 
 | Result | Assertion | Detail |
 |---|---|---|
+| PASS | reference covers the loaded record universe for 0010L00127000000 | reference 8, loaded 8 |
+| PASS | AI surfaced only loaded record ids for 0010L00127000000 | surfaced 5 of 8 |
 | PASS | reference covers the loaded record universe for 0010R00108000000 | reference 11, loaded 11 |
 | PASS | AI surfaced only loaded record ids for 0010R00108000000 | surfaced 4 of 11 |
 | PASS | reference covers the loaded record universe for 0010S00005000000 | reference 7, loaded 7 |
 | PASS | AI surfaced only loaded record ids for 0010S00005000000 | surfaced 5 of 7 |
+| PASS | reference covers the loaded record universe for 0014N00100000000 | reference 1, loaded 1 |
+| PASS | AI surfaced only loaded record ids for 0014N00100000000 | surfaced 1 of 1 |
+| PASS | reference covers the loaded record universe for 0015S00066000000 | reference 3, loaded 3 |
+| PASS | AI surfaced only loaded record ids for 0015S00066000000 | surfaced 3 of 3 |
 | PASS | reference covers the loaded record universe for 0042D00039000000 | reference 3, loaded 3 |
 | PASS | AI surfaced only loaded record ids for 0042D00039000000 | surfaced 3 of 3 |
-| PASS | verified caches exist for every labeled parcel | 3/3 |
-| PASS | AI is Pareto-better than the frozen keyword baseline | AI TP/FP 12/0; keyword TP/FP 12/9 |
+| PASS | reference covers the loaded record universe for 0050K00227000000 | reference 4, loaded 4 |
+| PASS | AI surfaced only loaded record ids for 0050K00227000000 | surfaced 2 of 4 |
+| PASS | reference covers the loaded record universe for 0075S00108000000 | reference 6, loaded 6 |
+| PASS | AI surfaced only loaded record ids for 0075S00108000000 | surfaced 5 of 6 |
+| PASS | verified caches exist for every labeled parcel | 8/8 |
+| PASS | AI is Pareto-better than the frozen keyword baseline | AI TP/FP 26/2; keyword TP/FP 26/17 |
 
 **What this does and does not show.** This compares retrieval on a tiny, team-labeled, post-build Pittsburgh cohort. It shows whether constrained Claude retrieval reduces manual record triage relative to this declared keyword baseline. It does not establish analyst time savings, decision quality, cross-sale performance or external validity.
 
@@ -878,14 +894,23 @@ Internal assertions: **8/8 held.**
 | data/ai_cache/zba/hillcrest-street-10-of-2026.json | 1383 | 54fe53918255753ddbc604b21be28fb82117616adfabc5dbd9526dd68c09a8b1 |
 | data/ai_cache/zba/rockland-avenue-96-of-2026.json | 1630 | 5786eb3ae85713292f18d6122cfbf50881d732ac01524965678a22674d00da2d |
 | data/ai_cache/zba/spring-garden-avenue-158-of-2025.json | 1397 | f4a556d7e5474ca507870fe780b552a49ca2dbfb0299e6e40bd35340d888db08 |
+| data/calibration/reader_calibration.json | 2306 | cebd29aa545c17d400f959873b4890520ed1c2f972806b667a4adf1a4f3a5718 |
 | data/code_excerpts.json | 30579 | 8d4b1cebcee646bd78fe821446a407757a4079f12c696cf22c93516c6528c057 |
 | data/cost_assumptions.csv | 1648 | c781cb4566265dd24444f7f2b5798910a3e13052328a2d2a308395717b171cb8 |
 | data/demo_config.json | 1000 | 8dc432b656bf962d246315bff2c017cf4ee3cae378f3742978f8b5ddcd146fd0 |
 | data/district_rules.csv | 4082 | d23b09df8b8cd5d527424c74d21154d775c3b7b4a3b2ce1c9b099a11c439c55a |
+| data/geo/rivers_allegheny_county.geojson | 481054 | 238f8f05d96c8ca7288da3517924b6f337b49d29ab571805429217fac25c4f1c |
 | data/parcel_facts.csv | 3142 | ef9320609a15753a9190836d832ee5b331751492b157f6ec075d53d632be4168 |
 | data/record_text.csv | 59803 | 15046514e5118551888a380382753beab61cb3760249a814312678717c7b9d40 |
-| data/source_manifest.csv | 1727 | 955748b9b2ae9e5686ad0e8041eb2ee8196fe69cf97d65695777dc4c77299e62 |
+| data/source_manifest.csv | 2203 | 032d1713022b82518339226f0488a529f71434d9557d31adbe856b84eaa66648 |
 | data/treasury_sale_2026-10-02_enriched.csv | 24169 | 8fd619db5e014bd84fcdc36ed1ca2853fd0a22cc93364b1f251e8a93b0c08367 |
+| data/validation_scale/discussion.md | 4290 | e2f6567bf376535bdc8b8fc3262d33c54b97676f3913afc74cb1d03c37829d0a |
+| data/validation_scale/error_notes.csv | 2221 | 99fc7f5bf6df68c4d8f3e253c3952a7cd6c5140eaf3af6e553515f3be97df699 |
+| data/validation_scale/model_outputs.jsonl | 332113 | f354b4740bb406647bff72fe43cf105eb4ebe0fad74902a652f6800a5aaa2b60 |
+| data/validation_scale/records.csv | 1322726 | 447b44e8ed6ba6850495d23e5454bab15e1b2590fb6d1f50602db5092832bd98 |
+| data/validation_scale/reference.csv | 10282 | d4bc7fe78c2123aa96459ef76ba989b746eff2f507a9767f313c4353595abb1f |
+| data/validation_scale/results.json | 3277 | 877632dcf3b6d7f56aac5d7610d07b17aedd54cebc622d5c6b8e1f7b76f7fa10 |
+| data/validation_scale/sample.csv | 851 | 7f90a0ba53bcb64e5cd117e90ff0df16cd2d832e9b5d76dd4e51858d173a49da |
 | data/zba/buena-vista-street-19-of-2026.txt | 8557 | 5ac9ab2bec89c252691e31b5943d44525a1dcd6698d7f2f7dd8ca0ff335ec787 |
 | data/zba/camp-street-16-of-2026.txt | 3746 | fdedbfc3d516554ab63e9c287eef79c1e42ba7fe853c773f6eed2587d8deced8 |
 | data/zba/code_sections.json | 5632 | 3444247924e8c3672a156504dd3480a6dc41322badd8e62239acf0b0d9eb07ee |
@@ -897,22 +922,22 @@ Internal assertions: **8/8 held.**
 | data/zba/rockland-avenue-96-of-2026.txt | 7771 | ab16d718c7c32b82bca756184a023324d562b6fea1eb4ce5182a6ff30409faef |
 | data/zba/spring-garden-avenue-158-of-2025.txt | 7275 | 78acdff1321e60148e390bc19e410e3004c238988eecfb443e4a1ddec2454a14 |
 | pyproject.toml | 302 | 97a2c590ceba4f3df3f946f96ba610ae33b5e2401124dfa166395f3872068cea |
-| tests/fixtures/expected_labels.csv | 12108 | 0094cb71c20716e7fca0b88ea47bce6248b64520f5122c370f6a72694ba78077 |
+| tests/fixtures/expected_labels.csv | 12159 | e9635115ccf0051452d5dea388f0f6d7ce14e8368334c77b0411c2463721f1f1 |
 | tests/fixtures/expected_reconciliation.csv | 6446 | 49ec1177589e3257a8cb2c7cb43248580cf0cc3f2d8340ea32d9e02d4db8db1f |
-| tests/fixtures/record_relevance.csv | 2945 | aae6f48ce0333f9dec428a7f11b8985e68ce342b990c362f0b055449afa7b4cc |
+| tests/fixtures/record_relevance.csv | 6157 | 6fac2664105b6b846eb9a0df38838e3f8c6f764ad2faab9f5225690bc6f3e844 |
 | uv.lock | 277528 | b9d9d4b2b43fa2cce83a0cce748b663c39278adec31565399a513e9fe4d879b8 |
 
 | Component | Version |
 |---|---|
-| python | 3.12.12 |
+| python | 3.12.14 |
 | implementation | CPython |
 | pandas | 3.0.6 |
 | streamlit | 1.64.0 |
 | anthropic | 1.8.0 |
 | pytest | 9.1.1 |
-| git HEAD (short) | b7a47b4 |
+| git HEAD (short) | ecae7de |
 
-**Determinism:** two fresh snapshot loads + full screens in one process produced identical serialized results (sha256 `da1f27f3741835bebdc79b255e25437c30e7251bd3789b13f971cbe8a53bcf9c`) and identical triage CSV (sha256 `49922d4efb8115520c8c31154a0899e3fc474ea907e8ede5d756d2a90384b60f`).
+**Determinism:** two fresh snapshot loads + full screens in one process produced identical serialized results (sha256 `eb79d9ae32a29746a10e5bc61fe14e5171fa65d50a3385a7b2bb5c4dfbe4ad26`) and identical triage CSV (sha256 `49922d4efb8115520c8c31154a0899e3fc474ea907e8ede5d756d2a90384b60f`).
 
 **Reproduction command** (after `uv sync` with network access, or with a warm uv cache): `uv run python -m evaluation.run`. The results hash above should match on any machine with the same `uv.lock`; a mismatch means the inputs or dependency versions differ.
 
@@ -925,7 +950,26 @@ Internal assertions: **3/3 held.**
 | Result | Assertion | Detail |
 |---|---|---|
 | PASS | uv.lock present |  |
-| PASS | two in-process runs produce byte-identical serialized results (96 records) | sha256 da1f27f3741835be… vs da1f27f3741835be… |
+| PASS | two in-process runs produce byte-identical serialized results (96 records) | sha256 eb79d9ae32a29746… vs eb79d9ae32a29746… |
 | PASS | two in-process runs produce byte-identical triage CSV | sha256 49922d4efb811552… |
 
 **What this does and does not show.** It pins exactly which inputs and software produced these results and shows the engine is deterministic in-process. It does not show that a different machine reproduces the hash (that needs an independent re-run), that the snapshots faithfully reflect the live public sources, or that the app starts offline.
+
+## 10. AI reader at citywide scale vs structured public reference
+
+Citywide development-set estimate (n=150 parcels, reference = City permit and condemned-list data, not team labels). Full report: `docs/validation/ai_scale_results.md`.
+
+| System | Precision | Recall | F1 |
+|---|---|---|---|
+| LotLine AI reader, k=1 (primary) | 30/30 = 100.0% [88.6%, 100.0%] | 30/75 = 40.0% [29.7%, 51.3%] | 0.571 |
+| B1 keyword DEMOLITION_DONE | 33/39 = 84.6% [70.3%, 92.8%] | 33/75 = 44.0% [33.3%, 55.3%] | 0.579 |
+| B2 structured (Vacant Lots type) + keyword | 35/48 = 72.9% [59.0%, 83.4%] | 35/75 = 46.7% [35.8%, 57.8%] | 0.569 |
+| B3 recency + keyword (latest casefile) | 18/22 = 81.8% [61.5%, 92.7%] | 18/75 = 24.0% [15.8%, 34.8%] | 0.371 |
+| B4 demolished/demolition/DP- rule | 46/61 = 75.4% [63.3%, 84.5%] | 46/75 = 61.3% [50.0%, 71.5%] | 0.676 |
+
+Internal assertions: **2/2 held.**
+
+| Result | Assertion | Detail |
+|---|---|---|
+| PASS | cached pass-1 output exists for every sampled parcel | {'ok': 150} |
+| PASS | no-reader control never predicts DEMOLISHED |  |

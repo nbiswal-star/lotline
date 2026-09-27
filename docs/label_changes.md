@@ -209,3 +209,51 @@ Every advertised parcel now includes the standard next check **"verify current a
 The check was added to the 14 advertised rows in `tests/fixtures/expected_labels.csv`. The one record routed out because it is not in the advertisement retains its existing advertisement-verification routing check. No outcome, score, coverage, conflict, barrier, hazard family or parcel-specific check changed.
 
 **Basis:** City advertisement dated 2026-09-16; the snapshot/staleness policy in `docs/build_contract.md` §§6 and 8; Treasurer Sale status can change before the recorded sale date. This is a workflow safeguard, not a new zoning or sale-law rule.
+
+### Round 4 addendum: lot-of-record check states the vacancy condition (2026-09-27)
+
+The engine's §921.04.A next check (`LOT_OF_RECORD_CHECK` in `lotline/engine/policy.py`) now reads **"lot-of-record eligibility (§921.04.A): a lot vacant on the date the Code became applicable to it and in separate ownership may qualify for an Administrator Exception for single-unit use"** (was "…: vacant lot in separate ownership may qualify for…"). The housing-practice review noted that the old wording dropped the operative condition: §921.04.A applies to a lot that "was vacant on the date which this code became applicable to it", not to a lot that is vacant today. A lot that carried a structure on that date (for example, one demolished later) does not qualify through this path.
+
+Pure text change. The one affected row in `tests/fixtures/expected_labels.csv` (0010S00005000000, Centre 10S5) carries the new wording; no outcome, score, conflict, barrier, owner or check order changed.
+
+**Citation:** Pittsburgh Code §921.04.A (excerpt in `data/code_excerpts.json` / `data/zba/code_sections.json`): "If the lot or parcel was vacant on the date which this code became applicable to it and is in separate ownership from abutting lots or parcels, then the Zoning Administrator shall approve the use of the lot as an Administrator Exception for a single-unit residential use".
+
+Related, outside the engine: when a verified record digest describes a structure on the parcel, `lotline/ai/evidence_checks.py` adds an evidence-prompted check ("Confirm the lot was vacant on the date the Code became applicable…") to the packet and task tickets. Those checks are derived from verified record quotes, are shown separately from the engine's next checks, and never change a label.
+
+## Round 5: RIV-RM modeled — part 1, verified standards and riparian geometry (2026-09-27)
+
+**Status:** verification and geometry only. `data/district_rules.csv`, `tests/fixtures/expected_labels.csv` and the engine's routing are **unchanged** in this part, so no label changed yet. The RIV-RM row still reads "not modeled" until part 2 wires the screen in.
+
+### Verified §905.04.E text (RIV-RM, Walcott St, Esplen)
+
+Source: the current Pittsburgh Code Ch. 905 on ecode360 (guid 45474542, "legislation through 09-16-2026"). History line for §905.04: "[Ord. No. 31-2018, § 4, eff. 8-6-2018; Ord. No. 34-2021, § 1, eff. 10-11-2021; Ord. No. 18-2023, § 1, eff. 9-13-2023]". Each item was cross-read against the enacted Ord. 31-2018 text; the wording matches except the current Code spells numbers out.
+
+| Standard | Citation | Code text | Use in a vacant-lot screen |
+|---|---|---|---|
+| Riparian buffer | §905.04.E.4.a(1) | "No development is permitted within one hundred twenty-five (125) feet of the Project Pool Elevation of the river, except as provided herein." | Gate: 125 ft, measured from the Project Pool Elevation. Exemptions (a) are water-dependent/water-enhanced uses and open-space amenities, not housing. Bonus reduction to 95 ft (b) and neighbour-encroachment relief to 50 ft (c) are discretionary and not modeled. |
+| Project Pool Elevation | §905.04.B.4 | "For the purpose of Section 905.04, Pittsburgh's Project Pool Elevation is measured as seven hundred ten (710) feet on all three (3) rivers." | The buffer is measured from the 710 ft contour, not from a mapped line; LotLine approximates it (below). |
+| Front: build-to zone | §905.04.E.4.b(1)–(2) | "When abutting a Street, a build-to zone is imposed between zero (0) and ten (10) feet inward from the property line" and "a minimum of sixty (60) percent of the building frontage or façade must be located in the Build-To Zone." | A maximum, not a minimum, front setback: for envelope depth the front setback is 0. §905.04.E.4.b(3)–(4): a 10 ft sidewalk, if placed on the parcel, moves the build-to zone to start at 10 ft. |
+| Rear setback | §905.04.E.4.c(1)–(2) | "The rear setback for Single-Unit Attached Residential, two-unit residential, and three-unit residential structures is five (5) feet. This may be reduced to two (2) feet when the rear yard abuts a way." "No rear setback required for other uses." | 5 ft (conservative; 2 ft only where the rear abuts a way, which needs a survey). |
+| Side setbacks | §905.04.E | None stated in §905.04.E. | 0. |
+| Minimum lot size | §905.04.E | None stated in §905.04.E. | No lot-size gate. |
+| Height | §905.04.E.3.a–b | "Base height in the RIV is sixty (60) feet except where … maximum height is indicated to be forty-five (45) feet." "A minimum height of twenty-four (24) feet is required for Primary Structures." | Not a lot-dimension gate; note only (Walcott is in the 45 ft height-map area). |
+| Review path | §905.04.C.1.b, C.3.a | Site Plan Review for "All new construction of primary structures"; Project Development Plan for new primary structures "within two hundred (200) feet of the Project Pool Elevation". | Note only. |
+
+Figures 3 and 4 (graphics) were not reviewed.
+
+### River geometry (source `river_hydrography`)
+
+- **Layer:** Allegheny County "Major Rivers" (Allegheny County Department of Information Technology, GIS Group; ArcGIS Online item `def3bd39f12d408c9bd097f5a3b3b136`, service `https://services1.arcgis.com/vdNDkVykv9vEWFX4/arcgis/rest/services/Major_Rivers/FeatureServer/0`; layer data last edited 2015-10-28). Fetched 2026-09-27T11:09Z as GeoJSON (EPSG:4326). The three named river polygons are cached in `data/geo/rivers_allegheny_county.geojson`, with coordinates rounded to 6 decimals (about 0.1 m). One unnamed empty feature was dropped.
+- **Terms:** the County's use constraints say the data is "for informational purposes only" with "no guarantee as to its completeness or accuracy", provided "as is". LotLine uses it only for an approximate screening fact.
+- **Manifest:** a `river_hydrography` row in `data/source_manifest.csv`. The file is optional: without it the screen returns unknown, never "outside".
+
+### Method (`lotline/engine/riparian.py`, pure; loaders in `lotline/loaders.py`)
+
+- **Distance:** from the Treasury point (lat/lon, read by `load_parcel_points`, which reads only `pin, lat, lon`) to the nearest river-polygon edge. It is computed offline in a local equirectangular plane centred on the point, with no new dependencies; error is under 1 ft at these distances.
+- **Uncertainty band:** ± half the lot's MBR diagonal (the point may sit anywhere in the lot), plus ±25 ft for mapped shoreline vs. the 710 ft contour. The polygons were digitized near normal pool, and 710 ft is the shared Emsworth pool. At Walcott the independent 2004 County "Hydrology Areas" layer gives 630 ft against 647 ft here, a 17 ft difference that the 25 ft margin covers.
+- **Classes:** "outside buffer" if the whole band is beyond 125 ft; "inside buffer" if the whole band is at or within 125 ft; otherwise "possibly within buffer (inside uncertainty)". A point on the water has distance 0.
+- `tests/test_boundaries.py`: `math` was added to the stdlib allowlist for engine purity. It is pure arithmetic and performs no I/O.
+
+### Result for Walcott St (RIV-RM)
+
+Nearest river: the Ohio. Point distance **647 ft**. Band ±85 ft (half diagonal of the 26 × 118 ft MBR = 60 ft, plus 25 ft), giving **562–732 ft**. Classification: **outside buffer**. This is approximate, not a survey. The Zoning Administrator determines the buffer line.

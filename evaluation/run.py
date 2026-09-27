@@ -34,6 +34,7 @@ REGISTRY: tuple[tuple[str, int, str], ...] = (
     ("adversarial", 7, "Adversarial language fidelity"),
     ("ai_reader", 8, "AI reader versus no-AI keyword baseline"),
     ("repro", 9, "Reproducibility record"),
+    ("ai_scale", 10, "AI reader at citywide scale vs structured public reference (cached outputs)"),
 )
 
 

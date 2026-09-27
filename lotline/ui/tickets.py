@@ -27,8 +27,9 @@ def due_before(sale_date: str) -> str:
 
 def ticket_markdown(*, check: Mapping[str, str], parcel_title: str, pin: str, pin_short: str,
                     address: str, outcome: str, sale_date: str, snapshot_label: str,
-                    evidence: Iterable[object] = ()) -> str:
-    """Deterministic ticket text. ``evidence`` items need record_id, date, source and quote."""
+                    evidence: Iterable[object] = (), evidence_checks: Iterable[object] = ()) -> str:
+    """Deterministic ticket text. ``evidence`` items need record_id, date, source and quote;
+    ``evidence_checks`` are ``lotline.ai.evidence_checks.EvidenceCheck`` (check, owner, reason)."""
     lines = [
         f"# Task: {check['Check']}",
         "",
@@ -52,6 +53,12 @@ def ticket_markdown(*, check: Mapping[str, str], parcel_title: str, pin: str, pi
             lines.append(f"- {rid} ({src}, {when}): the record says “{quote}”")
     else:
         lines.append("- None attached (read the enforcement record in the packet to attach verified quotes).")
+    extra = [c for c in evidence_checks if getattr(c, "check", "") != check["Check"]]
+    if extra:
+        lines += ["", "## Checks prompted by the record evidence (AI-read, quote-verified)"]
+        for c in extra:
+            lines.append(f"- {getattr(c, 'check', '')} → {getattr(c, 'owner', '')} "
+                         f"(prompted by: {getattr(c, 'reason', '')})")
     lines += [
         "",
         "## Resolution",

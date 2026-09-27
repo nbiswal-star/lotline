@@ -181,8 +181,8 @@ UNENCODED_DIMENSIONS_BARRIER = (
 
 # §921.04.A lot of record (vacant nonconforming lot in separate ownership).
 LOT_OF_RECORD_CHECK = (
-    "lot-of-record eligibility (§921.04.A): vacant lot in separate ownership may qualify for "
-    "an Administrator Exception for single-unit use"
+    "lot-of-record eligibility (§921.04.A): a lot vacant on the date the Code became applicable "
+    "to it and in separate ownership may qualify for an Administrator Exception for single-unit use"
 )
 LOT_OF_RECORD_OWNER = "Zoning Administrator + County deed records"
 BELOW_MINIMUM_BARRIER = (

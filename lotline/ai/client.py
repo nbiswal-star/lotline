@@ -51,13 +51,25 @@ def _load_dotenv_key() -> None:
             return
 
 
+OFFLINE_ENV = "LOTLINE_OFFLINE"
+
+
+def offline_mode() -> bool:
+    """``LOTLINE_OFFLINE=1`` forces every AI reader offline (cached, re-verified results only)."""
+    return os.environ.get(OFFLINE_ENV, "").strip().lower() in {"1", "true", "yes"}
+
+
 def credentials_available() -> bool:
-    """True when an API key (or auth token) is configured; makes no network call."""
+    """True when an API key (or auth token) is configured and offline mode is off; no network call."""
+    if offline_mode():
+        return False
     _load_dotenv_key()
     return bool(os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"))
 
 
 def make_client(timeout_s: float = DEFAULT_TIMEOUT_S) -> Any:
+    if offline_mode():
+        raise AIUnavailable("offline mode (LOTLINE_OFFLINE=1)")
     if not credentials_available():
         raise AIUnavailable("no API key configured")
     try:

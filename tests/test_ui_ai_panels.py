@@ -202,7 +202,7 @@ def test_cached_evidence_renders_items(monkeypatch, no_key) -> None:
     assert QUOTE in body and "CND-2024-001" in body
     assert "quote verified against source text" in body
     assert "Claude read 3 records; 1 item verified; 1 rejected" in body
-    assert "cached, re-verified now" in body
+    assert "re-verified now" in body
     assert "latest record" in body and "Permit corroboration" in body
     assert "a PLI site check resolves it" in body
     # Benezet has no conflict: the reader sits in the Policy tile area, still rendered.

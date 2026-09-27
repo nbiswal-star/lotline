@@ -1,4 +1,6 @@
-# Team-labeled BEFORE any model run (2026-09-27, by reading data/record_text.csv by hand). Relevant = bears on current site condition or open enforcement for the current-condition conflict. Recall of the AI reader and the keyword baseline is computed against this file.
+# Provenance: the 21 team labels (parcels 0010S00005000000, 0010R00108000000, 0042D00039000000) were written before looking at cached model outputs; committed afterwards. Not preregistered.
+# Rows whose reason starts with [agent-labeled] (22 records, 5 more parcels) were written on 2026-09-27 by the AI coding agent from data/record_text.csv by a written rule, before any model output for those parcels was viewed; they are reported separately. Parcel 0023E00229000000 is left unlabeled because part of one cached output for it had been seen.
+# Relevant = bears on current site condition or open enforcement. Agent rule: Y if the record reports a demolition or is a demolition permit, is a condemned-list status, is the latest PLI record, has open court/enforcement status, or has findings within 12 months of the latest record and is not superseded by a later demolition; otherwise N (background).
 record_id,pin,relevant,reason
 CF-PLI-2024-060362,0010S00005000000,Y,City-funded demolition casefile; cites demo permit DP-2024-13867; 2025-01-02 finding says property is demolished and case withdrawn
 CF-PLI-2021-010309,0010S00005000000,Y,Vacant-building casefile; closing 2025-01-02 finding says property is demolished; bears on current condition
@@ -21,3 +23,25 @@ CF-PLI-2024-042403,0010R00108000000,N,Aug 2024 board-up referral; background bef
 COND-636880,0042D00039000000,Y,Condemned/dead-end list shows an active case on a lot assessed as vacant
 CF-PLI-2022-044404,0042D00039000000,Y,Latest PLI record: overgrown dead-end property sent to clean and lien; describes lot condition without structure language
 CF-PLI-2022-025760,0042D00039000000,Y,2022 overgrowth casefile; court case dismissed for no service; enforcement status and lot condition
+CF-PLI-2023-010006,0010L00127000000,Y,[agent-labeled] Latest PLI record; 2023-08-15 finding says the city has demolished the building and the case is withdrawn
+CF-PLI-2023-009920,0010L00127000000,Y,[agent-labeled] 2023-04-10 finding says building demolished
+CF-PLI-2022-040608,0010L00127000000,Y,[agent-labeled] 2023-04-06 finding says structure razed; city-funded demolition order
+CF-PLI-2022-040501,0010L00127000000,Y,[agent-labeled] 2023-04-06 finding says structure razed
+DP-2023-05344,0010L00127000000,Y,[agent-labeled] City-funded demolition permit; status Completed
+CF-PLI-2022-007065,0010L00127000000,N,[agent-labeled] 2022 wall and stairs casefile; background before the 2023 demolition
+CF-PLI-2022-006675,0010L00127000000,N,[agent-labeled] 2022 debris casefile resolved; background before the 2023 demolition
+CF-PLI-2022-032433,0010L00127000000,N,[agent-labeled] 2022 sidewalk casefile resolved; background
+CF-PLI-2021-030673,0014N00100000000,Y,[agent-labeled] Only and latest record; vacant-lot overgrowth casefile; court dismissed for no service
+CF-ES-2025-068149,0015S00066000000,Y,[agent-labeled] Latest record; litter and dumping on parcel; corrected 2026-01-06
+CF-PLI-2024-056082,0015S00066000000,Y,[agent-labeled] Status In Court; overgrowth on vacant land; criminal complaint issued
+CF-PLI-2024-040641,0015S00066000000,N,[agent-labeled] 2024 overgrowth casefile decided (guilty); more than 12 months before the latest record
+CF-ES-2026-039877,0050K00227000000,Y,[agent-labeled] Latest record; status In Court with court date scheduled; parcel remains overgrown
+CF-ES-2026-021158,0050K00227000000,Y,[agent-labeled] 2026 casefile within 12 months of the latest; finding on whether the lot is overgrown
+CF-PLI-2024-030979,0050K00227000000,N,[agent-labeled] 2024 overgrowth casefile withdrawn; background
+CF-PLI-2023-032204,0050K00227000000,N,[agent-labeled] 2023 overgrowth casefile resolved; background
+CF-ES-2026-051255,0075S00108000000,Y,[agent-labeled] Latest record; status In Court with court date scheduled; tall weeds on lot
+CF-ES-2026-026126,0075S00108000000,Y,[agent-labeled] 2026 overgrown-vegetation casefile within 12 months of the latest
+CF-PLI-2021-000332,0075S00108000000,Y,[agent-labeled] 2021-01-20 finding says razed with city demo
+DP-2021-00337,0075S00108000000,Y,[agent-labeled] City-funded demolition permit; status Completed
+CF-PLI-2020-015003,0075S00108000000,N,[agent-labeled] 2020 condemned-building referral; background before the 2021 demolition
+CF-PLI-2020-019262,0075S00108000000,N,[agent-labeled] 2020 no-violation casefile; background

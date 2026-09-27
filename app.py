@@ -370,15 +370,16 @@ def render_packet(snapshot, results, cfg) -> None:
         with col:
             render_tile(snapshot, tiles[key], p if key == "policy" else None)
             if key == "zoning":
-                panels.render_precedents(results[pin])
+                panels.render_precedents(results[pin], snapshot)
             if key == "policy" and not has_conflict:
                 panels.render_evidence(snapshot, pin, prominent=False)
 
     render_barriers_and_checks(p)
+    panels.render_evidence_checks(snapshot, pin)
     panels.render_tickets(snapshot, p, vmod.sale_date(snapshot),
                           " · ".join(f"{label} {d}" for label, d in vmod.snapshot_dates(snapshot)))
     panels.render_costs(snapshot, results[pin])
-    panels.render_ask(results[pin], pin)
+    panels.render_ask(results[pin], pin, snapshot)
     render_memo(snapshot, results, pin)
     render_provenance(p)
 

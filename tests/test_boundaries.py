@@ -171,7 +171,9 @@ def test_pure_layers_do_no_io(name: str) -> None:
             mods |= {a.name.split(".")[0] for a in node.names}
         elif isinstance(node, ast.ImportFrom) and node.module and not node.level:
             mods.add(node.module.split(".")[0])
-    assert mods <= {"__future__", "collections", "dataclasses", "datetime", "enum", "re", "lotline"}, mods
+    # math is pure arithmetic (riparian distance); it performs no I/O.
+    assert mods <= {"__future__", "collections", "dataclasses", "datetime", "enum", "math", "re",
+                    "lotline"}, mods
     tree = ast.parse(path.read_text())
     for node in ast.walk(tree):
         if isinstance(node, ast.Call) and getattr(node.func, "id", None) == "open":

@@ -1,0 +1,12 @@
+# Analyst notes on the fixed-seed AI error sample, written 2026-09-27 AFTER results were computed (not blind). Quotes are from data/validation_scale/records.csv and cached model outputs.
+pin,note
+0007F00098000001,"Temporal/content gap: only fire-safety and sidewalk casefiles; text never describes the building's condition or removal. No reader could infer demolition from this input."
+0009N00198000000,"Temporal: latest PLI text (2023-11) predates the demolition permit (issued 2025-03). The record cannot yet say demolished."
+0015G00106000000,"Lexicon-gate loss: the model surfaced 'PROPERTY WAS RAISED NO LONGER VIEWED AS AN UNSAFE STRUCTURE' (misspelled razed) with a demolition label; the verifier withheld the label because the lexicon has no match, so the parcel rule did not fire."
+0035C00113000000,"Ordered, not done: text says 'scheduled on a city funded demolition' (2023-09); later casefiles are weeds/court with no completion statement. Correct not to assert demolition from this text; reference is later than the text's news."
+0044D00182000000,"Ordered, not done: 'ORDERED FOR CITY-FUNDED DEMOLITION'; latest finding 2022-08 predates the permit (2022-10). Temporal."
+0055H00023000000,"Rule-regex loss: verified demolition items exist ('House is down, land covered in hay, waiting to pass final demolition inspection'; 'Demolition Permit - Completed') but none matches DEMOLITION_DONE ('demolished|razed|demolition completed'). The any-demolition-label secondary rule catches it."
+0057C00162000A00,"In progress: 'work crew onsite' on the city demolition schedule (2022-11); no completion statement in text. Reasonable abstention on 'done'; the model did label it demolition."
+0091J00015000000,"Temporal: latest PLI text 2023-02 (board-up completed); permit issued 2026-01. Text describes a standing, boarded structure."
+0174K00106000000,"Implicit only: 2019 permit, later texts are weeds cases ('Property was cut down & clear'). Vacant-lot condition without the word demolition; model labelled vacant_lot_condition, not demolition."
+0231F00208000000,"In progress: 'City Funded Demo. In progress to be torn down.' (2023-04), latest 2023-08 'still exists'; permit issued 2023-10. Text ends before completion."
