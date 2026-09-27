@@ -28,7 +28,7 @@ Remaining submission blockers are external/recording work: live Claude verificat
 
 > You are taking over **LotLine**, a working hackathon entry for the AI Horizons 2026 AI for Housing Hackathon (Challenge 1: Development Feasibility & Pro Forma Navigator, startup track). The goal is a **top-3 finish**. Submissions close **Sun Sep 27, 2026, 23:59 ET**. Judges watch a 3–5 minute demo video first, then look at the repo.
 >
-> The repo is at `/Users/kachapachaalu/Downloads/lotline-main` (GitHub `anitksahu/lotline`, branch `main`).
+> The repo is at `~/Downloads/lotline-public` (GitHub `nbiswal-star/lotline`, branch `main`).
 >
 > 1. **Read these, in order:** `AGENTS.md` (hard rules), `docs/HANDOFF_CODEX.md` (this file: state, remaining work, review method), `docs/build_contract.md` (frozen product spec), `docs/implementation_plan_v5.md` (plan and acceptance tests), `docs/label_changes.md` (every rule and label change with citations), `docs/demo_script.md` (video script).
 > 2. **Establish a baseline:** `export PATH="$HOME/.local/bin:$PATH"`, run `uv run pytest -q`, and confirm the exit code is 0. Run the verification script in §5. Start the app (`uv run streamlit run app.py`) and click through all four views at 1280px wide.
@@ -92,7 +92,7 @@ The other 82 records split into 63 structures and 19 not advertised.
 | Disclose-level area gap of 25% or more adds deed reconciliation (no score change) | Kemper 55%, Mossfield 32% | Housing judge round 2 |
 | Triage, not ranking: no cross-neighborhood ranking | Scores aren't comparable across markets | Spec §3 |
 | Kept out of the video: Saline and Kemper (Parks) | Avoid the "build in a park" reading | Investor judge |
-| Presenter on the video title card: **Nibedita Biswal**; commits stay under Anit Kumar Sahu | User instruction | |
+| Presenter on the video title card: **Nibedita Biswal**; commits under Nibedita Biswal | User instruction | |
 | Refusal fallbacks enabled (`fallbacks: "default"`) for Claude calls | Anthropic SDK guidance for Opus 5 | `lotline/memo/llm.py` |
 
 ---

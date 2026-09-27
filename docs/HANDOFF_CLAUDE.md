@@ -37,7 +37,7 @@ The demo's central sentence is: **Claude reads messy longitudinal records and pr
 **Status date:** 2026-09-26 ET  
 **Submission deadline:** Sun Sep 27, 2026, 23:59 ET  
 **Goal:** a top-3 finish in the AI Horizons 2026 AI for Housing Hackathon, Challenge 1, startup track  
-**Repository:** `anitksahu/lotline`, branch `main`
+**Repository:** `nbiswal-star/lotline`, branch `main`
 
 This is the authoritative handoff for the remaining **scientific validation**, review, recording and submission work. Read `AGENTS.md` first. `docs/HANDOFF_CODEX.md` records the earlier implementation phase and is useful history, but its old P0 list is superseded by this file.
 
@@ -61,7 +61,7 @@ This is the authoritative handoff for the remaining **scientific validation**, r
 >
 > Never claim a manual or external action is complete without evidence. Timed spoken rehearsals, team-roster confirmation, video upload, repository visibility and form submission require actual verification. If credentials or human action are unavailable, finish everything else and report the exact blocker, owner and next action.
 >
-> Keep all work within the hackathon scope and preserve commit history. Before any commit: full suite green with exit code 0, zero memo violations across all 96 parcels, 10/10 integrity cases, clean diff check and no leaked secrets. Use the repository identity `Anit Kumar Sahu <anit.sahu@gmail.com>`. Do not rewrite history or force-push. Push only with current user authorization.
+> Keep all work within the hackathon scope and preserve commit history. Before any commit: full suite green with exit code 0, zero memo violations across all 96 parcels, 10/10 integrity cases, clean diff check and no leaked secrets. Use the repository identity `Nibedita Biswal <nbiswal@andrew.cmu.edu>`. Do not rewrite history or force-push. Push only with current user authorization.
 >
 > At handoff completion, report evidence—not confidence: commit and remote SHA, test count and exit code, memo sweep, outcome counts, integrity result, browser checks, three judge verdicts, public/logged-out link checks, video runtime/link, form confirmation, and any remaining blocker with its owner.
 
@@ -312,13 +312,13 @@ These commands list filenames or Git status, not secret values. The `sk-ant-SECR
 Set and verify the repository-local identity before committing:
 
 ```bash
-git config --local user.name "Anit Kumar Sahu"
-git config --local user.email "anit.sahu@gmail.com"
+git config --local user.name "Nibedita Biswal"
+git config --local user.email "nbiswal@andrew.cmu.edu"
 git config --local --get user.name
 git config --local --get user.email
 ```
 
-Commit only a green, reviewed tree using `Anit Kumar Sahu <anit.sahu@gmail.com>`. Do not amend, rebase away history, force-push or delete evidence. Push only with current user authorization. Make the repository public only with authority to change visibility, then verify the README, screenshots and clone URL in a logged-out/private browser.
+Commit only a green, reviewed tree using `Nibedita Biswal <nbiswal@andrew.cmu.edu>`. Do not amend, rebase away history, force-push or delete evidence. Push only with current user authorization. Make the repository public only with authority to change visibility, then verify the README, screenshots and clone URL in a logged-out/private browser.
 
 **M3 exit:** local HEAD equals `origin/main`; public repository loads logged out; default branch is `main`; README media renders; no genuine secret matches.
 

@@ -112,7 +112,7 @@ Legend: ✅ done and verified by the lead · ◐ partially done by a stopped bui
 
 ## Copy-paste prompt for Codex
 
-> Take over LotLine at `~/Downloads/lotline-main` (remote `anitksahu/lotline`, branch `main`). First `git pull --ff-only`. Read `AGENTS.md`, then **`docs/STATUS.md`** (this file, the current source of truth), then `docs/AI_PLAN.md`, `docs/RECORDING_RUNBOOK.md` and `docs/demo_script.md`.
+> Take over LotLine at `~/Downloads/lotline-public` (remote `nbiswal-star/lotline`, branch `main`). First `git pull --ff-only`. Read `AGENTS.md`, then **`docs/STATUS.md`** (this file, the current source of truth), then `docs/AI_PLAN.md`, `docs/RECORDING_RUNBOOK.md` and `docs/demo_script.md`.
 >
 > Work the feedback list in section order: A (investor blockers), B (honesty and method), C (domain), D (live demo), E (RIV-RM). Treat every ◐ item as unverified: check it against its acceptance text and finish it.
 >

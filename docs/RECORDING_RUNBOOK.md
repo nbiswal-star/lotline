@@ -5,7 +5,7 @@ This is the operational companion to `docs/demo_script.md`, which holds the word
 ## 0. One-time setup (with internet, before recording day)
 
 ```bash
-cd ~/Downloads/lotline-main            # or wherever the repo is cloned
+cd ~/Downloads/lotline-public            # or wherever the repo is cloned
 git pull --ff-only origin main
 curl -LsSf https://astral.sh/uv/install.sh | sh   # only if `uv` is missing
 export PATH="$HOME/.local/bin:$PATH"
@@ -19,7 +19,7 @@ uv run python -m evaluation.run         # regenerates docs/validation/results.md
 1. **Close everything noisy.** Turn on Do Not Disturb (Control Center → Focus). Quit Slack, mail and other notifiers. Hide the Dock (⌥⌘D).
 2. **Start the app offline, with no credentials in its environment:**
    ```bash
-   cd ~/Downloads/lotline-main && export PATH="$HOME/.local/bin:$PATH"
+   cd ~/Downloads/lotline-public && export PATH="$HOME/.local/bin:$PATH"
    env -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN uv run --offline streamlit run app.py --server.port 8501
    ```
    Wait for `URL: http://localhost:8501`. To prove the demo doesn't depend on the network, you can turn Wi-Fi off now. The app keeps working.
@@ -68,5 +68,5 @@ Never: "buildable" · "clear" or "safe" · "will be sold" · "best lot" · "accu
 1. Watch the whole export once, start to finish, with sound. Check that the title card names the hackathon and the team, the counts match (96/77/63/14; 7/3/3/1), no forbidden words are spoken, and the runtime is 3:00–5:00.
 2. Log the take in the **Rehearsal log** in `docs/demo_script.md`: date/time, runtime and notes. Two timed spoken rehearsals are required before the final take.
 3. Upload the video as public or unlisted (YouTube or Vimeo) and open the link in a logged-out or incognito window to confirm it plays.
-4. Make the GitHub repo **public** (Settings → General → Danger Zone → Change visibility) and confirm `https://github.com/anitksahu/lotline` loads logged out.
+4. Make the GitHub repo **public** (Settings → General → Danger Zone → Change visibility) and confirm `https://github.com/nbiswal-star/lotline` loads logged out.
 5. Fill in the form with `docs/SUBMISSION_PAYLOAD.md`. The team owner confirms the roster and attestation and submits before **Sun Sep 27, 23:59 ET**. Screenshot the confirmation.

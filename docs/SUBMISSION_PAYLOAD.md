@@ -5,11 +5,11 @@ The form link is in the official participant packet and in Slack. It closes **Su
 | Field | Entry |
 |---|---|
 | Team name | [CONFIRM] LotLine |
-| Members (name, email, affiliation) | [CONFIRM every member who actually participated; the rules require every listed member to participate.] Presenter on the video: Nibedita Biswal. Repository commits: Anit Kumar Sahu (anit.sahu@gmail.com) |
+| Members (name, email, affiliation) | [CONFIRM every member who actually participated; the rules require every listed member to participate.] Presenter on the video: Nibedita Biswal. Repository commits: Nibedita Biswal (nbiswal@andrew.cmu.edu) |
 | Track / challenge | Startup track · Challenge 1: Development Feasibility & Pro Forma Navigator |
 | Project title | LotLine: a development feasibility navigator that catches conflicting public records before anyone acts on a tax-sale lot |
 | Demo video | [PASTE public/unlisted URL; check it plays logged out] |
-| Public repository | https://github.com/anitksahu/lotline ([CONFIRM the repo is public and loads logged out]) |
+| Public repository | https://github.com/nbiswal-star/lotline ([CONFIRM the repo is public and loads logged out]) |
 | Attestation | [TEAM OWNER ONLY] Everyone is 18+ and no code predates kickoff (Sat Sep 26, 09:00 ET). Commit history starts 12:06 ET Sep 26 after two disclosed data-only prep commits (Sep 24) |
 
 ## Project description (paste)
