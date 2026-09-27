@@ -1,6 +1,8 @@
 # LotLine handoff for Codex (written Sat Sep 26, 2026, evening ET)
 
-This document is the single source of truth for picking up the build. Read `AGENTS.md` (the standing rules) first, then this document, then the spec it points to.
+> **Historical implementation handoff.** The P0 items below have been completed. For the authoritative final-mile state, remaining submission work and Claude takeover prompt, read `AGENTS.md` and then `docs/HANDOFF_CLAUDE.md`.
+
+This document records the implementation phase and its review method. It remains useful context, but it is no longer the current work queue.
 
 ## 0. Latest integrated review update (Sat Sep 26, 2026)
 
@@ -18,7 +20,7 @@ Completed after the original handoff:
 - AI boundary hardened after an independent technical judge found semantic false accepts: Claude now returns only 6–12 unique IDs from immutable engine-approved claims. Mandatory status, score/abstention, conflict, withholding, principal-barrier and first-action claims cannot be omitted.
 - Accurate in-window Codex disclosure, conditional Claude demo wording and a concrete hypothetical one-sale-cycle pilot plan.
 
-Remaining submission blockers are external/recording work: live Claude verification is optional and requires `ANTHROPIC_API_KEY`; real 1280×800 browser capture, fallback media, two timed rehearsals, final video/link, public-repository confirmation and form submission remain undone. Do not represent any of these as complete until they actually are.
+Remaining submission blockers are external/recording work: live Claude verification is optional and requires `ANTHROPIC_API_KEY`; two timed spoken rehearsals, official-roster confirmation, final video/link, public-repository confirmation and form submission remain undone. The real 1280×800 fallback capture set is complete in `docs/fallback/`. Do not represent any remaining item as complete until it actually is.
 
 ---
 

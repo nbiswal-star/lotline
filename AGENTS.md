@@ -1,6 +1,6 @@
 # AGENTS.md: standing rules for any coding agent working on LotLine
 
-LotLine is our entry to the **AI Horizons 2026 AI for Housing Hackathon**, Challenge 1 (Development Feasibility & Pro Forma Navigator), startup track. The goal is a **top-3 finish**. The build window closes **Sun Sep 27, 2026, 23:59 ET**. Current state, remaining work and the review method are in `docs/HANDOFF_CODEX.md`, so read that next.
+LotLine is our entry to the **AI Horizons 2026 AI for Housing Hackathon**, Challenge 1 (Development Feasibility & Pro Forma Navigator), startup track. The goal is a **top-3 finish**. The build window closes **Sun Sep 27, 2026, 23:59 ET**. Current final-mile state, remaining work and the review method are in `docs/HANDOFF_CLAUDE.md`, so read that next. `docs/HANDOFF_CODEX.md` is the earlier implementation-phase record.
 
 ## Commands
 
