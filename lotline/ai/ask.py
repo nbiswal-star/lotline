@@ -1,5 +1,15 @@
 """Ask LotLine: grounded plain-language answers about the active parcel.
 
+HANDOFF STATUS: done: atom-selection design (frames, engine claim ids, verbatim code quotes,
+decline categories), data/code_excerpts.json (22 cited excerpts), lotline/ai/verify.py
+(checker rules + PERMISSION_AGREES / UNSUPPORTED_TOPIC / OUTCOME_OVERREACH; 38/38 layer-C
+hostile prose rejected, 0 false positives on all engine claims), tests/test_ai_ask.py (fake
+clients). Remaining: live Claude runs of SUGGESTED_QUESTIONS on Benezet and Centre 10S5 plus
+~10 adversarial questions (tune SYSTEM_PROMPT only, never loosen verification); optional
+verified-answer cache under data/ai_cache/ask/ (re-verify on load); UI wiring (render
+Answer.sentences, show engine packet on "rejected"/"unavailable"). Excerpts were built by a
+one-off script from fetched ecode360 copies; each piece is an exact substring of the source.
+
 The engine decides; Claude understands the question and picks what to show; code renders and
 verifies every sentence. No model-written prose ever reaches the user.
 

@@ -3,8 +3,8 @@
 <!-- GENERATED FILE: do not edit by hand. Regenerate with the command below. -->
 
 - Command: `uv run python -m evaluation.run`
-- Repository HEAD: `e4e909b`
-- Generated (UTC): 2026-09-27T04:23:43Z
+- Repository HEAD: `00e7203`
+- Generated (UTC): 2026-09-27T04:40:48Z
 - Software: python 3.12.14, pandas 3.0.6, streamlit 1.64.0, anthropic 1.8.0, pytest 9.1.1
 - Scope: one frozen snapshot of one dated Pittsburgh Treasurer Sale (Treasury pull 2026-09-24; City advertisement dated 2026-09-16). Nothing here measures predictive accuracy, real-world outcomes or generalization.
 
@@ -831,15 +831,29 @@ Internal assertions: **9/9 held.**
 | File | Bytes | sha256 |
 |---|---|---|
 | data/advert_2026-09-16_reconciliation.csv | 4830 | 8f014c397faea302f57aee1b5af54611ac73bf4deb23c7468fa874540606cccd |
+| data/code_excerpts.json | 30579 | 8d4b1cebcee646bd78fe821446a407757a4079f12c696cf22c93516c6528c057 |
+| data/cost_assumptions.csv | 1648 | c781cb4566265dd24444f7f2b5798910a3e13052328a2d2a308395717b171cb8 |
 | data/demo_config.json | 1000 | 8dc432b656bf962d246315bff2c017cf4ee3cae378f3742978f8b5ddcd146fd0 |
 | data/district_rules.csv | 4082 | d23b09df8b8cd5d527424c74d21154d775c3b7b4a3b2ce1c9b099a11c439c55a |
 | data/parcel_facts.csv | 3142 | ef9320609a15753a9190836d832ee5b331751492b157f6ec075d53d632be4168 |
-| data/source_manifest.csv | 1514 | dd992c42cbb95d3ede762147290c82f8dbb95a3f729a68b312cb803c6bf68593 |
+| data/record_text.csv | 60250 | 72e3c781063a98b132b271dc04d93bc31846ab77397c028be0121c8483de0134 |
+| data/source_manifest.csv | 1744 | 87c1295de947c4316028f8cb0c7de828d87806da31ded7f1f3dd18a8c9f78cef |
 | data/treasury_sale_2026-10-02_enriched.csv | 24169 | 8fd619db5e014bd84fcdc36ed1ca2853fd0a22cc93364b1f251e8a93b0c08367 |
-| pyproject.toml | 281 | 8759f53fc68de7e5bb90f1d100d1421d8a18277c1ad3c5e6e093dcb8e40ac3ed |
+| data/zba/buena-vista-street-19-of-2026.txt | 8714 | a452660a63cd31d486263aba097d4cfea4ff12f69e53afc68fe25f7e2c5afb6c |
+| data/zba/camp-street-16-of-2026.txt | 3830 | 6dcacb1c9d31d8b5db8eb2e5d053e3866a75100d1c8330c482fc86ca34cb247b |
+| data/zba/code_sections.json | 5632 | 3444247924e8c3672a156504dd3480a6dc41322badd8e62239acf0b0d9eb07ee |
+| data/zba/e-jefferson-street-3-of-2026.txt | 13985 | 7ce6b2faa6fee74fd763e98dfd0f2d7cfa280e8fcc4d9eefb2447e3568432930 |
+| data/zba/east-liberty-boulevard-87-of-2026.txt | 6207 | eb0037a334d6dd1eff6055ac2395c9d1cae3505cf506833179c5090f7927fb69 |
+| data/zba/hillcrest-street-10-of-2026.txt | 5071 | 53d8a10a959c008126694457a5c227263572c06ea8dce7cb912c8e5954ad97f0 |
+| data/zba/index.csv | 2518 | 904f88956a2f3bbf2f5d9e8be3e4ba444bd24f59ddcc7a5d8bc9699b00b1a917 |
+| data/zba/kendall-street-58-of-2026.txt | 9936 | 64182ab3feab3b2768b4af41547f4c9a453583960a1598843b428ad15f88f5c7 |
+| data/zba/rockland-avenue-96-of-2026.txt | 7919 | 30b56b1e0c3c0b9d644ed0620da55ff1d846ec7ec1f8bc26d6df7b4a849ee92c |
+| data/zba/spring-garden-avenue-158-of-2025.txt | 7436 | 9dc996f8fdb156c0b5497882dbb8891cee3399312db735536b2355a600577628 |
+| pyproject.toml | 302 | 97a2c590ceba4f3df3f946f96ba610ae33b5e2401124dfa166395f3872068cea |
 | tests/fixtures/expected_labels.csv | 12108 | 0094cb71c20716e7fca0b88ea47bce6248b64520f5122c370f6a72694ba78077 |
 | tests/fixtures/expected_reconciliation.csv | 6446 | 49ec1177589e3257a8cb2c7cb43248580cf0cc3f2d8340ea32d9e02d4db8db1f |
-| uv.lock | 276766 | 3d05e0250f92f3c030d05aee2fbd914b0ec0fa8427799c648071bf2c1c92dceb |
+| tests/fixtures/record_relevance.csv | 2945 | aae6f48ce0333f9dec428a7f11b8985e68ce342b990c362f0b055449afa7b4cc |
+| uv.lock | 277528 | b9d9d4b2b43fa2cce83a0cce748b663c39278adec31565399a513e9fe4d879b8 |
 
 | Component | Version |
 |---|---|
@@ -849,7 +863,7 @@ Internal assertions: **9/9 held.**
 | streamlit | 1.64.0 |
 | anthropic | 1.8.0 |
 | pytest | 9.1.1 |
-| git HEAD (short) | e4e909b |
+| git HEAD (short) | 00e7203 |
 
 **Determinism:** two fresh snapshot loads + full screens in one process produced identical serialized results (sha256 `da1f27f3741835bebdc79b255e25437c30e7251bd3789b13f971cbe8a53bcf9c`) and identical triage CSV (sha256 `49922d4efb8115520c8c31154a0899e3fc474ea907e8ede5d756d2a90384b60f`).
 
