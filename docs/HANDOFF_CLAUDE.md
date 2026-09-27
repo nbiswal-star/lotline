@@ -2,6 +2,16 @@
 
 ## Current takeover state — 2026-09-27 final science pass
 
+**Pushed milestone:** `9cf4b4f62df7c0de13fffc535bd97ce2af226692` on `origin/main` (`Merge AI-native evidence readers and scientific validation`). The history-preserving merge has parents `b7a47b4` and `6d062f4`.
+
+**Final independent review at that milestone:**
+
+- Housing practice: **CLEAR** — PV 5 · UF 5 · TE 5 · DAI 5 · ACT 5 · CP 5.
+- Startup/investor: **CLEAR** — PV 5 · UF 5 · TE 5 · DAI 5 · ACT 5 · CP 4.
+- Principal AI science: **SCIENCE: CLEAR** — PV 5 · UF 4 · TE 5 · DAI 5 · ACT 5 · CP 4.
+
+**Verification:** 1,816 passed, 1 expected failure, exit 0; all nine evaluation sections and assertions held; 0 memo violations / 96; 10/10 integrity cases. A credential-free `uv run --offline streamlit run app.py` launch bound successfully on localhost and `/_stcore/health` returned `ok`. The static headless browser did not complete Streamlit's websocket render (it remained on the loading skeleton), so rely on the passing AppTest coverage and perform the final interactive 1280×800 recording check manually.
+
 The AI-reader milestone has replaced the older "claim ordering" narrative. Start with `AGENTS.md`, `README.md`, `docs/scientific_validation.md`, `docs/AI_PLAN.md`, and `docs/demo_script.md`; treat older statements later in this file as historical where they conflict.
 
 Current implementation and observed live results:
