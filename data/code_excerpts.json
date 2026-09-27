@@ -1,0 +1,312 @@
+{
+ "_comment": "Curated, cited excerpts of the Pittsburgh Zoning Code and Treasurer Sale law that the LotLine engine relies on. Public law; text copied verbatim from the cited source (see each entry's notes). Built for Ask LotLine: Claude may quote only exact substrings of 'text'.",
+ "version": "lotline-code-excerpts v1",
+ "excerpts": [
+  {
+   "id": "903.03.B",
+   "label": "§903.03.B",
+   "title": "Residential Low-Density Subdistrict site development standards",
+   "text": "2. Site Development Standards. Sites in the Low-Density Subdistrict shall be developed in accordance with the following site development standards, provided that: (a) New development shall be allowed to use Contextual Setbacks and Contextual Building Heights in accordance with the provisions of Section 925.06 and Section 925.07; and [...] When a dwelling is \"attached\" to one (1) or more separate dwelling units on separate lots by a party wall or separate abutting wall the required interior sideyard setback shall be zero on the abutting or party wall side. | Site Development Standard | Low Density Subdistrict | Minimum Lot Size | 3,000 s.f. | Minimum Front Setback | R1D, R1A, R2 & R3 Subdistricts | 30 ft. | RM Subdistrict | 25 ft. | Minimum Rear Setback | R1D, R1A, R2 & R3 Subdistricts | 30 ft. | RM Subdistrict | 25 ft. | Minimum Exterior Sideyard Setback | R1D, R1A, R2 & R3 Subdistricts | 30 ft. | RM Subdistrict | 30 ft. | Minimum Interior Sideyard Setback | R1D, R2 & R3 Subdistricts | 5 ft | R1A Subdistrict | 5 ft. | RM Subdistrict | 25 ft. | Maximum Height | R1D, R1A, R2 & R3 Subdistricts | 40 ft. (not to exceed 3 stories) | RM Subdistrict | 40 ft. (not to exceed 3 stories)",
+   "source_url": "https://ecode360.com/45474194",
+   "as_of": "2026-09-16",
+   "notes": "R1D-L minimum lot size and setbacks (Ord. No. 10-2025, eff. 2025-05-07, deleted the per-unit density rows). Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [
+    "R1D-L"
+   ],
+   "triggers": [
+    "dimensional"
+   ]
+  },
+  {
+   "id": "903.03.C",
+   "label": "§903.03.C",
+   "title": "Residential Moderate-Density Subdistrict site development standards",
+   "text": "2. Site Development Standards. Sites in the Moderate-Density Subdistrict shall be developed in accordance with the following site development standards, provided that: (a) New development shall be allowed to use Contextual Setbacks and Contextual Building Heights in accordance with the provisions of Section 925.06 and Section 925.07; and [...] When a dwelling is \"attached\" to one (1) or more separate dwelling units on separate lots by a party wall or separate abutting wall the required interior sideyard setback shall be zero on the abutting or party wall side. | Site Development Standard | Moderate Density Subdistrict | Minimum Lot Size | 2,400 s.f. | Minimum Front Setback | R1D, R1A, R2 & R3 Subdistricts | 30 ft. | RM Subdistrict | 25 ft. | Minimum Rear Setback | R1D, R1A, R2 & R3 Subdistricts | 30 ft. | RM Subdistrict | 25 ft. | Minimum Exterior Sideyard Setback | R1D, R1A, R2 & R3 Subdistricts | 30 ft. | RM Subdistrict | 25 ft. | Minimum Interior Sideyard Setback | R1D, R2 & R3 Subdistricts | 5 ft. | R1A Subdistrict | 5 ft. | RM Subdistrict | 10 ft. | Maximum Height | R1D, R1A, R2 & R3 Subdistricts | 40 ft. (not to exceed 3 stories) | RM Subdistrict | 55 ft. (not to exceed 4 stories)",
+   "source_url": "https://ecode360.com/45474194",
+   "as_of": "2026-09-16",
+   "notes": "RM-M minimum lot size and setbacks (Ord. No. 10-2025). Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [
+    "RM-M"
+   ],
+   "triggers": [
+    "dimensional"
+   ]
+  },
+  {
+   "id": "903.03.D",
+   "label": "§903.03.D",
+   "title": "Residential High-Density Subdistrict site development standards",
+   "text": "2. Site Development Standards. Sites in the High-Density Subdistrict shall be developed in accordance with the following site development standards, provided that: (a) New development shall be allowed to use Contextual Setbacks and Contextual Building Heights in accordance with the provisions of Section 925.06 and Section 925.07; [...] When a dwelling is \"attached\" to one (1) or more separate dwelling units on separate lots by a party wall or separate abutting wall the required interior sideyard setback shall be zero on the abutting or party wall side. | Site Development Standard | High Density Subdistrict | Minimum Lot Size | 1,200 s.f. | Minimum Front Setback | R1D, R1A, R2 & R3 Subdistricts | 15 ft. | RM Subdistrict | 25 ft. | Minimum Rear Setback | R1D, R1A, R2 & R3 Subdistricts | 15 ft. | RM Subdistrict | 25 ft. | Minimum Exterior Sideyard Setback | R1D, R1A, R2 & R3 Subdistricts | 15 ft. | RM Subdistrict | 25 ft. | Minimum Interior Sideyard Setback | R1D, R2 & R3 Subdistricts | 5 ft. | R1A Subdistrict | 5 ft. | RM Subdistrict | 10 ft. | Maximum Height | R1D, R1A, R2 & R3 Subdistricts | 40 ft. (not to exceed 3 stories) | RM Subdistrict | 85 ft. (not to exceed 9 stories)",
+   "source_url": "https://ecode360.com/45474194",
+   "as_of": "2026-09-16",
+   "notes": "R1D-H and R2-H minimum lot size and setbacks (Ord. No. 10-2025). Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [
+    "R1D-H",
+    "R2-H"
+   ],
+   "triggers": [
+    "dimensional"
+   ]
+  },
+  {
+   "id": "903.03.E",
+   "label": "§903.03.E",
+   "title": "Residential Very-High-Density Subdistrict site development standards",
+   "text": "2. Site Development Standards. Sites in the Very High-Density Subdistrict shall be developed in accordance with the following site development standards, provided that: (a) New development shall be allowed to use Contextual Setbacks and Contextual Building Heights in accordance with the provisions of Section 925.06 and Section 925.07; [...] When a dwelling is \"attached\" to one (1) or more separate dwelling units on separate lots by a party wall or separate abutting wall the required interior sideyard setback shall be zero on the abutting or party wall side. | Site Development Standard | Very-High Density Subdistrict | Minimum Front Setback | R1D, R1A, R2 & R3 Subdistricts | 5 ft. | RM Subdistrict | 25 ft. | Minimum Rear Setback | R1D, R1A, R2 & R3 Subdistricts | 15 ft. | RM Subdistrict | 25 ft. | Minimum Exterior Sideyard Setback | R1D, R1A, R2 & R3 Subdistricts | 5 ft. | RM Subdistrict | 25 ft. | Minimum Interior Sideyard Setback | R1D, R2 & R3 Subdistricts | 5 ft. | R1A Subdistrict | 5 ft. | RM Subdistrict | 10 ft. | Maximum Height | R1D, R1A, R2 & R3 Subdistricts | 40 ft. (not to exceed 3 stories) | RM Subdistrict | 180 ft.",
+   "source_url": "https://ecode360.com/45474194",
+   "as_of": "2026-09-16",
+   "notes": "R1A-VH setbacks; the table has no minimum lot size row (struck by Ord. No. 10-2025). Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [
+    "R1A-VH"
+   ],
+   "triggers": [
+    "dimensional"
+   ]
+  },
+  {
+   "id": "904.02.C",
+   "label": "§904.02.C",
+   "title": "LNC District site development standards",
+   "text": "C. Site Development Standards. Sites in the LNC District shall be developed in accordance with the following site development standards, provided that: 1. The Residential Compatibility Standards of Chapter 916 shall impose additional height and setback standards on new High-Density and Very High-Density Residential and nonresidential development located near Residential and H Districts; 2. The Environmental Performance Standards of Chapter 915 shall impose additional restrictions on site development; and 3. New development shall be allowed to use Contextual Setbacks and Contextual Building Heights in accordance with the provisions of Section 925.06 and Section 925.07. | Article VI and Chapter 925 contain a complete description of site development standards and a listing of exemptions to various standards. | Site Development Standard | LNC District | Minimum Lot Size | 0 | Maximum Floor Area Ratio | 2:1 | Maximum Lot Coverage | 90% | Minimum Front Setback | none required | Minimum Rear Setback | when not adjacent to a way | 20 ft. | when adjacent to a way | none required | Minimum Exterior Sideyard Setback | none required | Minimum Interior Sideyard Setback | none required | Maximum Height | 45 ft. (not to exceed 3 stories)",
+   "source_url": "https://ecode360.com/45474257",
+   "as_of": "2026-09-16",
+   "notes": "LNC dimensions (Ord. 45-2003). Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [
+    "LNC"
+   ],
+   "triggers": [
+    "dimensional"
+   ]
+  },
+  {
+   "id": "904.02.D",
+   "label": "§904.02.D",
+   "title": "LNC District site plan review",
+   "text": "D. Site Plan Review. 1. General. The following shall require Site Plan Review and approval in accordance with the Site Plan Review procedures of Section 922.04: (a) Any new construction, building addition or enlargement or exterior renovation of an existing structure on a lot that has an area of two thousand four hundred (2,400) square feet or more; (b) Any off street parking area that includes more than ten (10) parking spaces or more than two thousand five hundred (2,500) square feet of surface area; or 2. Standards. Any project requiring Site Plan Review in the LNC district shall be subject to the Site Plan Review Criteria of Section 922.04.E.",
+   "source_url": "https://ecode360.com/45474257",
+   "as_of": "2026-09-16",
+   "notes": "Site Plan Review trigger for LNC lots of 2,400 sf or more. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [
+    "LNC"
+   ],
+   "triggers": []
+  },
+  {
+   "id": "905.01.C",
+   "label": "§905.01.C",
+   "title": "P (Parks) District site development standards",
+   "text": "C. Site Development Standards. Sites in the P District shall be developed in accordance with the following site development standards, provided that: 1. New development shall be allowed to use Contextual Setbacks and Contextual Building Heights in accordance with the provisions of Section 925.06 and Section 925.07; and 2. The Environmental Performance Standards of Chapter 915 shall impose additional restrictions on development. | Article VI and Chapter 925 contain a complete description of site development standards and a listing of exemptions to various standards. | Site Development Standard | P District | Minimum Lot Size | 3,200 s.f. | Maximum Floor Area Ratio | 1:1 | Minimum Front Setback | 30 ft. | Minimum Rear Setback | 20 ft. | Minimum Exterior Sideyard Setback | 20 ft. | Minimum Interior Sideyard Setback | 5 ft. | Maximum Height | 40 ft. (not to exceed 3 stories)",
+   "source_url": "https://ecode360.com/45474542",
+   "as_of": "2026-09-16",
+   "notes": "P district dimensions. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [
+    "P"
+   ],
+   "triggers": [
+    "dimensional"
+   ]
+  },
+  {
+   "id": "905.01.D",
+   "label": "§905.01.D",
+   "title": "P (Parks) District site plan review",
+   "text": "D. Site Plan Review. 1. General. The following shall require Site Plan Review and approval in accordance with the Site Plan Review procedures of Section 922.04: (a) Any new construction, building addition or enlargement or exterior renovation of an existing structure on a lot that has an area of two thousand four hundred (2,400) square feet or more; or (b) Any off street parking area that includes more than ten (10) parking spaces or more than two thousand five hundred (2,500) square feet of surface area. 2. Standards. Any project requiring site plan review in the P District shall be subject to the site plan review criteria of Section 922.04.E.",
+   "source_url": "https://ecode360.com/45474542",
+   "as_of": "2026-09-16",
+   "notes": "Site Plan Review trigger for P lots of 2,400 sf or more. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [
+    "P"
+   ],
+   "triggers": []
+  },
+  {
+   "id": "905.02.C",
+   "label": "§905.02.C",
+   "title": "H (Hillside) District site development standards",
+   "text": "C. Site Development Standards. Sites in the H District shall be developed in accordance with the following site development standards, provided that: 1. New development shall be allowed to use Contextual Setbacks and Contextual Building Heights in accordance with the provisions of Section 925.06 and Section 925.07; and 2. The Environmental Performance Standards of Chapter 915 shall impose additional restrictions on development; and 3. The applications for building permits shall be subject to the Site Plan Review procedures in accordance with Section 922.04 of the Zoning Ordinance. | Article VI and Chapter 925 contain a complete description of site development standards and a listing of exemptions to various standards. | Site Development Standard | H District | Minimum Lot Size | 3,200 s.f. | Minimum Front Setback | none | Minimum Rear Setback | none | Minimum Exterior Sideyard Setback | none | Minimum Interior Sideyard Setback | none | Maximum Height | 40 ft. (not to exceed 3 stories) | Maximum Area of Disturbance: | 50% of total lot area",
+   "source_url": "https://ecode360.com/45474542",
+   "as_of": "2026-09-16",
+   "notes": "H district dimensions; setbacks 'none'; building permits subject to Site Plan Review. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [
+    "H"
+   ],
+   "triggers": [
+    "dimensional"
+   ]
+  },
+  {
+   "id": "905.04.E",
+   "label": "§905.04.E",
+   "title": "RIV District dimensional regulations (summary excerpt)",
+   "text": "3. Height. a. Base height in the RIV is sixty (60) feet except where, in accordance with the adopted height map for the RIV, maximum height is indicated to be forty-five (45) feet. b. A minimum height of twenty-four (24) feet is required for Primary Structures. [...] (1) No development is permitted within one hundred twenty-five (125) feet of the Project Pool Elevation of the river, except as provided herein. [...] b. Street Build-To Zone and Pedestrian Sidewalks. (1) When abutting a Street, a build-to zone is imposed between zero (0) and ten (10) feet inward from the property line (See Figure 4). [...] c. Rear Setback. (1) The rear setback for Single-Unit Attached Residential, two-unit residential, and three-unit residential structures is five (5) feet. This may be reduced to two (2) feet when the rear yard abuts a way. (2) No rear setback required for other uses.",
+   "source_url": "https://ecode360.com/45474542",
+   "as_of": "2026-09-16",
+   "notes": "Summary excerpt of §905.04.E (height, riparian buffer, build-to zone, rear setback); LotLine does not encode RIV dimensions. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [
+    "RIV-RM"
+   ],
+   "triggers": [
+    "dimensional"
+   ]
+  },
+  {
+   "id": "906.04",
+   "label": "§906.04",
+   "title": "LS-O Landslide-Prone Overlay District (purpose)",
+   "text": "A. Purpose. The LS-O, Landslide-Prone Overlay District regulations require subsurface investigations by a registered professional and approval of construction plans by the Chief of the Bureau of Building Inspection prior to issuance of a Certificate of Occupancy for any development in the LS-O District. The purpose of these regulations is to reduce the risk of damage or hazards of life that may occur as a result of construction and land operations on lands susceptible to movement or sliding of earth.",
+   "source_url": "https://ecode360.com/45474902",
+   "as_of": "2026-09-16",
+   "notes": "Applies where the parcel overlaps the landslide-prone screening layer. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [],
+   "triggers": [
+    "landslide_prone"
+   ]
+  },
+  {
+   "id": "906.05",
+   "label": "§906.05",
+   "title": "UM-O Undermined Area Overlay District (single-unit and other development)",
+   "text": "2. Single-Unit Dwellings. A Certificate of Occupancy application may be approved for zoning for construction of a single-unit residential use or for another structure that is comparable in size and construction characteristics to single-unit dwelling, provided that competent evidence is provided to the Zoning Administrator showing that the site has more than one hundred (100) feet of overburden above the mine and that there is no known history of subsidence incidents in the vicinity of the proposed construction site. [...] 3. Other Development Prohibited. Until the applicant has submitted evidence that the site is reasonably safe for the construction of the proposed use, no Certificate of Occupancy application shall be approved for zoning for construction on any site that has less than one hundred (100) feet of overburden or any known history of subsidence incidents in its vicinity; for any structure that is larger or heavier than a typical single-unit dwelling; or for any use that might create a hazard to the public if damaged by subsidence.",
+   "source_url": "https://ecode360.com/45474902",
+   "as_of": "2026-09-16",
+   "notes": "Applies where the parcel overlaps the undermined screening layer. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [],
+   "triggers": [
+    "undermined"
+   ]
+  },
+  {
+   "id": "906.08",
+   "label": "§906.08",
+   "title": "SS-O Steep Slope Overlay District",
+   "text": "1. Create a Steep Slope Overlay District (SS-O) that includes any land comprising a steep slope (i.e. a natural slope of twenty-five (25) percent or greater). [...] 1. Applicability. To ensure that development occurs in a manner that protects the natural and topographic character of slopes twenty-five (25) percent or greater, all uses and structures permitted in the base underlying district shall be reviewed and approved by the Planning Commission per the procedures of this Section.",
+   "source_url": "https://ecode360.com/45474902",
+   "as_of": "2026-09-16",
+   "notes": "LotLine treats a slope25 overlap as possible SS-O Planning Commission review; whether the WPRDC slope25 layer is the SS-O map is unverified. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [],
+   "triggers": [
+    "slope25"
+   ]
+  },
+  {
+   "id": "911.01",
+   "label": "§911.01",
+   "title": "Use Table key: what P, A, S, C and a blank cell mean",
+   "text": "B. Uses Permitted By-Right. Uses identified in a district column with a \"P\" are uses permitted By-Right and shall be allowed in the respective district, subject to compliance with all other applicable regulations of this Code. C. Uses Requiring Review by the Zoning Administrator. Uses identified in a district column with an \"A\" are Administrator Exceptions and shall be allowed the respective district only if reviewed and approved in accordance with the Zoning Administrator Exception review procedures of Section 922.08. D. Uses Requiring Review by the Zoning Board of Adjustment. Uses identified in a district column with an \"S\" are Special Exceptions and shall be allowed in the respective district only if reviewed and approved by the Zoning Board of Adjustment in accordance with the Special Exception review procedures of Section 922.07. [...] F. Not Permitted. Uses that are not associated with a letter in a district column shall be considered prohibited uses and shall not be allowed in the respective district unless otherwise expressly permitted by other regulations of this Code.",
+   "source_url": "https://ecode360.com/45476784",
+   "as_of": "2026-09-16",
+   "notes": "The use-table key sits in §911.01 (General); some LotLine documents cite it as 911.02.F. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [],
+   "triggers": [
+    "use"
+   ]
+  },
+  {
+   "id": "911.02",
+   "label": "§911.02",
+   "title": "Use Table (residential rows, selected district columns)",
+   "text": "Key: P = Permitted By Right; A = Administrator Exception; S = Special Exception; C = Conditional Use. Single-Unit Detached Residential: R1D P; R1A P; R2 P; RM P; LNC P; UI (blank); P P; H A; RIV-RM (blank). Single-Unit Attached Residential: R1D P/S; R1A P; R2 P; RM P; LNC P; UI (blank); P (blank); H S; RIV-RM P. Two-Unit Residential: R1D (blank); R1A (blank); R2 P; RM P; LNC P; UI (blank); P (blank); H (blank); RIV-RM P.",
+   "source_url": "https://ecode360.com/45476784",
+   "as_of": "2026-09-16",
+   "notes": "Cells transcribed from the ecode360 Use Table (through Ord. No. 18-2026); only the housing rows and the district columns LotLine encodes are shown. '(blank)' = no letter, which §911.01.F makes a prohibited use. RIV-RM is the RM column of the RIV group.",
+   "districts": [],
+   "triggers": [
+    "use"
+   ]
+  },
+  {
+   "id": "911.04.A.69",
+   "label": "§911.04.A.69",
+   "title": "Single-unit housing standards in the H (Hillside) District",
+   "text": "(a) In H Districts. Single-Unit Detached and Attached Residential uses shall be subject to the following conditions in the H District. [...] (2) Soils. Any site proposed for development in the H District shall be investigated to determine the soil characteristics. A soils engineering report may be required at the discretion of the Zoning Administrator. [...] (5) Infrastructure. Public water and sewer must be available for connection at the lot line. If the lot in which the owner/applicant is requesting to build upon is determined to meet these five (5) conditions, the Zoning Administrator will then review the plot plan for compliance with the Development Standards in Sections 905.02.C, 905.02.D, and 905.02.E. (b) Existing vegetation shall be cleared only to the extent needed for the structure, driveway, and outdoor activities that are associated with the residential use. In no case shall more than ten (10) percent, or two thousand four hundred (2,400) square feet, whichever is larger, be cleared. (c) Single Unit Attached dwellings are permitted by Special Exception in the H District provided that no more than four (4) units are constructed in any cluster.",
+   "source_url": "https://ecode360.com/45476784",
+   "as_of": "2026-09-16",
+   "notes": "Condition (1) Topography (primary structure on a contiguous area under 30% existing slope) is summarized here rather than quoted because its verbatim wording uses a term LotLine's display rules reserve; see the source. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [
+    "H"
+   ],
+   "triggers": [
+    "use"
+   ]
+  },
+  {
+   "id": "911.04.A.69A",
+   "label": "§911.04.A.69A",
+   "title": "Single-unit attached housing in single-unit detached districts",
+   "text": "(a) In Residential Single-Unit Detached Districts, Single-Unit Attached Uses shall be permitted subject to the following standards: 1. For lots with Lot Widths of 35 feet or smaller, Single-Unit Attached Uses shall be permitted by right. 2. For lots with Lot Widths larger than 35 feet, Single-Unit Attached Uses shall be permitted by the Special Exception Provisions of Section 922.07.",
+   "source_url": "https://ecode360.com/45476784",
+   "as_of": "2026-09-16",
+   "notes": "Relevant to R1D lots: attached single-unit is by right on lots 35 ft wide or less. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [
+    "R1D-L",
+    "R1D-H"
+   ],
+   "triggers": []
+  },
+  {
+   "id": "915.02",
+   "label": "§915.02",
+   "title": "Grading, cut and fill standards (all slopes)",
+   "text": "A. Grading Standards. 1. The Grading, Cut, and Fill Standards of this Section Shall Apply to All Slopes. a. To the maximum extent feasible, the grading shall preserve the natural landforms of the site; b. To the maximum extent feasible, cutting, filling and severe benching or terracing of existing slopes to create additional building area or larger building sites shall be avoided; c. Finished grades of fifteen (15) percent or less are strongly encouraged. Cut or filled slopes shall not exceed twenty-five (25) percent unless: (1) The applicant submits a geotechnical investigation report that certifies the safety and suitability of such slopes; and",
+   "source_url": "https://ecode360.com/45478225",
+   "as_of": "2026-09-16",
+   "notes": "Applies in every district; not a test of existing natural slope. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [],
+   "triggers": [
+    "terrain"
+   ]
+  },
+  {
+   "id": "921.04.A",
+   "label": "§921.04.A",
+   "title": "Nonconforming lots: vacant lot of record",
+   "text": "Nonconforming Lots. A lot shown on an approved and recorded subdivision plat or a parcel shown on the Allegheny County Record Of Deed's records as a separate parcel on such date may be occupied and used although it may not conform in every respect with the dimensional requirements of this Code, subject to the provisions of this section. A. Vacant Lot. If the lot or parcel was vacant on the date which this code became applicable to it and is in separate ownership from abutting lots or parcels, then the Zoning Administrator shall approve the use of the lot as an Administrator Exception for a single-unit residential use, or the Zoning Board of Adjustment shall approve, as a special exception, the lot for a conforming use permitted in the district in which the lot is located, according to the following standards: 1. The use and structure shall comply with all applicable dimensional requirements of the code to the extent practicable; and 2. If the applicable zoning district permits a variety of uses or a variety of intensities of uses, and one (1) or more uses or intensities would comply with applicable setback requirements while others would not, then only the uses or intensities that would conform with the applicable setback requirements are permitted.",
+   "source_url": "https://ecode360.com/45479031",
+   "as_of": "2026-09-16",
+   "notes": "'Separate ownership from abutting lots' must be checked against County deed records. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [],
+   "triggers": [
+    "921.04.A"
+   ]
+  },
+  {
+   "id": "925.06",
+   "label": "§925.06",
+   "title": "Setbacks, including contextual front and side setbacks",
+   "text": "Setbacks refer to the required unoccupied open space between the furthermost projection of a structure and the property line of the lot on which the structure is located, except as modified by the standards of this section. Required setbacks shall be unobstructed from the ground to the sky except as specified in this section. [...] B. Contextual Front Setbacks. Regardless of the minimum front setback requirements imposed by the zoning district standards of this Code, applicants shall be allowed to use the Contextual Front Setback. [...] Regardless of the minimum side setback requirements imposed by the zoning standards of this Code, applicants shall be allowed to use a Contextual Side Setback. The Contextual Side Setback shall apply only to primary uses and structures. A Contextual Side Setback may fall at any point between the required side setback and the side setback that exists on a lot that is adjacent and oriented to the same street as the subject lot, but shall be a minimum of three (3) feet.",
+   "source_url": "https://ecode360.com/45479734",
+   "as_of": "2026-09-16",
+   "notes": "LotLine does not evaluate contextual setbacks; it routes them to the Zoning Administrator. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [],
+   "triggers": [
+    "base"
+   ]
+  },
+  {
+   "id": "TSR-2026-10-02 ¶1-3",
+   "label": "Treasurer's Sale Regulations (Oct. 2, 2026) ¶1-3",
+   "title": "City of Pittsburgh Treasurer's Regulations for the October 2, 2026 Treasurer's Sale, items 1-3",
+   "text": "l. At this time, the sale conveys only the interest of the City of Pittsburgh, School District of Pittsburgh and County of Allegheny in the property for taxes owed. Title to the property has NOT been cleared through the Court of Common Pleas of Allegheny County. 2. NO ONE SHOULD BID ON ANY PROPERTY WHO HAS NOT HAD THE TITLE EXAMINED BY A TITLE COMPANY OR AN ATTORNEY. This sale DOES NOT DIVEST, nor have we given notice in regard to: a) Mortgages b) Judgments c) Federal taxes and/or liens d) State taxes or liens including: Inheritance, Corporate or Welfare e) Water claims or liens f) City, School District and County taxes and/or liens assigned to a third party pursuant to a lien sale or otherwise; g) ALL other secured claims. 3. The former owner has the right to redeem the property within the time of ninety (90) days from the date of sale.",
+   "source_url": "https://www.pittsburghpa.gov/files/assets/city/v/3/finance/documents/real-estate-forms/regulations-10-2-26-pdf.pdf",
+   "as_of": "2026-09-15",
+   "notes": "Published 2026-09-15; the regulations have the force of law under 53 P.S. § 27601. Item 1 is printed as 'l.' in the source. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [],
+   "triggers": [
+    "treasurer_sale"
+   ]
+  },
+  {
+   "id": "Act 171 of 1984 §304",
+   "label": "Act 171 of 1984 §304",
+   "title": "Second Class City Treasurer's Sale and Collection Act, Section 304 (Redemption)",
+   "text": "Section 304. Redemption. (a) Right.--Within 90 days after the date of the treasurer's sale, the owner or a person legally entitled to the property through the owner or an interested party or person legally entitled to the property through the interested party may redeem the property by payment of the full amount of the claims for which the property was sold, costs of sale, costs of improvements made to the property and current charges and municipal claims against the property. (b) Cost of divestiture.--If the property had been purchased at the sale, the redeemer must also pay an additional 15% of the total purchase price to be paid over by the city to the divested purchaser.",
+   "source_url": "https://www.legis.state.pa.us/WU01/LI/LI/US/HTM/1984/0/0171..HTM",
+   "as_of": "1984-10-11",
+   "notes": "Act of Oct. 11, 1984, P.L. 876, No. 171. Verbatim; line breaks and table cells flattened to ' | '. Omitted text marked [...].",
+   "districts": [],
+   "triggers": [
+    "treasurer_sale"
+   ]
+  }
+ ]
+}
